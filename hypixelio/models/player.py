@@ -27,6 +27,7 @@ class Player:
         hypixel_id: str,
         uuid: str,
         display_name: str,
+        known_aliases: str,
         first_login: int,
         last_login: int,
         one_time_achievements: list,
@@ -40,6 +41,7 @@ class Player:
         self.HYPIXEL_ID = hypixel_id
         self.UUID = uuid
         self.DISPLAY_NAME = display_name
+        self.KNOWN_ALIASES = known_aliases
 
         self.FIRST_LOGIN = first_login
         self.LAST_LOGIN = last_login
