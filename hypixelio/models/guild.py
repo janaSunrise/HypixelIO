@@ -1,4 +1,4 @@
-"""This module is dedicated to definition of the Custom Guild class."""
+"""This module is dedicated to definition of the Guild class."""
 
 
 class Guild:

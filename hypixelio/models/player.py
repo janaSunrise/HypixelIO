@@ -1,7 +1,7 @@
-"""This module is dedicated to definition of the Custom Player class."""
-
+"""This module is dedicated to definition of the Player class."""
 
 # KEY: f3acc46a-d48d-4014-8f81-6ddc9dc661c7
+
 
 class Player:
     """
