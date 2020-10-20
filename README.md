@@ -3,6 +3,7 @@
 ### A Modern Async way of interacting with the Hypixel API!
 
 ### TODOs PLANNED
+
 [ ] Add boosters API Section
 [ ] Add Skyblock API Section
 [ ] Add Find-Guild API Section
