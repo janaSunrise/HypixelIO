@@ -11,6 +11,8 @@
 
 ### TODOs PLANNED
 
+- [ ] Implement Games and leaderboard Models in searching
+- [ ] Add Examples for using the code in `README.md`
 - [x] Add boosters API Section
 - [ ] Add Resources API Section
 - [ ] Add Skyblock API Section
