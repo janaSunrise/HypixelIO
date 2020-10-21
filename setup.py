@@ -18,6 +18,10 @@ setuptools.setup(
         exclude=["tests", "tests.*", "tools", "tools.*"]
     ),
 
+    install_requires=[
+        'aiohttp'
+    ],
+
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
