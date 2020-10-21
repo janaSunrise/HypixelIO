@@ -3,6 +3,10 @@ import aiohttp
 import typing as t
 import random
 
+from .utils.helpers import (
+    form_url
+)
+
 from .models import (
     boosters,
     friends,
@@ -39,23 +43,13 @@ class Client:
         """Close the aiohttp session when you're done."""
         self.session.close()
 
-    async def form_url(self, url: str, data: dict = {}) -> str:
-        url = HYPIXEL_API + url if url.startswith('/') else url
-        url += "?" + "&".join(
-            [
-                f"{dict_key}={dict_value}" for dict_key, dict_value in data.items()
-            ]
-        )
-
-        return url
-
     async def fetch(self, url: str, data: dict = {}) -> dict:
         if "key" in data:
             data["key"] = key
         else:
             data["key"] = random.choice(self.api_key)
 
-        url = self.form_url(url, data)
+        url = form_url(HYPIXEL_API, url, data)
 
         async with self.session.get(url, timeout=self.timeout) as response:
 

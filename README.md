@@ -12,7 +12,6 @@
 ### TODOs PLANNED
 
 - [x] Add boosters API Section
-- [ ] Add Find-Guild API Section
 - [ ] Add Resources API Section
 - [ ] Add Skyblock API Section
 
