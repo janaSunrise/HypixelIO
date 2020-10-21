@@ -1,7 +1,7 @@
-import aiohttp
-
 import typing as t
 import random
+
+import aiohttp
 
 from .utils.helpers import (
     form_url
@@ -31,6 +31,13 @@ MOJANG_API = "https://api.mojang.com"
 
 
 class Client:
+    """
+    This Client Contains the Authentication, and Request system for the Hypixel API.
+
+    Attributes:
+        api_key (t.Union[str, list]):
+            This contains the Api Key, or the List of API Keys for the authentication.
+    """
     def __init__(self, api_key: t.Union[str, list]) -> None:
         """
         The constructor for the `Client` class.
@@ -57,7 +64,7 @@ class Client:
         """
         self.session.close()
 
-    async def fetch(self, url: str, data: dict = {}) -> dict:
+    async def fetch(self, url: str, data: dict = None) -> dict:
         """
         Get the JSON Response from the Root Hypixel API URL,
         and Also add the ability to include the GET request parameters
@@ -72,6 +79,9 @@ class Client:
             JSON Response, Request Success (tuple):
                 The JSON Response from the Fetch Done to the API and the SUCCESS Value from the Response.
         """
+        if not data:
+            data = {}
+
         if "key" in data:
             data["key"] = key
         else:
@@ -87,8 +97,8 @@ class Client:
             try:
                 json = await response.json()
                 return json, json["success"]
-            except Exception as e:
-                raise HypixelAPIError(f"Invalid Content type Receieved instead of JSON. {e}")
+            except Exception as exception:
+                raise HypixelAPIError(f"Invalid Content type Receieved instead of JSON. {exception}")
 
     async def get_key(self, api_key: str = None) -> key.Key:
         """
@@ -100,7 +110,7 @@ class Client:
         Returns:
             key (Key): Key object for the API Key.
         """
-        api_key = None if None else random.choice(self.api_key)
+        api_key = None if not api_key else random.choice(self.api_key)
 
         json, success = self.fetch("/key", data={'key': api_key})
 
@@ -153,10 +163,10 @@ class Client:
 
         if not json["player"]:
             if name:
-                player = name
+                player_model = name
             else:
-                player = uuid
-            raise PlayerNotFoundError("Null Value is returned", player)
+                player_model = uuid
+            raise PlayerNotFoundError("Null Value is returned", player_model)
 
         return player.Player(
             json["player"]
@@ -170,13 +180,13 @@ class Client:
             uuid (t.Optional[str]): The UUID of a Certain Hypixel Player.
 
         Returns:
-            friends (Friend):
+            friends (Friends):
                 Returns the Friend Data Model, Which has the List of Friends, Each with a List of Attributes.
         """
-        if not uuid:
-            raise InvalidArgumentError("Please provide a Named argument of the player's UUID")
-        else:
+        if uuid:
             json, success = self.fetch("/player", {"uuid": uuid})
+        else:
+            raise InvalidArgumentError("Please provide a Named argument of the player's UUID")
 
         if not success:
             raise HypixelAPIError("The Key given is invalid, or something else has problem.")
@@ -234,5 +244,3 @@ class Client:
         return guild.Guild(
             json["guild"]
         )
-
-# TODO: games, leaderboard

@@ -63,7 +63,7 @@ class PlayerNotFoundError(Exception):
 class GuildNotFoundError(Exception):
     """
     Raised When the Specified Guild is not found.
-    
+
     Attributes:
         reason (str):
             Reason for why the guild search returned null.

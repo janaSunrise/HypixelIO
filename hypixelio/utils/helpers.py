@@ -5,7 +5,7 @@ to Reduce the lines of code, and simplify it.
 """
 
 
-def form_url(self, main_url: str, url: str, data: dict = {}) -> str:
+def form_url(self, main_url: str, url: str, data: dict = None) -> str:
     """
     Get the List of Hypixel Coin Boosters and Their Info.
 
@@ -18,6 +18,9 @@ def form_url(self, main_url: str, url: str, data: dict = {}) -> str:
     Returns:
         url (str): The Final URL with the Get request parameters, and the URL Route.
     """
+    if not data:
+        data = {}
+
     url = main_url + url if url.startswith('/') else url
     url += "?" + "&".join(
         [

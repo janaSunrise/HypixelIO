@@ -1,7 +1,7 @@
 """This module is dedicated to definition of the Leaderboard data class."""
 
 
-class Friends:
+class LeaderboardData:
     """
     This is the definition of the Custom Hypixel API Leaderboard Data Model.
     """
