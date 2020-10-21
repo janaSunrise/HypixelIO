@@ -162,7 +162,7 @@ class Client:
             json["player"]
         )
 
-    async def get_friends(self, uuid: t.Optional[str] = None) -> friends.Friend:
+    async def get_friends(self, uuid: t.Optional[str] = None) -> friends.Friends:
         """
         Get the List of Friends of a Hypixel Player and their Info.
 
