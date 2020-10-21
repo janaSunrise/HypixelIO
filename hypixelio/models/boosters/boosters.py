@@ -5,7 +5,10 @@ from .booster_info import BoosterInfo
 
 class Boosters:
     """
-    This is the definition of the Custom Hypixel API Boosters Model.
+    This is the Custom Hypixel API Boosters Model.
+
+    Attributes:
+        boosters (list): The list of the Coin Boosters in the Hypixel server.
     """
     def __init__(
         self,

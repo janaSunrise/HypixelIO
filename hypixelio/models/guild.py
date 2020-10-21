@@ -3,7 +3,10 @@
 
 class Guild:
     """
-    This is the definition of the Custom Hypixel Guild Model.
+    This is the Custom Hypixel Guild Model.
+
+    Attributes:
+        data (dict): This contains the Returned JSON Response for the Guild API Request.
     """
     def __init__(
         self,

@@ -1,26 +1,12 @@
 """This module is dedicated to definition of the Player class."""
 
-# KEY: f3acc46a-d48d-4014-8f81-6ddc9dc661c7
-
 
 class Player:
     """
-    This is the definition of the Custom Hypixel Player Model.
+    This is the Custom Hypixel Player Model.
 
-    Attributes
-    ----------
-    hypixel_id: str
-    uuid: str
-    display_name: str
-    first_login: int
-    last_login: int
-    one_time_achievements: list
-    achievement_points: int
-    achievements: dict
-    network_exp: int
-    challenges: dict
-    most_recent_game: str
-    social_media: dict
+    Attributes:
+        data (dict): This contains the Returned JSON Response for the Player API Request.
     """
     def __init__(
         self,

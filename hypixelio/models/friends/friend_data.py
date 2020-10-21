@@ -3,7 +3,10 @@
 
 class FriendData:
     """
-    This is the definition of the Custom Hypixel API Friend's Data Model.
+    This is the Custom Hypixel API Friend's Data Model.
+
+    Attributes:
+        friend (dict): This contains the Returned JSON Response for the Friend's list element API Request.
     """
     def __init__(
         self,

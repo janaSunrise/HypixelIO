@@ -5,7 +5,11 @@ from .friend_data import FriendData
 
 class Friends:
     """
-    This is the definition of the Custom Hypixel API Friends Model.
+    This is the Custom Hypixel API Friends Model.
+
+    Attributes:
+        friends (list):
+            This contains the Returned JSON Response List for the List of the friends of an user.
     """
     def __init__(
         self,

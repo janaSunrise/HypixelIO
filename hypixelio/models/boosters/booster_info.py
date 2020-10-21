@@ -1,9 +1,12 @@
-"""This module is dedicated to definition of the Booster's Info class."""
+"""This module is dedicated to definition of the Player class."""
 
 
 class BoosterInfo:
     """
-    This is the definition of the Custom Hypixel API Booster's Info Model.
+    This is the Custom Hypixel API Booster's Info Model.
+
+    Attributes:
+        info (dict): This contains the Returned JSON Response for the Booster's List Element API Request.
     """
     def __init__(
         self,

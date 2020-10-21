@@ -3,7 +3,10 @@
 
 class Key:
     """
-    This is the definition of the Custom Hypixel API Key Model.
+    This is the Custom Hypixel API Key Model.
+
+    Attributes:
+        data (dict): This contains the Returned JSON Response for the Key Info API Request.
     """
     def __init__(
         self,
