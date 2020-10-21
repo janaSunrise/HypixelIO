@@ -7,25 +7,17 @@ class Guild:
     """
     def __init__(
         self,
-        hypixel_id: str,
-        name: str,
-        coins: int,
-        members: list,
-        created: int,
-        legacy_ranking: int,
-        experience: int,
-        achievements: dict,
-        experience_by_game: dict
+        data: dict
     ) -> None:
-        self.HYPIXEL_ID = hypixel_id
-        self.NAME = name
-        self.COINS = coins
-        self.CREATED = created
+        self.HYPIXEL_ID = data["_id"]
+        self.NAME = data["name"]
+        self.COINS = data["coins"]
+        self.CREATED = data["members"]
 
-        self.MEMBERS = members
+        self.MEMBERS = data["created"]
 
-        self.LEGACY_RANKING = legacy_ranking
-        self.EXPERIENCE = experience
+        self.LEGACY_RANKING = data["legacyRanking"]
+        self.EXPERIENCE = data["exp"]
 
-        self.ACHIEVEMENTS = achievements
-        self.EXPERIENCE_BY_GAME = experience_by_game
+        self.ACHIEVEMENTS = data["achievements"]
+        self.EXPERIENCE_BY_GAME = data["guildExpByGameType"]

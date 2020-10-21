@@ -15,6 +15,17 @@ class HypixelAPIError(Exception):
         return self.err
 
 
+class RateLimitError(Exception):
+    """Raised When the Hypixel API is facing some problems."""
+
+    def __init__(self, reason: str = "undefined") -> None:
+        self.err = f"You just hit the Rate Limit for the Hypixel API [{reason}]"
+        super().__init__(self.err)
+
+    def __str__(self) -> str:
+        return self.err
+
+
 class PlayerNotFoundError(Exception):
     """Raised When the Specified Player is not found."""
 
@@ -38,3 +49,7 @@ class GuildNotFoundError(Exception):
 
     def __str__(self) -> str:
         return self.err
+
+
+class InvalidArgumentError(Exception):
+    pass

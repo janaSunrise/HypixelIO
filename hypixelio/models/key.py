@@ -7,15 +7,11 @@ class Key:
     """
     def __init__(
         self,
-        key: str,
-        owner_uuid: str,
-        query_limit: int,
-        queries_in_past_minute: int,
-        total_queries: int,
+        data: dict
     ) -> None:
-        self.KEY = key
-        self.OWNER_UUID = owner_uuid
+        self.KEY = data["key"]
+        self.OWNER_UUID = data["owner"]
 
-        self.QUERY_LIMIT = query_limit
-        self.QUERIES_IN_PAST_MINUTE = queries_in_past_minute
-        self.TOTAL_QUERIES = total_queries
+        self.QUERY_LIMIT = data["limit"]
+        self.QUERIES_IN_PAST_MINUTE = data["queriesInPastMin"]
+        self.TOTAL_QUERIES = data["totalQueries"]

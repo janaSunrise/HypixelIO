@@ -7,16 +7,12 @@ class Watchdog:
     """
     def __init__(
         self,
-        last_minute_ban: int,
-        staff_rolling_daily: int,
-        total_bans: int,
-        watchdog_rolling_daily: int,
-        staff_total_bans: int
+        data: dict
     ) -> None:
-        self.LAST_MINUTE_BAN = last_minute_ban
+        self.LAST_MINUTE_BAN = data["watchdog_lastMinute"]
 
-        self.STAFF_ROLLING_DAILY = staff_rolling_daily
-        self.TOTAL_BANS = total_bans
+        self.STAFF_ROLLING_DAILY = data["staff_rollingDaily"]
+        self.TOTAL_BANS = data["watchdog_total"]
 
-        self.WATCHDOG_ROLLING_DAILY = watchdog_rolling_daily
-        self.STAFF_TOTAL_BANS = staff_total_bans
+        self.WATCHDOG_ROLLING_DAILY = data["watchdog_rollingDaily"]
+        self.STAFF_TOTAL_BANS = data["staff_total"]

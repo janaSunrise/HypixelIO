@@ -24,35 +24,23 @@ class Player:
     """
     def __init__(
         self,
-        hypixel_id: str,
-        uuid: str,
-        display_name: str,
-        known_aliases: str,
-        first_login: int,
-        last_login: int,
-        one_time_achievements: list,
-        achievement_points: int,
-        achievements: dict,
-        network_exp: int,
-        challenges: dict,
-        most_recent_game: str,
-        social_media: dict
+        data: dict
     ) -> None:
-        self.HYPIXEL_ID = hypixel_id
-        self.UUID = uuid
-        self.DISPLAY_NAME = display_name
-        self.KNOWN_ALIASES = known_aliases
+        self.HYPIXEL_ID = data["_id"]
+        self.UUID = data["uuid"]
+        self.DISPLAY_NAME = data["displayname"]
+        self.KNOWN_ALIASES = data["knownAliases"]
 
-        self.FIRST_LOGIN = first_login
-        self.LAST_LOGIN = last_login
+        self.FIRST_LOGIN = data["firstLogin"]
+        self.LAST_LOGIN = data["lastLogin"]
 
-        self.ONE_TIME_ACHIEVEMENTS = one_time_achievements
-        self.ACHIEVEMENT_POINTS = achievement_points
-        self.ACHIEVEMENTS = achievements
+        self.ONE_TIME_ACHIEVEMENTS = data["achievementsOneTime"]
+        self.ACHIEVEMENT_POINTS = data["achievementPoints"]
+        self.ACHIEVEMENTS = data["achievements"]
 
-        self.EXPERIENCE = network_exp
+        self.EXPERIENCE = data["networkExp"]
 
-        self.CHALLENGES = challenges["all_time"]
-        self.MOST_RECENT_GAME = most_recent_game
+        self.CHALLENGES = data["challenges"]["all_time"]
+        self.MOST_RECENT_GAME = data["mostRecentGameType"]
 
-        self.SOCIAL_MEDIA = social_media["links"]
+        self.SOCIAL_MEDIA = data["socialMedia"]["links"]
