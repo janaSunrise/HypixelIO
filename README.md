@@ -39,6 +39,7 @@ print(friends.FRIENDS[0].RECEIVER_ID)
 - [ ] Fix `__repr__` and `__str__`
 - [x] Implement caching for efficiency
 
+If you're interested in seeing the **ChangeLog**, Go [here!](https://github.com/janaSunrise/HypixelIO/blob/main/CHANGELOG.md)
 
 API-Help section: [https://hypixel.net/threads/guide-using-the-hypixel-api-with-python.2596749/](https://hypixel.net/threads/guide-using-the-hypixel-api-with-python.2596749/)
 
