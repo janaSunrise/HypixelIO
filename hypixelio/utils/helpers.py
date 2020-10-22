@@ -5,9 +5,9 @@ to Reduce the lines of code, and simplify it.
 """
 
 
-def form_url(self, main_url: str, url: str, data: dict = None) -> str:
+def form_url(main_url: str, url: str, data: dict = None) -> str:
     """
-    Get the List of Hypixel Coin Boosters and Their Info.
+    Form and return the URL for the Hypixel API with GET Params.
 
     Parameters:
         main_url (str): The Main URL With the root domain.

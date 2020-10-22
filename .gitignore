@@ -1,0 +1,16 @@
+.vscode/
+
+.spyproject/
+
+.idea/
+
+.env
+TODO
+
+*.sqlite3
+*.db
+
+env/
+venv/
+
+__pycache__/

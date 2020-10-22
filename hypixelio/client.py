@@ -1,7 +1,7 @@
 import typing as t
 import random
 
-import aiohttp
+import requests
 
 from .utils.helpers import (
     form_url
@@ -49,22 +49,10 @@ class Client:
             self.api_key = [api_key]
 
         # Define the class variables to be used
-        self.session = aiohttp.ClientSession()
+        self.session = requests
         self.timeout = 10
 
-    def close(self) -> None:
-        """
-        Close the aiohttp session when the usage is complete.
-
-        Parameters:
-            None
-
-        Returns:
-            None
-        """
-        self.session.close()
-
-    async def fetch(self, url: str, data: dict = None) -> dict:
+    def fetch(self, url: str, data: dict = None) -> dict:
         """
         Get the JSON Response from the Root Hypixel API URL,
         and Also add the ability to include the GET request parameters
@@ -82,25 +70,23 @@ class Client:
         if not data:
             data = {}
 
-        if "key" in data:
-            data["key"] = key
-        else:
+        if "key" not in data:
             data["key"] = random.choice(self.api_key)
 
         url = form_url(HYPIXEL_API, url, data)
 
-        async with self.session.get(url, timeout=self.timeout) as response:
+        with self.session.get(url, timeout=self.timeout) as response:
 
-            if response.status == 429:
+            if response.status_code == 429:
                 raise RateLimitError("Out of Requests!")
 
             try:
-                json = await response.json()
+                json = response.json()
                 return json, json["success"]
             except Exception as exception:
                 raise HypixelAPIError(f"Invalid Content type Receieved instead of JSON. {exception}")
 
-    async def get_key(self, api_key: str = None) -> key.Key:
+    def get_key_info(self, api_key: t.Optional[str] = None) -> key.Key:
         """
         Get the Info about an API Key generated in Hypixel.
 
@@ -110,9 +96,10 @@ class Client:
         Returns:
             key (Key): Key object for the API Key.
         """
-        api_key = None if not api_key else random.choice(self.api_key)
+        if not api_key:
+            api_key = random.choice(self.api_key)
 
-        json, success = self.fetch("/key", data={'key': api_key})
+        json, success = self.fetch("/key", {"key": api_key})
 
         if not success:
             raise HypixelAPIError("The Key given is invalid, or something else has problem.")
@@ -121,7 +108,7 @@ class Client:
             json["record"]
         )
 
-    async def get_boosters(self) -> boosters.Boosters:
+    def get_boosters(self) -> boosters.Boosters:
         """
         Get the List of Hypixel Coin Boosters and Their Info.
 
@@ -140,7 +127,7 @@ class Client:
             json["boosters"]
         )
 
-    async def get_player(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> player.Player:
+    def get_player(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> player.Player:
         """
         Get the Info about a Hypixel Player using either his Username or UUID.
 
@@ -172,7 +159,7 @@ class Client:
             json["player"]
         )
 
-    async def get_friends(self, uuid: t.Optional[str] = None) -> friends.Friends:
+    def get_friends(self, uuid: t.Optional[str] = None) -> friends.Friends:
         """
         Get the List of Friends of a Hypixel Player and their Info.
 
@@ -184,7 +171,7 @@ class Client:
                 Returns the Friend Data Model, Which has the List of Friends, Each with a List of Attributes.
         """
         if uuid:
-            json, success = self.fetch("/player", {"uuid": uuid})
+            json, success = self.fetch("/friends", {"uuid": uuid})
         else:
             raise InvalidArgumentError("Please provide a Named argument of the player's UUID")
 
@@ -195,7 +182,7 @@ class Client:
             json["records"]
         )
 
-    async def get_watchdog_info(self) -> watchdog.Watchdog:
+    def get_watchdog_info(self) -> watchdog.Watchdog:
         """
         Get the List of Stats About the Watchdog for the last few days.
 
@@ -217,7 +204,7 @@ class Client:
             json
         )
 
-    async def get_guild(self, name: t.Optional[str] = None, id: t.Optional[str] = None) -> guild.Guild:
+    def get_guild(self, name: t.Optional[str] = None, id: t.Optional[str] = None) -> guild.Guild:
         """
         Get the Info about a Hypixel Guild, Either using Name or UUID.
 
