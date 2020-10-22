@@ -2,21 +2,29 @@ import typing as t
 import random
 
 import requests
+import requests_cache
 
-from .utils.helpers import (
+from hypixelio.utils.helpers import (
     form_url
 )
 
-from .models import (
+from hypixelio.utils.constants import (
+    HYPIXEL_API,
+    TIMEOUT,
+)
+
+from hypixelio.models import (
     boosters,
     friends,
+    games,
     guild,
     key,
+    leaderboard,
     player,
     watchdog,
 )
 
-from .exceptions.exceptions import (
+from hypixelio.exceptions.exceptions import (
     InvalidArgumentError,
     HypixelAPIError,
     RateLimitError,
@@ -24,10 +32,7 @@ from .exceptions.exceptions import (
     GuildNotFoundError
 )
 
-# Constant Variables Definition
-
-HYPIXEL_API = "https://api.hypixel.net"
-MOJANG_API = "https://api.mojang.com"
+requests_cache.install_cache('cache', backend='sqlite', expire_after=500)
 
 
 class Client:
@@ -48,11 +53,7 @@ class Client:
         if not isinstance(api_key, list):
             self.api_key = [api_key]
 
-        # Define the class variables to be used
-        self.session = requests
-        self.timeout = 10
-
-    def fetch(self, url: str, data: dict = None) -> dict:
+    def _fetch(self, url: str, data: dict = None) -> tuple[dict, bool]:
         """
         Get the JSON Response from the Root Hypixel API URL,
         and Also add the ability to include the GET request parameters
@@ -75,7 +76,7 @@ class Client:
 
         url = form_url(HYPIXEL_API, url, data)
 
-        with self.session.get(url, timeout=self.timeout) as response:
+        with requests.get(url, timeout=TIMEOUT) as response:
 
             if response.status_code == 429:
                 raise RateLimitError("Out of Requests!")
@@ -84,7 +85,7 @@ class Client:
                 json = response.json()
                 return json, json["success"]
             except Exception as exception:
-                raise HypixelAPIError(f"Invalid Content type Receieved instead of JSON. {exception}")
+                raise HypixelAPIError(f"Invalid Content type Received instead of JSON. {exception}")
 
     def get_key_info(self, api_key: t.Optional[str] = None) -> key.Key:
         """
@@ -99,7 +100,7 @@ class Client:
         if not api_key:
             api_key = random.choice(self.api_key)
 
-        json, success = self.fetch("/key", {"key": api_key})
+        json, success = self._fetch("/key", {"key": api_key})
 
         if not success:
             raise HypixelAPIError("The Key given is invalid, or something else has problem.")
@@ -118,7 +119,7 @@ class Client:
         Returns:
             boosters (Boosters): The Booster Class Object, Which depicts the Booster Data Model.
         """
-        json, success = self.fetch("/boosters")
+        json, success = self._fetch("/boosters")
 
         if not success:
             raise HypixelAPIError("The Key given is invalid, or something else has problem.")
@@ -139,9 +140,9 @@ class Client:
             player (Player): The Player Class Object, Which depicts the Player Data Model.
         """
         if name:
-            json, success = self.fetch("/player", {"name": name})
+            json, success = self._fetch("/player", {"name": name})
         elif uuid:
-            json, success = self.fetch("/player", {"uuid": uuid})
+            json, success = self._fetch("/player", {"uuid": uuid})
         else:
             raise InvalidArgumentError("Please provide a Named argument of the player's username or player's UUID.")
 
@@ -171,7 +172,7 @@ class Client:
                 Returns the Friend Data Model, Which has the List of Friends, Each with a List of Attributes.
         """
         if uuid:
-            json, success = self.fetch("/friends", {"uuid": uuid})
+            json, success = self._fetch("/friends", {"uuid": uuid})
         else:
             raise InvalidArgumentError("Please provide a Named argument of the player's UUID")
 
@@ -193,7 +194,7 @@ class Client:
             watchdog (Watchdog):
                 The Watchdog data model with certain important attributes for you to get data about the things by watchdog.
         """
-        json, success = self.fetch("/watchdogstats")
+        json, success = self._fetch("/watchdogstats")
 
         if not success:
             raise HypixelAPIError(
@@ -204,21 +205,21 @@ class Client:
             json
         )
 
-    def get_guild(self, name: t.Optional[str] = None, id: t.Optional[str] = None) -> guild.Guild:
+    def get_guild(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> guild.Guild:
         """
         Get the Info about a Hypixel Guild, Either using Name or UUID.
 
         Parameters:
             name (t.Optional[str]): The Name of the Guild.
-            id (t.Optional[str])L The ID Of the guild.
+            uuid (t.Optional[str]): The ID Of the guild.
 
         Returns:
             guild (Guild): The Guild Object with certain Attributes for you to access, and use it.
         """
-        if id:
-            json, success = self.fetch("/guild", {"id": id})
+        if uuid:
+            json, success = self._fetch("/guild", {"id": uuid})
         elif name:
-            json, success = self.fetch("/guild", {"name": name})
+            json, success = self._fetch("/guild", {"name": name})
         else:
             raise InvalidArgumentError("Please provide a Named argument of the guild's Name or guild's ID.")
 
@@ -230,4 +231,43 @@ class Client:
 
         return guild.Guild(
             json["guild"]
+        )
+
+    def get_games_info(self) -> games.Games:
+        """
+        Get the List of Hypixel Games and Their Info.
+
+        Parameters:
+            None
+
+        Returns:
+            games (Games): The Games Data model, Containing the information, and attributes for all the games.
+        """
+        json, success = self._fetch("/gameCounts")
+
+        if not success:
+            raise HypixelAPIError("The Key given is invalid, or something else has problem.")
+
+        return games.Games(
+            json["games"],
+            json["playerCount"]
+        )
+
+    def get_leaderboards(self) -> leaderboard.Leaderboard:
+        """
+        Get the Leaderboard for all the games, along with the data in it.
+
+        Parameters:
+            None
+
+        Returns:
+            leaderboard (Leaderboard): The Leaderboard data model, containing all the ranking for the games in Hypixel.
+        """
+        json, success = self._fetch("/leaderboards")
+
+        if not success:
+            raise HypixelAPIError("The Key given is invalid, or something else has problem.")
+
+        return leaderboard.Leaderboard(
+            json["leaderboards"]
         )

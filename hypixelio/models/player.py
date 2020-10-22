@@ -30,3 +30,8 @@ class Player:
         self.MOST_RECENT_GAME = data["mostRecentGameType"]
 
         self.SOCIAL_MEDIA = data["socialMedia"]["links"]
+
+    def __str__(self) -> str:
+        return self.DISPLAY_NAME
+
+    __repr__ = __str__

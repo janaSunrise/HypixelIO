@@ -80,3 +80,19 @@ class GuildNotFoundError(Exception):
 class InvalidArgumentError(Exception):
     """Raised when there is Invalid argument, or Any argument is not specified."""
     pass
+
+
+class MojangAPIError(Exception):
+    """
+    Raised When the Mojang API is facing some problems.
+
+    Attributes:
+        reason (str):
+            Reason for why The Mojang error was caused.
+    """
+    def __init__(self, reason: str = "undefined") -> None:
+        self.err = f"The Mojang API had a problem [{reason}]"
+        super().__init__(self.err)
+
+    def __str__(self) -> str:
+        return self.err

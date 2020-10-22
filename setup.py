@@ -3,7 +3,7 @@ from pathlib import Path
 
 setuptools.setup(
     name="HypixelIO",
-    version="0.0.2",
+    version="0.0.3",
 
     author="Sunrit Jana",
     author_email="warriordefenderz@gmail.com",
@@ -13,18 +13,19 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     license="MIT",
 
-    url="https://github.com/janaSunrise/",
+    url="https://github.com/janaSunrise/HypixelIO",
     packages=setuptools.find_packages(
         exclude=["tests", "tests.*", "tools", "tools.*"]
     ),
 
     install_requires=[
-        'requests'
+        'requests',
+        'requests-cache',
     ],
 
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
+        "License :: OSI Approved :: GNU License",
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.7',

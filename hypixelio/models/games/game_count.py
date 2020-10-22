@@ -10,4 +10,4 @@ class GameCount:
         game: dict
     ) -> None:
         self.PLAYERS = game["players"]
-        self.MODES = game["modes"]
+        self.MODES = game.get("modes")

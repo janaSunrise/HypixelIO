@@ -18,3 +18,8 @@ class Key:
         self.QUERY_LIMIT = data["limit"]
         self.QUERIES_IN_PAST_MINUTE = data["queriesInPastMin"]
         self.TOTAL_QUERIES = data["totalQueries"]
+
+    def __str__(self) -> str:
+        return self.KEY
+
+    __repr__ = __str__
