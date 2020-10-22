@@ -34,4 +34,5 @@ class Player:
     def __str__(self) -> str:
         return self.DISPLAY_NAME
 
-    __repr__ = __str__
+    def __repr__(self) -> str:
+        return f'<id={self.HYPIXEL_ID} name="{self.DISPLAY_NAME}" exp={self.EXPERIENCE}>'

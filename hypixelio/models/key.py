@@ -22,4 +22,5 @@ class Key:
     def __str__(self) -> str:
         return self.KEY
 
-    __repr__ = __str__
+    def __repr__(self) -> str:
+        return f'<key="{self.KEY}" owner="{self.OWNER_UUID}">'
