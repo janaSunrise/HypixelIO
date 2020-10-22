@@ -19,6 +19,9 @@ client = Client(api_key="your-api-key")
 boosters = client.getBoosters()  # Get the boosters object
 
 friends = client.getFriends(uuid="user's-uuid")  # Returns the Friend's object
+
+print(boosters[0].ID)
+print(friends.FRIENDS[0].RECEIVER_ID)
 ```
 
 ### TODOs PLANNED
@@ -31,6 +34,7 @@ friends = client.getFriends(uuid="user's-uuid")  # Returns the Friend's object
 - [ ] Converters like
       - UUID to Username
       - Username to UUID
+- [ ] Fix `__repr__` and `__str__`
 - [ ] Implement caching for faster fetching
 
 
