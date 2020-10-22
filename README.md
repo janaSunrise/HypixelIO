@@ -16,9 +16,9 @@ from hypixelio import Client
 
 client = Client(api_key="your-api-key")
 
-boosters = client.getBoosters()  # Get the boosters object
+boosters = client.get_boosters()  # Get the boosters object
 
-friends = client.getFriends(uuid="user's-uuid")  # Returns the Friend's object
+friends = client.get_friends(uuid="user's-uuid")  # Returns the Friend's object
 
 print(boosters[0].ID)
 print(friends.FRIENDS[0].RECEIVER_ID)
@@ -27,7 +27,7 @@ print(friends.FRIENDS[0].RECEIVER_ID)
 ### TODOs PLANNED
 
 - [ ] Implement Games and leaderboard Models in searching
-- [ ] Add Examples for using the code in `README.md`
+- [x] Add Examples for using the code in `README.md`
 - [x] Add boosters API Section
 - [ ] Add Resources API Section
 - [ ] Add Skyblock API Section
