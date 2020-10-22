@@ -11,3 +11,6 @@ class GameCount:
     ) -> None:
         self.PLAYERS = game["players"]
         self.MODES = game.get("modes")
+
+    def __repr__(self) -> str:
+        return f'<{self.__class__.__name__} players={self.PLAYERS}>'

@@ -35,4 +35,4 @@ class Player:
         return self.DISPLAY_NAME
 
     def __repr__(self) -> str:
-        return f'<id={self.HYPIXEL_ID} name="{self.DISPLAY_NAME}" exp={self.EXPERIENCE}>'
+        return f'<{self.__class__.__name__} id={self.HYPIXEL_ID} name="{self.DISPLAY_NAME}" exp={self.EXPERIENCE}>'

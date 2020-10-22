@@ -41,3 +41,6 @@ class Games:
 
         self.IDLE = GameCount(games["IDLE"])
         self.QUEUE = GameCount(games["QUEUE"])
+
+    def __repr__(self) -> str:
+        return f'<{self.__class__.__name__} lobby={self.MAIN_LOBBY} idle={self.IDLE}>'

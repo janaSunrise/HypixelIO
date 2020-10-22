@@ -18,3 +18,9 @@ class LeaderboardData:
         self.COUNT = data['count']
 
         self.LEADERS_UUID = data['leaders']
+
+    def __repr__(self) -> str:
+        return f'<title="{self.TITLE}" location="{self.LOCATION}"'
+
+    def __str__(self) -> str:
+        return self.TITLE

@@ -23,4 +23,4 @@ class Key:
         return self.KEY
 
     def __repr__(self) -> str:
-        return f'<key="{self.KEY}" owner="{self.OWNER_UUID}">'
+        return f'<{self.__class__.__name__} key="{self.KEY}" owner="{self.OWNER_UUID}">'
