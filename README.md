@@ -9,6 +9,19 @@
 
 ### A Modern Efficient and Easy way of interacting with the Hypixel API!
 
+### Installing
+Note: **Python 3.6 or above is required!**
+```bash
+# Windows
+py -3 -m pip install -U HypixelIO
+
+# Linux or MacOS
+python3 -m pip install -U HypixelIO
+
+# Install the development version
+python3 -m pip install -U git+https://github.com/janaSunrise/HypixelIO
+```
+
 ### Usage
 
 ```python
