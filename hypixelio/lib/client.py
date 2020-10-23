@@ -22,6 +22,7 @@ from hypixelio.models import (
     leaderboard,
     player,
     watchdog,
+    find_guild,
 )
 
 from hypixelio.exceptions.exceptions import (
@@ -270,4 +271,29 @@ class Client:
 
         return leaderboard.Leaderboard(
             json["leaderboards"]
+        )
+
+    def find_guild(self, guild_name: t.Optional[str] = None, player_uuid: t.Optional[str] = None) -> find_guild.FindGuild:
+        """
+        Finds the Guild By the Guild's Name or using a Player's UUID
+
+        Parameters:
+            guild_name (t.Optional[str]) : The name of the Guild
+            player_uuid (t.Optional[str]): The UUID of the Player to find his guild.
+
+        Returns:
+            guild_id (FindGuild): The ID of the guild being find.
+        """
+        if guild_name:
+            json, success = self._fetch("/findGuild", {"byName": guild_name})
+        elif player_uuid:
+            json, success = self._fetch("/findGuild", {"byUuid": player_uuid})
+        else:
+            raise InvalidArgumentError("Please provide a Named argument of the guild's Name or guild's ID.")
+
+        if not success:
+            raise HypixelAPIError("The Key given is invalid, or something else has problem.")
+        
+        return find_guild.FindGuild(
+            json
         )

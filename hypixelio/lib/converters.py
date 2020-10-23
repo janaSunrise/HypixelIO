@@ -21,7 +21,7 @@ class Converters:
     def _fetch(cls, url: str) -> t.Optional[dict]:
         with requests.get(f"{MOJANG_API}{url}", timeout=TIMEOUT) as response:
             if response.status_code != 200:
-                raise InvalidArgumentError("Invalid Username passed for conversion to UUID!")
+                raise InvalidArgumentError("Invalid Username/UUID passed for conversion!")
 
             try:
                 json = response.json()
@@ -37,3 +37,12 @@ class Converters:
             raise MojangAPIError(f"An error occurred! {json['errorMessage']}")
 
         return json["id"]
+
+    @classmethod
+    def uuid_to_name(cls, uuid: str) -> str:
+        json = Converters._fetch(f"/user/profiles/{uuid}/names")
+
+        if "error" in json:
+            raise MojangAPIError(f"An error occurred! {json['errorMessage']}")
+
+        return json["name"]

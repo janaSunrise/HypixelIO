@@ -46,10 +46,11 @@ print(friends.FRIENDS[0].RECEIVER_ID)
 - [x] Add boosters API Section
 - [ ] Add Resources API Section
 - [ ] Add Skyblock API Section
+- [x] Add Find guild API Section
 - [x] Converters like
       - UUID to Username
       - Username to UUID
-- [ ] Fix `__repr__` and `__str__`
+- [x] Fix `__repr__` and `__str__`
 - [x] Implement caching for efficiency
 
 If you're interested in seeing the **Changelog**, Go [here!](https://github.com/janaSunrise/HypixelIO/blob/main/CHANGELOG.md)
