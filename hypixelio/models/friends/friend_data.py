@@ -20,7 +20,7 @@ class FriendData:
         self.SENT_AT = friend['started']
 
     def __repr__(self) -> str:
-        return f'<{self.__class__.__name__} id={self.REQUEST_ID} sent={self.SENT_AT}>'
+        return f'<{self.__class__.__name__} id="{self.REQUEST_ID}" sent="{self.SENT_AT}">'
 
     def __str__(self) -> str:
         return self.REQUEST_ID
