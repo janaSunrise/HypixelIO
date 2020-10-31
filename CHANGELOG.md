@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.0.4](https://github.com/janaSunrise/HypixelIO/releases/tag/v0.0.4) - 24-10-2020
+## [0.0.4](https://github.com/janaSunrise/HypixelIO/releases/tag/v0.0.4) - 31-10-2020
 
 ### Added
 - The `__repr__` and `__str__` for some methods
