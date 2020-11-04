@@ -1,7 +1,6 @@
 import typing as t
 
 import requests
-import requests_cache
 
 from hypixelio.exceptions.exceptions import (
     InvalidArgumentError,
@@ -12,8 +11,6 @@ from hypixelio.utils.constants import (
     MOJANG_API,
     TIMEOUT
 )
-
-requests_cache.install_cache('cache', backend='sqlite', expire_after=500)
 
 
 class Converters:

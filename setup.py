@@ -3,7 +3,7 @@ from pathlib import Path
 
 setuptools.setup(
     name="HypixelIO",
-    version="0.0.4",
+    version="0.0.5",
 
     author="Sunrit Jana",
     author_email="warriordefenderz@gmail.com",

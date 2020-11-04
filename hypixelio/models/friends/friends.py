@@ -16,3 +16,6 @@ class Friends:
         friends: list
     ) -> None:
         self.FRIENDS = [FriendData(friend) for friend in friends]
+
+    def __repr__(self) -> str:
+        return f"<{self.__class__.__name__} friends_count={len(self.FRIENDS)}>"

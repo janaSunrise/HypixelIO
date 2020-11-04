@@ -15,6 +15,7 @@ from hypixelio.utils.constants import (
 
 from hypixelio.models import (
     boosters,
+    caching,
     friends,
     games,
     guild,
@@ -33,8 +34,6 @@ from hypixelio.exceptions.exceptions import (
     GuildNotFoundError
 )
 
-requests_cache.install_cache('cache', backend='sqlite', expire_after=500)
-
 
 class Client:
     """
@@ -44,15 +43,25 @@ class Client:
         api_key (t.Union[str, list]):
             This contains the Api Key, or the List of API Keys for the authentication.
     """
-    def __init__(self, api_key: t.Union[str, list]) -> None:
+    def __init__(self, api_key: t.Union[str, list], cache: bool = False, cache_config: caching.Caching = None) -> None:
         """
         The constructor for the `Client` class.
 
         Parameters:
             api_key (str): The API Key generated in Hypixel using `/api new` command.
+            cache (bool): Whether to enable caching
+            cache_config (Caching): The configuration for the saving, and reusing of the cache
         """
         if not isinstance(api_key, list):
             self.api_key = [api_key]
+
+        if cache:
+            requests_cache.install_cache(
+                cache_name=cache_config.cache_name,
+                backend=cache_config.backend,
+                expire_after=cache_config.expire_after,
+                old_data_on_error=cache_config.old_data_on_error,
+            )
 
     def _fetch(self, url: str, data: dict = None) -> tuple[dict, bool]:
         """

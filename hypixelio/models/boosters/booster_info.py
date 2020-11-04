@@ -24,5 +24,8 @@ class BoosterInfo:
 
         self.STACKED = True if "stacked" in info else False
 
+    def __str__(self) -> str:
+        return self.PURCHASER_UUID
+
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__} id="{self.ID}" purchaser="{self.PURCHASER_UUID}" stacked={self.STACKED}>'

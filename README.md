@@ -39,6 +39,20 @@ print(boosters[0].ID)
 print(friends.FRIENDS[0].RECEIVER_ID)
 ```
 
+#### Implementing caching with the Requests.
+
+```python
+from hypixelio import Client, Converters, Caching, CacheBackend
+
+config = Caching("cache", CacheBackend.memory, 100, False)
+
+client = Client(api_key="your-api-key", cache=True, cache_config=config)
+
+boosters = client.get_boosters()
+
+print(boosters[0].ID)
+```
+
 ### TODOs PLANNED
 
 - [x] Implement Games and leaderboard Models in searching
@@ -52,6 +66,8 @@ print(friends.FRIENDS[0].RECEIVER_ID)
       - Username to UUID
 - [x] Fix `__repr__` and `__str__`
 - [x] Implement caching for efficiency
+- [x] Allow To opt for, or out of caching, Using Variables in `__init__` of  `Client` class
+- [ ] Allow users to compare two objects, and override in code by extending them.
 
 If you're interested in seeing the **Changelog**, Go [here!](https://github.com/janaSunrise/HypixelIO/blob/main/CHANGELOG.md)
 
