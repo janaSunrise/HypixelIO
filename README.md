@@ -9,6 +9,21 @@
 
 ### A Modern Efficient and Easy way of interacting with the Hypixel API!
 
+[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
+
+[![PyPI - License](https://img.shields.io/pypi/l/HypixelIO?style=for-the-badge)](https://pypi.org/project/HypixelIO)
+[![PyPI download month](https://img.shields.io/pypi/dm/ansicolortags.svg?style=for-the-badge)](https://pypi.org/project/HypixelIO/)
+[![PyPI](https://img.shields.io/pypi/v/HypixelIO?style=for-the-badge)](https://pypi.org/project/HypixelIO/)
+[![PyPI - Implementation](https://img.shields.io/pypi/implementation/HypixelIO?style=for-the-badge)](https://pypi.org/project/HypixelIO/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/HypixelIO?style=for-the-badge)](https://pypi.org/project/HypixelIO/)
+[![PyPI - Format](https://img.shields.io/pypi/format/HypixelIO?style=for-the-badge)](https://pypi.org/project/HypixelIO/)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=for-the-badge)](https://GitHub.com/janaSunrise/HypixelIO/graphs/commit-activity)
+
+[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/janaSunrise/HypixelIO?style=for-the-badge)](https://github.com/janaSunrise/HypixelIO)
+
+[![Discord](https://img.shields.io/discord/734712951621025822?style=for-the-badge)](https://discord.gg/6bB3UWj)
+
+
 ### Installing
 Note: **Python 3.6 or above is required!**
 ```bash
