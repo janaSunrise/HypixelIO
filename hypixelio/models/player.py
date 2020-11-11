@@ -36,3 +36,15 @@ class Player:
 
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__} id="{self.HYPIXEL_ID}" name="{self.DISPLAY_NAME}" exp="{self.EXPERIENCE}">'
+
+    def __hash__(self) -> int:
+        return hash(self.UUID)
+
+    def __eq__(self, other: "Player") -> bool:
+        return self.UUID == other.UUID
+
+    def __gt__(self, other: "Player") -> bool:
+        return self.ACHIEVEMENT_POINTS > other.ACHIEVEMENT_POINTS
+
+    def __ge__(self, other: "Player") -> bool:
+        return self.ACHIEVEMENT_POINTS >= other.ACHIEVEMENT_POINTS

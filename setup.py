@@ -1,9 +1,11 @@
 import setuptools
 from pathlib import Path
 
+from hypixelio.utils.constants import VERSION
+
 setuptools.setup(
     name="HypixelIO",
-    version="0.0.5",
+    version=VERSION,
 
     author="Sunrit Jana",
     author_email="warriordefenderz@gmail.com",

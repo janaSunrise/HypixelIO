@@ -24,3 +24,15 @@ class Key:
 
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__} key="{self.KEY}" owner="{self.OWNER_UUID}">'
+
+    def __hash__(self) -> int:
+        return hash(self.KEY)
+
+    def __eq__(self, other: "Key") -> bool:
+        return self.KEY == other.KEY
+
+    def __gt__(self, other: "Key") -> bool:
+        return self.TOTAL_QUERIES > other.TOTAL_QUERIES
+
+    def __ge__(self, other: "Key") -> bool:
+        return self.TOTAL_QUERIES >= other.TOTAL_QUERIES

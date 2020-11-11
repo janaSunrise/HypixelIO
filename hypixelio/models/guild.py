@@ -30,3 +30,15 @@ class Guild:
 
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__} id="{self.HYPIXEL_ID}" name="{self.NAME}" exp="{self.EXPERIENCE}">'
+
+    def __hash__(self) -> int:
+        return hash(self.HYPIXEL_ID)
+
+    def __eq__(self, other: "Guild") -> bool:
+        return self.HYPIXEL_ID == other.HYPIXEL_ID
+
+    def __gt__(self, other: "Guild") -> bool:
+        return self.EXPERIENCE > other.EXPERIENCE
+
+    def __ge__(self, other: "Guild") -> bool:
+        return self.EXPERIENCE >= other.EXPERIENCE

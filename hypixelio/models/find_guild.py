@@ -19,3 +19,9 @@ class FindGuild:
 
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__} id="{self.ID}">'
+
+    def __hash__(self) -> int:
+        return hash(self.ID)
+
+    def __eq__(self, other: "FindGuild") -> bool:
+        return self.ID == other.ID

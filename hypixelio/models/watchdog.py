@@ -19,3 +19,12 @@ class Watchdog:
 
         self.WATCHDOG_ROLLING_DAILY = data["watchdog_rollingDaily"]
         self.STAFF_TOTAL_BANS = data["staff_total"]
+
+    def __str__(self) -> str:
+        return self.LAST_MINUTE_BAN
+
+    def __repr__(self) -> str:
+        return f'<{self.__class__.__name__} last_minute_ban={self.LAST_MINUTE_BAN} rolling_daily={self.WATCHDOG_ROLLING_DAILY}>'
+
+    def __hash__(self) -> int:
+        return hash(self.LAST_MINUTE_BAN)

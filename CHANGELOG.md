@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.6](https://github.com/janaSunrise/HypixelIO/releases/tag/v0.0.6) - 11-11-2020
+
+### Added
+- Added attributes like `__author__` and `__version__`
+- Added Manifest
+- Added support for Comparisons like
+    - `obj1 == obj2`
+    - `obj1 > obj2`
+    - `obj1 >= obj2`
+
 ## [0.0.5](https://github.com/janaSunrise/HypixelIO/releases/tag/v0.0.5) - 04-11-2020
 
 ### Added
