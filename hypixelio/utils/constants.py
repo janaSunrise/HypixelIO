@@ -11,4 +11,4 @@ TIMEOUT = 10
 
 AUTHOR = "Sunrit Jana"
 AUTHOR_EMAIL = "warriordefenderz@gmail.com"
-VERSION = "0.0.6"
+VERSION = "0.0.7"
