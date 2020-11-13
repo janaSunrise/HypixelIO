@@ -7,19 +7,42 @@
                                           /____/_/                                  
 ```
 
+<p align="center">
 ### A Modern Efficient and Easy way of interacting with the Hypixel API!
 
-[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
+<a href="https://www.python.org/">
+    <img src="http://ForTheBadge.com/images/badges/made-with-python.svg" alt="Made with Python" />
+</a>
 
-[![PyPI - License](https://img.shields.io/pypi/l/HypixelIO)](https://pypi.org/project/HypixelIO)
-[![PyPI download month](https://img.shields.io/pypi/dm/ansicolortags.svg)](https://pypi.org/project/HypixelIO/)
-[![PyPI](https://img.shields.io/pypi/v/HypixelIO)](https://pypi.org/project/HypixelIO/)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/HypixelIO)](https://pypi.org/project/HypixelIO/)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/janaSunrise/HypixelIO/graphs/commit-activity)
+<a href="https://pypi.org/project/HypixelIO">
+    <img src="https://img.shields.io/pypi/l/HypixelIO" alt="PYPI - License" />
+</a>
 
-[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/janaSunrise/HypixelIO)](https://github.com/janaSunrise/HypixelIO)
+<a href="https://pypi.org/project/HypixelIO">
+    <img src="https://img.shields.io/pypi/dm/ansicolortags.svg" alt="PYPI Download per Month" />
+</a>
 
-[![Discord](https://img.shields.io/discord/734712951621025822?style=for-the-badge)](https://discord.gg/6bB3UWj)
+<a href="https://pypi.org/project/HypixelIO">
+    <img src="https://img.shields.io/pypi/v/HypixelIO" alt="PYPI" />
+</a>
+
+<a href="https://pypi.org/project/HypixelIO">
+    <img src="https://img.shields.io/pypi/pyversions/HypixelIO" alt="PYPI Python Version" />
+</a>
+
+<a href="https://GitHub.com/janaSunrise/HypixelIO/graphs/commit-activity">
+    <img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" alt="Maintenance" />
+</a>
+
+<a href="https://github.com/janaSunrise/HypixelIO">
+    <img src="https://img.shields.io/github/languages/code-size/janaSunrise/HypixelIO" alt="Code Size" />
+</a>
+
+<a href="https://discord.gg/6bB3UWj">
+    <img src="https://img.shields.io/discord/734712951621025822?style=for-the-badge" alt="Discord server" />
+</a>
+
+</p>
 
 ## 🚀 Installing
 Note: **Python 3.6 or above is required!**
