@@ -8,11 +8,13 @@
 ```
 
 <p align="center">
+
 ### A Modern Efficient and Easy way of interacting with the Hypixel API!
 
 <a href="https://www.python.org/">
     <img src="http://ForTheBadge.com/images/badges/made-with-python.svg" alt="Made with Python" />
 </a>
+
 
 <a href="https://pypi.org/project/HypixelIO">
     <img src="https://img.shields.io/pypi/l/HypixelIO" alt="PYPI - License" />
@@ -34,9 +36,11 @@
     <img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" alt="Maintenance" />
 </a>
 
+
 <a href="https://github.com/janaSunrise/HypixelIO">
     <img src="https://img.shields.io/github/languages/code-size/janaSunrise/HypixelIO" alt="Code Size" />
 </a>
+
 
 <a href="https://discord.gg/6bB3UWj">
     <img src="https://img.shields.io/discord/734712951621025822?style=for-the-badge" alt="Discord server" />
