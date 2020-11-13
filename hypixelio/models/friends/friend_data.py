@@ -24,3 +24,9 @@ class FriendData:
 
     def __str__(self) -> str:
         return self.REQUEST_ID
+
+    def __hash__(self) -> int:
+        return hash((self.RECEIVER_ID, self.SENDER_ID))
+
+    def __eq__(self, other: "FriendData") -> bool:
+        return self.RECEIVER_ID == other.RECEIVER_ID and self.SENDER_ID == other.SENDER_ID
