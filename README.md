@@ -21,7 +21,7 @@
 
 [![Discord](https://img.shields.io/discord/734712951621025822?style=for-the-badge)](https://discord.gg/6bB3UWj)
 
-## 🚀Installing
+## 🚀 Installing
 Note: **Python 3.6 or above is required!**
 ```bash
 # Windows
@@ -34,7 +34,7 @@ python3 -m pip install -U HypixelIO
 python3 -m pip install -U git+https://github.com/janaSunrise/HypixelIO
 ```
 
-## ✌Usage
+## ✌ Usage
 
 ```python
 from hypixelio import Client, Converters
@@ -82,7 +82,7 @@ Read [conventional commits](https://www.conventionalcommits.org/en/v1.0.0-beta.3
 
 Be sure to leave a ⭐️ if you like the project!
 
-### 📢Changelog
+## 📢 Changelog
 If you're interested in seeing the **Changelog**, Go [here!](https://github.com/janaSunrise/HypixelIO/blob/main/CHANGELOG.md)
 
 Made by janaSunrise with ❤
