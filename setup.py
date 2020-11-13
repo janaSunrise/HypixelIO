@@ -20,10 +20,7 @@ setuptools.setup(
         exclude=["tests", "tests.*", "tools", "tools.*"]
     ),
 
-    install_requires=[
-        'requests',
-        'requests-cache',
-    ],
+    install_requires=Path("README.md").read_text().split("\n"),
 
     classifiers=[
         "Programming Language :: Python :: 3",

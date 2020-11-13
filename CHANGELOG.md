@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Changes
 - Change `tuple` instances to `typing.Union`
-- Shift requirements.txt dependencies to `setup.py`
+- Link requirements.txt dependencies to `setup.py`
 - Remove all the build files of the dependencies, and documentations.
 
 ## [0.0.6](https://github.com/janaSunrise/HypixelIO/releases/tag/v0.0.6) - 13-11-2020
