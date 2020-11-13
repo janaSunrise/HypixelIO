@@ -20,7 +20,7 @@ setuptools.setup(
         exclude=["tests", "tests.*", "tools", "tools.*"]
     ),
 
-    install_requires=Path("README.md").read_text().split("\n"),
+    install_requires=Path("requirements.txt").read_text().split("\n"),
 
     classifiers=[
         "Programming Language :: Python :: 3",
