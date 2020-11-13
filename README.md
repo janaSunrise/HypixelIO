@@ -115,6 +115,8 @@ Contributions, issues and feature requests are welcome. After cloning & setting 
 ⚠️ It’s good to have descriptive commit messages, or PR titles so that other contributors can understand about your commit or the PR Created.
 Read [conventional commits](https://www.conventionalcommits.org/en/v1.0.0-beta.3/) before making the commit message.
 
+And, Also we have a Branch named `dev`, So if you're interested in contributing, Please contribute to that branch instead of the `main` branch.
+
 ## 🙌 Show your support
 
 Be sure to leave a ⭐️ if you like the project!
