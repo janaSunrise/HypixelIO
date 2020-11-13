@@ -20,11 +20,6 @@ setuptools.setup(
         exclude=["tests", "tests.*", "tools", "tools.*"]
     ),
 
-    install_requires=[
-        'requests',
-        'requests-cache',
-    ],
-
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
