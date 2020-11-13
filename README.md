@@ -8,21 +8,19 @@
 ```
 
 ### A Modern Efficient and Easy way of interacting with the Hypixel API!
+<p align="center">
+      [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 
-[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
+      [![PyPI - License](https://img.shields.io/pypi/l/HypixelIO)](https://pypi.org/project/HypixelIO)
+      [![PyPI download month](https://img.shields.io/pypi/dm/ansicolortags.svg)](https://pypi.org/project/HypixelIO/)
+      [![PyPI](https://img.shields.io/pypi/v/HypixelIO)](https://pypi.org/project/HypixelIO/)
+      [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/HypixelIO)](https://pypi.org/project/HypixelIO/)
+      [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/janaSunrise/HypixelIO/graphs/commit-activity)
 
-[![PyPI - License](https://img.shields.io/pypi/l/HypixelIO)](https://pypi.org/project/HypixelIO)
-[![PyPI download month](https://img.shields.io/pypi/dm/ansicolortags.svg)](https://pypi.org/project/HypixelIO/)
-[![PyPI](https://img.shields.io/pypi/v/HypixelIO)](https://pypi.org/project/HypixelIO/)
-[![PyPI - Implementation](https://img.shields.io/pypi/implementation/HypixelIO)](https://pypi.org/project/HypixelIO/)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/HypixelIO)](https://pypi.org/project/HypixelIO/)
-[![PyPI - Format](https://img.shields.io/pypi/format/HypixelIO)](https://pypi.org/project/HypixelIO/)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/janaSunrise/HypixelIO/graphs/commit-activity)
+      [![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/janaSunrise/HypixelIO)](https://github.com/janaSunrise/HypixelIO)
 
-[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/janaSunrise/HypixelIO)](https://github.com/janaSunrise/HypixelIO)
-
-[![Discord](https://img.shields.io/discord/734712951621025822?style=for-the-badge)](https://discord.gg/6bB3UWj)
-
+      [![Discord](https://img.shields.io/discord/734712951621025822?style=for-the-badge)](https://discord.gg/6bB3UWj)
+</p>
 
 ### Installing
 Note: **Python 3.6 or above is required!**
@@ -68,8 +66,24 @@ boosters = client.get_boosters()
 print(boosters[0].ID)
 ```
 
-If you're interested in seeing the **Changelog**, Go [here!](https://github.com/janaSunrise/HypixelIO/blob/main/CHANGELOG.md)
-
+### Documentation for the API
 API-Help section: [https://hypixel.net/threads/guide-using-the-hypixel-api-with-python.2596749/](https://hypixel.net/threads/guide-using-the-hypixel-api-with-python.2596749/)
+
+### 🤝 Contributing
+
+Contributions, issues and feature requests are welcome. After cloning & setting up project locally, you can just submit a PR to this repo and it will be deployed once it's accepted.
+
+**⚠️ Note - Commit & PR Title :**
+
+It’s good to have descriptive commit messages so that other folks can make sense of what your commit is doing.
+
+Read [conventional commits](https://www.conventionalcommits.org/en/v1.0.0-beta.3/) before making the commit message.
+
+### 🙌 Show your support
+
+Give a ⭐️ if you like the project!
+
+### Changelog
+If you're interested in seeing the **Changelog**, Go [here!](https://github.com/janaSunrise/HypixelIO/blob/main/CHANGELOG.md)
 
 Made by janaSunrise with ❤
