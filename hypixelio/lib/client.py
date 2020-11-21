@@ -35,19 +35,15 @@ from hypixelio.utils.helpers import (
 class Client:
     """
     This Client Contains the Authentication, and Request system for the Hypixel API.
-
-    Attributes:
-        api_key (t.Union[str, list]):
-            This contains the Api Key, or the List of API Keys for the authentication.
     """
     def __init__(self, api_key: t.Union[str, list], cache: bool = False, cache_config: caching.Caching = None) -> None:
         """
         The constructor for the `Client` class.
 
-        Parameters:
-            api_key (str): The API Key generated in Hypixel using `/api new` command.
-            cache (bool): Whether to enable caching
-            cache_config (Caching): The configuration for the saving, and reusing of the cache
+        Args:
+            api_key (t.Union[str, list]): The API Key generated in Hypixel using `/api new` command.
+            cache (bool, optional): [description]. Whether to enable caching
+            cache_config (caching.Caching, optional): The configuration for the saving, and reusing of the cache. Defaults to None.
         """
         if not isinstance(api_key, list):
             self.api_key = [api_key]
@@ -66,14 +62,16 @@ class Client:
         and Also add the ability to include the GET request parameters
         with the API KEY Parameter by default.
 
-        Parameters:
+        Args:
             url (str): The URL to be accessed from the Root Domain.
-            data (dict):
-                The GET Request's Key-Value Pair. Example: {"uuid": "abc"} is converted to `?uuid=abc`
+            data (dict, optional): The GET Request's Key-Value Pair. Example: {"uuid": "abc"} is converted to `?uuid=abc`. Defaults to None.
+
+        Raises:
+            RateLimitError: Raised, When a certain user, or API Key is being ratelimited from the API.
+            HypixelAPIError: Raised when the Hypixel API is facing some issues, or errors.
 
         Returns:
-            JSON Response, Request Success (tuple):
-                The JSON Response from the Fetch Done to the API and the SUCCESS Value from the Response.
+            t.Tuple[dict, bool]: The JSON Response from the Fetch Done to the API and the SUCCESS Value from the Response.
         """
         if not data:
             data = {}
@@ -98,11 +96,14 @@ class Client:
         """
         Get the Info about an API Key generated in Hypixel.
 
-        Parameters:
-            api_key (t.Optional[str]): The API Key generated in Hypixel using `/api new` command.
+        Args:
+            api_key (t.Optional[str], optional): The API Key generated in Hypixel using `/api new` command. Defaults to None.
+
+        Raises:
+            HypixelAPIError: Raised when the Hypixel API is facing some issues, or errors.
 
         Returns:
-            key (Key): Key object for the API Key.
+            key.Key: Key object for the API Key.
         """
         if not api_key:
             api_key = random.choice(self.api_key)
@@ -120,11 +121,11 @@ class Client:
         """
         Get the List of Hypixel Coin Boosters and Their Info.
 
-        Parameters:
-            None
+        Raises:
+            HypixelAPIError: Raised when the Hypixel API is facing some issues, or errors.
 
         Returns:
-            boosters (Boosters): The Booster Class Object, Which depicts the Booster Data Model.
+            boosters.Boosters: The Booster Class Object, Which depicts the Booster Data Model.
         """
         json, success = self._fetch("/boosters")
 
@@ -139,12 +140,17 @@ class Client:
         """
         Get the Info about a Hypixel Player using either his Username or UUID.
 
-        Parameters:
-            name (t.Optional[str]): The Optional string value for the Username
-            uuid (t.Optional[str]): The Optional string Value to the UUID
+        Args:
+            name (t.Optional[str], optional): The Optional string value for the Username. Defaults to None.
+            uuid (t.Optional[str], optional): The Optional string Value to the UUID. Defaults to None.
+
+        Raises:
+            InvalidArgumentError: Returned when either UUID or Username are not provided.
+            HypixelAPIError: Raised when the Hypixel API is facing some issues, or errors.
+            PlayerNotFoundError: Raised, When a ceratin Player is not found.
 
         Returns:
-            player (Player): The Player Class Object, Which depicts the Player Data Model.
+            player.Player: The Player Class Object, Which depicts the Player Data Model
         """
         if name:
             json, success = self._fetch("/player", {"name": name})
@@ -171,12 +177,15 @@ class Client:
         """
         Get the List of Friends of a Hypixel Player and their Info.
 
-        Parameters:
-            uuid (t.Optional[str]): The UUID of a Certain Hypixel Player.
+        Args:
+            uuid (t.Optional[str], optional): The UUID of a Certain Hypixel Player. Defaults to None.
+
+        Raises:
+            InvalidArgumentError: Returned when the UUID is not provided.
+            HypixelAPIError: Raised when the Hypixel API is facing some issues, or errors.
 
         Returns:
-            friends (Friends):
-                Returns the Friend Data Model, Which has the List of Friends, Each with a List of Attributes.
+            friends.Friends: Returns the Friend Data Model, Which has the List of Friends, Each with a List of Attributes.
         """
         if uuid:
             json, success = self._fetch("/friends", {"uuid": uuid})
@@ -194,12 +203,11 @@ class Client:
         """
         Get the List of Stats About the Watchdog for the last few days.
 
-        Parameters:
-            None
+        Raises:
+            HypixelAPIError: Raised when the Hypixel API is facing some issues, or errors.
 
         Returns:
-            watchdog (Watchdog):
-                The Watchdog data model with certain important attributes for you to get data about the things by watchdog.
+            watchdog.Watchdog: The Watchdog data model with certain important attributes for you to get data about the things by watchdog.
         """
         json, success = self._fetch("/watchdogstats")
 
@@ -216,12 +224,17 @@ class Client:
         """
         Get the Info about a Hypixel Guild, Either using Name or UUID.
 
-        Parameters:
-            name (t.Optional[str]): The Name of the Guild.
-            uuid (t.Optional[str]): The ID Of the guild.
+        Args:
+            name (t.Optional[str], optional): The Name of the Guild. Defaults to None.
+            uuid (t.Optional[str], optional): The ID Of the guild. Defaults to None.
+
+        Raises:
+            InvalidArgumentError: Returned when the UUID is not provided.
+            HypixelAPIError: Raised when the Hypixel API is facing some issues, or errors.
+            GuildNotFoundError: Raised, When a certain Guild is not found.
 
         Returns:
-            guild (Guild): The Guild Object with certain Attributes for you to access, and use it.
+            guild.Guild: The Guild Object with certain Attributes for you to access, and use it.
         """
         if uuid:
             json, success = self._fetch("/guild", {"id": uuid})
@@ -244,11 +257,11 @@ class Client:
         """
         Get the List of Hypixel Games and Their Info.
 
-        Parameters:
-            None
+        Raises:
+            HypixelAPIError: Raised when the Hypixel API is facing some issues, or errors.
 
         Returns:
-            games (Games): The Games Data model, Containing the information, and attributes for all the games.
+            games.Games: The Games Data model, Containing the information, and attributes for all the games.
         """
         json, success = self._fetch("/gameCounts")
 

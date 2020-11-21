@@ -15,6 +15,7 @@ autopep8 = "~=1.5.4"
 [packages]
 requests = "==2.25.0"
 requests-cache = "==0.5.2"
+hypixelio = {editable = true, path = "."}
 
 [scripts]
 lint = "pre-commit run --all-files"
