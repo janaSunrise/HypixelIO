@@ -1,5 +1,6 @@
-import setuptools
 from pathlib import Path
+
+import setuptools
 
 from hypixelio.utils.constants import VERSION
 
@@ -26,7 +27,7 @@ setuptools.setup(
     ),
 
     install_requires=[
-        'requests==2.25.0', 
+        'requests==2.25.0',
         'requests-cache==0.5.2'
     ],
 
