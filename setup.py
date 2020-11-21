@@ -6,7 +6,6 @@ from hypixelio.utils.constants import VERSION
 BASE_DIR = Path(__file__).resolve().parent
 
 README = Path(BASE_DIR / "README.md").read_text()
-REQUIREMENTS = Path(BASE_DIR / "requirements.txt").read_text().splitlines()
 
 setuptools.setup(
     name="HypixelIO",
@@ -26,7 +25,10 @@ setuptools.setup(
         exclude=["tests", "tests.*", "tools", "tools.*"]
     ),
 
-    install_requires=REQUIREMENTS,
+    install_requires=[
+        'requests==2.25.0', 
+        'requests-cache==0.5.2'
+    ],
 
     classifiers=[
         "Programming Language :: Python :: 3",
