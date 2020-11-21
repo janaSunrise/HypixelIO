@@ -1,7 +1,5 @@
 """This module is dedicated to definition of the Friends class."""
 
-import collections
-
 from .friend_data import FriendData
 
 

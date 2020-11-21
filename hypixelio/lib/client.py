@@ -60,7 +60,7 @@ class Client:
                 old_data_on_error=cache_config.old_data_on_error,
             )
 
-    def _fetch(self, url: str, data: dict = None) -> t.Tuple[dict]:
+    def _fetch(self, url: str, data: dict = None) -> t.Tuple[dict, bool]:
         """
         Get the JSON Response from the Root Hypixel API URL,
         and Also add the ability to include the GET request parameters
