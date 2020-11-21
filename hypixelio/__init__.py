@@ -1,5 +1,5 @@
 from .lib import Client, Converters
-from .models.caching import Caching, CacheBackend
+from .models.caching import CacheBackend, Caching
 from .utils import constants
 
 __author__ = constants.AUTHOR

@@ -1,7 +1,8 @@
 """This module is dedicated to definition of the Caching class."""
 
-from .backend import CacheBackend
 from requests_cache import core
+
+from .backend import CacheBackend
 
 
 class Caching:

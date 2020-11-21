@@ -33,4 +33,3 @@ class Friends:
             if friend[0].REQUEST_ID != friend[1].REQUEST_ID:
                 return False
         return True
-

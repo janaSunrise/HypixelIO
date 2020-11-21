@@ -1,37 +1,34 @@
-import typing as t
 import random
+import typing as t
 
 import requests
 import requests_cache
 
-from hypixelio.utils.helpers import (
-    form_url
+from hypixelio.exceptions.exceptions import (
+    GuildNotFoundError,
+    HypixelAPIError,
+    InvalidArgumentError,
+    PlayerNotFoundError,
+    RateLimitError,
 )
-
-from hypixelio.utils.constants import (
-    HYPIXEL_API,
-    TIMEOUT,
-)
-
 from hypixelio.models import (
     boosters,
     caching,
+    find_guild,
     friends,
     games,
     guild,
     key,
     leaderboard,
     player,
-    watchdog,
-    find_guild,
+    watchdog
 )
-
-from hypixelio.exceptions.exceptions import (
-    InvalidArgumentError,
-    HypixelAPIError,
-    RateLimitError,
-    PlayerNotFoundError,
-    GuildNotFoundError
+from hypixelio.utils.constants import (
+    HYPIXEL_API,
+    TIMEOUT,
+)
+from hypixelio.utils.helpers import (
+    form_url
 )
 
 
@@ -63,7 +60,7 @@ class Client:
                 old_data_on_error=cache_config.old_data_on_error,
             )
 
-    def _fetch(self, url: str, data: dict = None) -> t.Union[dict, bool]:
+    def _fetch(self, url: str, data: dict = None) -> t.Tuple[dict]:
         """
         Get the JSON Response from the Root Hypixel API URL,
         and Also add the ability to include the GET request parameters
@@ -302,7 +299,7 @@ class Client:
 
         if not success:
             raise HypixelAPIError("The Key given is invalid, or something else has problem.")
-        
+
         return find_guild.FindGuild(
             json
         )

@@ -6,7 +6,6 @@ from hypixelio.exceptions.exceptions import (
     InvalidArgumentError,
     MojangAPIError
 )
-
 from hypixelio.utils.constants import (
     MOJANG_API,
     TIMEOUT
@@ -23,7 +22,7 @@ class Converters:
             try:
                 json = response.json()
                 return json
-            except Exception as e:
+            except Exception:
                 raise MojangAPIError("There seems to be some problem with the content type or the API IS down.")
 
     @classmethod

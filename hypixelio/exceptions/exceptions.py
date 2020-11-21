@@ -3,6 +3,8 @@ Provides a Module for defining the custom exceptions to be raised
 during errors while interacting with the API through this library.
 """
 
+import typing as t
+
 
 class HypixelAPIError(Exception):
     """
@@ -49,7 +51,7 @@ class PlayerNotFoundError(Exception):
             The user who's search failed.
     """
 
-    def __init__(self, reason: str, user: str) -> None:
+    def __init__(self, reason: str, user: t.Optional[str]) -> None:
         self.err = "Invalid Player Name or UUID!"
         super().__init__(self.err)
 
