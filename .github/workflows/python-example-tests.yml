@@ -31,9 +31,9 @@ jobs:
       env:
         HYPIXEL_KEY: ${{ secrets.HYPIXEL_KEY }}
       run: |
-        python -m examples.get-guild-data
-        python -m examples.get-player-data
-        python -m examples.get-watchdog-stats
-        python -m examples.implement-caching
-        python -m examples.user-to-uuid
-        python -m examples.uuid-to-username
+        pipenv run python -m examples.get-guild-data
+        pipenv run python -m examples.get-player-data
+        pipenv run python -m examples.get-watchdog-stats
+        pipenv run python -m examples.implement-caching
+        pipenv run python -m examples.user-to-uuid
+        pipenv run python -m examples.uuid-to-username
