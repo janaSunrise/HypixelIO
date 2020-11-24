@@ -11,14 +11,14 @@ class Caching:
 
     Attributes:
         cache_name (str): The name of the Cache, Which will be stored
-        backend (CacheBackend): The format of storage of the Cache
+        backend (str): The format of storage of the Cache
         expire_after (int): When will the cahe expire, In seconds
         old_data_on_error (bool): Whether to use old data, If an error occurs out of no where.
     """
     def __init__(
         self,
         cache_name: str = "cache",
-        backend: CacheBackend = CacheBackend.memory,
+        backend: str = CacheBackend.memory,
         expire_after: int = None,
         old_data_on_error: bool = False
     ) -> None:

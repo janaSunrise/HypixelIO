@@ -17,6 +17,15 @@ class Friends:
     ) -> None:
         self.FRIENDS = [FriendData(friend) for friend in friends]
 
+    def __len__(self) -> int:
+        return len(self.FRIENDS)
+
+    def __getitem__(self, key: int) -> FriendData:
+        return self.FRIENDS[key]
+
+    def __setitem__(self, key: int, value: FriendData) -> None:
+        self.FRIENDS[key] = value
+
     def __repr__(self) -> str:
         return f"<{self.__class__.__name__} friends_count={len(self.FRIENDS)}>"
 

@@ -91,19 +91,7 @@ print(boosters[0].ID)
 print(friends.FRIENDS[0].RECEIVER_ID)
 ```
 
-#### Implementing caching with the Requests.
-
-```python
-from hypixelio import Client, Converters, Caching, CacheBackend
-
-config = Caching("cache", CacheBackend.memory, 100, False)
-
-client = Client(api_key="your-api-key", cache=True, cache_config=config)
-
-boosters = client.get_boosters()
-
-print(boosters[0].ID)
-```
+**Find more examples [here](https://github.com/janaSunrise/HypixelIO/tree/main/examples)**
 
 ## ▶ Documentation for the API
 API-Help section: [https://hypixel.net/threads/guide-using-the-hypixel-api-with-python.2596749/](https://hypixel.net/threads/guide-using-the-hypixel-api-with-python.2596749/)

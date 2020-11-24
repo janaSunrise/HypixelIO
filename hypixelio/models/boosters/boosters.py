@@ -16,6 +16,24 @@ class Boosters:
     ) -> None:
         self.BOOSTERS = [BoosterInfo(booster) for booster in boosters]
 
+    def __len__(self) -> int:
+        return len(self.BOOSTERS)
+
+    def __getitem__(self, key: int) -> BoosterInfo:
+        return self.BOOSTERS[key]
+
+    def __setitem__(self, key: int, value: BoosterInfo) -> None:
+        self.BOOSTERS[key] = value
+
+    def __eq__(self, other: "Boosters") -> bool:
+        if len(self.BOOSTERS) != len(other.BOOSTERS):
+            return False
+
+        for booster in list(zip(self.BOOSTERS, other.BOOSTERS)):
+            if booster[0].ID != booster[1].ID:
+                return False
+        return True
+
     def __str__(self) -> str:
         return str(len(self.BOOSTERS))
 

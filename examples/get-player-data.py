@@ -1,0 +1,21 @@
+from textwrap import dedent
+
+import hypixelio as hp
+
+# Login to the API
+client = hp.Client(api_key="your-key-here")
+
+# Get a player object
+player = client.get_player(name="janaSunrise")
+
+# Extract the data from the object
+name, uuid, achievements = player.NAME, player.UUID, player.ACHIEVEMENTS
+
+# Print the data
+print(
+    dedent(f"""
+    Name: {name}
+    UUID: {uuid}
+    Achievements: {achievements}
+    """)
+)
