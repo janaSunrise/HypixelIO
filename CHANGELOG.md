@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.0.0) - 24-11-2020
+
+### Added
+- Various Examples in the source repo
+- Added options for inheriting the the base classes, and add or override features.
+
+### Changes:
+- Changes various types
+- Improved the internal docstrings
+- Removed `constants.py` as a source for the global version
+- Added Various caching options, and Changed the `CacheBackend` to a dataclass
+- Rewrote each function and directives
+- High bug fixes, and fixed security issues
+
+### Removed
+- Removed the useless code which took over more space
+
 ## [0.0.7](https://github.com/janaSunrise/HypixelIO/releases/tag/v0.0.7) - 13-11-2020
 
 ## Changes
