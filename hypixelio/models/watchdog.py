@@ -4,14 +4,17 @@
 class Watchdog:
     """
     This is the definition of the Custom Hypixel API Key Model.
-
-    Attributes:
-        data (dict): This contains the Returned JSON Response for the Watchdog API Request.
     """
     def __init__(
         self,
         data: dict
     ) -> None:
+        """
+        The constructor for the Hypixel Watchdog Model.
+
+        Args:
+            data (dict): The JSON data received from the Hypixel API.
+        """
         self.LAST_MINUTE_BAN = data["watchdog_lastMinute"]
 
         self.STAFF_ROLLING_DAILY = data["staff_rollingDaily"]

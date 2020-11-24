@@ -4,14 +4,17 @@
 class Guild:
     """
     This is the Custom Hypixel Guild Model.
-
-    Attributes:
-        data (dict): This contains the Returned JSON Response for the Guild API Request.
     """
     def __init__(
         self,
         data: dict
     ) -> None:
+        """
+        The constructor for the Hypixel Guild Model.
+
+        Args:
+            data (dict): The JSON data received from the Hypixel API.
+        """
         self.HYPIXEL_ID = data["_id"]
         self.NAME = data["name"]
         self.COINS = data["coins"]

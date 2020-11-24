@@ -4,14 +4,17 @@
 class BoosterInfo:
     """
     This is the Custom Hypixel API Booster's Info Model.
-
-    Attributes:
-        info (dict): This contains the Returned JSON Response for the Booster's List Element API Request.
     """
     def __init__(
         self,
         info: dict
     ) -> None:
+        """
+        The constructor for the Hypixel Booster model.
+
+        Args:
+            info (dict): This contains the Returned JSON Response for the Booster's List Element API Request.
+        """
         self.ID = info["_id"]
         self.PURCHASER_UUID = info["purchaserUuid"]
 
@@ -23,6 +26,12 @@ class BoosterInfo:
         self.DATE_ACTIVATED = info["dateActivated"]
 
         self.STACKED = True if "stacked" in info else False
+
+    def __eq__(self, other: "BoosterInfo") -> bool:
+        return self.ID == other.ID and self.PURCHASER_UUID == other.PURCHASER_UUID
+
+    def __hash__(self) -> int:
+        return hash((self.ID, self.PURCHASER_UUID))
 
     def __str__(self) -> str:
         return self.PURCHASER_UUID

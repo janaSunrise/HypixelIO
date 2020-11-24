@@ -4,14 +4,17 @@
 class Player:
     """
     This is the Custom Hypixel Player Model.
-
-    Attributes:
-        data (dict): This contains the Returned JSON Response for the Player API Request.
     """
     def __init__(
         self,
         data: dict
     ) -> None:
+        """
+        The constructor for the Hypixel Player Model.
+
+        Args:
+            data (dict): The JSON data received from the Hypixel API.
+        """
         self.HYPIXEL_ID = data["_id"]
         self.UUID = data["uuid"]
         self.NAME = data["displayname"]

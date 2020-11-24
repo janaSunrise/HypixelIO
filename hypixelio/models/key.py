@@ -4,14 +4,17 @@
 class Key:
     """
     This is the Custom Hypixel API Key Model.
-
-    Attributes:
-        data (dict): This contains the Returned JSON Response for the Key Info API Request.
     """
     def __init__(
         self,
         data: dict
     ) -> None:
+        """
+        The constructor for the Hypixel Key Model.
+
+        Args:
+            data (dict): The JSON data received from the Hypixel API.
+        """
         self.KEY = data["key"]
         self.OWNER_UUID = data["owner"]
 

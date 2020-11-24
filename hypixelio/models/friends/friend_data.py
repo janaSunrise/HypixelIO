@@ -4,14 +4,17 @@
 class FriendData:
     """
     This is the Custom Hypixel API Friend's Data Model.
-
-    Attributes:
-        friend (dict): This contains the Returned JSON Response for the Friend's list element API Request.
     """
     def __init__(
         self,
         friend: dict,
     ) -> None:
+        """
+        The constructor for the Friend Data Hypixel Model.
+
+        Args:
+            friend (dict): This contains the Returned JSON Response for the Friend's list element API Request.
+        """
         self.REQUEST_ID = friend['_id']
 
         self.RECEIVER_ID = friend['uuidSender']

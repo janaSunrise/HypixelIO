@@ -9,6 +9,12 @@ class LeaderboardData:
         self,
         data: dict,
     ) -> None:
+        """
+        The Constructor for the Leaderboard Data Model for each Game.
+
+        Args:
+            data (dict): The Leaderboard JSON data per game response received from the Hypixel API.
+        """
         self.PATH = data['path']
         self.PREFIX = data['prefix']
 
@@ -20,7 +26,7 @@ class LeaderboardData:
         self.LEADERS_UUID = data['leaders']
 
     def __repr__(self) -> str:
-        return f'<title="{self.TITLE}" location="{self.LOCATION}"'
+        return f'<{self.__class__.__name__} title="{self.TITLE}" location="{self.LOCATION}">'
 
     def __str__(self) -> str:
         return self.TITLE
