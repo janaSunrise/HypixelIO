@@ -80,4 +80,4 @@ class Converters:
         if "error" in json:
             raise MojangAPIError(f"An error occurred! {json['errorMessage']}")
 
-        return json["name"]
+        return json[-1]["name"]
