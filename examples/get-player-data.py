@@ -1,9 +1,10 @@
+import os
 from textwrap import dedent
 
 import hypixelio as hp
 
 # Login to the API
-client = hp.Client(api_key="your-key-here")
+client = hp.Client(api_key=os.environ["HYPIXEL_KEY"])
 
 # Get a player object
 player = client.get_player(name="janaSunrise")

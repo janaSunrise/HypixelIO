@@ -1,9 +1,10 @@
+import os
 from textwrap import dedent
 
 import hypixelio as hp
 
 # Init the Client
-client = hp.Client(api_key="your-api-key")
+client = hp.Client(api_key=os.environ["HYPIXEL_KEY"])
 
 # Get the guild object
 guild = client.get_guild(name="2k")

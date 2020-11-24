@@ -1,9 +1,10 @@
+import os
 from textwrap import dedent
 
 import hypixelio as hp
 
 # Init the Client
-client = hp.Client(api_key="your-api-key")
+client = hp.Client(api_key=os.environ["HYPIXEL_KEY"])
 
 # Get the watchdog stats
 watchdog = client.get_watchdog_info()
