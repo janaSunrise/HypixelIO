@@ -9,6 +9,12 @@ class GameCount:
         self,
         game: dict
     ) -> None:
+        """
+        The constructor for the GameCount model.
+
+        Args:
+            game (dict): The Game JSON data response received from the Hypixel API.
+        """
         self.PLAYERS = game["players"]
         self.MODES = game.get("modes")
 

@@ -4,17 +4,20 @@
 class Player:
     """
     This is the Custom Hypixel Player Model.
-
-    Attributes:
-        data (dict): This contains the Returned JSON Response for the Player API Request.
     """
     def __init__(
         self,
         data: dict
     ) -> None:
+        """
+        The constructor for the Hypixel Player Model.
+
+        Args:
+            data (dict): The JSON data received from the Hypixel API.
+        """
         self.HYPIXEL_ID = data["_id"]
         self.UUID = data["uuid"]
-        self.DISPLAY_NAME = data["displayname"]
+        self.NAME = data["displayname"]
         self.KNOWN_ALIASES = data["knownAliases"]
 
         self.FIRST_LOGIN = data["firstLogin"]
@@ -32,10 +35,10 @@ class Player:
         self.SOCIAL_MEDIA = data["socialMedia"]["links"]
 
     def __str__(self) -> str:
-        return self.DISPLAY_NAME
+        return self.NAME
 
     def __repr__(self) -> str:
-        return f'<{self.__class__.__name__} id="{self.HYPIXEL_ID}" name="{self.DISPLAY_NAME}" exp="{self.EXPERIENCE}">'
+        return f'<{self.__class__.__name__} id="{self.HYPIXEL_ID}" name="{self.NAME}" exp="{self.EXPERIENCE}">'
 
     def __hash__(self) -> int:
         return hash(self.UUID)

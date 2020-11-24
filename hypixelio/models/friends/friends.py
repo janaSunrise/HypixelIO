@@ -1,23 +1,32 @@
 """This module is dedicated to definition of the Friends class."""
 
-import collections
-
 from .friend_data import FriendData
 
 
 class Friends:
     """
     This is the Custom Hypixel API Friends Model.
-
-    Attributes:
-        friends (list):
-            This contains the Returned JSON Response List for the List of the friends of an user.
     """
     def __init__(
         self,
         friends: list
     ) -> None:
+        """
+        The contains for the Friends List model.
+
+        Args:
+            friends (list): This contains the Returned JSON Response List for the List of the friends of an user.
+        """
         self.FRIENDS = [FriendData(friend) for friend in friends]
+
+    def __len__(self) -> int:
+        return len(self.FRIENDS)
+
+    def __getitem__(self, key: int) -> FriendData:
+        return self.FRIENDS[key]
+
+    def __setitem__(self, key: int, value: FriendData) -> None:
+        self.FRIENDS[key] = value
 
     def __repr__(self) -> str:
         return f"<{self.__class__.__name__} friends_count={len(self.FRIENDS)}>"
@@ -33,4 +42,3 @@ class Friends:
             if friend[0].REQUEST_ID != friend[1].REQUEST_ID:
                 return False
         return True
-

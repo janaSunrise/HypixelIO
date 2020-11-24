@@ -4,14 +4,17 @@
 class FindGuild:
     """
     This is the Custom Hypixel Find Guild Model.
-
-    Attributes:
-        data (dict): This contains the Returned JSON Response for the Find Guild API Request.
     """
     def __init__(
         self,
         data: dict
     ) -> None:
+        """
+        The constructor for the Hypixel Find Guild Model.
+
+        Args:
+            data (dict): The JSON data received from the Hypixel API.
+        """
         self.ID = data["guild"]
 
     def __str__(self) -> str:

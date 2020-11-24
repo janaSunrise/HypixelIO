@@ -1,12 +1,20 @@
-import setuptools
+import re
 from pathlib import Path
 
-from hypixelio.utils.constants import VERSION
+import setuptools
 
 BASE_DIR = Path(__file__).resolve().parent
 
 README = Path(BASE_DIR / "README.md").read_text()
-REQUIREMENTS = Path(BASE_DIR / "requirements.txt").read_text().splitlines()
+
+VERSION = re.search(
+    r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
+    Path(BASE_DIR / "hypixelio/__init__.py").read_text(),
+    re.MULTILINE
+).group(1)
+
+if not VERSION:
+    raise RuntimeError('version is not set')
 
 setuptools.setup(
     name="HypixelIO",
@@ -22,11 +30,19 @@ setuptools.setup(
 
     url="https://github.com/janaSunrise/HypixelIO",
 
+    project_urls={
+        "Documentation": "https://github.com/janaSunrise/HypixelIO",
+        "Issue tracker": "https://github.com/janaSunrise/HypixelIO/issues",
+    },
+
     packages=setuptools.find_packages(
         exclude=["tests", "tests.*", "tools", "tools.*"]
     ),
 
-    install_requires=REQUIREMENTS,
+    install_requires=[
+        'requests==2.25.0',
+        'requests-cache==0.5.2'
+    ],
 
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -39,6 +55,10 @@ setuptools.setup(
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
 
         "Operating System :: OS Independent",
+
+        "Intended Audience :: Developers",
+
+        "Natural Language :: English",
     ],
 
     python_requires='>=3.6',

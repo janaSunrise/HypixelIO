@@ -1,5 +1,12 @@
+from dataclasses import dataclass
+
+
+@dataclass
 class CacheBackend:
-    sqlite = "sqlite"
-    mongodb = "mongodb"
-    redis = "redis"
-    memory = "memory"
+    """
+    The Backend Adapters avilable for the caching.
+    """
+    sqlite: str = "sqlite"
+    mongodb: str = "mongodb"
+    redis: str = "redis"
+    memory: str = "memory"

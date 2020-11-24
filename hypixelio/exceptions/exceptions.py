@@ -3,17 +3,20 @@ Provides a Module for defining the custom exceptions to be raised
 during errors while interacting with the API through this library.
 """
 
+import typing as t
+
 
 class HypixelAPIError(Exception):
     """
     Raised When the Hypixel API is facing some problems.
-
-    Attributes:
-        reason (str):
-            Reason for why The Hypixel error was caused.
     """
-
     def __init__(self, reason: str = "undefined") -> None:
+        """
+        Constructor for the HypixelAPIError Exception.
+
+        Args:
+            reason (str, optional): The reason for the Error. Defaults to "undefined".
+        """
         self.err = f"The Hypixel API had a problem [{reason}]"
         super().__init__(self.err)
 
@@ -24,13 +27,14 @@ class HypixelAPIError(Exception):
 class RateLimitError(Exception):
     """
     Raised When the Hypixel API Rate limit is hit.
-
-    Attributes:
-        reason (str):
-            Reason for why The Hypixel Rate Limit error occurred.
     """
-
     def __init__(self, reason: str = "undefined") -> None:
+        """
+        Constructor for the RateLimitError exception.
+
+        Args:
+            reason (str, optional): The reason for the Error. Defaults to "undefined".
+        """
         self.err = f"You just hit the Rate Limit for the Hypixel API [{reason}]"
         super().__init__(self.err)
 
@@ -41,15 +45,15 @@ class RateLimitError(Exception):
 class PlayerNotFoundError(Exception):
     """
     Raised When the Specified Player is not found.
-
-    Attributes:
-        reason (str):
-            Reason for why the user search fails, and returns null.
-        user (str):
-            The user who's search failed.
     """
+    def __init__(self, reason: str, user: t.Optional[str]) -> None:
+        """
+        The constructor for the PlayerNotFoundError exception.
 
-    def __init__(self, reason: str, user: str) -> None:
+        Args:
+            reason (str): The reason for the error.
+            user (t.Optional[str]): The user searched for, but not found.
+        """
         self.err = "Invalid Player Name or UUID!"
         super().__init__(self.err)
 
@@ -63,13 +67,14 @@ class PlayerNotFoundError(Exception):
 class GuildNotFoundError(Exception):
     """
     Raised When the Specified Guild is not found.
-
-    Attributes:
-        reason (str):
-            Reason for why the guild search returned null.
     """
+    def __init__(self, reason: str = "undefined") -> None:
+        """
+        The constructor for the GuildNotFoundError exception.
 
-    def __init__(self, reason: str = "Undefined") -> None:
+        Args:
+            reason (str, optional): The reason for the Error. Defaults to "undefined".
+        """
         self.err = f"Invalid Guild Name or UUID! [{reason}]"
         super().__init__(self.err)
 
@@ -85,12 +90,14 @@ class InvalidArgumentError(Exception):
 class MojangAPIError(Exception):
     """
     Raised When the Mojang API is facing some problems.
-
-    Attributes:
-        reason (str):
-            Reason for why The Mojang error was caused.
     """
     def __init__(self, reason: str = "undefined") -> None:
+        """
+        The constructor for the MojanAPIError Exception.
+
+        Args:
+            reason (str, optional): The reason for the Error. Defaults to "undefined".
+        """
         self.err = f"The Mojang API had a problem [{reason}]"
         super().__init__(self.err)
 

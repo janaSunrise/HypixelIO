@@ -8,7 +8,3 @@ HYPIXEL_API = "https://api.hypixel.net"
 MOJANG_API = "https://api.mojang.com"
 
 TIMEOUT = 10
-
-AUTHOR = "Sunrit Jana"
-AUTHOR_EMAIL = "warriordefenderz@gmail.com"
-VERSION = "0.0.7"

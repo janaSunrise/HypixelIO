@@ -16,3 +16,9 @@ venv/
 __pycache__/
 
 docs/build/
+
+build/
+
+HypixelIO.egg-info/
+
+dist/
