@@ -277,11 +277,11 @@ class Client:
         """
         Get the Leaderboard for all the games, along with the data in it.
 
-        Parameters:
-            None
+        Raises:
+            HypixelAPIError: Raised when the Hypixel API is facing some issues, or errors.
 
         Returns:
-            leaderboard (Leaderboard): The Leaderboard data model, containing all the ranking for the games in Hypixel.
+            leaderboard.Leaderboard: The Leaderboard data model, containing all the ranking for the games in Hypixel.
         """
         json, success = self._fetch("/leaderboards")
 
@@ -296,12 +296,17 @@ class Client:
         """
         Finds the Guild By the Guild's Name or using a Player's UUID
 
-        Parameters:
-            guild_name (t.Optional[str]) : The name of the Guild
-            player_uuid (t.Optional[str]): The UUID of the Player to find his guild.
+
+        Args:
+            guild_name (t.Optional[str], optional): The name of the Guild. Defaults to None.
+            player_uuid (t.Optional[str], optional): The UUID of the Player to find his guild. Defaults to None.
+
+        Raises:
+            InvalidArgumentError: Returned when the named argument is not provided.
+            HypixelAPIError: Raised when the Hypixel API is facing some issues, or errors.
 
         Returns:
-            guild_id (FindGuild): The ID of the guild being find.
+            find_guild.FindGuild: The ID of the guild being find.
         """
         if guild_name:
             json, success = self._fetch("/findGuild", {"byName": guild_name})
