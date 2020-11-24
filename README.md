@@ -115,6 +115,6 @@ Be sure to leave a ⭐️ if you like the project!
 
 <p align="center">
 
-    Made by janaSunrise with ❤
+Made by janaSunrise with ❤
 
 </p>
