@@ -9,9 +9,6 @@ TODO
 
 *.sqlite3
 *.db
-*.lock
-
-Pipfile.lock
 
 env/
 venv/
