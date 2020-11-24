@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "8dcea5ba671fd8bc071773e9ecde39f123211950f779e4efeffdc4537032deda"
+            "sha256": "2242fc1c01a9a4f708dd48d7caf0f49c6a6baab0a407bb8b45a8bde1a4376a64"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -27,6 +27,10 @@
                 "sha256:fc323ffcaeaed0e0a02bf4d117757b98aed530d9ed4531e3e15460124c106691"
             ],
             "version": "==3.0.4"
+        },
+        "hypixelio": {
+            "editable": true,
+            "path": "."
         },
         "idna": {
             "hashes": [

@@ -93,9 +93,6 @@ print(friends.FRIENDS[0].RECEIVER_ID)
 
 **Find more examples [here](https://github.com/janaSunrise/HypixelIO/tree/main/examples)**
 
-## ▶ Documentation for the API
-API-Help section: [https://hypixel.net/threads/guide-using-the-hypixel-api-with-python.2596749/](https://hypixel.net/threads/guide-using-the-hypixel-api-with-python.2596749/)
-
 ## 🤝 Contributing
 
 Contributions, issues and feature requests are welcome. After cloning & setting up project locally, you can just submit a PR to this repo and it will be deployed once it's accepted.
@@ -105,11 +102,19 @@ Read [conventional commits](https://www.conventionalcommits.org/en/v1.0.0-beta.3
 
 And, Also we have a Branch named `dev`, So if you're interested in contributing, Please contribute to that branch instead of the `main` branch.
 
+## 📢 Changelog
+If you're interested in seeing the **Changelog**, Go [here!](https://github.com/janaSunrise/HypixelIO/blob/main/CHANGELOG.md)
+
 ## 🙌 Show your support
 
 Be sure to leave a ⭐️ if you like the project!
 
-## 📢 Changelog
-If you're interested in seeing the **Changelog**, Go [here!](https://github.com/janaSunrise/HypixelIO/blob/main/CHANGELOG.md)
+## ▶ Links
+- API-Help section: [https://hypixel.net/threads/guide-using-the-hypixel-api-with-python.2596749/](https://hypixel.net/threads/guide-using-the-hypixel-api-with-python.2596749/)
+- [Raise an Issue](https://github.com/janaSunrise/HypixelIO/issues)
+
+<p align="center">
 
 Made by janaSunrise with ❤
+
+</p>
