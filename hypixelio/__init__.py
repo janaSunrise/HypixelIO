@@ -4,4 +4,4 @@ from .utils import constants
 
 __author__ = "Sunrit Jana"
 __email__ = "warriordefenderz@gmail.com"
-__version__ = "1.0.0"
+__version__ = "1.0.1"
