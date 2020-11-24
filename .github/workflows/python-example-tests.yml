@@ -1,4 +1,4 @@
-name: Flake8 Linting
+name: coc.py Workflows
 
 on: [push, pull_request]
 
@@ -18,12 +18,22 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
+    - name: Display Python version
+      run: python -c "import sys; print(sys.version)"
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install pipenv
         pipenv sync -d
 
-    - name: Lint with flake8
+    - name: Running examples as tests
+      env:
+        HYPIXEL_KEY: ${{ secrets.HYPIXEL_KEY }}
       run: |
-        pipenv run lint
+        python -m examples.get-guild-data
+        python -m examples.get-player-data
+        python -m examples.get-watchdog-stats
+        python -m examples.implement-caching
+        python -m examples.user-to-uuid
+        python -m examples.uuid-to-username
