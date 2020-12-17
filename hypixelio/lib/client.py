@@ -4,7 +4,7 @@ import typing as t
 import requests
 import requests_cache
 
-from hypixelio.exceptions.exceptions import (
+from hypixelio.exceptions import (
     GuildNotFoundError,
     HypixelAPIError,
     InvalidArgumentError,
@@ -157,17 +157,13 @@ class Client:
         elif uuid:
             json, success = self._fetch("/player", {"uuid": uuid})
         else:
-            raise InvalidArgumentError("Please provide a Named argument of the player's username or player's UUID.")
+            raise InvalidArgumentError("Please provide a named argument of the player's username or player's UUID.")
 
         if not success:
-            raise HypixelAPIError("The Key given is invalid, or something else has problem.")
+            raise HypixelAPIError(f"The Key given is invalid, or something else has problem. Reason given: {json['cause']}")
 
         if not json["player"]:
-            if name:
-                player_model = name
-            else:
-                player_model = uuid
-            raise PlayerNotFoundError("Null Value is returned", player_model)
+            raise PlayerNotFoundError("Null Value is returned", name)
 
         return player.Player(
             json["player"]

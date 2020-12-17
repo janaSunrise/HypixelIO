@@ -54,7 +54,7 @@ class PlayerNotFoundError(Exception):
             reason (str): The reason for the error.
             user (t.Optional[str]): The user searched for, but not found.
         """
-        self.err = "Invalid Player Name or UUID!"
+        self.err = "Invalid Player Name!"
         super().__init__(self.err)
 
         self.reason = reason
