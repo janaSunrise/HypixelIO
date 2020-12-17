@@ -11,6 +11,7 @@ flake8-bugbear = "~=20.1.4"
 flake8-import-order = "~=0.18.1"
 pre-commit = "~=2.8.2"
 pytest-benchmark = "*"
+bandit = "*"
 
 [packages]
 hypixelio = {editable = true, path = "."}
@@ -22,3 +23,4 @@ lint = "pre-commit run --all-files"
 precommit = "pre-commit install"
 tests = "python -m unittest"
 benchmark = "pytest --fixtures tests"
+code-check = "bandit -r hypixelio"
