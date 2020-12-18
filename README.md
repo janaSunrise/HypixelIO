@@ -53,14 +53,6 @@
 
 </p>
 
-<p align="center">
-
-<a href="https://discord.gg/6bB3UWj">
-    <img src="https://img.shields.io/discord/734712951621025822?style=for-the-badge" alt="Discord server" />
-</a>
-
-</p>
-
 ## 🚀 Installing
 Note: **Python 3.6 or above is required!**
 ```bash

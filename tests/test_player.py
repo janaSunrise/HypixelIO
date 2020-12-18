@@ -1,10 +1,11 @@
 import os
 import unittest
 
-from pytest_benchmark.plugin import benchmark
+from tests.mockdata.mock_player_data import MOCK_PLAYER
 
 from hypixelio import Client
 from hypixelio.exceptions import HypixelAPIError, PlayerNotFoundError
+from hypixelio.models.player import Player
 
 
 class TestPlayer(unittest.TestCase):
@@ -40,3 +41,24 @@ class TestPlayer(unittest.TestCase):
         self.assertIsInstance(player.HYPIXEL_ID, str)
         self.assertIsInstance(player.ACHIEVEMENT_POINTS, int)
         self.assertIsInstance(player.ONE_TIME_ACHIEVEMENTS, list)
+
+    def test_player_first_login(self) -> None:
+        data = {"firstLogin": 123456}
+        player = Player(MOCK_PLAYER)
+        self.assertEqual(player.FIRST_LOGIN, data["firstLogin"])
+
+        player2 = Player(MOCK_PLAYER)
+        self.assertIsInstance(player2.FIRST_LOGIN, int)
+
+    def test_player_achievements(self) -> None:
+        data = {
+            "achievements": {
+                'bedwars_level': 5,
+                'general_challenger': 7,
+                'bedwars_wins': 18,
+            }
+        }
+
+        player = Player(MOCK_PLAYER)
+        for key, value in player.ACHIEVEMENTS.items():
+            self.assertEqual(value, data["achievements"][key])
