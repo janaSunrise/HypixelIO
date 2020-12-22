@@ -24,6 +24,24 @@ class HypixelAPIError(Exception):
         return self.err
 
 
+class CrafatarAPIError(Exception):
+    """
+    Raised When the Hypixel API is facing some problems.
+    """
+    def __init__(self, reason: str = "undefined") -> None:
+        """
+        Constructor for the HypixelAPIError Exception.
+
+        Args:
+            reason (str, optional): The reason for the Error. Defaults to "undefined".
+        """
+        self.err = f"The CrafatarAPI had a problem [{reason}]"
+        super().__init__(self.err)
+
+    def __str__(self) -> str:
+        return self.err
+
+
 class RateLimitError(Exception):
     """
     Raised When the Hypixel API Rate limit is hit.

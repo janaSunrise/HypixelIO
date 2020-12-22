@@ -43,7 +43,8 @@ class Client:
         Args:
             api_key (t.Union[str, list]): The API Key generated in Hypixel using `/api new` command.
             cache (bool, optional): [description]. Whether to enable caching
-            cache_config (caching.Caching, optional): The configuration for the saving, and reusing of the cache. Defaults to None.
+            cache_config (caching.Caching, optional): The configuration for the saving, and reusing of the cache.
+            Defaults to None.
         """
         if not isinstance(api_key, list):
             self.api_key = [api_key]
@@ -97,7 +98,8 @@ class Client:
         Get the Info about an API Key generated in Hypixel.
 
         Args:
-            api_key (t.Optional[str], optional): The API Key generated in Hypixel using `/api new` command. Defaults to None.
+            api_key (t.Optional[str], optional): The API Key generated in Hypixel using `/api new` command. Defaults to
+            None.
 
         Raises:
             HypixelAPIError: Raised when the Hypixel API is facing some issues, or errors.
@@ -160,7 +162,9 @@ class Client:
             raise InvalidArgumentError("Please provide a named argument of the player's username or player's UUID.")
 
         if not success:
-            raise HypixelAPIError(f"The Key given is invalid, or something else has problem. Reason given: {json['cause']}")
+            raise HypixelAPIError(
+                f"The Key given is invalid, or something else has problem. Reason given: {json['cause']}"
+            )
 
         if not json["player"]:
             raise PlayerNotFoundError("Null Value is returned", name)
@@ -181,7 +185,8 @@ class Client:
             HypixelAPIError: Raised when the Hypixel API is facing some issues, or errors.
 
         Returns:
-            friends.Friends: Returns the Friend Data Model, Which has the List of Friends, Each with a List of Attributes.
+            friends.Friends: Returns the Friend Data Model, Which has the List of Friends, Each with a List of
+            Attributes.
         """
         if uuid:
             json, success = self._fetch("/friends", {"uuid": uuid})
@@ -203,7 +208,8 @@ class Client:
             HypixelAPIError: Raised when the Hypixel API is facing some issues, or errors.
 
         Returns:
-            watchdog.Watchdog: The Watchdog data model with certain important attributes for you to get data about the things by watchdog.
+            watchdog.Watchdog: The Watchdog data model with certain important attributes for you to get data about the
+            things by watchdog.
         """
         json, success = self._fetch("/watchdogstats")
 
@@ -288,7 +294,9 @@ class Client:
             json["leaderboards"]
         )
 
-    def find_guild(self, guild_name: t.Optional[str] = None, player_uuid: t.Optional[str] = None) -> find_guild.FindGuild:
+    def find_guild(
+            self, guild_name: t.Optional[str] = None, player_uuid: t.Optional[str] = None
+    ) -> find_guild.FindGuild:
         """
         Finds the Guild By the Guild's Name or using a Player's UUID
 

@@ -22,7 +22,7 @@ class Converters:
             url (str): The Mojang URL, whose JSON is supposed to be fetched.
 
         Raises:
-            InvalidArgumentError: Raised When there is an invalid URL, or Respone, whose code is not 200.
+            InvalidArgumentError: Raised When there is an invalid URL, or Response, whose code is not 200.
             MojangAPIError: Raised when the Mojang API is facing some problems, or there is some issues with the status.
 
         Returns:
@@ -30,7 +30,7 @@ class Converters:
         """
         with requests.get(f"{MOJANG_API}{url}", timeout=TIMEOUT) as response:
             if response.status_code != 200:
-                raise InvalidArgumentError("Invalid Username/UUID passed for conversion!")
+                raise InvalidArgumentError("Invalid data passed for conversion!")
 
             try:
                 json = response.json()
