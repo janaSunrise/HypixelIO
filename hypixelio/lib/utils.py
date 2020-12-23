@@ -105,6 +105,18 @@ class Utils:
         return Utils._form_crafatar_url(f"/avatars/{uuid}")
 
     @classmethod
+    def get_head(cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
+        if name:
+            uuid = Converters.username_to_uuid(name)
+            Utils._crafatar_fetch(f"/renders/head/{uuid}")
+        elif uuid:
+            Utils._crafatar_fetch(f"/renders/head/{uuid}")
+        else:
+            raise InvalidArgumentError("Please provide a Named argument of the User's name or UUID.")
+
+        return Utils._form_crafatar_url(f"/renders/head/{uuid}")
+
+    @classmethod
     def get_body(cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
         if name:
             uuid = Converters.username_to_uuid(name)
