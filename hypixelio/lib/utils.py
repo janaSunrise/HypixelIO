@@ -94,36 +94,42 @@ class Utils:
 
     @classmethod
     def get_avatar(cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
+        url = "/avatars/{}"
+
         if name:
             uuid = Converters.username_to_uuid(name)
-            Utils._crafatar_fetch(f"/avatars/{uuid}")
+            Utils._crafatar_fetch(url.format(uuid))
         elif uuid:
-            Utils._crafatar_fetch(f"/avatars/{uuid}")
+            Utils._crafatar_fetch(url.format(uuid))
         else:
             raise InvalidArgumentError("Please provide a Named argument of the User's name or UUID.")
 
-        return Utils._form_crafatar_url(f"/avatars/{uuid}")
+        return Utils._form_crafatar_url(url.format(uuid))
 
     @classmethod
     def get_head(cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
+        url = "/renders/head/{}"
+
         if name:
             uuid = Converters.username_to_uuid(name)
-            Utils._crafatar_fetch(f"/renders/head/{uuid}")
+            Utils._crafatar_fetch(url.format(uuid))
         elif uuid:
-            Utils._crafatar_fetch(f"/renders/head/{uuid}")
+            Utils._crafatar_fetch(url.format(uuid))
         else:
             raise InvalidArgumentError("Please provide a Named argument of the User's name or UUID.")
 
-        return Utils._form_crafatar_url(f"/renders/head/{uuid}")
+        return Utils._form_crafatar_url(url.format(uuid))
 
     @classmethod
     def get_body(cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
+        url = "/renders/body/{}"
+
         if name:
             uuid = Converters.username_to_uuid(name)
-            Utils._crafatar_fetch(f"/renders/body/{uuid}")
+            Utils._crafatar_fetch(url.format(uuid))
         elif uuid:
-            Utils._crafatar_fetch(f"/renders/body/{uuid}")
+            Utils._crafatar_fetch(url.format(uuid))
         else:
             raise InvalidArgumentError("Please provide a Named argument of the User's name or UUID.")
 
-        return Utils._form_crafatar_url(f"/renders/body/{uuid}")
+        return Utils._form_crafatar_url(url.format(uuid))
