@@ -69,12 +69,35 @@ class Utils:
 
     @classmethod
     def _form_crafatar_url(cls, route: str) -> str:
+        """
+        This function forms the crafatar API URL for fetching USER skins.
+
+        Args:
+            route (str): The URL path to visit.
+
+        Returns:
+            str: The well formed API URL for fetching.
+        """
         return f"https://crafatar.com/{route}"
 
     @classmethod
     def get_name_history(
             cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None, changed_at: bool = False
     ) -> t.Union[list, dict]:
+        """
+        This get the name history with records of a player.
+
+        Args:
+            name (t.Optional[str], optional): The username of the player. Defaults to None.
+            uuid (t.Optional[str], optional): The UUID of the player. Defaults to None.
+            changed_at (bool, optional): Toggle to true, if you need when the player changed name. Defaults to False.
+
+        Raises:
+            InvalidArgumentError: Raised if neither UUID or username isn't passed.
+
+        Returns:
+            t.Union[list, dict]: The list or dictionary with the name history and records.
+        """
         if name:
             uuid = Converters.username_to_uuid(name)
             json = Utils._fetch(f"/user/profiles/{uuid}/names")
@@ -94,6 +117,19 @@ class Utils:
 
     @classmethod
     def get_avatar(cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
+        """
+        Get the avatar of the specified player
+
+        Args:
+            name (t.Optional[str], optional): The username of the player. Defaults to None.
+            uuid (t.Optional[str], optional): The UUID of the player. Defaults to None.
+
+        Raises:
+            InvalidArgumentError: Raised if neither UUID or username isn't passed.
+
+        Returns:
+            str: The URL containing the image of the avatar.
+        """
         url = "/avatars/{}"
 
         if name:
@@ -108,6 +144,19 @@ class Utils:
 
     @classmethod
     def get_head(cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
+        """
+        Get the head skin of the specified player
+
+        Args:
+            name (t.Optional[str], optional): The username of the player. Defaults to None.
+            uuid (t.Optional[str], optional): The UUID of the player. Defaults to None.
+
+        Raises:
+            InvalidArgumentError: Raised if neither UUID or username isn't passed.
+
+        Returns:
+            str: The URL containing the image of the head.
+        """
         url = "/renders/head/{}"
 
         if name:
@@ -122,6 +171,19 @@ class Utils:
 
     @classmethod
     def get_body(cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
+        """
+        Get the whole body's skin of the specified player
+
+        Args:
+            name (t.Optional[str], optional): The username of the player. Defaults to None.
+            uuid (t.Optional[str], optional): The UUID of the player. Defaults to None.
+
+        Raises:
+            InvalidArgumentError: Raised if neither UUID or username isn't passed.
+
+        Returns:
+            str: The URL containing the image of the whole body.
+        """
         url = "/renders/body/{}"
 
         if name:
