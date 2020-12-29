@@ -1,5 +1,7 @@
 """This module is dedicated to definition of the Boosters class."""
 
+import typing as t
+
 from .booster_info import BoosterInfo
 
 
@@ -27,6 +29,9 @@ class Boosters:
 
     def __setitem__(self, key: int, value: BoosterInfo) -> None:
         self.BOOSTERS[key] = value
+
+    def __iter__(self) -> t.Iterator:
+        return iter(self.BOOSTERS)
 
     def __eq__(self, other: "Boosters") -> bool:
         if len(self.BOOSTERS) != len(other.BOOSTERS):

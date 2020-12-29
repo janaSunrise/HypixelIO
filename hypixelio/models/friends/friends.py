@@ -1,5 +1,7 @@
 """This module is dedicated to definition of the Friends class."""
 
+import typing as t
+
 from .friend_data import FriendData
 
 
@@ -27,6 +29,9 @@ class Friends:
 
     def __setitem__(self, key: int, value: FriendData) -> None:
         self.FRIENDS[key] = value
+
+    def __iter__(self) -> t.Iterator:
+        return iter(self.FRIENDS)
 
     def __repr__(self) -> str:
         return f"<{self.__class__.__name__} friends_count={len(self.FRIENDS)}>"
