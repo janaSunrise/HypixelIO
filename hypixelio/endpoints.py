@@ -12,7 +12,11 @@ API_PATH = {
         "leaderboards": "/leaderboards",
         "find_guild": "/findGuild",
         "status": "/status",
-        "recent_games": "/recentgames"
+        "recent_games": "/recentgames",
+        "skyblock_auctions": "/skyblock/auction",
+        "skyblock_active_auctions": "/skyblock/auctions",
+        "skyblock_bazaar": "/skyblock/bazaar",
+        "skyblock_profile": "/skyblock/profile"
     },
     "MOJANG": {
         "username_to_uuid": "/users/profiles/minecraft/{}",
