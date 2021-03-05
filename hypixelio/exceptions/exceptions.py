@@ -8,7 +8,6 @@ import typing as t
 
 class InvalidArgumentError(Exception):
     """Raised when there is Invalid argument, or Any argument is not specified."""
-    pass
 
 
 class HypixelAPIError(Exception):

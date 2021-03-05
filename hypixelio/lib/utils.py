@@ -86,12 +86,11 @@ class Utils:
 
         if changed_at:
             return json
-        else:
-            usernames = []
-            for data in json:
-                usernames.append(data["name"])
+        usernames = []
+        for data in json:
+            usernames.append(data["name"])
 
-            return usernames
+        return usernames
 
     @classmethod
     def get_avatar(cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
