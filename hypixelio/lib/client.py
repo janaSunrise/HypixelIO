@@ -4,6 +4,7 @@ import typing as t
 import requests
 import requests_cache
 
+from hypixelio.endpoints import API_PATH
 from hypixelio.exceptions import (
     GuildNotFoundError,
     HypixelAPIError,
@@ -44,6 +45,8 @@ class Client:
             cache_config (caching.Caching, optional): The configuration for the saving, and reusing of the cache.
             Defaults to None.
         """
+        self.url = API_PATH["HYPIXEL"]
+
         if not isinstance(api_key, list):
             self.api_key = [api_key]
 
@@ -110,11 +113,10 @@ class Client:
         if not api_key:
             api_key = random.choice(self.api_key)
 
-        json, success = self._fetch("/key", {"key": api_key})
+        json, success = self._fetch(self.url["api_key"], {"key": api_key})
 
         if not success:
             raise HypixelAPIError("The Key given is invalid, or something else has problem.")
-
         return key.Key(json["record"])
 
     def get_boosters(self) -> boosters.Boosters:
@@ -127,11 +129,10 @@ class Client:
         Returns:
             boosters.Boosters: The Booster Class Object, Which depicts the Booster Data Model.
         """
-        json, success = self._fetch("/boosters")
+        json, success = self._fetch(self.url["boosters"])
 
         if not success:
             raise HypixelAPIError("The Key given is invalid, or something else has problem.")
-
         return boosters.Boosters(json["boosters"])
 
     def get_player(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> player.Player:
@@ -151,9 +152,9 @@ class Client:
             player.Player: The Player Class Object, Which depicts the Player Data Model
         """
         if name:
-            json, success = self._fetch("/player", {"name": name})
+            json, success = self._fetch(self.url["player"], {"name": name})
         elif uuid:
-            json, success = self._fetch("/player", {"uuid": uuid})
+            json, success = self._fetch(self.url["player"], {"uuid": uuid})
         else:
             raise InvalidArgumentError("Please provide a named argument of the player's username or player's UUID.")
 
@@ -163,7 +164,6 @@ class Client:
 
         if not json["player"]:
             raise PlayerNotFoundError("Null Value is returned", name)
-
         return player.Player(json["player"])
 
     def get_friends(self, uuid: t.Optional[str] = None) -> friends.Friends:
@@ -182,13 +182,12 @@ class Client:
             Attributes.
         """
         if uuid:
-            json, success = self._fetch("/friends", {"uuid": uuid})
+            json, success = self._fetch(self.url["friends"], {"uuid": uuid})
         else:
             raise InvalidArgumentError("Please provide a Named argument of the player's UUID")
 
         if not success:
             raise HypixelAPIError("The Key given is invalid, or something else has problem.")
-
         return friends.Friends(json["records"])
 
     def get_watchdog_info(self) -> watchdog.Watchdog:
@@ -202,11 +201,10 @@ class Client:
             watchdog.Watchdog: The Watchdog data model with certain important attributes for you to get data about the
                                things by watchdog.
         """
-        json, success = self._fetch("/watchdogstats")
+        json, success = self._fetch(self.url["watchdog"])
 
         if not success:
             raise HypixelAPIError(f"The Key given is invalid, or something else has problem. Cause: {json['cause']}")
-
         return watchdog.Watchdog(json)
 
     def get_guild(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> guild.Guild:
@@ -226,9 +224,9 @@ class Client:
             guild.Guild: The Guild Object with certain Attributes for you to access, and use it.
         """
         if uuid:
-            json, success = self._fetch("/guild", {"id": uuid})
+            json, success = self._fetch(self.url["guild"], {"id": uuid})
         elif name:
-            json, success = self._fetch("/guild", {"name": name})
+            json, success = self._fetch(self.url["guild"], {"name": name})
         else:
             raise InvalidArgumentError("Please provide a Named argument of the guild's Name or guild's ID.")
 
@@ -237,10 +235,7 @@ class Client:
 
         if not json["guild"]:
             raise GuildNotFoundError("Return Value is null")
-
-        return guild.Guild(
-            json["guild"]
-        )
+        return guild.Guild(json["guild"])
 
     def get_games_info(self) -> games.Games:
         """
@@ -252,11 +247,10 @@ class Client:
         Returns:
             games.Games: The Games Data model, Containing the information, and attributes for all the games.
         """
-        json, success = self._fetch("/gameCounts")
+        json, success = self._fetch(self.url["game_info"])
 
         if not success:
             raise HypixelAPIError("The Key given is invalid, or something else has problem.")
-
         return games.Games(json["games"], json["playerCount"])
 
     def get_leaderboards(self) -> leaderboard.Leaderboard:
@@ -269,11 +263,10 @@ class Client:
         Returns:
             leaderboard.Leaderboard: The Leaderboard data model, containing all the ranking for the games in Hypixel.
         """
-        json, success = self._fetch("/leaderboards")
+        json, success = self._fetch(self.url["leaderboards"])
 
         if not success:
             raise HypixelAPIError("The Key given is invalid, or something else has problem.")
-
         return leaderboard.Leaderboard(json["leaderboards"])
 
     def find_guild(
@@ -294,15 +287,12 @@ class Client:
             find_guild.FindGuild: The ID of the guild being find.
         """
         if guild_name:
-            json, success = self._fetch("/findGuild", {"byName": guild_name})
+            json, success = self._fetch(self.url["find_guild"], {"byName": guild_name})
         elif player_uuid:
-            json, success = self._fetch("/findGuild", {"byUuid": player_uuid})
+            json, success = self._fetch(self.url["find_guild"], {"byUuid": player_uuid})
         else:
             raise InvalidArgumentError("Please provide a Named argument of the guild's Name or guild's ID.")
 
         if not success:
             raise HypixelAPIError("The Key given is invalid, or something else has problem.")
-
-        return find_guild.FindGuild(
-            json
-        )
+        return find_guild.FindGuild(json)
