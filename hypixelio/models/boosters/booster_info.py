@@ -23,7 +23,7 @@ class BoosterInfo:
         self.GAME_TYPE_CODE = info["gameType"]
         self.DATE_ACTIVATED = info["dateActivated"]
 
-        self.STACKED = True if "stacked" in info else False
+        self.STACKED = "stacked" in info
 
     def __eq__(self, other: "BoosterInfo") -> bool:
         return self.ID == other.ID and self.PURCHASER_UUID == other.PURCHASER_UUID
