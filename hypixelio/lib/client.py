@@ -12,6 +12,7 @@ from hypixelio.exceptions import (
     PlayerNotFoundError,
     RateLimitError,
 )
+from hypixelio.lib.converters import Converters
 from hypixelio.models import (
     boosters,
     caching,
@@ -22,6 +23,8 @@ from hypixelio.models import (
     key,
     leaderboard,
     player,
+    player_status,
+    recent_games,
     watchdog
 )
 from hypixelio.utils.constants import (
@@ -289,3 +292,67 @@ class Client:
         if not success:
             raise HypixelAPIError("The Key given is invalid, or something else has problem.")
         return find_guild.FindGuild(json)
+
+    def get_player_status(
+            self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+    ) -> player_status.PlayerStatus:
+        """
+        Get the Status info about a Hypixel Player using either his Username or UUID.
+
+        Parameters
+        ----------
+        name: t.Optional[str]
+            The Optional string value for the Username. Defaults to None.
+        uuid: t.Optional[str]
+            The Optional string Value to the UUID. Defaults to None.
+
+        Returns
+        -------
+        player_status.PlayerStatus
+            The Player Status Object, which depicts the Player's status
+        """
+        if name:
+            uuid = Converters.username_to_uuid(name)
+            json, success = self._fetch(self.url["status"], {"uuid": uuid})
+        elif uuid:
+            json, success = self._fetch(self.url["status"], {"uuid": uuid})
+        else:
+            raise InvalidArgumentError("Please provide a named argument of the player's username or player's UUID.")
+
+        if not success:
+            raise HypixelAPIError(
+                f"The Key given is invalid, or something else has problem. Reason given: {json['cause']}")
+
+        return player_status.PlayerStatus(json)
+
+    def get_player_recent_games(
+            self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+    ) -> recent_games.RecentGames:
+        """
+        Get the recent games played by a  Hypixel Player using either his Username or UUID.
+
+        Parameters
+        ----------
+        name: t.Optional[str]
+            The Optional string value for the Username. Defaults to None.
+        uuid: t.Optional[str]
+            The Optional string Value to the UUID. Defaults to None.
+
+        Returns
+        -------
+        recent_games.RecentGames
+            The recent games model for the respective player specified.
+        """
+        if name:
+            uuid = Converters.username_to_uuid(name)
+            json, success = self._fetch(self.url["recent_games"], {"uuid": uuid})
+        elif uuid:
+            json, success = self._fetch(self.url["recent_games"], {"uuid": uuid})
+        else:
+            raise InvalidArgumentError("Please provide a named argument of the player's username or player's UUID.")
+
+        if not success:
+            raise HypixelAPIError(
+                f"The Key given is invalid, or something else has problem. Reason given: {json['cause']}")
+
+        return recent_games.RecentGames(json)

@@ -10,7 +10,9 @@ API_PATH = {
         "guild": "/guild",
         "game_info": "/gameCounts",
         "leaderboards": "/leaderboards",
-        "find_guild": "/findGuild"
+        "find_guild": "/findGuild",
+        "status": "/status",
+        "recent_games": "/recentgames"
     },
     "MOJANG": {
         "username_to_uuid": "/users/profiles/minecraft/{}",
