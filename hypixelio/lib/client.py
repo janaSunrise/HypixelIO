@@ -115,9 +115,7 @@ class Client:
         if not success:
             raise HypixelAPIError("The Key given is invalid, or something else has problem.")
 
-        return key.Key(
-            json["record"]
-        )
+        return key.Key(json["record"])
 
     def get_boosters(self) -> boosters.Boosters:
         """
@@ -134,9 +132,7 @@ class Client:
         if not success:
             raise HypixelAPIError("The Key given is invalid, or something else has problem.")
 
-        return boosters.Boosters(
-            json["boosters"]
-        )
+        return boosters.Boosters(json["boosters"])
 
     def get_player(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> player.Player:
         """
@@ -163,15 +159,12 @@ class Client:
 
         if not success:
             raise HypixelAPIError(
-                f"The Key given is invalid, or something else has problem. Reason given: {json['cause']}"
-            )
+                f"The Key given is invalid, or something else has problem. Reason given: {json['cause']}")
 
         if not json["player"]:
             raise PlayerNotFoundError("Null Value is returned", name)
 
-        return player.Player(
-            json["player"]
-        )
+        return player.Player(json["player"])
 
     def get_friends(self, uuid: t.Optional[str] = None) -> friends.Friends:
         """
@@ -196,9 +189,7 @@ class Client:
         if not success:
             raise HypixelAPIError("The Key given is invalid, or something else has problem.")
 
-        return friends.Friends(
-            json["records"]
-        )
+        return friends.Friends(json["records"])
 
     def get_watchdog_info(self) -> watchdog.Watchdog:
         """
@@ -214,13 +205,9 @@ class Client:
         json, success = self._fetch("/watchdogstats")
 
         if not success:
-            raise HypixelAPIError(
-                f"The Key given is invalid, or something else has problem. Cause: {json['cause']}"
-            )
+            raise HypixelAPIError(f"The Key given is invalid, or something else has problem. Cause: {json['cause']}")
 
-        return watchdog.Watchdog(
-            json
-        )
+        return watchdog.Watchdog(json)
 
     def get_guild(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> guild.Guild:
         """
@@ -270,10 +257,7 @@ class Client:
         if not success:
             raise HypixelAPIError("The Key given is invalid, or something else has problem.")
 
-        return games.Games(
-            json["games"],
-            json["playerCount"]
-        )
+        return games.Games(json["games"], json["playerCount"])
 
     def get_leaderboards(self) -> leaderboard.Leaderboard:
         """
@@ -290,9 +274,7 @@ class Client:
         if not success:
             raise HypixelAPIError("The Key given is invalid, or something else has problem.")
 
-        return leaderboard.Leaderboard(
-            json["leaderboards"]
-        )
+        return leaderboard.Leaderboard(json["leaderboards"])
 
     def find_guild(
             self, guild_name: t.Optional[str] = None, player_uuid: t.Optional[str] = None

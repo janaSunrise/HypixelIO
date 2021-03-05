@@ -3,45 +3,22 @@ import typing as t
 import requests
 from requests.models import Response
 
+from hypixelio.endpoints import API_PATH
 from hypixelio.exceptions.exceptions import (
     CrafatarAPIError,
     InvalidArgumentError,
-    MojangAPIError,
 )
 from hypixelio.lib.converters import (
     Converters
 )
 from hypixelio.utils.constants import (
-    MOJANG_API,
     TIMEOUT
 )
 
 
 class Utils:
-    @classmethod
-    def _fetch(cls, url: str) -> t.Optional[dict]:
-        """
-        This is the function for fetching the JSON from the Mojang API.
-
-        Args:
-            url (str): The Mojang URL, whose JSON is supposed to be fetched.
-
-        Raises:
-            InvalidArgumentError: Raised When there is an invalid URL, or Response, whose code is not 200.
-            MojangAPIError: Raised when the Mojang API is facing some problems, or there is some issues with the status.
-
-        Returns:
-            t.Optional[dict]: The JSON response from the Mojang API, Which is returned.
-        """
-        with requests.get(f"{MOJANG_API}{url}", timeout=TIMEOUT) as response:
-            if response.status_code != 200:
-                raise InvalidArgumentError("Invalid data passed for conversion!")
-
-            try:
-                json = response.json()
-                return json
-            except Exception:
-                raise MojangAPIError("There seems to be some problem with the content type or the API IS down.")
+    mojang_url = API_PATH["MOJANG"]
+    url = API_PATH["CRAFATAR"]
 
     @classmethod
     def _crafatar_fetch(cls, url: str) -> Response:
@@ -79,7 +56,7 @@ class Utils:
         Returns:
             str: The well formed API URL for fetching.
         """
-        return f"https://crafatar.com/{route}"
+        return f"https://crafatar.com{route}"
 
     @classmethod
     def get_name_history(
@@ -101,9 +78,9 @@ class Utils:
         """
         if name:
             uuid = Converters.username_to_uuid(name)
-            json = Utils._fetch(f"/user/profiles/{uuid}/names")
+            json = Converters._fetch(Utils.mojang_url["name_history"].format(uuid))
         elif uuid:
-            json = Utils._fetch(f"/user/profiles/{uuid}/names")
+            json = Converters._fetch(Utils.mojang_url["name_history"].format(uuid))
         else:
             raise InvalidArgumentError("Please provide a Named argument of the User's name or UUID.")
 
@@ -131,17 +108,15 @@ class Utils:
         Returns:
             str: The URL containing the image of the avatar.
         """
-        url = "/avatars/{}"
-
         if name:
             uuid = Converters.username_to_uuid(name)
-            Utils._crafatar_fetch(url.format(uuid))
+            Utils._crafatar_fetch(Utils.url["avatar"].format(uuid))
         elif uuid:
-            Utils._crafatar_fetch(url.format(uuid))
+            Utils._crafatar_fetch(Utils.url["avatar"].format(uuid))
         else:
             raise InvalidArgumentError("Please provide a Named argument of the User's name or UUID.")
 
-        return Utils._form_crafatar_url(url.format(uuid))
+        return Utils._form_crafatar_url(Utils.url["avatar"].format(uuid))
 
     @classmethod
     def get_head(cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
@@ -158,17 +133,15 @@ class Utils:
         Returns:
             str: The URL containing the image of the head.
         """
-        url = "/renders/head/{}"
-
         if name:
             uuid = Converters.username_to_uuid(name)
-            Utils._crafatar_fetch(url.format(uuid))
+            Utils._crafatar_fetch(Utils.url["head"].format(uuid))
         elif uuid:
-            Utils._crafatar_fetch(url.format(uuid))
+            Utils._crafatar_fetch(Utils.url["head"].format(uuid))
         else:
             raise InvalidArgumentError("Please provide a Named argument of the User's name or UUID.")
 
-        return Utils._form_crafatar_url(url.format(uuid))
+        return Utils._form_crafatar_url(Utils.url["head"].format(uuid))
 
     @classmethod
     def get_body(cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
@@ -185,14 +158,12 @@ class Utils:
         Returns:
             str: The URL containing the image of the whole body.
         """
-        url = "/renders/body/{}"
-
         if name:
             uuid = Converters.username_to_uuid(name)
-            Utils._crafatar_fetch(url.format(uuid))
+            Utils._crafatar_fetch(Utils.url["body"].format(uuid))
         elif uuid:
-            Utils._crafatar_fetch(url.format(uuid))
+            Utils._crafatar_fetch(Utils.url["body"].format(uuid))
         else:
             raise InvalidArgumentError("Please provide a Named argument of the User's name or UUID.")
 
-        return Utils._form_crafatar_url(url.format(uuid))
+        return Utils._form_crafatar_url(Utils.url["body"].format(uuid))

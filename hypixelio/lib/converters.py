@@ -36,7 +36,7 @@ class Converters:
                 json = response.json()
                 return json
             except Exception:
-                raise MojangAPIError("There seems to be some problem with the content type or the API IS down.")
+                raise MojangAPIError("There seems to be some problem with the content type or the API is down.")
 
     @classmethod
     def username_to_uuid(cls, username: str) -> str:

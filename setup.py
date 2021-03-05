@@ -3,10 +3,12 @@ from pathlib import Path
 
 import setuptools
 
+# -- Constants --
 BASE_DIR = Path(__file__).resolve().parent
-
 README = Path(BASE_DIR / "README.md").read_text()
+URL = "https://github.com/janaSunrise/HypixelIO"
 
+# -- Version config --
 VERSION = re.search(
     r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
     Path(BASE_DIR / "hypixelio/__init__.py").read_text(),
@@ -14,7 +16,7 @@ VERSION = re.search(
 ).group(1)
 
 if not VERSION:
-    raise RuntimeError('version is not set')
+    raise RuntimeError("VERSION is not set!")
 
 setuptools.setup(
     name="HypixelIO",
@@ -23,16 +25,16 @@ setuptools.setup(
     author="Sunrit Jana",
     author_email="warriordefenderz@gmail.com",
 
-    description="A modern efficient and faster way of interacting with the Hypixel API!",
+    description="A modern, efficient and faster way of interacting with the Hypixel API!",
     long_description=README,
     long_description_content_type="text/markdown",
     license="GPL v3",
 
-    url="https://github.com/janaSunrise/HypixelIO",
+    url=URL,
 
     project_urls={
-        "Documentation": "https://github.com/janaSunrise/HypixelIO",
-        "Issue tracker": "https://github.com/janaSunrise/HypixelIO/issues",
+        "Documentation": URL,
+        "Issue tracker": f"{URL}/issues",
     },
 
     packages=setuptools.find_packages(
