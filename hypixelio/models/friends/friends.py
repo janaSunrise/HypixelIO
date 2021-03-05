@@ -6,9 +6,7 @@ from .friend_data import FriendData
 
 
 class Friends:
-    """
-    This is the Custom Hypixel API Friends Model.
-    """
+    """The the Custom Hypixel API Friends Model."""
     def __init__(
         self,
         friends: list

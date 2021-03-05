@@ -6,9 +6,7 @@ from .booster_info import BoosterInfo
 
 
 class Boosters:
-    """
-    This is the Custom Hypixel API Boosters Model.
-    """
+    """The the Custom Hypixel API Boosters Model."""
     def __init__(
         self,
         boosters: list,

@@ -2,9 +2,7 @@
 
 
 class BoosterInfo:
-    """
-    This is the Custom Hypixel API Booster's Info Model.
-    """
+    """The Hypixel API Booster's Info Model."""
     def __init__(
         self,
         info: dict

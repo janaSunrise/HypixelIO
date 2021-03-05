@@ -6,9 +6,7 @@ from .backend import CacheBackend
 
 
 class Caching:
-    """
-    This is the Custom Caching model, for the Hypixel Requests to be made.
-    """
+    """The Caching model for the Hypixel requests to be made and cached to save the request calls.."""
     def __init__(
         self,
         cache_name: str = "cache",
@@ -30,13 +28,13 @@ class Caching:
         self.expire_after = expire_after
         self.old_data_on_error = old_data_on_error
 
-    def remove_expired_responses(self) -> None:
-        """
-        Remove the expired responses stored in the cache.
-        """
+    @staticmethod
+    def remove_expired_responses() -> None:
+        """Remove the expired responses stored in the cache."""
         core.remove_expired_responses()
 
-    def get_cache(self) -> core.CachedSession:
+    @staticmethod
+    def get_cache() -> core.CachedSession:
         """
         Get the cache, which is currently stored and being used.
 
@@ -45,16 +43,14 @@ class Caching:
         """
         return core.get_cache()
 
-    def clear_cache(self) -> None:
-        """
-        Clear the cache stored in the storage specified.
-        """
+    @staticmethod
+    def clear_cache() -> None:
+        """Clear the cache stored in the storage specified."""
         core.clear()
 
-    def uninstall_cache(self) -> None:
-        """
-        Remove caching from your code, if added or integrated.
-        """
+    @staticmethod
+    def uninstall_cache() -> None:
+        """Remove caching from your code, if added or integrated."""
         core.uninstall_cache()
 
     def __str__(self) -> str:

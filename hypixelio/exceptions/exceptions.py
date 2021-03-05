@@ -6,10 +6,13 @@ during errors while interacting with the API through this library.
 import typing as t
 
 
+class InvalidArgumentError(Exception):
+    """Raised when there is Invalid argument, or Any argument is not specified."""
+    pass
+
+
 class HypixelAPIError(Exception):
-    """
-    Raised When the Hypixel API is facing some problems.
-    """
+    """Raised When the Hypixel API is facing some problems."""
     def __init__(self, reason: str = "undefined") -> None:
         """
         Constructor for the HypixelAPIError Exception.
@@ -25,12 +28,10 @@ class HypixelAPIError(Exception):
 
 
 class CrafatarAPIError(Exception):
-    """
-    Raised When the Hypixel API is facing some problems.
-    """
+    """Raised When the Crafatar API is facing some problems."""
     def __init__(self, reason: str = "undefined") -> None:
         """
-        Constructor for the HypixelAPIError Exception.
+        Constructor for the CrafatarAPIError Exception.
 
         Args:
             reason (str, optional): The reason for the Error. Defaults to "undefined".
@@ -43,9 +44,7 @@ class CrafatarAPIError(Exception):
 
 
 class RateLimitError(Exception):
-    """
-    Raised When the Hypixel API Rate limit is hit.
-    """
+    """Raised When the Hypixel API Rate limit is hit."""
     def __init__(self, reason: str = "undefined") -> None:
         """
         Constructor for the RateLimitError exception.
@@ -61,9 +60,7 @@ class RateLimitError(Exception):
 
 
 class PlayerNotFoundError(Exception):
-    """
-    Raised When the Specified Player is not found.
-    """
+    """Raised When the Specified Player is not found."""
     def __init__(self, reason: str, user: t.Optional[str]) -> None:
         """
         The constructor for the PlayerNotFoundError exception.
@@ -83,9 +80,7 @@ class PlayerNotFoundError(Exception):
 
 
 class GuildNotFoundError(Exception):
-    """
-    Raised When the Specified Guild is not found.
-    """
+    """Raised When the Specified Guild is not found."""
     def __init__(self, reason: str = "undefined") -> None:
         """
         The constructor for the GuildNotFoundError exception.
@@ -100,15 +95,8 @@ class GuildNotFoundError(Exception):
         return self.err
 
 
-class InvalidArgumentError(Exception):
-    """Raised when there is Invalid argument, or Any argument is not specified."""
-    pass
-
-
 class MojangAPIError(Exception):
-    """
-    Raised When the Mojang API is facing some problems.
-    """
+    """Raised when the Mojang API is facing some problems."""
     def __init__(self, reason: str = "undefined") -> None:
         """
         The constructor for the MojanAPIError Exception.
