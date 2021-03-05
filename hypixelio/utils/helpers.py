@@ -22,7 +22,7 @@ def form_url(main_url: str, url: str, data: dict = None) -> str:
     Returns
     -------
     str:
-        The Final URL with the Get request parameters, and the URL Route.
+        The Final URL with the GET request parameters, and the URL Route.
     """
     if not data:
         data = {}

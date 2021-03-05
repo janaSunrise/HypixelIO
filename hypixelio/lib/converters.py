@@ -19,17 +19,17 @@ class Converters:
     @classmethod
     def _fetch(cls, url: str) -> t.Optional[dict]:
         """
-        This is the function for fetching the JSON from the Mojang API.
+        This is the internal function for fetching the JSON from the Mojang API.
 
-        Args:
-            url (str): The Mojang URL, whose JSON is supposed to be fetched.
+        Parameters
+        ----------
+        url: str
+            The Mojang URL, whose JSON is supposed to be fetched.
 
-        Raises:
-            InvalidArgumentError: Raised When there is an invalid URL, or Response, whose code is not 200.
-            MojangAPIError: Raised when the Mojang API is facing some problems, or there is some issues with the status.
-
-        Returns:
-            t.Optional[dict]: The JSON response from the Mojang API, Which is returned.
+        Returns
+        -------
+        t.Optional[dict]
+            The JSON response from the Mojang API, Which is returned.
         """
         with requests.get(f"{MOJANG_API}{url}", timeout=TIMEOUT) as response:
             if response.status_code != 200:
@@ -46,15 +46,15 @@ class Converters:
         """
         This is a method, to convert username in minecraft, for its respective UUID.
 
-        Args:
-            username (str): This is the minecraft user, which is passed to this function for the UUID Conversion.
+        Parameters
+        ----------
+        username: str
+            This is the minecraft user, which is passed to this function for the UUID Conversion.
 
-        Raises:
-            MojangAPIError: Raised when there seems to be some problem with the Mojang API, which is contacted,
-                            for this conversion.
-
-        Returns:
-            str: returns the converted UUID for the respective username.
+        Returns
+        -------
+        str
+            returns the converted UUID for the respective username.
         """
         json = Converters._fetch(Converters.url["username_to_uuid"].format(username))
 
@@ -67,15 +67,15 @@ class Converters:
         """
         This is the function that converts the UUID for your profile, to the Username for your Minecraft account.
 
-        Args:
-            uuid (str): This is the minecraft UUID, which is passed to this function for the UUID to username Conversion.
+        Parameters
+        ----------
+        uuid: str
+            This is the minecraft UUID, which is passed to this function for the UUID to username Conversion.
 
-        Raises:
-            MojangAPIError: Raised when there seems to be some problem with the Mojang API, which is contacted,
-                            for this conversion.
-
-        Returns:
-            str: The username for the respective minecraft UUID is returned.
+        Returns
+        -------
+        str
+            The username for the respective minecraft UUID is returned.
         """
         json = Converters._fetch(Converters.url["uuid_to_username"].format(uuid))
 

@@ -25,16 +25,15 @@ class Utils:
         """
         This is the function for fetching the JSON from the Crafatar API.
 
-        Args:
-            url (str): The Crafatar URL, whose JSON is supposed to be fetched.
+        Parameters
+        ----------
+        url: str
+            The Crafatar URL, whose JSON is supposed to be fetched.
 
-        Raises:
-            InvalidArgumentError: Raised When there is an invalid URL, or Response, whose code is not 200.
-            CrafatarAPIError: Raised when the Crafatar API is facing some problems, or there is some issues with the
-                              status.
-
-        Returns:
-            t.Optional[dict]: The JSON response from the Crafatar API, Which is returned.
+        Returns
+        -------
+        t.Optional[dict]
+            The JSON response from the Crafatar API, which is returned.
         """
         with requests.get(f"https://crafatar.com/{url}", timeout=TIMEOUT) as response:
             if response.status_code == 422:
@@ -50,11 +49,15 @@ class Utils:
         """
         This function forms the crafatar API URL for fetching USER skins.
 
-        Args:
-            route (str): The URL path to visit.
+        Parameters
+        ----------
+        route: str
+            The URL path to visit.
 
-        Returns:
-            str: The well formed API URL for fetching.
+        Returns
+        -------
+        str
+            The well formed API URL for fetching.
         """
         return f"https://crafatar.com{route}"
 
@@ -65,16 +68,19 @@ class Utils:
         """
         This get the name history with records of a player.
 
-        Args:
-            name (t.Optional[str], optional): The username of the player. Defaults to None.
-            uuid (t.Optional[str], optional): The UUID of the player. Defaults to None.
-            changed_at (bool, optional): Toggle to true, if you need when the player changed name. Defaults to False.
+        Parameters
+        ----------
+        name: t.Optional[str]
+            The username of the player. Defaults to None.
+        uuid: t.Optional[str]
+            The UUID of the player. Defaults to None.
+        changed_at: bool
+            Toggle to true, if you need when the player changed name. Defaults to False.
 
-        Raises:
-            InvalidArgumentError: Raised if neither UUID or username isn't passed.
-
-        Returns:
-            t.Union[list, dict]: The list or dictionary with the name history and records.
+        Returns
+        -------
+        t.Union[list, dict]
+            The list or dictionary with the name history and records.
         """
         if name:
             uuid = Converters.username_to_uuid(name)
@@ -97,15 +103,17 @@ class Utils:
         """
         Get the avatar of the specified player
 
-        Args:
-            name (t.Optional[str], optional): The username of the player. Defaults to None.
-            uuid (t.Optional[str], optional): The UUID of the player. Defaults to None.
+        Parameters
+        ----------
+        name: t.Optional[str]
+            The username of the player. Defaults to None.
+        uuid: t.Optional[str]
+            The UUID of the player. Defaults to None.
 
-        Raises:
-            InvalidArgumentError: Raised if neither UUID or username isn't passed.
-
-        Returns:
-            str: The URL containing the image of the avatar.
+        Returns
+        -------
+        str
+            The URL containing the image of the avatar.
         """
         if name:
             uuid = Converters.username_to_uuid(name)
@@ -122,15 +130,17 @@ class Utils:
         """
         Get the head skin of the specified player
 
-        Args:
-            name (t.Optional[str], optional): The username of the player. Defaults to None.
-            uuid (t.Optional[str], optional): The UUID of the player. Defaults to None.
+        Parameters
+        ----------
+        name: t.Optional[str]
+            The username of the player. Defaults to None.
+        uuid: t.Optional[str]
+            The UUID of the player. Defaults to None.
 
-        Raises:
-            InvalidArgumentError: Raised if neither UUID or username isn't passed.
-
-        Returns:
-            str: The URL containing the image of the head.
+        Returns
+        -------
+        str
+            The URL containing the image of the head.
         """
         if name:
             uuid = Converters.username_to_uuid(name)
@@ -147,15 +157,17 @@ class Utils:
         """
         Get the whole body's skin of the specified player
 
-        Args:
-            name (t.Optional[str], optional): The username of the player. Defaults to None.
-            uuid (t.Optional[str], optional): The UUID of the player. Defaults to None.
+        Parameters
+        ----------
+        name: t.Optional[str]
+            The username of the player. Defaults to None.
+        uuid: t.Optional[str]
+            The UUID of the player. Defaults to None.
 
-        Raises:
-            InvalidArgumentError: Raised if neither UUID or username isn't passed.
-
-        Returns:
-            str: The URL containing the image of the whole body.
+        Returns
+        -------
+        str
+            The URL containing the image of the whole body.
         """
         if name:
             uuid = Converters.username_to_uuid(name)
