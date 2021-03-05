@@ -2,6 +2,7 @@ import typing as t
 
 import requests
 
+from hypixelio.endpoints import API_PATH
 from hypixelio.exceptions.exceptions import (
     InvalidArgumentError,
     MojangAPIError
@@ -13,6 +14,8 @@ from hypixelio.utils.constants import (
 
 
 class Converters:
+    url = API_PATH["MOJANG"]
+
     @classmethod
     def _fetch(cls, url: str) -> t.Optional[dict]:
         """
@@ -53,11 +56,10 @@ class Converters:
         Returns:
             str: returns the converted UUID for the respective username.
         """
-        json = Converters._fetch(f"/users/profiles/minecraft/{username}")
+        json = Converters._fetch(Converters.url["username_to_uuid"].format(username))
 
         if "error" in json:
             raise MojangAPIError(f"An error occurred! {json['errorMessage']}")
-
         return json["id"]
 
     @classmethod
@@ -75,9 +77,8 @@ class Converters:
         Returns:
             str: The username for the respective minecraft UUID is returned.
         """
-        json = Converters._fetch(f"/user/profiles/{uuid}/names")
+        json = Converters._fetch(Converters.url["uuid_to_username"].format(uuid))
 
         if "error" in json:
             raise MojangAPIError(f"An error occurred! {json['errorMessage']}")
-
         return json[-1]["name"]
