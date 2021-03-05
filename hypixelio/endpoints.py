@@ -13,9 +13,9 @@ API_PATH = {
         "find_guild": "/findGuild"
     },
     "MOJANG": {
-        "username_to_uuid": "/users/profiles/minecraft/{username}",
-        "uuid_to_username": "/user/profiles/{uuid}/names",
-        "name_history": "/user/profiles/{uuid}/names",
+        "username_to_uuid": "/users/profiles/minecraft/{}",
+        "uuid_to_username": "/user/profiles/{}/names",
+        "name_history": "/user/profiles/{}/names",
     },
     "CRAFATAR": {
         "avatar": "/avatars/{}",
