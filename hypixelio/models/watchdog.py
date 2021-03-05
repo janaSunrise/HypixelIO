@@ -20,14 +20,14 @@ class Watchdog:
         self.STAFF_ROLLING_DAILY = data["staff_rollingDaily"]
         self.TOTAL_BANS = data["watchdog_total"]
 
-        self.WATCHDOG_ROLLING_DAILY = data["watchdog_rollingDaily"]
+        self.ROLLING_DAILY = data["watchdog_rollingDaily"]
         self.STAFF_TOTAL_BANS = data["staff_total"]
 
     def __str__(self) -> str:
         return self.LAST_MINUTE_BAN
 
     def __repr__(self) -> str:
-        return f'<{self.__class__.__name__} last_minute_ban={self.LAST_MINUTE_BAN} rolling_daily={self.WATCHDOG_ROLLING_DAILY}>'
+        return f'<{self.__class__.__name__} last_minute_ban={self.LAST_MINUTE_BAN} rolling_daily={self.ROLLING_DAILY}>'
 
     def __hash__(self) -> int:
         return hash(self.LAST_MINUTE_BAN)

@@ -10,6 +10,7 @@ class Boosters:
     def __init__(
         self,
         boosters: list,
+        json: dict
     ) -> None:
         """
         Parameters
@@ -18,6 +19,7 @@ class Boosters:
             The list of the Coin Boosters in the Hypixel server.
         """
         self.BOOSTERS = [BoosterInfo(booster) for booster in boosters]
+        self.STATE = json["boosterState"]
 
     def __len__(self) -> int:
         return len(self.BOOSTERS)

@@ -79,12 +79,11 @@ class Client:
         if not data:
             data = {}
 
-        if "key" not in data:
-            data["key"] = random.choice(self.api_key)
+        headers = {"API-Key": random.choice(self.api_key)}
 
         url = form_url(HYPIXEL_API, url, data)
 
-        with requests.get(url, timeout=TIMEOUT) as response:
+        with requests.get(url, timeout=TIMEOUT, headers=headers) as response:
 
             if response.status_code == 429:
                 raise RateLimitError("Out of Requests!")
@@ -131,7 +130,7 @@ class Client:
 
         if not success:
             raise HypixelAPIError("The Key given is invalid, or something else has problem.")
-        return boosters.Boosters(json["boosters"])
+        return boosters.Boosters(json["boosters"], json)
 
     def get_player(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> player.Player:
         """
