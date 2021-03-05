@@ -53,7 +53,8 @@ class Utils:
 
         Raises:
             InvalidArgumentError: Raised When there is an invalid URL, or Response, whose code is not 200.
-            CrafatarAPIError: Raised when the Crafatar API is facing some problems, or there is some issues with the status.
+            CrafatarAPIError: Raised when the Crafatar API is facing some problems, or there is some issues with the
+                              status.
 
         Returns:
             t.Optional[dict]: The JSON response from the Crafatar API, Which is returned.

@@ -48,7 +48,7 @@ class Converters:
 
         Raises:
             MojangAPIError: Raised when there seems to be some problem with the Mojang API, which is contacted,
-            for this conversion.
+                            for this conversion.
 
         Returns:
             str: returns the converted UUID for the respective username.
@@ -70,7 +70,7 @@ class Converters:
 
         Raises:
             MojangAPIError: Raised when there seems to be some problem with the Mojang API, which is contacted,
-            for this conversion.
+                            for this conversion.
 
         Returns:
             str: The username for the respective minecraft UUID is returned.

@@ -33,9 +33,7 @@ from hypixelio.utils.helpers import (
 
 
 class Client:
-    """
-    This Client Contains the Authentication, and Request system for the Hypixel API.
-    """
+    """The client for this wrapper, that handles the requests, authentication, loading and usages of the end user."""
     def __init__(self, api_key: t.Union[str, list], cache: bool = False, cache_config: caching.Caching = None) -> None:
         """
         The constructor for the `Client` class.
@@ -65,14 +63,16 @@ class Client:
 
         Args:
             url (str): The URL to be accessed from the Root Domain.
-            data (dict, optional): The GET Request's Key-Value Pair. Example: {"uuid": "abc"} is converted to `?uuid=abc`. Defaults to None.
+            data (dict, optional): The GET Request's Key-Value Pair. Example: {"uuid": "abc"} is converted to
+                                   `?uuid=abc`. Defaults to None.
 
         Raises:
             RateLimitError: Raised, When a certain user, or API Key is being ratelimited from the API.
             HypixelAPIError: Raised when the Hypixel API is facing some issues, or errors.
 
         Returns:
-            t.Tuple[dict, bool]: The JSON Response from the Fetch Done to the API and the SUCCESS Value from the Response.
+            t.Tuple[dict, bool]: The JSON Response from the Fetch Done to the API and the SUCCESS Value from the
+                                  Response.
         """
         if not data:
             data = {}
@@ -99,7 +99,7 @@ class Client:
 
         Args:
             api_key (t.Optional[str], optional): The API Key generated in Hypixel using `/api new` command. Defaults to
-            None.
+                                                 None.
 
         Raises:
             HypixelAPIError: Raised when the Hypixel API is facing some issues, or errors.
@@ -149,7 +149,7 @@ class Client:
         Raises:
             InvalidArgumentError: Returned when either UUID or Username are not provided.
             HypixelAPIError: Raised when the Hypixel API is facing some issues, or errors.
-            PlayerNotFoundError: Raised, When a ceratin Player is not found.
+            PlayerNotFoundError: Raised, When a certain Player is not found.
 
         Returns:
             player.Player: The Player Class Object, Which depicts the Player Data Model
@@ -209,7 +209,7 @@ class Client:
 
         Returns:
             watchdog.Watchdog: The Watchdog data model with certain important attributes for you to get data about the
-            things by watchdog.
+                               things by watchdog.
         """
         json, success = self._fetch("/watchdogstats")
 
@@ -299,7 +299,6 @@ class Client:
     ) -> find_guild.FindGuild:
         """
         Finds the Guild By the Guild's Name or using a Player's UUID
-
 
         Args:
             guild_name (t.Optional[str], optional): The name of the Guild. Defaults to None.
