@@ -13,11 +13,12 @@ class Games:
         player_count: int,
     ) -> None:
         """
-        The constructor of the Games model.
-
-        Args:
-            games (dict): The Games JSON list data response received from the Hypixel API.
-            player_count (int): The player count in the whole Hypixel Server.
+        Parameters
+        ----------
+        games: dict
+            The Games JSON list data response received from the Hypixel API.
+        player_count: int
+            The player count in the whole Hypixel Server.
         """
         self.PLAYER_COUNT = player_count
 

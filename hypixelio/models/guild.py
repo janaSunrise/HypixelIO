@@ -8,10 +8,10 @@ class Guild:
         data: dict
     ) -> None:
         """
-        The constructor for the Hypixel Guild Model.
-
-        Args:
-            data (dict): The JSON data received from the Hypixel API.
+        Parameters
+        ----------
+        data: dict
+            The JSON data received from the Hypixel API.
         """
         self.HYPIXEL_ID = data["_id"]
         self.NAME = data["name"]

@@ -8,10 +8,10 @@ class LeaderboardData:
         data: dict,
     ) -> None:
         """
-        The Constructor for the Leaderboard Data Model for each Game.
-
-        Args:
-            data (dict): The Leaderboard JSON data per game response received from the Hypixel API.
+        Parameters
+        ----------
+        data: dict
+            The Leaderboard JSON data per game response received from the Hypixel API.
         """
         self.PATH = data['path']
         self.PREFIX = data['prefix']

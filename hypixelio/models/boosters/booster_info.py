@@ -8,10 +8,10 @@ class BoosterInfo:
         info: dict
     ) -> None:
         """
-        The constructor for the Hypixel Booster model.
-
-        Args:
-            info (dict): This contains the Returned JSON Response for the Booster's List Element API Request.
+        Parameters
+        ----------
+        info: dict
+            This contains the Returned JSON Response for the Booster's List Element API Request.
         """
         self.ID = info["_id"]
         self.PURCHASER_UUID = info["purchaserUuid"]

@@ -10,10 +10,10 @@ class Watchdog:
         data: dict
     ) -> None:
         """
-        The constructor for the Hypixel Watchdog Model.
-
-        Args:
-            data (dict): The JSON data received from the Hypixel API.
+        Parameters
+        ----------
+        data: dict
+            The JSON data received from the Hypixel API.
         """
         self.LAST_MINUTE_BAN = data["watchdog_lastMinute"]
 

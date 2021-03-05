@@ -12,10 +12,10 @@ class Friends:
         friends: list
     ) -> None:
         """
-        The contains for the Friends List model.
-
-        Args:
-            friends (list): This contains the Returned JSON Response List for the List of the friends of an user.
+        Parameters
+        ----------
+        friends: list
+            This contains the Returned JSON Response List for the List of the friends of an user.
         """
         self.FRIENDS = [FriendData(friend) for friend in friends]
 

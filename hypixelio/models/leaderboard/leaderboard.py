@@ -10,10 +10,10 @@ class Leaderboard:
         board: dict,
     ) -> None:
         """
-        The constructor for the Leaderboard Model in Hypixel.
-
-        Args:
-            board (dict): The Leaderboard JSON data response received from the Hypixel API.
+        Parameters
+        ----------
+        board: dict
+            The Leaderboard JSON data response received from the Hypixel API.
         """
         self.ARENA = [data(arena) for arena in board['ARENA']]
         self.MCGO = [data(arena) for arena in board['MCGO']]

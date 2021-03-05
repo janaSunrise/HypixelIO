@@ -8,10 +8,10 @@ class Player:
         data: dict
     ) -> None:
         """
-        The constructor for the Hypixel Player Model.
-
-        Args:
-            data (dict): The JSON data received from the Hypixel API.
+        Parameters
+        ----------
+        data: dict
+            The JSON data received from the Hypixel API.
         """
         self.HYPIXEL_ID = data["_id"]
         self.UUID = data["uuid"]

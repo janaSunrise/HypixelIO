@@ -8,10 +8,10 @@ class FindGuild:
         data: dict
     ) -> None:
         """
-        The constructor for the Hypixel Find Guild Model.
-
-        Args:
-            data (dict): The JSON data received from the Hypixel API.
+        Parameters
+        ----------
+        data: dict
+            The JSON data received from the Hypixel API.
         """
         self.ID = data["guild"]
 

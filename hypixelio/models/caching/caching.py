@@ -15,13 +15,16 @@ class Caching:
         old_data_on_error: bool = False
     ) -> None:
         """
-        The Constructor for the Caching Model.
-
-        Args:
-            cache_name (str, optional): The name of the Cache, Which will be stored. Defaults to "cache".
-            backend (str, optional): The format of storage of the Cache. Defaults to CacheBackend.memory.
-            expire_after (int, optional): When will the cahe expire, In seconds. Defaults to None.
-            old_data_on_error (bool, optional): Whether to use old data, If an error occurs.. Defaults to False.
+        Parameters
+        ----------
+        cache_name: str
+            The name of the Cache, Which will be stored. Defaults to "cache".
+        backend: str
+            The format of storage of the Cache. Defaults to CacheBackend.memory.
+        expire_after: int
+            When will the cache expire, In seconds. Defaults to None.
+        old_data_on_error: bool
+            Whether to use old data, If an error occurs. Defaults to False.
         """
         self.cache_name = cache_name
         self.backend = backend

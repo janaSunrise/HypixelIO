@@ -12,10 +12,10 @@ class Boosters:
         boosters: list,
     ) -> None:
         """
-        The constructor for the Booster List model.
-
-        Args:
-            boosters (list): The list of the Coin Boosters in the Hypixel server.
+        Parameters
+        ----------
+        boosters: list
+            The list of the Coin Boosters in the Hypixel server.
         """
         self.BOOSTERS = [BoosterInfo(booster) for booster in boosters]
 

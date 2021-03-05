@@ -8,10 +8,10 @@ class Key:
         data: dict
     ) -> None:
         """
-        The constructor for the Hypixel Key Model.
-
-        Args:
-            data (dict): The JSON data received from the Hypixel API.
+        Parameters
+        ----------
+        data: dict
+            The JSON data received from the Hypixel API.
         """
         self.KEY = data["key"]
         self.OWNER_UUID = data["owner"]
