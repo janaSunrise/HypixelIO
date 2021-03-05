@@ -2,9 +2,7 @@
 
 
 class LeaderboardData:
-    """
-    This is the definition of the Custom Hypixel API Leaderboard Data Model.
-    """
+    """This is the Custom Hypixel API Leaderboard Data Model."""
     def __init__(
         self,
         data: dict,

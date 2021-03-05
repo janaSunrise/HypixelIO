@@ -2,9 +2,7 @@
 
 
 class Player:
-    """
-    This is the Custom Hypixel Player Model.
-    """
+    """The the Custom Hypixel Player Model."""
     def __init__(
         self,
         data: dict

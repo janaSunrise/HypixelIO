@@ -2,9 +2,7 @@
 
 
 class FindGuild:
-    """
-    This is the Custom Hypixel Find Guild Model.
-    """
+    """This is the Custom Hypixel model for looking up guilds."""
     def __init__(
         self,
         data: dict

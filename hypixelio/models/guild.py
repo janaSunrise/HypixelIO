@@ -2,9 +2,7 @@
 
 
 class Guild:
-    """
-    This is the Custom Hypixel Guild Model.
-    """
+    """The the Custom Hypixel Guild Model."""
     def __init__(
         self,
         data: dict
