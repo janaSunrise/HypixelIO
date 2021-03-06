@@ -376,4 +376,3 @@ class Client:
         if not json["profile"]:
             raise PlayerNotFoundError("The skyblock player being searched does not exist!", uuid)
         return skyblock.SkyblockProfile(json)
-        # return json
