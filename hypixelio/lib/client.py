@@ -38,16 +38,41 @@ from hypixelio.utils.helpers import (
 
 
 class Client:
-    """The client for this wrapper, that handles the requests, authentication, loading and usages of the end user."""
+    """The client for this wrapper, that handles the requests, authentication, loading and usages of the end user.
+
+    Examples
+    --------
+    If you have a single API key, Here's how to authenticate
+
+        >>> client = hypixelio.Client(api_key="123-456-789")
+
+    Or, If you have multiple API keys (Better option for load balancing)
+
+        >>> client = hypixelio.Client(api_key=["123-456", "789-000", "568-908"])
+
+    If you want to enable caching, Here's how to do it
+        >>> client = hypixelio.Client(cache=True)
+
+    And configuring cache
+        >>> from hypixelio.models.caching import Caching, CacheBackend
+        >>> cache_cfg = Caching(cache_name="my-cache", backend=CacheBackend.sqlite, expire_after=10)
+        >>> client = hypixelio.Client(cache=True, cache_config=cache_cfg)
+
+    Note
+    ----
+        Keep in mind that, your keys wouldn't work if you're banned from hypixel, or if they're expired.
+        And if you opt for redis, it connects with the default port and host available. For sqlite it
+        creates a `.db` file.
+    """
     def __init__(self, api_key: t.Union[str, list], cache: bool = False, cache_config: caching.Caching = None) -> None:
         """
         Parameters
         ----------
-        api_key: t.Union[str, list]
+        api_key: `t.Union[str, list]`
             The API Key generated in Hypixel using `/api new` command.
-        cache: t.Optional[bool]
+        cache: `t.Optional[bool]`
             Whether to enable caching
-        cache_config: t.Optional[caching.Caching]
+        cache_config: `t.Optional[caching.Caching]`
             The configuration for the saving, and reusing of the cache. Defaults to None.
         """
         self.url = API_PATH["HYPIXEL"]
@@ -56,6 +81,9 @@ class Client:
             self.api_key = [api_key]
 
         if cache:
+            if cache_config is None:
+                cache_config = caching.Caching(expire_after=30, old_data_on_error=True)
+
             requests_cache.install_cache(
                 cache_name=cache_config.cache_name,
                 backend=cache_config.backend,
@@ -70,9 +98,9 @@ class Client:
 
         Parameters
         ----------
-        url: str
+        url: `str`
             The URL to be accessed from the Root Domain.
-        data: t.Optional[dict]
+        data: `t.Optional[dict]`
             The GET Request's Key-Value Pair. Example: {"uuid": "abc"} is converted to `?uuid=abc`. Defaults to None.
 
         Returns
