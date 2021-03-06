@@ -11,9 +11,13 @@ class SkyblockProfile:
         data: dict
             The JSON data received from the Hypixel API.
         """
-        self.PROFILE_ID = data["profile"]["profile_id"]
-        self.MEMBERS = [SkyblockProfileMember(member) for member in data["members"]]
-        self.COMMUNITY_UPGRADES = data["community_upgrades"]
+        self.__PROFILE_JSON = data["profile"]
+
+        self.PROFILE_ID = self.__PROFILE_JSON["profile_id"]
+        self.MEMBERS = [
+            SkyblockProfileMember(self.__PROFILE_JSON["members"][member]) for member in self.__PROFILE_JSON["members"]
+        ]
+        self.COMMUNITY_UPGRADES = self.__PROFILE_JSON["community_upgrades"]
 
     def __str__(self) -> str:
         return self.PROFILE_ID

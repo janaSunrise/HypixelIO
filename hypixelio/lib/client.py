@@ -25,6 +25,7 @@ from hypixelio.models import (
     player,
     player_status,
     recent_games,
+    skyblock,
     watchdog
 )
 from hypixelio.utils.constants import (
@@ -356,3 +357,23 @@ class Client:
                 f"The Key given is invalid, or something else has problem. Reason given: {json['cause']}")
 
         return recent_games.RecentGames(json)
+
+    def get_skyblock_profile(
+            self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+    ) -> skyblock.SkyblockProfile:
+        if name:
+            uuid = Converters.username_to_uuid(name)
+            json, success = self._fetch(self.url["skyblock_profile"], {"profile": uuid})
+        elif uuid:
+            json, success = self._fetch(self.url["skyblock_profile"], {"profile": uuid})
+        else:
+            raise InvalidArgumentError("Please provide a named argument of the player's username or player's UUID.")
+
+        if not success:
+            raise HypixelAPIError(
+                f"The Key given is invalid, or something else has problem. Reason given: {json['cause']}")
+
+        if not json["profile"]:
+            raise PlayerNotFoundError("The skyblock player being searched does not exist!", uuid)
+        return skyblock.SkyblockProfile(json)
+        # return json
