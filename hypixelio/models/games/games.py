@@ -7,11 +7,7 @@ class Games:
     """
     This is the definition of the Custom Hypixel Game count Model.
     """
-    def __init__(
-        self,
-        games: dict,
-        player_count: int,
-    ) -> None:
+    def __init__(self, games: dict, player_count: int) -> None:
         """
         Parameters
         ----------

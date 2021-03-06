@@ -1,12 +1,6 @@
-"""This module is dedicated to definition of the Player class."""
-
-
 class BoosterInfo:
     """The Hypixel API Booster's Info Model."""
-    def __init__(
-        self,
-        info: dict
-    ) -> None:
+    def __init__(self, info: dict) -> None:
         """
         Parameters
         ----------

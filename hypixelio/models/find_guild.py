@@ -1,12 +1,6 @@
-"""This module is dedicated to definition of the Find Guild class."""
-
-
 class FindGuild:
     """This is the Custom Hypixel model for looking up guilds."""
-    def __init__(
-        self,
-        data: dict
-    ) -> None:
+    def __init__(self, data: dict) -> None:
         """
         Parameters
         ----------

@@ -1,5 +1,3 @@
-"""This module is dedicated to definition of the Friends class."""
-
 import typing as t
 
 from .friend_data import FriendData
@@ -7,10 +5,7 @@ from .friend_data import FriendData
 
 class Friends:
     """The the Custom Hypixel API Friends Model."""
-    def __init__(
-        self,
-        friends: list
-    ) -> None:
+    def __init__(self, friends: list) -> None:
         """
         Parameters
         ----------

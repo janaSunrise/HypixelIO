@@ -5,10 +5,7 @@ from .leaderboard_data import LeaderboardData as data
 
 class Leaderboard:
     """This is the definition of the Custom Hypixel API Leaderboard Model."""
-    def __init__(
-        self,
-        board: dict,
-    ) -> None:
+    def __init__(self, board: dict) -> None:
         """
         Parameters
         ----------

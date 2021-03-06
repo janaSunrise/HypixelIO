@@ -1,12 +1,6 @@
-"""This module is dedicated to definition of the Player class."""
-
-
 class Player:
     """The the Custom Hypixel Player Model."""
-    def __init__(
-        self,
-        data: dict
-    ) -> None:
+    def __init__(self, data: dict) -> None:
         """
         Parameters
         ----------

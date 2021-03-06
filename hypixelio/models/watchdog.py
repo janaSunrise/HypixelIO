@@ -1,14 +1,6 @@
-"""This module is dedicated to definition of the Key class."""
-
-
 class Watchdog:
-    """
-    This is the definition of the Custom Hypixel API Key Model.
-    """
-    def __init__(
-        self,
-        data: dict
-    ) -> None:
+    """This is the definition of the Custom Hypixel API Key Model."""
+    def __init__(self, data: dict) -> None:
         """
         Parameters
         ----------

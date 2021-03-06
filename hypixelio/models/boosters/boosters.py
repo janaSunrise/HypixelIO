@@ -1,5 +1,3 @@
-"""This module is dedicated to definition of the Boosters class."""
-
 import typing as t
 
 from .booster_info import BoosterInfo
@@ -7,11 +5,7 @@ from .booster_info import BoosterInfo
 
 class Boosters:
     """The the Custom Hypixel API Boosters Model."""
-    def __init__(
-        self,
-        boosters: list,
-        json: dict
-    ) -> None:
+    def __init__(self, boosters: list, json: dict) -> None:
         """
         Parameters
         ----------

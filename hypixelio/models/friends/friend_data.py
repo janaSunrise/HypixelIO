@@ -1,14 +1,8 @@
-"""This module is dedicated to definition of the Friend's Data class."""
-
-
 class FriendData:
     """
     This is the Custom Hypixel API Friend's Data Model.
     """
-    def __init__(
-        self,
-        friend: dict,
-    ) -> None:
+    def __init__(self, friend: dict) -> None:
         """
         Parameters
         ----------

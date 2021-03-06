@@ -3,10 +3,7 @@
 
 class LeaderboardData:
     """This is the Custom Hypixel API Leaderboard Data Model."""
-    def __init__(
-        self,
-        data: dict,
-    ) -> None:
+    def __init__(self, data: dict) -> None:
         """
         Parameters
         ----------
