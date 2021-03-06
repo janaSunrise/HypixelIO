@@ -42,7 +42,7 @@ setuptools.setup(
     ),
 
     install_requires=[
-        'requests==2.25.0',
+        'requests==2.25.1',
         'requests-cache==0.5.2'
     ],
 
