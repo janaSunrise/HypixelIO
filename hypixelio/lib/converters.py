@@ -23,12 +23,12 @@ class Converters:
 
         Parameters
         ----------
-        url: str
+        url: `str`
             The Mojang URL, whose JSON is supposed to be fetched.
 
         Returns
         -------
-        t.Optional[dict]
+        `t.Optional[dict]`
             The JSON response from the Mojang API, Which is returned.
         """
         with requests.get(f"{MOJANG_API}{url}", timeout=TIMEOUT) as response:
@@ -48,12 +48,12 @@ class Converters:
 
         Parameters
         ----------
-        username: str
+        username: `str`
             This is the minecraft user, which is passed to this function for the UUID Conversion.
 
         Returns
         -------
-        str
+        `str`
             returns the converted UUID for the respective username.
         """
         json = Converters._fetch(Converters.url["username_to_uuid"].format(username))
@@ -69,12 +69,12 @@ class Converters:
 
         Parameters
         ----------
-        uuid: str
+        uuid: `str`
             This is the minecraft UUID, which is passed to this function for the UUID to username Conversion.
 
         Returns
         -------
-        str
+        `str`
             The username for the respective minecraft UUID is returned.
         """
         json = Converters._fetch(Converters.url["uuid_to_username"].format(uuid))

@@ -58,11 +58,11 @@ class Client:
         >>> cache_cfg = Caching(cache_name="my-cache", backend=CacheBackend.sqlite, expire_after=10)
         >>> client = hypixelio.Client(cache=True, cache_config=cache_cfg)
 
-    Note
-    ----
-        Keep in mind that, your keys wouldn't work if you're banned from hypixel, or if they're expired.
-        And if you opt for redis, it connects with the default port and host available. For sqlite it
-        creates a `.db` file.
+    Notes
+    -----
+    Keep in mind that, your keys wouldn't work if you're banned from hypixel, or if they're expired.
+    And if you opt for redis, it connects with the default port and host available. For sqlite it
+    creates a `.db` file.
     """
     def __init__(self, api_key: t.Union[str, list], cache: bool = False, cache_config: caching.Caching = None) -> None:
         """
@@ -105,7 +105,7 @@ class Client:
 
         Returns
         -------
-        t.Tuple[dict, bool]
+        `t.Tuple[dict, bool]`
             The JSON Response from the Fetch Done to the API and the SUCCESS Value from the Response.
         """
         if not data:
@@ -132,12 +132,12 @@ class Client:
 
         Parameters
         ----------
-        api_key: t.Optional[str]
+        api_key: `t.Optional[str]`
             The API Key generated in Hypixel using `/api new` command. Defaults to None.
 
         Returns
         -------
-        key.Key
+        `key.Key`
             Key object for the API Key.
         """
         if not api_key:
@@ -155,7 +155,7 @@ class Client:
 
         Returns
         -------
-        boosters.Boosters
+        `boosters.Boosters`
             The Booster class object which depicts the booster data model.
         """
         json, success = self._fetch(self.url["boosters"])
@@ -170,14 +170,14 @@ class Client:
 
         Parameters
         ----------
-        name: t.Optional[str]
+        name: `t.Optional[str]`
             The Optional string value for the Username. Defaults to None.
-        uuid: t.Optional[str]
+        uuid: `t.Optional[str]`
             The Optional string Value to the UUID. Defaults to None.
 
         Returns
         -------
-        player.Player
+        `player.Player`
             The Player Class Object, Which depicts the Player Data Model
         """
         if name:
@@ -201,12 +201,12 @@ class Client:
 
         Parameters
         ----------
-        uuid: t.Optional[str]
+        uuid: `t.Optional[str]`
             The UUID of a Certain Hypixel Player. Defaults to None.
 
         Returns
         -------
-        friends.Friends
+        `friends.Friends`
             Returns the Friend Data Model, Which has the List of Friends, each with a list of attributes.
         """
         if uuid:
@@ -224,7 +224,7 @@ class Client:
 
         Returns
         -------
-        watchdog.Watchdog
+        `watchdog.Watchdog`
             The Watchdog data model with certain important attributes for you to get data about the things by watchdog.
         """
         json, success = self._fetch(self.url["watchdog"])
@@ -235,18 +235,18 @@ class Client:
 
     def get_guild(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> guild.Guild:
         """
-        Get the Info about a Hypixel Guild, Either using Name or UUID.
+        Get the info about a Hypixel Guild, Either using Name or UUID.
 
         Parameters
         ----------
-        name: t.Optional[str]
+        name: `t.Optional[str]`
             The Name of the Guild. Defaults to None.
-        uuid: t.Optional[str]
+        uuid: `t.Optional[str]`
             The ID Of the guild. Defaults to None.
 
         Returns
         -------
-        guild.Guild
+        `guild.Guild`
             The Guild Object with certain Attributes for you to access, and use it.
         """
         if uuid:
@@ -269,7 +269,7 @@ class Client:
 
         Returns
         -------
-        games.Games
+        `games.Games`
             The Games Data model, Containing the information, and attributes for all the games.
         """
         json, success = self._fetch(self.url["game_info"])
@@ -284,7 +284,7 @@ class Client:
 
         Returns
         -------
-        leaderboard.Leaderboard
+        `leaderboard.Leaderboard`
             The Leaderboard data model, containing all the ranking for the games in Hypixel.
         """
         json, success = self._fetch(self.url["leaderboards"])
@@ -301,14 +301,14 @@ class Client:
 
         Parameters
         ----------
-        guild_name: t.Optional[str]
+        guild_name: `t.Optional[str]`
             The name of the Guild. Defaults to None.
-        player_uuid: t.Optional[str]
+        player_uuid: `t.Optional[str]`
             The UUID of the Player to find his guild. Defaults to None.
 
         Returns
         -------
-        find_guild.FindGuild
+        `find_guild.FindGuild`
             The ID of the guild being find.
         """
         if guild_name:
@@ -330,14 +330,14 @@ class Client:
 
         Parameters
         ----------
-        name: t.Optional[str]
+        name: `t.Optional[str]`
             The Optional string value for the Username. Defaults to None.
-        uuid: t.Optional[str]
+        uuid: `t.Optional[str]`
             The Optional string Value to the UUID. Defaults to None.
 
         Returns
         -------
-        player_status.PlayerStatus
+        `player_status.PlayerStatus`
             The Player Status Object, which depicts the Player's status
         """
         if name:
@@ -362,14 +362,14 @@ class Client:
 
         Parameters
         ----------
-        name: t.Optional[str]
+        name: `t.Optional[str]`
             The Optional string value for the Username. Defaults to None.
-        uuid: t.Optional[str]
+        uuid: `t.Optional[str]`
             The Optional string Value to the UUID. Defaults to None.
 
         Returns
         -------
-        recent_games.RecentGames
+        `recent_games.RecentGames`
             The recent games model for the respective player specified.
         """
         if name:
@@ -394,14 +394,14 @@ class Client:
 
         Parameters
         ----------
-        name: str
+        name: `str`
             The player's name in Hypixel
-        uuid: str
+        uuid: `str`
             The player's global UUID
 
         Returns
         -------
-        skyblock.SkyblockProfile
+        `skyblock.SkyblockProfile`
             The skyblock profile model for the user.
         """
         if name:

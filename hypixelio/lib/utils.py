@@ -27,12 +27,12 @@ class Utils:
 
         Parameters
         ----------
-        url: str
+        url: `str`
             The Crafatar URL, whose JSON is supposed to be fetched.
 
         Returns
         -------
-        t.Optional[dict]
+        `t.Optional[dict]`
             The JSON response from the Crafatar API, which is returned.
         """
         with requests.get(f"https://crafatar.com/{url}", timeout=TIMEOUT) as response:
@@ -51,12 +51,12 @@ class Utils:
 
         Parameters
         ----------
-        route: str
+        route: `str`
             The URL path to visit.
 
         Returns
         -------
-        str
+        `str`
             The well formed API URL for fetching.
         """
         return f"https://crafatar.com{route}"
@@ -70,16 +70,16 @@ class Utils:
 
         Parameters
         ----------
-        name: t.Optional[str]
+        name: `t.Optional[str]`
             The username of the player. Defaults to None.
-        uuid: t.Optional[str]
+        uuid: `t.Optional[str]`
             The UUID of the player. Defaults to None.
-        changed_at: bool
+        changed_at: `bool`
             Toggle to true, if you need when the player changed name. Defaults to False.
 
         Returns
         -------
-        t.Union[list, dict]
+        `t.Union[list, dict]`
             The list or dictionary with the name history and records.
         """
         if name:
@@ -105,14 +105,14 @@ class Utils:
 
         Parameters
         ----------
-        name: t.Optional[str]
+        name: `t.Optional[str]`
             The username of the player. Defaults to None.
-        uuid: t.Optional[str]
+        uuid: `t.Optional[str]`
             The UUID of the player. Defaults to None.
 
         Returns
         -------
-        str
+        `str`
             The URL containing the image of the avatar.
         """
         if name:
@@ -132,14 +132,14 @@ class Utils:
 
         Parameters
         ----------
-        name: t.Optional[str]
+        name: `t.Optional[str]`
             The username of the player. Defaults to None.
-        uuid: t.Optional[str]
+        uuid: `t.Optional[str]`
             The UUID of the player. Defaults to None.
 
         Returns
         -------
-        str
+        `str`
             The URL containing the image of the head.
         """
         if name:
@@ -159,14 +159,14 @@ class Utils:
 
         Parameters
         ----------
-        name: t.Optional[str]
+        name: `t.Optional[str]`
             The username of the player. Defaults to None.
-        uuid: t.Optional[str]
+        uuid: `t.Optional[str]`
             The UUID of the player. Defaults to None.
 
         Returns
         -------
-        str
+        `str`
             The URL containing the image of the whole body.
         """
         if name:
