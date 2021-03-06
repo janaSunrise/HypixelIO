@@ -390,7 +390,7 @@ class Client:
             self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
     ) -> skyblock.SkyblockProfile:
         """
-        Get the skyblock information and profile about a specific used as passed in the requirements.
+        Get the skyblock information and profile about a specific user as passed in the requirements.
 
         Parameters
         ----------
@@ -419,3 +419,37 @@ class Client:
         if not json["profile"]:
             raise PlayerNotFoundError("The skyblock player being searched does not exist!", uuid)
         return skyblock.SkyblockProfile(json)
+
+    def get_skyblock_auctions(
+            self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+    ) -> skyblock.SkyblockUserAuction:
+        """
+        Get the skyblock auction info about a specific user as passed in the requirements.
+
+        Parameters
+        ----------
+        name: `str`
+            The player's name in Hypixel
+        uuid: `str`
+            The player's global UUID
+
+        Returns
+        -------
+        `skyblock.SkyblockUserAuction`
+            The skyblock auction model for the user.
+        """
+        if name:
+            uuid = Converters.username_to_uuid(name)
+            json, success = self._fetch(self.url["skyblock_auctions"], {"profile": uuid})
+        elif uuid:
+            json, success = self._fetch(self.url["skyblock_auctions"], {"profile": uuid})
+        else:
+            raise InvalidArgumentError("Please provide a named argument of the player's username or player's UUID.")
+
+        if not success:
+            raise HypixelAPIError(
+                f"The Key given is invalid, or something else has problem. Reason given: {json['cause']}")
+
+        if not json["auctions"]:
+            raise PlayerNotFoundError("The skyblock player being searched does not exist!", uuid)
+        return skyblock.SkyblockUserAuction(json)
