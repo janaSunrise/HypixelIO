@@ -54,6 +54,10 @@ source_suffix = {
     '.md': 'markdown',
 }
 
+html_theme_options = {
+    'wending_last_updated': False
+}
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
