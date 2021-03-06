@@ -1,3 +1,5 @@
+import re
+
 # Configuration file for the Sphinx documentation builder.
 #
 # This file only contains a selection of the most common options. For a full
@@ -18,8 +20,14 @@
 # -- Project information -----------------------------------------------------
 
 project = 'HypixelIO'
-copyright = '2020, Sunrit Jana'
+copyright = '2021, Sunrit Jana'
 author = 'Sunrit Jana'
+
+version = ''
+with open('../discord/__init__.py') as f:
+    version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE).group(1)
+
+release = version
 
 
 # -- General configuration ---------------------------------------------------
@@ -28,8 +36,16 @@ author = 'Sunrit Jana'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'recommonmark'
+    'recommonmark',
+    "sphinx.ext.intersphinx",
+    "sphinx.ext.autodoc",
+    "sphinx.ext.mathjax",
+    "sphinx.ext.viewcode",
 ]
+
+extlinks = {
+    'issue': ('https://github.com/janaSunrise/HypixelIO/issues/%s', 'GH-'),
+}
 
 source_suffix = {
     '.rst': 'restructuredtext',
@@ -51,7 +67,7 @@ exclude_patterns = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = 'insegel'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
