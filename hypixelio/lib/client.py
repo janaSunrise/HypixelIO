@@ -330,7 +330,7 @@ class Client:
             self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
     ) -> recent_games.RecentGames:
         """
-        Get the recent games played by a  Hypixel Player using either his Username or UUID.
+        Get the recent games played by a Hypixel Player using either his Username or UUID.
 
         Parameters
         ----------
@@ -361,6 +361,21 @@ class Client:
     def get_skyblock_profile(
             self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
     ) -> skyblock.SkyblockProfile:
+        """
+        Get the skyblock information and profile about a specific used as passed in the requirements.
+
+        Parameters
+        ----------
+        name: str
+            The player's name in Hypixel
+        uuid: str
+            The player's global UUID
+
+        Returns
+        -------
+        skyblock.SkyblockProfile
+            The skyblock profile model for the user.
+        """
         if name:
             uuid = Converters.username_to_uuid(name)
             json, success = self._fetch(self.url["skyblock_profile"], {"profile": uuid})
