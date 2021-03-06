@@ -55,7 +55,7 @@ source_suffix = {
 }
 
 html_theme_options = {
-    'wending_last_updated': False
+    'wending_last_updated': False,
 }
 
 # Add any paths that contain templates here, relative to this directory.
