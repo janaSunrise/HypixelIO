@@ -122,9 +122,17 @@ class Client:
 
             try:
                 json = response.json()
-                return json, json["success"]
             except Exception as exception:
-                raise HypixelAPIError(f"Invalid Content type Received instead of JSON. {exception}")
+                raise HypixelAPIError(f"{exception}")
+            else:
+                if not json["success"]:
+                    reason = "The Key given is invalid, or something else has problem."
+                    if json["cause"] is not None:
+                        reason += f" Reason given: {json['cause']}"
+
+                    raise HypixelAPIError(reason=reason)
+
+                return json, json["success"]
 
     def get_key_info(self, api_key: t.Optional[str] = None) -> key.Key:
         """
@@ -144,9 +152,6 @@ class Client:
             api_key = random.choice(self.api_key)
 
         json, success = self._fetch(self.url["api_key"], {"key": api_key})
-
-        if not success:
-            raise HypixelAPIError("The Key given is invalid, or something else has problem.")
         return key.Key(json["record"])
 
     def get_boosters(self) -> boosters.Boosters:
@@ -160,8 +165,6 @@ class Client:
         """
         json, success = self._fetch(self.url["boosters"])
 
-        if not success:
-            raise HypixelAPIError("The Key given is invalid, or something else has problem.")
         return boosters.Boosters(json["boosters"], json)
 
     def get_player(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> player.Player:
@@ -187,10 +190,6 @@ class Client:
         else:
             raise InvalidArgumentError("Please provide a named argument of the player's username or player's UUID.")
 
-        if not success:
-            raise HypixelAPIError(
-                f"The Key given is invalid, or something else has problem. Reason given: {json['cause']}")
-
         if not json["player"]:
             raise PlayerNotFoundError("Null Value is returned", name)
         return player.Player(json["player"])
@@ -214,8 +213,6 @@ class Client:
         else:
             raise InvalidArgumentError("Please provide a Named argument of the player's UUID")
 
-        if not success:
-            raise HypixelAPIError("The Key given is invalid, or something else has problem.")
         return friends.Friends(json["records"])
 
     def get_watchdog_info(self) -> watchdog.Watchdog:
@@ -229,8 +226,6 @@ class Client:
         """
         json, success = self._fetch(self.url["watchdog"])
 
-        if not success:
-            raise HypixelAPIError(f"The Key given is invalid, or something else has problem. Cause: {json['cause']}")
         return watchdog.Watchdog(json)
 
     def get_guild(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> guild.Guild:
@@ -256,9 +251,6 @@ class Client:
         else:
             raise InvalidArgumentError("Please provide a Named argument of the guild's Name or guild's ID.")
 
-        if not success:
-            raise HypixelAPIError("The Key given is invalid, or something else has problem.")
-
         if not json["guild"]:
             raise GuildNotFoundError("Return Value is null")
         return guild.Guild(json["guild"])
@@ -274,8 +266,6 @@ class Client:
         """
         json, success = self._fetch(self.url["game_info"])
 
-        if not success:
-            raise HypixelAPIError("The Key given is invalid, or something else has problem.")
         return games.Games(json["games"], json["playerCount"])
 
     def get_leaderboards(self) -> leaderboard.Leaderboard:
@@ -289,8 +279,6 @@ class Client:
         """
         json, success = self._fetch(self.url["leaderboards"])
 
-        if not success:
-            raise HypixelAPIError("The Key given is invalid, or something else has problem.")
         return leaderboard.Leaderboard(json["leaderboards"])
 
     def find_guild(
@@ -318,8 +306,6 @@ class Client:
         else:
             raise InvalidArgumentError("Please provide a Named argument of the guild's Name or guild's ID.")
 
-        if not success:
-            raise HypixelAPIError("The Key given is invalid, or something else has problem.")
         return find_guild.FindGuild(json)
 
     def get_player_status(
@@ -347,10 +333,6 @@ class Client:
             json, success = self._fetch(self.url["status"], {"uuid": uuid})
         else:
             raise InvalidArgumentError("Please provide a named argument of the player's username or player's UUID.")
-
-        if not success:
-            raise HypixelAPIError(
-                f"The Key given is invalid, or something else has problem. Reason given: {json['cause']}")
 
         return player_status.PlayerStatus(json)
 
@@ -380,10 +362,6 @@ class Client:
         else:
             raise InvalidArgumentError("Please provide a named argument of the player's username or player's UUID.")
 
-        if not success:
-            raise HypixelAPIError(
-                f"The Key given is invalid, or something else has problem. Reason given: {json['cause']}")
-
         return recent_games.RecentGames(json)
 
     def get_skyblock_profile(
@@ -411,10 +389,6 @@ class Client:
             json, success = self._fetch(self.url["skyblock_profile"], {"profile": uuid})
         else:
             raise InvalidArgumentError("Please provide a named argument of the player's username or player's UUID.")
-
-        if not success:
-            raise HypixelAPIError(
-                f"The Key given is invalid, or something else has problem. Reason given: {json['cause']}")
 
         if not json["profile"]:
             raise PlayerNotFoundError("The skyblock player being searched does not exist!", uuid)
@@ -445,10 +419,6 @@ class Client:
             json, success = self._fetch(self.url["skyblock_auctions"], {"profile": uuid})
         else:
             raise InvalidArgumentError("Please provide a named argument of the player's username or player's UUID.")
-
-        if not success:
-            raise HypixelAPIError(
-                f"The Key given is invalid, or something else has problem. Reason given: {json['cause']}")
 
         if not json["auctions"]:
             raise PlayerNotFoundError("The skyblock player being searched does not exist!", uuid)
