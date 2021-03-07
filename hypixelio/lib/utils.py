@@ -44,6 +44,16 @@ class Utils:
             except Exception:
                 raise CrafatarAPIError("There seems to be some problem with the content type or the API IS down.")
 
+    @staticmethod
+    def _filter_name_uuid(name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
+        if not name and not uuid:
+            raise InvalidArgumentError("Please provide a named argument of the player's username or player's UUID.")
+
+        if name:
+            uuid = Converters.username_to_uuid(name)
+
+        return uuid
+
     @classmethod
     def _form_crafatar_url(cls, route: str) -> str:
         """
@@ -82,16 +92,12 @@ class Utils:
         `t.Union[list, dict]`
             The list or dictionary with the name history and records.
         """
-        if name:
-            uuid = Converters.username_to_uuid(name)
-            json = Converters._fetch(Utils.mojang_url["name_history"].format(uuid))
-        elif uuid:
-            json = Converters._fetch(Utils.mojang_url["name_history"].format(uuid))
-        else:
-            raise InvalidArgumentError("Please provide a Named argument of the User's name or UUID.")
+        uuid = cls._filter_name_uuid(name, uuid)
+        json = Converters._fetch(Utils.mojang_url["name_history"].format(uuid))
 
         if changed_at:
             return json
+
         usernames = []
         for data in json:
             usernames.append(data["name"])
@@ -115,13 +121,8 @@ class Utils:
         `str`
             The URL containing the image of the avatar.
         """
-        if name:
-            uuid = Converters.username_to_uuid(name)
-            Utils._crafatar_fetch(Utils.url["avatar"].format(uuid))
-        elif uuid:
-            Utils._crafatar_fetch(Utils.url["avatar"].format(uuid))
-        else:
-            raise InvalidArgumentError("Please provide a Named argument of the User's name or UUID.")
+        uuid = cls._filter_name_uuid(name, uuid)
+        Utils._crafatar_fetch(Utils.url["avatar"].format(uuid))
 
         return Utils._form_crafatar_url(Utils.url["avatar"].format(uuid))
 
@@ -142,13 +143,8 @@ class Utils:
         `str`
             The URL containing the image of the head.
         """
-        if name:
-            uuid = Converters.username_to_uuid(name)
-            Utils._crafatar_fetch(Utils.url["head"].format(uuid))
-        elif uuid:
-            Utils._crafatar_fetch(Utils.url["head"].format(uuid))
-        else:
-            raise InvalidArgumentError("Please provide a Named argument of the User's name or UUID.")
+        uuid = cls._filter_name_uuid(name, uuid)
+        Utils._crafatar_fetch(Utils.url["head"].format(uuid))
 
         return Utils._form_crafatar_url(Utils.url["head"].format(uuid))
 
@@ -169,12 +165,7 @@ class Utils:
         `str`
             The URL containing the image of the whole body.
         """
-        if name:
-            uuid = Converters.username_to_uuid(name)
-            Utils._crafatar_fetch(Utils.url["body"].format(uuid))
-        elif uuid:
-            Utils._crafatar_fetch(Utils.url["body"].format(uuid))
-        else:
-            raise InvalidArgumentError("Please provide a Named argument of the User's name or UUID.")
+        uuid = cls._filter_name_uuid(name, uuid)
+        Utils._crafatar_fetch(Utils.url["body"].format(uuid))
 
         return Utils._form_crafatar_url(Utils.url["body"].format(uuid))
