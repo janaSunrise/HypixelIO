@@ -40,9 +40,13 @@ class Converters:
 
             try:
                 json = response.json()
-                return json
             except Exception:
                 raise MojangAPIError("There seems to be some problem with the content type or the API is down.")
+            else:
+                if "error" in json:
+                    raise MojangAPIError(f"An error occurred! {json['errorMessage']}")
+
+                return json
 
     @classmethod
     def username_to_uuid(cls, username: str) -> str:
@@ -61,8 +65,6 @@ class Converters:
         """
         json = Converters._fetch(Converters.url["username_to_uuid"].format(username))
 
-        if "error" in json:
-            raise MojangAPIError(f"An error occurred! {json['errorMessage']}")
         return json["id"]
 
     @classmethod
@@ -82,6 +84,4 @@ class Converters:
         """
         json = Converters._fetch(Converters.url["uuid_to_username"].format(uuid))
 
-        if "error" in json:
-            raise MojangAPIError(f"An error occurred! {json['errorMessage']}")
         return json[-1]["name"]
