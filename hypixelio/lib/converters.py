@@ -4,7 +4,6 @@ import requests
 
 from hypixelio.endpoints import API_PATH
 from hypixelio.exceptions.exceptions import (
-    HypixelAPIError,
     MojangAPIError,
     PlayerNotFoundError
 )
