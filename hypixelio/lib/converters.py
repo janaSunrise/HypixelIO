@@ -4,8 +4,10 @@ import requests
 
 from hypixelio.endpoints import API_PATH
 from hypixelio.exceptions.exceptions import (
+    HypixelAPIError,
     InvalidArgumentError,
-    MojangAPIError
+    MojangAPIError,
+    PlayerNotFoundError
 )
 from hypixelio.utils.constants import (
     MOJANG_API,
@@ -32,8 +34,10 @@ class Converters:
             The JSON response from the Mojang API, Which is returned.
         """
         with requests.get(f"{MOJANG_API}{url}", timeout=TIMEOUT) as response:
-            if response.status_code != 200:
-                raise InvalidArgumentError("Invalid data passed for conversion!")
+            if response.status_code == 204:
+                raise PlayerNotFoundError("204 value returned during conversion to UUID.", None)
+            elif response.status_code == 400:
+                raise HypixelAPIError("Badly formed UUID error.")
 
             try:
                 json = response.json()

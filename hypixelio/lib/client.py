@@ -132,7 +132,7 @@ class Client:
 
                     raise HypixelAPIError(reason=reason)
 
-                return json, json["success"]
+                return json
 
     @staticmethod
     def _filter_name_uuid(name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
@@ -161,7 +161,7 @@ class Client:
         if not api_key:
             api_key = random.choice(self.api_key)
 
-        json, success = self._fetch(self.url["api_key"], {"key": api_key})
+        json = self._fetch(self.url["api_key"], {"key": api_key})
         return key.Key(json["record"])
 
     def get_boosters(self) -> boosters.Boosters:
@@ -173,7 +173,7 @@ class Client:
         `boosters.Boosters`
             The Booster class object which depicts the booster data model.
         """
-        json, success = self._fetch(self.url["boosters"])
+        json = self._fetch(self.url["boosters"])
 
         return boosters.Boosters(json["boosters"], json)
 
@@ -194,10 +194,11 @@ class Client:
             The Player Class Object, Which depicts the Player Data Model
         """
         uuid = self._filter_name_uuid(name, uuid)
-        json, success = self._fetch(self.url["player"], {"uuid": uuid})
+        json = self._fetch(self.url["player"], {"uuid": uuid})
 
         if not json["player"]:
             raise PlayerNotFoundError("Null Value is returned", name)
+
         return player.Player(json["player"])
 
     def get_friends(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> friends.Friends:
@@ -217,7 +218,7 @@ class Client:
             Returns the Friend Data Model, Which has the List of Friends, each with a list of attributes.
         """
         uuid = self._filter_name_uuid(name, uuid)
-        json, success = self._fetch(self.url["friends"], {"uuid": uuid})
+        json = self._fetch(self.url["friends"], {"uuid": uuid})
 
         return friends.Friends(json["records"])
 
@@ -230,7 +231,7 @@ class Client:
         `watchdog.Watchdog`
             The Watchdog data model with certain important attributes for you to get data about the things by watchdog.
         """
-        json, success = self._fetch(self.url["watchdog"])
+        json = self._fetch(self.url["watchdog"])
 
         return watchdog.Watchdog(json)
 
@@ -251,9 +252,9 @@ class Client:
             The Guild Object with certain Attributes for you to access, and use it.
         """
         if uuid:
-            json, success = self._fetch(self.url["guild"], {"id": uuid})
+            json = self._fetch(self.url["guild"], {"id": uuid})
         elif name:
-            json, success = self._fetch(self.url["guild"], {"name": name})
+            json = self._fetch(self.url["guild"], {"name": name})
         else:
             raise InvalidArgumentError("Please provide a Named argument of the guild's Name or guild's ID.")
 
@@ -270,7 +271,7 @@ class Client:
         `games.Games`
             The Games Data model, Containing the information, and attributes for all the games.
         """
-        json, success = self._fetch(self.url["game_info"])
+        json = self._fetch(self.url["game_info"])
 
         return games.Games(json["games"], json["playerCount"])
 
@@ -283,7 +284,7 @@ class Client:
         `leaderboard.Leaderboard`
             The Leaderboard data model, containing all the ranking for the games in Hypixel.
         """
-        json, success = self._fetch(self.url["leaderboards"])
+        json = self._fetch(self.url["leaderboards"])
 
         return leaderboard.Leaderboard(json["leaderboards"])
 
@@ -306,9 +307,9 @@ class Client:
             The ID of the guild being find.
         """
         if guild_name:
-            json, success = self._fetch(self.url["find_guild"], {"byName": guild_name})
+            json = self._fetch(self.url["find_guild"], {"byName": guild_name})
         elif player_uuid:
-            json, success = self._fetch(self.url["find_guild"], {"byUuid": player_uuid})
+            json = self._fetch(self.url["find_guild"], {"byUuid": player_uuid})
         else:
             raise InvalidArgumentError("Please provide a Named argument of the guild's Name or guild's ID.")
 
@@ -333,7 +334,7 @@ class Client:
             The Player Status Object, which depicts the Player's status
         """
         uuid = self._filter_name_uuid(name, uuid)
-        json, success = self._fetch(self.url["status"], {"uuid": uuid})
+        json = self._fetch(self.url["status"], {"uuid": uuid})
 
         return player_status.PlayerStatus(json)
 
@@ -356,7 +357,7 @@ class Client:
             The recent games model for the respective player specified.
         """
         uuid = self._filter_name_uuid(name, uuid)
-        json, success = self._fetch(self.url["recent_games"], {"uuid": uuid})
+        json = self._fetch(self.url["recent_games"], {"uuid": uuid})
 
         return recent_games.RecentGames(json)
 
@@ -379,7 +380,7 @@ class Client:
             The skyblock profile model for the user.
         """
         uuid = self._filter_name_uuid(name, uuid)
-        json, success = self._fetch(self.url["skyblock_profile"], {"profile": uuid})
+        json = self._fetch(self.url["skyblock_profile"], {"profile": uuid})
 
         if not json["profile"]:
             raise PlayerNotFoundError("The skyblock player being searched does not exist!", uuid)
@@ -405,7 +406,7 @@ class Client:
             The skyblock auction model for the user.
         """
         uuid = self._filter_name_uuid(name, uuid)
-        json, success = self._fetch(self.url["skyblock_auctions"], {"profile": uuid})
+        json = self._fetch(self.url["skyblock_auctions"], {"profile": uuid})
 
         if not json["auctions"]:
             raise PlayerNotFoundError("The skyblock player being searched does not exist!", uuid)
