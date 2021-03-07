@@ -134,6 +134,16 @@ class Client:
 
                 return json, json["success"]
 
+    @staticmethod
+    def _filter_name_uuid(name: str, uuid: str) -> str:
+        if not name and not uuid:
+            raise InvalidArgumentError("Please provide a named argument of the player's username or player's UUID.")
+
+        if name:
+            uuid = Converters.username_to_uuid(name)
+
+        return uuid
+
     def get_key_info(self, api_key: t.Optional[str] = None) -> key.Key:
         """
         Get the Info about an API Key generated in Hypixel.
@@ -183,23 +193,21 @@ class Client:
         `player.Player`
             The Player Class Object, Which depicts the Player Data Model
         """
-        if name:
-            json, success = self._fetch(self.url["player"], {"name": name})
-        elif uuid:
-            json, success = self._fetch(self.url["player"], {"uuid": uuid})
-        else:
-            raise InvalidArgumentError("Please provide a named argument of the player's username or player's UUID.")
+        uuid = self._filter_name_uuid(name, uuid)
+        json, success = self._fetch(self.url["player"], {"uuid": uuid})
 
         if not json["player"]:
             raise PlayerNotFoundError("Null Value is returned", name)
         return player.Player(json["player"])
 
-    def get_friends(self, uuid: t.Optional[str] = None) -> friends.Friends:
+    def get_friends(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> friends.Friends:
         """
         Get the List of Friends of a Hypixel Player and their Info.
 
         Parameters
         ----------
+        name: `t.Optional[str]`
+            The Optional string value for the Username of a hypixel player.. Defaults to None.
         uuid: `t.Optional[str]`
             The UUID of a Certain Hypixel Player. Defaults to None.
 
@@ -208,10 +216,8 @@ class Client:
         `friends.Friends`
             Returns the Friend Data Model, Which has the List of Friends, each with a list of attributes.
         """
-        if uuid:
-            json, success = self._fetch(self.url["friends"], {"uuid": uuid})
-        else:
-            raise InvalidArgumentError("Please provide a Named argument of the player's UUID")
+        uuid = self._filter_name_uuid(name, uuid)
+        json, success = self._fetch(self.url["friends"], {"uuid": uuid})
 
         return friends.Friends(json["records"])
 
@@ -326,13 +332,8 @@ class Client:
         `player_status.PlayerStatus`
             The Player Status Object, which depicts the Player's status
         """
-        if name:
-            uuid = Converters.username_to_uuid(name)
-            json, success = self._fetch(self.url["status"], {"uuid": uuid})
-        elif uuid:
-            json, success = self._fetch(self.url["status"], {"uuid": uuid})
-        else:
-            raise InvalidArgumentError("Please provide a named argument of the player's username or player's UUID.")
+        uuid = self._filter_name_uuid(name, uuid)
+        json, success = self._fetch(self.url["status"], {"uuid": uuid})
 
         return player_status.PlayerStatus(json)
 
@@ -354,13 +355,8 @@ class Client:
         `recent_games.RecentGames`
             The recent games model for the respective player specified.
         """
-        if name:
-            uuid = Converters.username_to_uuid(name)
-            json, success = self._fetch(self.url["recent_games"], {"uuid": uuid})
-        elif uuid:
-            json, success = self._fetch(self.url["recent_games"], {"uuid": uuid})
-        else:
-            raise InvalidArgumentError("Please provide a named argument of the player's username or player's UUID.")
+        uuid = self._filter_name_uuid(name, uuid)
+        json, success = self._fetch(self.url["recent_games"], {"uuid": uuid})
 
         return recent_games.RecentGames(json)
 
@@ -382,16 +378,12 @@ class Client:
         `skyblock.SkyblockProfile`
             The skyblock profile model for the user.
         """
-        if name:
-            uuid = Converters.username_to_uuid(name)
-            json, success = self._fetch(self.url["skyblock_profile"], {"profile": uuid})
-        elif uuid:
-            json, success = self._fetch(self.url["skyblock_profile"], {"profile": uuid})
-        else:
-            raise InvalidArgumentError("Please provide a named argument of the player's username or player's UUID.")
+        uuid = self._filter_name_uuid(name, uuid)
+        json, success = self._fetch(self.url["skyblock_profile"], {"profile": uuid})
 
         if not json["profile"]:
             raise PlayerNotFoundError("The skyblock player being searched does not exist!", uuid)
+
         return skyblock.SkyblockProfile(json)
 
     def get_skyblock_auctions(
@@ -412,14 +404,10 @@ class Client:
         `skyblock.SkyblockUserAuction`
             The skyblock auction model for the user.
         """
-        if name:
-            uuid = Converters.username_to_uuid(name)
-            json, success = self._fetch(self.url["skyblock_auctions"], {"profile": uuid})
-        elif uuid:
-            json, success = self._fetch(self.url["skyblock_auctions"], {"profile": uuid})
-        else:
-            raise InvalidArgumentError("Please provide a named argument of the player's username or player's UUID.")
+        uuid = self._filter_name_uuid(name, uuid)
+        json, success = self._fetch(self.url["skyblock_auctions"], {"profile": uuid})
 
         if not json["auctions"]:
             raise PlayerNotFoundError("The skyblock player being searched does not exist!", uuid)
+
         return skyblock.SkyblockUserAuction(json)
