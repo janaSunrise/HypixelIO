@@ -135,7 +135,7 @@ class Client:
                 return json, json["success"]
 
     @staticmethod
-    def _filter_name_uuid(name: str, uuid: str) -> str:
+    def _filter_name_uuid(name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
         if not name and not uuid:
             raise InvalidArgumentError("Please provide a named argument of the player's username or player's UUID.")
 
