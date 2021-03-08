@@ -1,5 +1,6 @@
 import typing as t
 
+from hypixelio.ext import asyncio
 from hypixelio.lib import Client, Converters, Utils
 from hypixelio.models.caching import CacheBackend, Caching
 from hypixelio.utils import constants
@@ -16,5 +17,6 @@ __all__: t.Tuple[str, ...] = (
     "Client",
     "Converters",
     "Utils",
+    "asyncio",
     "constants"
 )
