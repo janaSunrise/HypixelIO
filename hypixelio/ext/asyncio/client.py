@@ -1,8 +1,7 @@
 import random
 import typing as t
 
-import requests
-import requests_cache
+import aiohttp
 
 from hypixelio.endpoints import API_PATH
 from hypixelio.exceptions import (
@@ -15,7 +14,6 @@ from hypixelio.exceptions import (
 from hypixelio.lib.converters import Converters
 from hypixelio.models import (
     boosters,
-    caching,
     find_guild,
     friends,
     games,
@@ -37,7 +35,7 @@ from hypixelio.utils.helpers import (
 )
 
 
-class Client:
+class AsyncClient:
     """The client for this wrapper, that handles the requests, authentication, loading and usages of the end user.
 
     Examples
@@ -50,48 +48,29 @@ class Client:
 
         >>> client = hypixelio.Client(api_key=["123-456", "789-000", "568-908"])
 
-    If you want to enable caching, Here's how to do it
-        >>> client = hypixelio.Client(cache=True)
-
-    And configuring cache
-        >>> from hypixelio.models.caching import Caching, CacheBackend
-        >>> cache_cfg = Caching(cache_name="my-cache", backend=CacheBackend.sqlite, expire_after=10)
-        >>> client = hypixelio.Client(cache=True, cache_config=cache_cfg)
-
     Notes
     -----
     Keep in mind that, your keys wouldn't work if you're banned from hypixel, or if they're expired.
-    And if you opt for redis, it connects with the default port and host available. For sqlite it
-    creates a `.db` file.
     """
-    def __init__(self, api_key: t.Union[str, list], cache: bool = False, cache_config: caching.Caching = None) -> None:
+    def __init__(self, api_key: t.Union[str, list]) -> None:
         """
         Parameters
         ----------
         api_key: `t.Union[str, list]`
             The API Key generated in Hypixel using `/api new` command.
-        cache: `t.Optional[bool]`
-            Whether to enable caching
-        cache_config: `t.Optional[caching.Caching]`
-            The configuration for the saving, and reusing of the cache. Defaults to None.
         """
         self.url = API_PATH["HYPIXEL"]
+
+        self.session = aiohttp.ClientSession()
 
         if not isinstance(api_key, list):
             self.api_key = [api_key]
 
-        if cache:
-            if cache_config is None:
-                cache_config = caching.Caching(expire_after=30, old_data_on_error=True)
+    async def close(self) -> None:
+        """Close the AIOHTTP sessions to prevent memory leaks."""
+        await self.session.close()
 
-            requests_cache.install_cache(
-                cache_name=cache_config.cache_name,
-                backend=cache_config.backend,
-                expire_after=cache_config.expire_after,
-                old_data_on_error=cache_config.old_data_on_error,
-            )
-
-    def _fetch(self, url: str, data: dict = None) -> t.Tuple[dict, bool]:
+    async def _fetch(self, url: str, data: dict = None) -> t.Tuple[dict, bool]:
         """
         Get the JSON Response from the Root Hypixel API URL, and also add the ability to include the GET request
         parameters with the API KEY Parameter by default.
@@ -115,12 +94,12 @@ class Client:
 
         url = form_url(HYPIXEL_API, url, data)
 
-        with requests.get(url, timeout=TIMEOUT, headers=headers) as response:
-            if response.status_code == 429:
+        async with self.session.get(url, timeout=TIMEOUT, headers=headers) as response:
+            if response.status == 429:
                 raise RateLimitError("Out of Requests!")
 
             try:
-                json = response.json()
+                json = await response.json()
             except Exception as exception:
                 raise HypixelAPIError(f"{exception}")
             else:
@@ -143,7 +122,7 @@ class Client:
 
         return uuid
 
-    def get_key_info(self, api_key: t.Optional[str] = None) -> key.Key:
+    async def get_key_info(self, api_key: t.Optional[str] = None) -> key.Key:
         """
         Get the Info about an API Key generated in Hypixel.
 
@@ -160,10 +139,10 @@ class Client:
         if not api_key:
             api_key = random.choice(self.api_key)
 
-        json = self._fetch(self.url["api_key"], {"key": api_key})
+        json = await self._fetch(self.url["api_key"], {"key": api_key})
         return key.Key(json["record"])
 
-    def get_boosters(self) -> boosters.Boosters:
+    async def get_boosters(self) -> boosters.Boosters:
         """
         Get the List of Hypixel Coin Boosters and Their Info.
 
@@ -172,11 +151,11 @@ class Client:
         `boosters.Boosters`
             The Booster class object which depicts the booster data model.
         """
-        json = self._fetch(self.url["boosters"])
+        json = await self._fetch(self.url["boosters"])
 
         return boosters.Boosters(json["boosters"], json)
 
-    def get_player(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> player.Player:
+    async def get_player(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> player.Player:
         """
         Get the Info about a Hypixel Player using either his Username or UUID.
 
@@ -193,14 +172,14 @@ class Client:
             The Player Class Object, Which depicts the Player Data Model
         """
         uuid = self._filter_name_uuid(name, uuid)
-        json = self._fetch(self.url["player"], {"uuid": uuid})
+        json = await self._fetch(self.url["player"], {"uuid": uuid})
 
         if not json["player"]:
             raise PlayerNotFoundError("Null Value is returned", name)
 
         return player.Player(json["player"])
 
-    def get_friends(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> friends.Friends:
+    async def get_friends(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> friends.Friends:
         """
         Get the List of Friends of a Hypixel Player and their Info.
 
@@ -217,11 +196,11 @@ class Client:
             Returns the Friend Data Model, Which has the List of Friends, each with a list of attributes.
         """
         uuid = self._filter_name_uuid(name, uuid)
-        json = self._fetch(self.url["friends"], {"uuid": uuid})
+        json = await self._fetch(self.url["friends"], {"uuid": uuid})
 
         return friends.Friends(json["records"])
 
-    def get_watchdog_info(self) -> watchdog.Watchdog:
+    async def get_watchdog_info(self) -> watchdog.Watchdog:
         """
         Get the List of Stats About the Watchdog for the last few days.
 
@@ -230,11 +209,11 @@ class Client:
         `watchdog.Watchdog`
             The Watchdog data model with certain important attributes for you to get data about the things by watchdog.
         """
-        json = self._fetch(self.url["watchdog"])
+        json = await self._fetch(self.url["watchdog"])
 
         return watchdog.Watchdog(json)
 
-    def get_guild(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> guild.Guild:
+    async def get_guild(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> guild.Guild:
         """
         Get the info about a Hypixel Guild, Either using Name or UUID.
 
@@ -251,9 +230,9 @@ class Client:
             The Guild Object with certain Attributes for you to access, and use it.
         """
         if uuid:
-            json = self._fetch(self.url["guild"], {"id": uuid})
+            json = await self._fetch(self.url["guild"], {"id": uuid})
         elif name:
-            json = self._fetch(self.url["guild"], {"name": name})
+            json = await self._fetch(self.url["guild"], {"name": name})
         else:
             raise InvalidArgumentError("Please provide a Named argument of the guild's Name or guild's ID.")
 
@@ -261,7 +240,7 @@ class Client:
             raise GuildNotFoundError("Return Value is null")
         return guild.Guild(json["guild"])
 
-    def get_games_info(self) -> games.Games:
+    async def get_games_info(self) -> games.Games:
         """
         Get the List of Hypixel Games and Their Info.
 
@@ -270,11 +249,11 @@ class Client:
         `games.Games`
             The Games Data model, Containing the information, and attributes for all the games.
         """
-        json = self._fetch(self.url["game_info"])
+        json = await self._fetch(self.url["game_info"])
 
         return games.Games(json["games"], json["playerCount"])
 
-    def get_leaderboards(self) -> leaderboard.Leaderboard:
+    async def get_leaderboards(self) -> leaderboard.Leaderboard:
         """
         Get the Leaderboard for all the games, along with the data in it.
 
@@ -283,11 +262,11 @@ class Client:
         `leaderboard.Leaderboard`
             The Leaderboard data model, containing all the ranking for the games in Hypixel.
         """
-        json = self._fetch(self.url["leaderboards"])
+        json = await self._fetch(self.url["leaderboards"])
 
         return leaderboard.Leaderboard(json["leaderboards"])
 
-    def find_guild(
+    async def find_guild(
             self, guild_name: t.Optional[str] = None, player_uuid: t.Optional[str] = None
     ) -> find_guild.FindGuild:
         """
@@ -306,15 +285,15 @@ class Client:
             The ID of the guild being find.
         """
         if guild_name:
-            json = self._fetch(self.url["find_guild"], {"byName": guild_name})
+            json = await self._fetch(self.url["find_guild"], {"byName": guild_name})
         elif player_uuid:
-            json = self._fetch(self.url["find_guild"], {"byUuid": player_uuid})
+            json = await self._fetch(self.url["find_guild"], {"byUuid": player_uuid})
         else:
             raise InvalidArgumentError("Please provide a Named argument of the guild's Name or guild's ID.")
 
         return find_guild.FindGuild(json)
 
-    def get_player_status(
+    async def get_player_status(
             self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
     ) -> player_status.PlayerStatus:
         """
@@ -333,11 +312,11 @@ class Client:
             The Player Status Object, which depicts the Player's status
         """
         uuid = self._filter_name_uuid(name, uuid)
-        json = self._fetch(self.url["status"], {"uuid": uuid})
+        json = await self._fetch(self.url["status"], {"uuid": uuid})
 
         return player_status.PlayerStatus(json)
 
-    def get_player_recent_games(
+    async def get_player_recent_games(
             self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
     ) -> recent_games.RecentGames:
         """
@@ -356,11 +335,11 @@ class Client:
             The recent games model for the respective player specified.
         """
         uuid = self._filter_name_uuid(name, uuid)
-        json = self._fetch(self.url["recent_games"], {"uuid": uuid})
+        json = await self._fetch(self.url["recent_games"], {"uuid": uuid})
 
         return recent_games.RecentGames(json)
 
-    def get_skyblock_profile(
+    async def get_skyblock_profile(
             self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
     ) -> skyblock.SkyblockProfile:
         """
@@ -379,14 +358,14 @@ class Client:
             The skyblock profile model for the user.
         """
         uuid = self._filter_name_uuid(name, uuid)
-        json = self._fetch(self.url["skyblock_profile"], {"profile": uuid})
+        json = await self._fetch(self.url["skyblock_profile"], {"profile": uuid})
 
         if not json["profile"]:
             raise PlayerNotFoundError("The skyblock player being searched does not exist!", uuid)
 
         return skyblock.SkyblockProfile(json)
 
-    def get_skyblock_user_auctions(
+    async def get_skyblock_user_auctions(
             self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
     ) -> skyblock.SkyblockUserAuction:
         """
@@ -405,14 +384,14 @@ class Client:
             The skyblock auction model for the user.
         """
         uuid = self._filter_name_uuid(name, uuid)
-        json = self._fetch(self.url["skyblock_auctions"], {"profile": uuid})
+        json = await self._fetch(self.url["skyblock_auctions"], {"profile": uuid})
 
         if not json["auctions"]:
             raise PlayerNotFoundError("The skyblock player being searched does not exist!", uuid)
 
         return skyblock.SkyblockUserAuction(json)
 
-    def get_skyblock_active_auctions(
+    async def get_skyblock_active_auctions(
             self, page: int = 0
     ) -> skyblock.SkyblockActiveAuction:
         """
@@ -428,10 +407,10 @@ class Client:
         skyblock.SkyblockActiveAuction
             The active auction model.
         """
-        json = self._fetch(self.url["skyblock_active_auctions"], {"page": page})
+        json = await self._fetch(self.url["skyblock_active_auctions"], {"page": page})
         return skyblock.SkyblockActiveAuction(json)
 
-    def get_skyblock_bazaar(self) -> skyblock.SkyblockBazaar:
+    async def get_skyblock_bazaar(self) -> skyblock.SkyblockBazaar:
         """
         Get the skyblock bazaar items
 
@@ -440,5 +419,5 @@ class Client:
         skyblock.SkyblockBazaar
             The bazaar model object representing each product.
         """
-        json = self._fetch(self.url["skyblock_bazaar"])
+        json = await self._fetch(self.url["skyblock_bazaar"])
         return skyblock.SkyblockBazaar(json)
