@@ -37,12 +37,17 @@ release = version
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'recommonmark',
+    "recommonmark",
     "sphinx.ext.intersphinx",
     "sphinx.ext.autodoc",
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
+    "sphinx.ext.napoleon",
 ]
+
+napoleon_google_docstring = False
+napoleon_use_param = False
+napoleon_use_ivar = True
 
 extlinks = {
     'issue': ('https://github.com/janaSunrise/HypixelIO/issues/%s', 'GH-'),
