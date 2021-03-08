@@ -46,9 +46,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added attributes like `__author__` and `__version__`
 - Added Manifest
 - Added support for Comparisons like
-    - `obj1 == obj2`
-    - `obj1 > obj2`
-    - `obj1 >= obj2`
+  - `obj1 == obj2`
+  - `obj1 > obj2`
+  - `obj1 >= obj2`
 
 ## [0.0.5](https://github.com/janaSunrise/HypixelIO/releases/tag/v0.0.5) - 04-11-2020
 
@@ -57,10 +57,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added timeout for the cache and fetch
 - Allow users to specify the caching according to needs, and various functions to make experience better
 - Functions allowed:
-    - Clearing Cache
-    - Uninstall cache, If enabled
-    - removing expired cache
-    - Get the existsing cache, and check it.
+  - Clearing Cache
+  - Uninstall cache, If enabled
+  - removing expired cache
+  - Get the existsing cache, and check it.
 
 ## [0.0.4](https://github.com/janaSunrise/HypixelIO/releases/tag/v0.0.4) - 31-10-2020
 
