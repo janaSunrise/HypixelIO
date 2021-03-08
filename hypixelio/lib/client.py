@@ -431,3 +431,15 @@ class Client:
         """
         json = self._fetch(self.url["skyblock_active_auctions"], {"page": page})
         return skyblock.SkyblockActiveAuction(json)
+
+    def get_skyblock_bazaar(self) -> skyblock.SkyblockBazaar:
+        """
+        Get the skyblock bazaar items
+
+        Returns
+        -------
+        skyblock.SkyblockBazaar
+            The bazaar model object representing each product.
+        """
+        json = self._fetch(self.url["skyblock_bazaar"])
+        return skyblock.SkyblockBazaar(json)
