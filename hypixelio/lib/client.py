@@ -387,7 +387,7 @@ class Client:
 
         return skyblock.SkyblockProfile(json)
 
-    def get_skyblock_auctions(
+    def get_skyblock_user_auctions(
             self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
     ) -> skyblock.SkyblockUserAuction:
         """
@@ -412,3 +412,22 @@ class Client:
             raise PlayerNotFoundError("The skyblock player being searched does not exist!", uuid)
 
         return skyblock.SkyblockUserAuction(json)
+
+    def get_skyblock_active_auctions(
+            self, page: int = 0
+    ) -> skyblock.SkyblockActiveAuction:
+        """
+        Get the list of active auctions in skyblock and use the data.
+
+        Parameters
+        ----------
+        page: int
+            The skyblock auction page to lookup.
+
+        Returns
+        -------
+        skyblock.SkyblockActiveAuction
+            The active auction model.
+        """
+        json = self._fetch(self.url["skyblock_active_auctions"], {"page": page})
+        return skyblock.SkyblockActiveAuction(json)

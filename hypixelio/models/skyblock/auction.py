@@ -6,7 +6,7 @@ class SkyblockAuction:
         auction_data: dict
             The auction JSON model to be parsed.
         """
-        self.ID = auction_data["_id"]
+        self.ID = auction_data.get("_id")
         self.UUID = auction_data["uuid"]
         self.AUCTIONEER = auction_data["auctioneer"]
 
