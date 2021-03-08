@@ -42,8 +42,9 @@ setuptools.setup(
     ),
 
     install_requires=[
-        'requests==2.25.1',
-        'requests-cache==0.5.2'
+        "requests==2.25.1",
+        "requests-cache==0.5.2",
+        "aiohttp==3.7.4.post0"
     ],
 
     classifiers=[

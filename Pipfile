@@ -19,6 +19,7 @@ recommonmark = "*"
 hypixelio = {editable = true, path = "."}
 requests = "==2.25.1"
 requests-cache = "==0.5.2"
+aiohttp = "*"
 
 [scripts]
 lint = "pre-commit run --all-files"
