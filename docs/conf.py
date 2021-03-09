@@ -1,11 +1,11 @@
-import os
+# import os
 import re
-import sys
+# import sys
 
 
 from recommonmark.transform import AutoStructify
 
-sys.path.insert(0, os.path.abspath('..'))
+# sys.path.insert(0, os.path.abspath('.'))
 
 # Configuration file for the Sphinx documentation builder.
 #
