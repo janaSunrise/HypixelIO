@@ -18,21 +18,6 @@ sys.path.insert(0, os.path.abspath('..'))
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#
-
-
-# -- Project information -----------------------------------------------------
-
-project = 'HypixelIO'
-copyright = '2021, Sunrit Jana'
-author = 'Sunrit Jana'
-
-version = ''
-
-# -- Version config --
-with open('../../hypixelio/__init__.py') as f:
-    version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE).group(1)
-release = version
 
 
 # -- General configuration ---------------------------------------------------
@@ -47,6 +32,7 @@ extensions = [
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
     "sphinx.ext.napoleon",
+    "sphinx.ext.extlinks"
 ]
 
 napoleon_google_docstring = False
@@ -67,9 +53,18 @@ source_suffix = {
 
 master_doc = 'index'
 
-html_theme_options = {
-    'wending_last_updated': False,
-}
+# -- Project information -----------------------------------------------------
+
+project = 'HypixelIO'
+copyright = '2021, Sunrit Jana'
+author = 'Sunrit Jana'
+
+version = ''
+
+# -- Version config --
+with open('../../hypixelio/__init__.py') as f:
+    version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE).group(1)
+release = version
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
