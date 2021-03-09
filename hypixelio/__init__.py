@@ -7,7 +7,7 @@ from hypixelio.utils import constants
 __author__ = "Sunrit Jana"
 __email__ = "warriordefenderz@gmail.com"
 __version__ = "1.1.1"
-__licence__ = "GPL-3.0 License"
+__license__ = "GPL-3.0 License"
 __copyright__ = "Copyright 2021 Sunrit Jana"
 
 __all__: t.Tuple[str, ...] = (

@@ -40,13 +40,17 @@ class AsyncClient:
 
     Examples
     --------
+    Import the async client first.
+
+        >>> from hypixelio.ext.asyncio import AsyncClient
+
     If you have a single API key, Here's how to authenticate
 
-        >>> client = hypixelio.Client(api_key="123-456-789")
+        >>> client = AsyncClient(api_key="123-456-789")
 
     Or, If you have multiple API keys (Better option for load balancing)
 
-        >>> client = hypixelio.Client(api_key=["123-456", "789-000", "568-908"])
+        >>> client = AsyncClient(api_key=["123-456", "789-000", "568-908"])
 
     Notes
     -----
