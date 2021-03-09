@@ -13,6 +13,7 @@ Client
     :members:
     :undoc-members:
 
+
 Converters
 ----------
 
@@ -22,6 +23,7 @@ Converter
 .. autoclass:: hypixelio.ext.asyncio.AsyncConverters
     :members:
     :undoc-members:
+
 
 Utility
 -------

@@ -1,5 +1,5 @@
 Welcome to HypixelIO!
-=====================================
+======================
 
 HypixelIO is a modern hypixel API wrapper library that suits all your needs. It supports both sync
 and async programming, with easy to use features in mind.

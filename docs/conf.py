@@ -32,7 +32,7 @@ extensions = [
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
     "sphinx.ext.napoleon",
-    "sphinx.ext.extlinks"
+    "sphinx.ext.extlinks",
 ]
 
 napoleon_google_docstring = False
@@ -72,14 +72,14 @@ templates_path = ['_templates']
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ["_build"]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_STORE"]
 
 
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-#
+
 html_theme = 'insegel'
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -89,6 +89,8 @@ html_static_path = ['_static']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'friendly'
+
+highlight_language = "python3"
 
 
 github_doc_root = 'https://github.com/rtfd/recommonmark/tree/master/doc/'
@@ -102,3 +104,6 @@ def setup(app) -> None:  # noqa: ANN001
         }, True
     )
     app.add_transform(AutoStructify)
+
+
+htmlhelp_basename = 'hypixeliodoc'

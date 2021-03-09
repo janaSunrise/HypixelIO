@@ -54,6 +54,14 @@
 
 </p>
 
+## Why choose HypixelIO over others?
+
+- Modern way of handling requests
+- Both async and sync support.
+- Simple rate handling, and caching.
+- Speed optimized
+- Easy to use with a modern and simple design
+
 ## 🚀 Installing
 Note: **Python 3.7 or above is required!**
 ```bash
