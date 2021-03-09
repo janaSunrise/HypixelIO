@@ -83,6 +83,23 @@ print(boosters[0].ID)
 print(friends.FRIENDS[0].RECEIVER_ID)
 ```
 
+### Need async support? We already do!
+
+```python
+from hypixelio.ext.asyncio import AsyncClient, AsyncConverters
+
+client = AsyncClient(api_key="your-api-key")
+
+boosters = await client.get_boosters()  # Get the boosters object
+
+friends = await client.get_friends(uuid="user's-uuid")  # Returns the Friends object
+# or if you don't know the UUID
+friends = await client.get_friends(uuid=Converters.username_to_uuid("your-username"))
+
+print(boosters[0].ID)
+print(friends.FRIENDS[0].RECEIVER_ID)
+```
+
 **Find more examples [here](https://github.com/janaSunrise/HypixelIO/tree/main/examples)**
 
 ## 🤝 Contributing
