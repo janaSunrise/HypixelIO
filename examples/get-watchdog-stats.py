@@ -12,7 +12,7 @@ watchdog = client.get_watchdog_info()
 # Extract the Data
 last_minute_ban = watchdog.LAST_MINUTE_BAN
 total_bans = watchdog.TOTAL_BANS
-rolling_daily = watchdog.WATCHDOG_ROLLING_DAILY
+rolling_daily = watchdog.ROLLING_DAILY
 
 # Display the data
 print(

@@ -7,17 +7,14 @@ class Games:
     """
     This is the definition of the Custom Hypixel Game count Model.
     """
-    def __init__(
-        self,
-        games: dict,
-        player_count: int,
-    ) -> None:
+    def __init__(self, games: dict, player_count: int) -> None:
         """
-        The constructor of the Games model.
-
-        Args:
-            games (dict): The Games JSON list data response received from the Hypixel API.
-            player_count (int): The player count in the whole Hypixel Server.
+        Parameters
+        ----------
+        games: dict
+            The Games JSON list data response received from the Hypixel API.
+        player_count: int
+            The player count in the whole Hypixel Server.
         """
         self.PLAYER_COUNT = player_count
 
@@ -50,4 +47,5 @@ class Games:
         self.QUEUE = GameCount(games["QUEUE"])
 
     def __repr__(self) -> str:
-        return f'<{self.__class__.__name__} lobby={self.MAIN_LOBBY} idle={self.IDLE} queue={self.QUEUE}>'
+        return f'<{self.__class__.__name__} lobby={self.MAIN_LOBBY} idle={self.IDLE} queue={self.QUEUE} ' \
+               f'players={self.PLAYER_COUNT}>'

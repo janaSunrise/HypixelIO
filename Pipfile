@@ -12,11 +12,14 @@ flake8-import-order = "~=0.18.1"
 pre-commit = "~=2.8.2"
 pytest-benchmark = "*"
 bandit = "*"
+insegel = "*"
+recommonmark = "*"
 
 [packages]
 hypixelio = {editable = true, path = "."}
-requests = "==2.25.0"
+requests = "==2.25.1"
 requests-cache = "==0.5.2"
+aiohttp = "*"
 
 [scripts]
 lint = "pre-commit run --all-files"

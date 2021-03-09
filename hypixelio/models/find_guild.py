@@ -1,19 +1,11 @@
-"""This module is dedicated to definition of the Find Guild class."""
-
-
 class FindGuild:
-    """
-    This is the Custom Hypixel Find Guild Model.
-    """
-    def __init__(
-        self,
-        data: dict
-    ) -> None:
+    """This is the Custom Hypixel model for looking up guilds."""
+    def __init__(self, data: dict) -> None:
         """
-        The constructor for the Hypixel Find Guild Model.
-
-        Args:
-            data (dict): The JSON data received from the Hypixel API.
+        Parameters
+        ----------
+        data: dict
+            The JSON data received from the Hypixel API.
         """
         self.ID = data["guild"]
 

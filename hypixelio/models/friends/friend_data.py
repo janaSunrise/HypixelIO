@@ -1,19 +1,13 @@
-"""This module is dedicated to definition of the Friend's Data class."""
-
-
 class FriendData:
     """
     This is the Custom Hypixel API Friend's Data Model.
     """
-    def __init__(
-        self,
-        friend: dict,
-    ) -> None:
+    def __init__(self, friend: dict) -> None:
         """
-        The constructor for the Friend Data Hypixel Model.
-
-        Args:
-            friend (dict): This contains the Returned JSON Response for the Friend's list element API Request.
+        Parameters
+        ----------
+        friend: dict
+            This contains the JSON Response for the Friend's list element API Request.
         """
         self.REQUEST_ID = friend['_id']
 

@@ -1,19 +1,11 @@
-"""This module is dedicated to definition of the Key class."""
-
-
 class Key:
-    """
-    This is the Custom Hypixel API Key Model.
-    """
-    def __init__(
-        self,
-        data: dict
-    ) -> None:
+    """This is the Custom Hypixel API Key Model."""
+    def __init__(self, data: dict) -> None:
         """
-        The constructor for the Hypixel Key Model.
-
-        Args:
-            data (dict): The JSON data received from the Hypixel API.
+        Parameters
+        ----------
+        data: dict
+            The JSON data received from the Hypixel API.
         """
         self.KEY = data["key"]
         self.OWNER_UUID = data["owner"]

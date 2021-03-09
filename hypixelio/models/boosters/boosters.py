@@ -1,25 +1,19 @@
-"""This module is dedicated to definition of the Boosters class."""
-
 import typing as t
 
 from .booster_info import BoosterInfo
 
 
 class Boosters:
-    """
-    This is the Custom Hypixel API Boosters Model.
-    """
-    def __init__(
-        self,
-        boosters: list,
-    ) -> None:
+    """The the Custom Hypixel API Boosters Model."""
+    def __init__(self, boosters: list, json: dict) -> None:
         """
-        The constructor for the Booster List model.
-
-        Args:
-            boosters (list): The list of the Coin Boosters in the Hypixel server.
+        Parameters
+        ----------
+        boosters: list
+            The list of the Coin Boosters in the Hypixel server.
         """
         self.BOOSTERS = [BoosterInfo(booster) for booster in boosters]
+        self.STATE = json["boosterState"]
 
     def __len__(self) -> int:
         return len(self.BOOSTERS)

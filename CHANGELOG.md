@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.2.0) - 09-03-2021
+
+## Added
+- Skyblock models
+- Skyblock endpoints
+- Added HTML documentation
+- More utility functions and support to make it easier and reliable.
+- Asynchronous support for discord bot devs and other people to keep it non-blocking.
+
+## Fixed
+- Rewrote most of the code base.
+- Rewrite of the inline documentation.
+- Pass API Key as `API-Key` header so it's secure and follows the standards.
+- Refactored the methods to get better support and converted into multiple methods so its cleaner.
+- Fixed the tests and the errors / exceptions raised when issues arrive.
+- Make the rest of the codebase usable by the endpoint user, if needed. Not compulsary.
+
 ## [1.1.1](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.1.1) - 29-12-2020
 
 ## Added
@@ -46,9 +63,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added attributes like `__author__` and `__version__`
 - Added Manifest
 - Added support for Comparisons like
-    - `obj1 == obj2`
-    - `obj1 > obj2`
-    - `obj1 >= obj2`
+  - `obj1 == obj2`
+  - `obj1 > obj2`
+  - `obj1 >= obj2`
 
 ## [0.0.5](https://github.com/janaSunrise/HypixelIO/releases/tag/v0.0.5) - 04-11-2020
 
@@ -57,10 +74,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added timeout for the cache and fetch
 - Allow users to specify the caching according to needs, and various functions to make experience better
 - Functions allowed:
-    - Clearing Cache
-    - Uninstall cache, If enabled
-    - removing expired cache
-    - Get the existsing cache, and check it.
+  - Clearing Cache
+  - Uninstall cache, If enabled
+  - removing expired cache
+  - Get the existsing cache, and check it.
 
 ## [0.0.4](https://github.com/janaSunrise/HypixelIO/releases/tag/v0.0.4) - 31-10-2020
 

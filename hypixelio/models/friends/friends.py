@@ -1,23 +1,16 @@
-"""This module is dedicated to definition of the Friends class."""
-
 import typing as t
 
 from .friend_data import FriendData
 
 
 class Friends:
-    """
-    This is the Custom Hypixel API Friends Model.
-    """
-    def __init__(
-        self,
-        friends: list
-    ) -> None:
+    """The the Custom Hypixel API Friends Model."""
+    def __init__(self, friends: list) -> None:
         """
-        The contains for the Friends List model.
-
-        Args:
-            friends (list): This contains the Returned JSON Response List for the List of the friends of an user.
+        Parameters
+        ----------
+        friends: list
+            This contains the Returned JSON Response List for the List of the friends of an user.
         """
         self.FRIENDS = [FriendData(friend) for friend in friends]
 

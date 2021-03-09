@@ -4,18 +4,13 @@ from .leaderboard_data import LeaderboardData as data
 
 
 class Leaderboard:
-    """
-    This is the definition of the Custom Hypixel API Leaderboard Model.
-    """
-    def __init__(
-        self,
-        board: dict,
-    ) -> None:
+    """This is the definition of the Custom Hypixel API Leaderboard Model."""
+    def __init__(self, board: dict) -> None:
         """
-        The constructor for the Leaderboard Model in Hypixel.
-
-        Args:
-            board (dict): The Leaderboard JSON data response received from the Hypixel API.
+        Parameters
+        ----------
+        board: dict
+            The Leaderboard JSON data response received from the Hypixel API.
         """
         self.ARENA = [data(arena) for arena in board['ARENA']]
         self.MCGO = [data(arena) for arena in board['MCGO']]
