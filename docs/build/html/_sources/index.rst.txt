@@ -17,6 +17,7 @@ Getting started
 
 Is this your first time using the library? This is the place to get started!
 
+- **Quickstart** :doc:`quickstart`
 - **Examples:** Many examples are available in the :resource:`repository <examples>`.
 
 
@@ -30,3 +31,14 @@ These pages have info, documentation and help, all you need to learn and use thi
 
    api <api.rst>
    hypixelio.ext.asyncio reference <ext/asyncio/api.rst>
+
+
+Meta
+----
+
+If you're looking for something related to the project itself, it's here.
+
+.. toctree::
+  :maxdepth: 1
+
+  changelog

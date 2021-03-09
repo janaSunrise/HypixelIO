@@ -14,6 +14,7 @@ pytest-benchmark = "*"
 bandit = "*"
 insegel = "*"
 recommonmark = "*"
+myst-parser = "*"
 
 [packages]
 hypixelio = {editable = true, path = "."}

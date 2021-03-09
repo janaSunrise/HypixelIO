@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "0f40dfe4f03d0920e25dbd83485ef48715db051589b37a2c77f1fef862b89d99"
+            "sha256": "3cf1a5d11bb3c601a8281b0efde67e1fabbd9cbe1d9744150a8c3acc81e3468d"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -376,11 +376,11 @@
         },
         "identify": {
             "hashes": [
-                "sha256:2179e7359471ab55729f201b3fdf7dc2778e221f868410fedcb0987b791ba552",
-                "sha256:2a5fdf2f5319cc357eda2550bea713a404392495961022cf2462624ce62f0f46"
+                "sha256:220169a38a0c977c8fef377dc808d6a3330641b5211ec7356c7bbe73cda487c7",
+                "sha256:da3d757c94596c50865aae63db6ba4e2e5e3f666c3ea6a6da0cd09a8b2d34abc"
             ],
             "markers": "python_full_version >= '3.6.1'",
-            "version": "==2.1.0"
+            "version": "==2.1.1"
         },
         "idna": {
             "hashes": [
@@ -420,6 +420,14 @@
             ],
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'",
             "version": "==2.11.3"
+        },
+        "markdown-it-py": {
+            "hashes": [
+                "sha256:30b3e9f8198dc82a5df0dcb73fd31d56cd9a43bf8a747feb10b2ba74f962bcb1",
+                "sha256:c3b9f995be0792cbbc8ab2f53d74072eb7ff8a8b622be8d61d38ab879709eca3"
+            ],
+            "markers": "python_version ~= '3.6'",
+            "version": "==0.6.2"
         },
         "markupsafe": {
             "hashes": [
@@ -485,6 +493,22 @@
                 "sha256:dd8d182285a0fe56bace7f45b5e7d1a6ebcbf524e8f3bd87eb0f125271b8831f"
             ],
             "version": "==0.6.1"
+        },
+        "mdit-py-plugins": {
+            "hashes": [
+                "sha256:06dbda99e7d81184c4f6de7c7e3409b29f5cef35404beed6feaf624646219bf5",
+                "sha256:3c78db5cfdcf8f55f0af2b096de391bffcef0b3600222f434efb016d7c267cec"
+            ],
+            "markers": "python_version ~= '3.6'",
+            "version": "==0.2.5"
+        },
+        "myst-parser": {
+            "hashes": [
+                "sha256:47e469cef8ba209f4dcb82cd0b4f935171c78c6a2cc0072cd3a9724242eb81ee",
+                "sha256:72cf89cc0d6f35070736da19643c9ef52e570e3e13e30c007ad9b94a21f5457a"
+            ],
+            "index": "pypi",
+            "version": "==0.13.5"
         },
         "nodeenv": {
             "hashes": [
