@@ -20,6 +20,8 @@ class Guild:
         self.ACHIEVEMENTS = data["achievements"]
         self.EXPERIENCE_BY_GAME = data["guildExpByGameType"]
 
+        self.MEMBERS = data["members"]
+
     def __str__(self) -> str:
         return self.NAME
 
