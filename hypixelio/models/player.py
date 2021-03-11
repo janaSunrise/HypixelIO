@@ -25,7 +25,7 @@ class Player:
         self.EXPERIENCE = data["networkExp"]
         self.LEVEL = self._calc_player_level(self.EXPERIENCE)
         self.KARMA = data["karma"]
-        self.MC_VERSION_RP = data["mcVersionRp"]
+        self.MC_VERSION_RP = data.get("mcVersionRp")
 
         self.CHALLENGES = data["challenges"]["all_time"]
         self.MOST_RECENT_GAME = data["mostRecentGameType"]

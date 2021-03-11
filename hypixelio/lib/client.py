@@ -476,3 +476,54 @@ class Client:
         """
         json = self._fetch(self.url["skyblock_bazaar"])
         return skyblock.SkyblockBazaar(json)
+
+    def resources_achievements(self) -> dict:
+        """
+        Get the current resources.
+
+        Returns
+        -------
+        dict
+            Hypixel API response.
+        """
+        data = self._fetch(self.url["achievements"], key=False)
+        return data["achievements"]
+
+    def resources_challenges(self) -> dict:
+        """
+        Get the current resources.
+
+        Returns
+        -------
+        dict
+            Hypixel API response.
+        """
+        data = self._fetch(self.url["challenges"], key=False)
+        return data["challenges"]
+
+    def resources_quests(self) -> dict:
+        """
+        Get the current resources.
+
+        Returns
+        -------
+        dict
+            Hypixel API response.
+        """
+        data = self._fetch(self.url["quests"], key=False)
+        return data["quests"]
+
+    def resources_guild_achievements(self) -> dict:
+        """
+        Get the current resources.
+
+        Returns
+        -------
+        dict
+            Hypixel API response.
+        """
+        data = self._fetch(self.url["guild_achievements"], key=False)
+        return {
+            "one_time": data["one_time"],
+            "tiered": data["tiered"]
+        }
