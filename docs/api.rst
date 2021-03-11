@@ -36,3 +36,15 @@ Utility
 .. autoclass:: Utils
     :members:
     :undoc-members:
+
+
+Async to sync portal
+--------------------
+
+.. autoclass:: hypixelio.ext.portal.Portal
+    :members:
+    :undoc-members:
+
+.. autofunction:: hypixelio.ext.portal.create_portal
+    :members:
+    :undoc-members:
