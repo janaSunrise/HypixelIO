@@ -2,7 +2,7 @@ import typing as t
 
 
 class Player:
-    """The the Custom Hypixel Player Model."""
+    """The Custom Hypixel Player Model."""
     def __init__(self, data: dict) -> None:
         """
         Parameters
