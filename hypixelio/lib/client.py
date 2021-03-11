@@ -477,7 +477,7 @@ class Client:
         json = self._fetch(self.url["skyblock_bazaar"])
         return skyblock.SkyblockBazaar(json)
 
-    def resources_achievements(self) -> dict:
+    def get_resources_achievements(self) -> dict:
         """
         Get the current resources.
 
@@ -489,7 +489,7 @@ class Client:
         data = self._fetch(self.url["achievements"], key=False)
         return data["achievements"]
 
-    def resources_challenges(self) -> dict:
+    def get_resources_challenges(self) -> dict:
         """
         Get the current resources.
 
@@ -501,7 +501,7 @@ class Client:
         data = self._fetch(self.url["challenges"], key=False)
         return data["challenges"]
 
-    def resources_quests(self) -> dict:
+    def get_resources_quests(self) -> dict:
         """
         Get the current resources.
 
@@ -513,7 +513,7 @@ class Client:
         data = self._fetch(self.url["quests"], key=False)
         return data["quests"]
 
-    def resources_guild_achievements(self) -> dict:
+    def get_resources_guild_achievements(self) -> dict:
         """
         Get the current resources.
 
