@@ -31,6 +31,7 @@ These pages have info, documentation and help, all you need to learn and use thi
 
    api <api.rst>
    hypixelio.ext.asyncio reference <ext/asyncio/api.rst>
+   exceptions reference <exceptions.rst>
 
 
 Meta
