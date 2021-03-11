@@ -36,8 +36,8 @@ class Player:
         self.REWARD_SCORE = data.get("rewardScore")
         self.REWARD_HIGH_SCORE = data.get("rewardHighScore")
 
-        self.PET_STATS = data["petStats"]
-        self.CURRENT_GADGET = data["currentGadget"]
+        self.PET_STATS = data.get("petStats")
+        self.CURRENT_GADGET = data.get("currentGadget")
 
         self.SOCIAL_MEDIA = data["socialMedia"]["links"]
 
