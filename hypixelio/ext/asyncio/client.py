@@ -1,3 +1,4 @@
+import asyncio
 import random
 import typing as t
 
@@ -65,14 +66,14 @@ class AsyncClient:
         """
         self.url = API_PATH["HYPIXEL"]
 
-        self.session = aiohttp.ClientSession()
+        self.__session = aiohttp.ClientSession()
 
         if not isinstance(api_key, list):
             self.api_key = [api_key]
 
     async def close(self) -> None:
         """Close the AIOHTTP sessions to prevent memory leaks."""
-        await self.session.close()
+        await self.__session.close()
 
     async def _fetch(self, url: str, data: dict = None) -> t.Tuple[dict, bool]:
         """
@@ -98,7 +99,7 @@ class AsyncClient:
 
         url = form_url(HYPIXEL_API, url, data)
 
-        async with self.session.get(url, timeout=TIMEOUT, headers=headers) as response:
+        async with self.__session.get(url, timeout=TIMEOUT, headers=headers) as response:
             if response.status == 429:
                 raise RateLimitError("Out of Requests!")
 
