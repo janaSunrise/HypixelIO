@@ -34,5 +34,7 @@ MOCK_PLAYER = {
         }
     },
     "karma": 8888,
-    "mcVersionRp": "1.8.9"
+    "mcVersionRp": "1.8.9",
+    "petStats": {},
+    "currentGadget": "Dummy thingy"
 }
