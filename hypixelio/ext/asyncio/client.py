@@ -1,6 +1,7 @@
 import asyncio
 import random
 import typing as t
+from datetime import datetime, timedelta
 
 import aiohttp
 
@@ -69,6 +70,12 @@ class AsyncClient:
         self.__session = aiohttp.ClientSession()
         self.__lock = asyncio.Lock()
 
+        self.requests_remaining = -1
+        self.total_requests = 0
+
+        self._ratelimit_reset = datetime(1998, 1, 1)
+        self.retry_after = datetime(1998, 1, 1)
+
         if not isinstance(api_key, list):
             self.api_key = [api_key]
 
@@ -76,7 +83,7 @@ class AsyncClient:
         """Close the AIOHTTP sessions to prevent memory leaks."""
         await self.__session.close()
 
-    async def _fetch(self, url: str, data: dict = None) -> t.Tuple[dict, bool]:
+    async def _fetch(self, url: str, data: dict = None, key: bool = True) -> t.Tuple[dict, bool]:
         """
         Get the JSON Response from the Root Hypixel API URL, and also add the ability to include the GET request
         parameters with the API KEY Parameter by default.
@@ -93,17 +100,43 @@ class AsyncClient:
         `t.Tuple[dict, bool]`
             The JSON Response from the Fetch Done to the API and the SUCCESS Value from the Response.
         """
+        if (
+                self.requests_remaining != -1 and  # noqa: W504
+                (self.requests_remaining == 0 and self._ratelimit_reset > datetime.now()) or  # noqa: W504
+                self.retry_after and (self.retry_after > datetime.now())
+        ):
+            raise RateLimitError(f"Retry after {self.retry_after}")
+
         if not data:
             data = {}
 
-        headers = {"API-Key": random.choice(self.api_key)}
+        headers = {}
+
+        if key:
+            headers["API-Key"] = random.choice(self.api_key)
 
         url = form_url(HYPIXEL_API, url, data)
 
         async with self.__lock:
             async with self.__session.get(url, timeout=TIMEOUT, headers=headers) as response:
                 if response.status == 429:
-                    raise RateLimitError("Out of Requests!")
+                    self.requests_remaining = 0
+                    self.retry_after = datetime.now() + timedelta(seconds=int(response.headers["Retry-After"]))
+                    raise RateLimitError(
+                        f"Out of Requests! {datetime.now() + timedelta(seconds=int(response.headers['Retry-After']))}"
+                    )
+
+                if response.status == 400:
+                    raise HypixelAPIError(reason="Invalid key specified!")
+
+                if key:
+                    if "RateLimit-Limit" in response.headers:
+                        if self.total_requests == 0:
+                            self.total_requests = int(response.headers["RateLimit-Limit"])
+
+                        self.requests_remaining = int(response.headers["RateLimit-Remaining"])
+                        self._ratelimit_reset = datetime.now() + timedelta(
+                            seconds=int(response.headers["RateLimit-Reset"]))
 
                 try:
                     json = await response.json()
@@ -111,7 +144,7 @@ class AsyncClient:
                     raise HypixelAPIError(f"{exception}")
                 else:
                     if not json["success"]:
-                        reason = "The Key given is invalid, or something else has problem."
+                        reason = "Something in the API has problem."
                         if json["cause"] is not None:
                             reason += f" Reason given: {json['cause']}"
 
