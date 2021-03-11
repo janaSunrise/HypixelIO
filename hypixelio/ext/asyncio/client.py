@@ -461,3 +461,54 @@ class AsyncClient:
         """
         json = await self._fetch(self.url["skyblock_bazaar"])
         return skyblock.SkyblockBazaar(json)
+
+    async def get_resources_achievements(self) -> dict:
+        """
+        Get the current resources.
+
+        Returns
+        -------
+        dict
+            Hypixel API response.
+        """
+        data = await self._fetch(self.url["achievements"], key=False)
+        return data["achievements"]
+
+    async def get_resources_challenges(self) -> dict:
+        """
+        Get the current resources.
+
+        Returns
+        -------
+        dict
+            Hypixel API response.
+        """
+        data = await self._fetch(self.url["challenges"], key=False)
+        return data["challenges"]
+
+    async def get_resources_quests(self) -> dict:
+        """
+        Get the current resources.
+
+        Returns
+        -------
+        dict
+            Hypixel API response.
+        """
+        data = await self._fetch(self.url["quests"], key=False)
+        return data["quests"]
+
+    async def get_resources_guild_achievements(self) -> dict:
+        """
+        Get the current resources.
+
+        Returns
+        -------
+        dict
+            Hypixel API response.
+        """
+        data = await self._fetch(self.url["guild_achievements"], key=False)
+        return {
+            "one_time": data["one_time"],
+            "tiered": data["tiered"]
+        }
