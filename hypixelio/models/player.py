@@ -30,11 +30,11 @@ class Player:
         self.CHALLENGES = data["challenges"]["all_time"]
         self.MOST_RECENT_GAME = data["mostRecentGameType"]
 
-        self.TOTAL_REWARDS = data["totalRewards"]
-        self.TOTAL_DAILY_REWARDS = data["totalDailyRewards"]
-        self.REWARD_STREAK = data["rewardStreak"]
-        self.REWARD_SCORE = data["rewardScore"]
-        self.REWARD_HIGH_SCORE = data["rewardHighScore"]
+        self.TOTAL_REWARDS = data.get("totalRewards")
+        self.TOTAL_DAILY_REWARDS = data.get("totalDailyRewards")
+        self.REWARD_STREAK = data.get("rewardStreak")
+        self.REWARD_SCORE = data.get("rewardScore")
+        self.REWARD_HIGH_SCORE = data.get("rewardHighScore")
 
         self.PET_STATS = data["petStats"]
         self.CURRENT_GADGET = data["currentGadget"]
