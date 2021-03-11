@@ -70,13 +70,10 @@ A Modern Efficient and Easy way of interacting with the Hypixel API!
 <h3 align="center">
   <a href="https://hypixelio.readthedocs.org">Docs</a>
   <span> · </span>
-
   <a href="https://github.com/janaSunrise/HypixelIO/issues">Report a bug</a>
   <span> · </span>
-
   <a href="https://github.com/janaSunrise/HypixelIO/discussions">Discussions</a>
   <span> · </span>
-
   <a href="https://discord.gg/cSC5ZZwYGQ">Discord</a>
 </h3>
 
