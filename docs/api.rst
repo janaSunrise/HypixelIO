@@ -17,9 +17,6 @@ There is a single way to check the version for this library.
 Clients
 -------
 
-Client
-~~~~~~
-
 .. autoclass:: Client
     :members:
     :undoc-members:
@@ -27,9 +24,6 @@ Client
 
 Converters
 ----------
-
-Converter
-~~~~~~~~~
 
 .. autoclass:: Converters
     :members:
@@ -39,26 +33,18 @@ Converter
 Utility
 -------
 
-Utils
-~~~~~
-
 .. autoclass:: Utils
     :members:
     :undoc-members:
 
-Errors
-------
 
-.. autoexception:: hypixelio.exceptions.GuildNotFoundError
+Async to sync portal
+--------------------
 
+.. autoclass:: hypixelio.ext.portal.Portal
+    :members:
+    :undoc-members:
 
-.. autoexception:: hypixelio.exceptions.HypixelAPIError
-
-
-.. autoexception:: hypixelio.exceptions.InvalidArgumentError
-
-
-.. autoexception:: hypixelio.exceptions.PlayerNotFoundError
-
-
-.. autoexception:: hypixelio.exceptions.RateLimitError
+.. autofunction:: hypixelio.ext.portal.create_portal
+    :members:
+    :undoc-members:

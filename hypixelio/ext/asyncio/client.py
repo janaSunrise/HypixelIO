@@ -1,3 +1,4 @@
+import asyncio
 import random
 import typing as t
 
@@ -65,14 +66,15 @@ class AsyncClient:
         """
         self.url = API_PATH["HYPIXEL"]
 
-        self.session = aiohttp.ClientSession()
+        self.__session = aiohttp.ClientSession()
+        self.__lock = asyncio.Lock()
 
         if not isinstance(api_key, list):
             self.api_key = [api_key]
 
     async def close(self) -> None:
         """Close the AIOHTTP sessions to prevent memory leaks."""
-        await self.session.close()
+        await self.__session.close()
 
     async def _fetch(self, url: str, data: dict = None) -> t.Tuple[dict, bool]:
         """
@@ -98,23 +100,24 @@ class AsyncClient:
 
         url = form_url(HYPIXEL_API, url, data)
 
-        async with self.session.get(url, timeout=TIMEOUT, headers=headers) as response:
-            if response.status == 429:
-                raise RateLimitError("Out of Requests!")
+        async with self.__lock:
+            async with self.__session.get(url, timeout=TIMEOUT, headers=headers) as response:
+                if response.status == 429:
+                    raise RateLimitError("Out of Requests!")
 
-            try:
-                json = await response.json()
-            except Exception as exception:
-                raise HypixelAPIError(f"{exception}")
-            else:
-                if not json["success"]:
-                    reason = "The Key given is invalid, or something else has problem."
-                    if json["cause"] is not None:
-                        reason += f" Reason given: {json['cause']}"
+                try:
+                    json = await response.json()
+                except Exception as exception:
+                    raise HypixelAPIError(f"{exception}")
+                else:
+                    if not json["success"]:
+                        reason = "The Key given is invalid, or something else has problem."
+                        if json["cause"] is not None:
+                            reason += f" Reason given: {json['cause']}"
 
-                    raise HypixelAPIError(reason=reason)
+                        raise HypixelAPIError(reason=reason)
 
-                return json
+                    return json
 
     @staticmethod
     def _filter_name_uuid(name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:

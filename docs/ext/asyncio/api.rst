@@ -3,9 +3,6 @@
 API Reference
 =============
 
-Clients
--------
-
 Client
 ~~~~~~
 
@@ -14,9 +11,6 @@ Client
     :undoc-members:
 
 
-Converters
-----------
-
 Converter
 ~~~~~~~~~
 
@@ -24,9 +18,6 @@ Converter
     :members:
     :undoc-members:
 
-
-Utility
--------
 
 Utils
 ~~~~~
