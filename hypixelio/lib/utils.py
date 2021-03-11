@@ -186,8 +186,7 @@ def get_ratio(positive_stat: t.Union[int, float], negative_stat: t.Union[int, fl
 def get_ratio_next(ratio: t.Union[int, float]) -> t.Union[int, float]:
     if ratio == float("inf"):
         return ratio
-    else:
-        return math.trunc(ratio) + 1
+    return math.trunc(ratio) + 1
 
 
 def get_increase(positive_stat: t.Union[int, float], negative_stat: t.Union[int, float], *, amount: int = 0) -> t.Any:
@@ -258,8 +257,7 @@ def get_rank_color(rank: str) -> str:
 def get_profile_display(name: str, rank: str) -> str:
     if bool(rank):
         return f"[{rank}] {name}"
-    else:
-        return name
+    return name
 
 
 def get_guild_level(experience: t.Union[int, float]) -> t.Union[int, float]:
@@ -301,5 +299,4 @@ def get_guild_level_exact(experience: int) -> t.Union[float, int]:
 def get_guild_display(name: str, tag: str) -> str:
     if tag:
         return f"[{tag}] {name}"
-    else:
-        return name
+    return name
