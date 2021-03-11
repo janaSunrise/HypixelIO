@@ -1,5 +1,8 @@
+import typing as t
+
+
 class Player:
-    """The the Custom Hypixel Player Model."""
+    """The Custom Hypixel Player Model."""
     def __init__(self, data: dict) -> None:
         """
         Parameters
@@ -20,11 +23,27 @@ class Player:
         self.ACHIEVEMENTS = data["achievements"]
 
         self.EXPERIENCE = data["networkExp"]
+        self.LEVEL = self._calc_player_level(self.EXPERIENCE)
+        self.KARMA = data["karma"]
+        self.MC_VERSION_RP = data.get("mcVersionRp")
 
         self.CHALLENGES = data["challenges"]["all_time"]
         self.MOST_RECENT_GAME = data["mostRecentGameType"]
 
+        self.TOTAL_REWARDS = data.get("totalRewards")
+        self.TOTAL_DAILY_REWARDS = data.get("totalDailyRewards")
+        self.REWARD_STREAK = data.get("rewardStreak")
+        self.REWARD_SCORE = data.get("rewardScore")
+        self.REWARD_HIGH_SCORE = data.get("rewardHighScore")
+
+        self.PET_STATS = data.get("petStats")
+        self.CURRENT_GADGET = data.get("currentGadget")
+
         self.SOCIAL_MEDIA = data["socialMedia"]["links"]
+
+    @staticmethod
+    def _calc_player_level(xp: t.Union[float, int]) -> float:
+        return 1 + (-8750.0 + (8750 ** 2 + 5000 * xp) ** 0.5) / 2500
 
     def __str__(self) -> str:
         return self.NAME

@@ -32,5 +32,9 @@ MOCK_PLAYER = {
         "links": {
             "DISCORD": "test#1234"
         }
-    }
+    },
+    "karma": 8888,
+    "mcVersionRp": "1.8.9",
+    "petStats": {},
+    "currentGadget": "Dummy thingy"
 }

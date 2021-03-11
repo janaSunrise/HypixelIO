@@ -9,8 +9,13 @@
 
 <h3 align="center">
 
-# HypixelIO
-### A Modern Efficient and Easy way of interacting with the Hypixel API!
+<h1 align="center">
+  HypixelIO
+</h1>
+
+<h3 align="center">
+A Modern Efficient and Easy way of interacting with the Hypixel API!
+</h3>
 
 </h3>
 
@@ -36,6 +41,10 @@
     <img src="https://img.shields.io/pypi/v/HypixelIO" alt="PYPI" />
 </a>
 
+<a href="https://github.com/janaSunrise/HypixelIO/releases">
+    <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/janaSunrise/HypixelIO">
+  </a>
+
 <a href="https://pypi.org/project/HypixelIO">
     <img src="https://img.shields.io/pypi/pyversions/HypixelIO" alt="PYPI Python Version" />
 </a>
@@ -52,15 +61,33 @@
     <img src="https://img.shields.io/github/languages/code-size/janaSunrise/HypixelIO" alt="Code Size" />
 </a>
 
+<a href="https://discord.gg/cSC5ZZwYGQ">
+    <img src="https://discordapp.com/api/guilds/695008516590534758/widget.png?style=shield" alt="Discord" />
+</a>
+
 </p>
 
-## Why choose HypixelIO over others?
+<h3 align="center">
+  <a href="https://hypixelio.readthedocs.org">Docs</a>
+  <span> · </span>
+
+  <a href="https://github.com/janaSunrise/HypixelIO/issues">Report a bug</a>
+  <span> · </span>
+
+  <a href="https://github.com/janaSunrise/HypixelIO/discussions">Discussions</a>
+  <span> · </span>
+
+  <a href="https://discord.gg/cSC5ZZwYGQ">Discord</a>
+</h3>
+
+## ✨ Why choose HypixelIO over others?
 
 - Modern way of handling requests
 - Both async and sync support.
 - Simple rate handling, and caching.
 - Speed optimized
 - Easy to use with a modern and simple design
+- Full API coverage
 
 ## 🚀 Installing
 Note: **Python 3.7 or above is required!**
@@ -122,6 +149,14 @@ making the commit message.
 
 And, Also we have a branch named `dev`, So if you're interested in contributing, Please contribute to that branch 
 instead of the `main` branch.
+
+## 💬 Get in touch
+
+If you have various suggestions, questions or want to discuss things wit our community, Have a look at
+[Github discussions](https://github.com/janaSunrise/HypixelIO/discussions) or join our discord server!
+
+[![Discord](https://discordapp.com/api/guilds/695008516590534758/widget.png?style=shield)](https://discord.gg/cSC5ZZwYGQ)
+
 
 ## 📢 Changelog
 If you're interested in seeing the **Changelog**, Go [here!](https://github.com/janaSunrise/HypixelIO/blob/main/CHANGELOG.md)
