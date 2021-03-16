@@ -89,15 +89,35 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_STORE"]
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 
-html_theme = 'insegel'
+html_theme = "aiohttp_theme"
+
+html_theme_options = {
+    "description": "A Modern Efficient and Easy way of interacting with the Hypixel API!",
+    "github_user": "janaSunrise",
+    "github_repo": "HypixelIO",
+    "github_button": True,
+    "github_type": "star",
+    "github_banner": True,
+    "badges": [
+        {
+            "image": "https://img.shields.io/pypi/v/HypixelIO",
+            "target": "https://pypi.org/project/HypixelIO",
+            "height": "20",
+            "alt": "Latest PyPI package version",
+        },
+        {
+            "image": "https://discordapp.com/api/guilds/695008516590534758/widget.png?style=shield",
+            "target": "https://discord.gg/cSC5ZZwYGQ",
+            "height": "20",
+            "alt": "Chat on Discord",
+        },
+    ],
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
-
-# The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'friendly'
 
 highlight_language = "python3"
 
