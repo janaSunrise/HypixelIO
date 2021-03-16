@@ -3,6 +3,16 @@ Provides a Module for defining the custom exceptions to be raised
 during errors while interacting with the API through this library.
 """
 
+__all__ = (
+    "InvalidArgumentError",
+    "PlayerNotFoundError",
+    "HypixelAPIError",
+    "RateLimitError",
+    "GuildNotFoundError",
+    "CrafatarAPIError",
+    "MojangAPIError"
+)
+
 import typing as t
 
 

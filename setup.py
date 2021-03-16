@@ -46,6 +46,13 @@ setuptools.setup(
         "requests-cache==0.5.2",
         "aiohttp==3.7.4.post0"
     ],
+    extras_require={
+        "speedups": [
+            "aiodns>=1.1",
+            "Brotli",
+            "cchardet",
+        ],
+    },
 
     classifiers=[
         "Programming Language :: Python :: 3",

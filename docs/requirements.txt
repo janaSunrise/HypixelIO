@@ -1,4 +1,4 @@
-insegel==1.1.0
+aiohttp-theme==0.1.6
 myst-parser==0.13.5
 recommonmark==0.7.1
 Sphinx==3.5.2

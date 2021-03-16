@@ -8,6 +8,7 @@ class RecentGameInfo:
         """
         self.DATE = game["date"]
         self.END_DATETIME = game["ended"]
+
         self.GAME_TYPE = game["gameType"]
         self.MODE = game.get("mode")
         self.MAP = game["map"]

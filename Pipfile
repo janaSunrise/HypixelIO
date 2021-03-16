@@ -12,15 +12,15 @@ flake8-import-order = "~=0.18.1"
 pre-commit = "~=2.8.2"
 pytest-benchmark = "*"
 bandit = "*"
-insegel = "*"
 recommonmark = "*"
 myst-parser = "*"
+aiohttp-theme = "*"
 
 [packages]
 hypixelio = {editable = true, path = "."}
 requests = "==2.25.1"
 requests-cache = "==0.5.2"
-aiohttp = "*"
+aiohttp = {extras = ["speedups"], version = "*"}
 
 [scripts]
 lint = "pre-commit run --all-files"

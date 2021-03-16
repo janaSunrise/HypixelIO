@@ -97,6 +97,9 @@ python3 -m pip install -U HypixelIO
 
 # Install the nightly build
 python3 -m pip install -U git+https://github.com/janaSunrise/HypixelIO
+
+# Or use [speedups] to speed up only for async features
+python3 -m pip install -U "HypixelIO[speedups]"
 ```
 
 ## Usage

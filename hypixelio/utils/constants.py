@@ -3,6 +3,18 @@ This module is for defining the constant variables which will be
 used all over the code, hence reusing the same things, Instead of
 redefining, and accessing from a single place.
 """
+__all__ = (
+    "HYPIXEL_API",
+    "MOJANG_API",
+    "RANKS",
+    "RANK_COLORS",
+    "BEDWARS_PRESTIGE_COLOR",
+    "BEDWARS_PRESTIGE_RANKS",
+    "GUILD_COLORS__TAG",
+    "SKYWARS_PRESTIGES_RANKS",
+    "SKYWARS_PRESTIGE_COLOR",
+)
+
 HYPIXEL_API = "https://api.hypixel.net"
 MOJANG_API = "https://api.mojang.com"
 
