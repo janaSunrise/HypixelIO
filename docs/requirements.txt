@@ -1,4 +1,8 @@
+aiohttp==3.7.4post0
 aiohttp-theme==0.1.6
 myst-parser==0.13.5
 recommonmark==0.7.1
 Sphinx==3.5.2
+requests==2.25.1
+requests-cache==0.5.2
+
