@@ -120,8 +120,7 @@ class AsyncClient:
         for k in key:
             if k in self.__api_key:
                 continue
-            else:
-                self.__api_key.append(k)
+            self.__api_key.append(k)
 
     def remove_key(self, key: t.Union[str, list]) -> None:
         if isinstance(key, str):
@@ -130,8 +129,7 @@ class AsyncClient:
         for k in key:
             if k not in self.__api_key:
                 continue
-            else:
-                self.__api_key.remove(k)
+            self.__api_key.remove(k)
 
     async def _fetch(self, url: str, data: dict = None, key: bool = True) -> t.Tuple[dict, bool]:
         """
@@ -181,14 +179,13 @@ class AsyncClient:
                     if response.status == 400:
                         raise HypixelAPIError(reason="Invalid key specified!")
 
-                    if key:
-                        if "RateLimit-Limit" in response.headers:
-                            if self.total_requests == 0:
-                                self.total_requests = int(response.headers["RateLimit-Limit"])
+                    if key and "RateLimit-Limit" in response.headers:
+                        if self.total_requests == 0:
+                            self.total_requests = int(response.headers["RateLimit-Limit"])
 
-                            self.requests_remaining = int(response.headers["RateLimit-Remaining"])
-                            self._ratelimit_reset = datetime.now() + timedelta(
-                                seconds=int(response.headers["RateLimit-Reset"]))
+                        self.requests_remaining = int(response.headers["RateLimit-Remaining"])
+                        self._ratelimit_reset = datetime.now() + timedelta(
+                            seconds=int(response.headers["RateLimit-Reset"]))
 
                     try:
                         json = await response.json()

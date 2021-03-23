@@ -107,8 +107,7 @@ class Client:
         for k in key:
             if k in self.__api_key:
                 continue
-            else:
-                self.__api_key.append(k)
+            self.__api_key.append(k)
 
     def remove_key(self, key: t.Union[str, list]) -> None:
         if isinstance(key, str):
@@ -117,8 +116,7 @@ class Client:
         for k in key:
             if k not in self.__api_key:
                 continue
-            else:
-                self.__api_key.remove(k)
+            self.__api_key.remove(k)
 
     def _fetch(self, url: str, data: dict = None, key: bool = True) -> t.Tuple[dict, bool]:
         """
