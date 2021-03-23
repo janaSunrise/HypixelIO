@@ -10,9 +10,9 @@ class Guild:
         self.HYPIXEL_ID = data["_id"]
         self.NAME = data["name"]
         self.COINS = data["coins"]
-        self.CREATED = data["members"]
+        self.CREATED = data["created"]
 
-        self.MEMBERS = data["created"]
+        self.MEMBERS = data["members"]
 
         self.LEGACY_RANKING = data["legacyRanking"]
         self.EXPERIENCE = data["exp"]
