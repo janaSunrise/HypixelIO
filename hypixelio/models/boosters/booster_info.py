@@ -1,3 +1,6 @@
+from hypixelio.utils.helpers import unix_time_to_datetime
+
+
 class BoosterInfo:
     """The Hypixel API Booster's Info Model."""
     def __init__(self, info: dict) -> None:
@@ -15,7 +18,7 @@ class BoosterInfo:
         self.LENGTH = info["length"]
 
         self.GAME_TYPE_CODE = info["gameType"]
-        self.DATE_ACTIVATED = info["dateActivated"]
+        self.DATE_ACTIVATED = unix_time_to_datetime(info["dateActivated"])
 
         self.STACKED = "stacked" in info
 

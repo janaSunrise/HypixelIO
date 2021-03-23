@@ -1,5 +1,7 @@
 import typing as t
 
+from hypixelio.utils.helpers import unix_time_to_datetime
+
 
 class Player:
     """The Custom Hypixel Player Model."""
@@ -15,8 +17,8 @@ class Player:
         self.NAME = data["displayname"]
         self.KNOWN_ALIASES = data["knownAliases"]
 
-        self.FIRST_LOGIN = data["firstLogin"]
-        self.LAST_LOGIN = data["lastLogin"]
+        self.FIRST_LOGIN = unix_time_to_datetime(data["firstLogin"])
+        self.LAST_LOGIN = unix_time_to_datetime(data["lastLogin"])
 
         self.ONE_TIME_ACHIEVEMENTS = data["achievementsOneTime"]
         self.ACHIEVEMENT_POINTS = data["achievementPoints"]

@@ -1,3 +1,6 @@
+from hypixelio.utils.helpers import unix_time_to_datetime
+
+
 class Guild:
     """The the Custom Hypixel Guild Model."""
     def __init__(self, data: dict) -> None:
@@ -10,7 +13,7 @@ class Guild:
         self.HYPIXEL_ID = data["_id"]
         self.NAME = data["name"]
         self.COINS = data["coins"]
-        self.CREATED = data["created"]
+        self.CREATED = unix_time_to_datetime(data["created"])
 
         self.MEMBERS = data["members"]
 
