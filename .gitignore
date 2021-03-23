@@ -12,6 +12,7 @@
 TODO
 
 *.sqlite3
+*.sqlite
 *.db
 
 env/
