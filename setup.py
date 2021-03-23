@@ -25,8 +25,8 @@ extras_require = {
         "Brotli",
         "cchardet",
     ],
-    "cache": ['boto3', 'pymongo', 'redis'],
-    "async-cache": ['aiosqlite', 'boto3', 'motor', 'aioredis']
+    "cache": ["requests-cache==0.5.2", 'boto3', 'pymongo', 'redis'],
+    "async-cache": ["aiohttp-client-cache==0.2.2", 'aiosqlite', 'boto3', 'motor', 'aioredis']
 }
 extras_require['all'] = list(chain.from_iterable(extras_require.values()))
 
@@ -55,7 +55,6 @@ setuptools.setup(
 
     install_requires=[
         "requests==2.25.1",
-        "requests-cache==0.5.2",
         "aiohttp==3.7.4.post0"
     ],
     extras_require=extras_require,
