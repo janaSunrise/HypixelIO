@@ -42,14 +42,6 @@ class TestPlayer(unittest.TestCase):
         self.assertIsInstance(player.ACHIEVEMENT_POINTS, int)
         self.assertIsInstance(player.ONE_TIME_ACHIEVEMENTS, list)
 
-    def test_player_first_login(self) -> None:
-        data = {"firstLogin": 123456}
-        player = Player(MOCK_PLAYER)
-        self.assertEqual(player.FIRST_LOGIN, data["firstLogin"])
-
-        player2 = Player(MOCK_PLAYER)
-        self.assertIsInstance(player2.FIRST_LOGIN, int)
-
     def test_player_achievements(self) -> None:
         data = {
             "achievements": {
