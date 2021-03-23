@@ -21,6 +21,7 @@ hypixelio = {editable = true, extras = ["all"], path = "."}
 requests = "==2.25.1"
 requests-cache = "==0.5.2"
 aiohttp = {extras = ["speedups"], version = "*"}
+aiohttp-client-cache = "*"
 
 [scripts]
 lint = "pre-commit run --all-files"
