@@ -104,6 +104,26 @@ class AsyncClient:
                     cache_name=cache_config.cache_name, expire_after=cache_config.expire_after
                 )
 
+    def add_key(self, key: t.Union[str, list]) -> None:
+        if isinstance(key, str):
+            key = [key]
+
+        for k in key:
+            if k in self.__api_key:
+                continue
+            else:
+                self.__api_key.append(k)
+
+    def remove_key(self, key: t.Union[str, list]) -> None:
+        if isinstance(key, str):
+            key = [key]
+
+        for k in key:
+            if k not in self.__api_key:
+                continue
+            else:
+                self.__api_key.remove(k)
+
     async def _fetch(self, url: str, data: dict = None, key: bool = True) -> t.Tuple[dict, bool]:
         """
         Get the JSON Response from the Root Hypixel API URL, and also add the ability to include the GET request
