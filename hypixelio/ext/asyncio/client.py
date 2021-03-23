@@ -79,7 +79,7 @@ class AsyncClient:
         self.retry_after = datetime(1998, 1, 1)
 
         if not isinstance(api_key, list):
-            self.api_key = [api_key]
+            self.__api_key = [api_key]
 
         self.cache = cache
 
@@ -134,7 +134,7 @@ class AsyncClient:
         headers = {}
 
         if key:
-            headers["API-Key"] = random.choice(self.api_key)
+            headers["API-Key"] = random.choice(self.__api_key)
 
         url = form_url(HYPIXEL_API, url, data)
 
@@ -200,7 +200,7 @@ class AsyncClient:
             Key object for the API Key.
         """
         if not api_key:
-            api_key = random.choice(self.api_key)
+            api_key = random.choice(self.__api_key)
 
         json = await self._fetch(self.url["api_key"], {"key": api_key})
         return key.Key(json["record"])

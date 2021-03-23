@@ -81,7 +81,7 @@ class Client:
         self.url = API_PATH["HYPIXEL"]
 
         if not isinstance(api_key, list):
-            self.api_key = [api_key]
+            self.__api_key = [api_key]
 
         self.requests_remaining = -1
         self.total_requests = 0
@@ -132,7 +132,7 @@ class Client:
         headers = {}
 
         if key:
-            headers["API-Key"] = random.choice(self.api_key)
+            headers["API-Key"] = random.choice(self.__api_key)
 
         url = form_url(HYPIXEL_API, url, data)
 
@@ -194,7 +194,7 @@ class Client:
             Key object for the API Key.
         """
         if not api_key:
-            api_key = random.choice(self.api_key)
+            api_key = random.choice(self.__api_key)
 
         json = self._fetch(self.url["api_key"], {"key": api_key})
         return key.Key(json["record"])
