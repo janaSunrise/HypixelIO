@@ -52,6 +52,8 @@ setuptools.setup(
             "Brotli",
             "cchardet",
         ],
+        "cache": ['boto3', 'pymongo', 'redis'],
+        "async-cache": ['aiosqlite', 'boto3', 'motor', 'aioredis']
     },
 
     classifiers=[
