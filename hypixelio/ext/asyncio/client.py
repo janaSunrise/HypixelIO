@@ -5,7 +5,6 @@ import random
 import typing as t
 from datetime import datetime, timedelta
 
-import aiohttp
 import aiohttp_client_cache
 
 from hypixelio.endpoints import API_PATH
