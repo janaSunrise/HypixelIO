@@ -57,6 +57,15 @@ class AsyncClient:
 
         >>> client = AsyncClient(api_key=["123-456", "789-000", "568-908"])
 
+    f you want to enable caching, Here's how to do it
+        >>> client = AsyncClient(cache=True)
+
+    And configuring cache
+        >>> from hypixelio.models.caching import Caching, CacheBackend
+        >>> cache_cfg = Caching(cache_name="my-cache", backend=CacheBackend.sqlite, expire_after=10)
+        >>> client = AsyncClient(cache=True, cache_config=cache_cfg)
+
+
     Notes
     -----
     Keep in mind that, your keys wouldn't work if you're banned from hypixel, or if they're expired.
