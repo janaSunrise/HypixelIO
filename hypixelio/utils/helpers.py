@@ -3,6 +3,7 @@ This module is dedicated to the storage of the Helper functions,
 Which is imported in the main file: `client.py` to include in the functions
 to reduce the lines of code, and simplify it.
 """
+from datetime import datetime
 
 
 def form_url(main_url: str, url: str, data: dict = None) -> str:
@@ -34,3 +35,7 @@ def form_url(main_url: str, url: str, data: dict = None) -> str:
     ])
 
     return url
+
+
+def unix_time_to_datetime(unix_time: int) -> str:
+    return datetime.fromtimestamp(float(unix_time) / 1000)

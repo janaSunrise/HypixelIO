@@ -13,6 +13,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Made the documentation better, and changed the theme.
 - Tweaked and fixed things here and there.
 
+## [1.2.4](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.2.3) - 23-03-2021
+
+## Added
+
+- Caching for async code
+- Conversion of unix time into datetime
+- Ability to manipulate async cache
+- Ability to manipulate keys in the class
+
+## Fixed
+
+- Hid the sensitive variables to fix security issues and apply security patches.
+
 ## [1.2.3](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.2.3) - 11-03-2021
 
 ## Added

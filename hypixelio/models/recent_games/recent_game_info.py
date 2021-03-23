@@ -1,3 +1,6 @@
+from hypixelio.utils.helpers import unix_time_to_datetime
+
+
 class RecentGameInfo:
     def __init__(self, game: dict) -> None:
         """
@@ -6,8 +9,8 @@ class RecentGameInfo:
         game: dict
             The game's JSON data received from the Hypixel API.
         """
-        self.DATE = game["date"]
-        self.END_DATETIME = game["ended"]
+        self.DATE = unix_time_to_datetime(game["date"])
+        self.END_DATETIME = unix_time_to_datetime(game["ended"])
 
         self.GAME_TYPE = game["gameType"]
         self.MODE = game.get("mode")

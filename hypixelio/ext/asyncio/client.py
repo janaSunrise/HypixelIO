@@ -5,7 +5,7 @@ import random
 import typing as t
 from datetime import datetime, timedelta
 
-import aiohttp
+import aiohttp_client_cache
 
 from hypixelio.endpoints import API_PATH
 from hypixelio.exceptions import (
@@ -18,6 +18,7 @@ from hypixelio.exceptions import (
 from hypixelio.lib.converters import Converters
 from hypixelio.models import (
     boosters,
+    caching,
     find_guild,
     friends,
     games,
@@ -56,11 +57,20 @@ class AsyncClient:
 
         >>> client = AsyncClient(api_key=["123-456", "789-000", "568-908"])
 
+    f you want to enable caching, Here's how to do it
+        >>> client = AsyncClient(cache=True)
+
+    And configuring cache
+        >>> from hypixelio.models.caching import Caching, CacheBackend
+        >>> cache_cfg = Caching(cache_name="my-cache", backend=CacheBackend.sqlite, expire_after=10)
+        >>> client = AsyncClient(cache=True, cache_config=cache_cfg)
+
+
     Notes
     -----
     Keep in mind that, your keys wouldn't work if you're banned from hypixel, or if they're expired.
     """
-    def __init__(self, api_key: t.Union[str, list]) -> None:
+    def __init__(self, api_key: t.Union[str, list], cache: bool = False, cache_config: caching.Caching = None) -> None:
         """
         Parameters
         ----------
@@ -69,7 +79,6 @@ class AsyncClient:
         """
         self.url = API_PATH["HYPIXEL"]
 
-        self.__session = aiohttp.ClientSession()
         self.__lock = asyncio.Lock()
 
         self.requests_remaining = -1
@@ -79,11 +88,48 @@ class AsyncClient:
         self.retry_after = datetime(1998, 1, 1)
 
         if not isinstance(api_key, list):
-            self.api_key = [api_key]
+            self.__api_key = [api_key]
 
-    async def close(self) -> None:
-        """Close the AIOHTTP sessions to prevent memory leaks."""
-        await self.__session.close()
+        self.cache = cache
+
+        if cache:
+            if cache_config is None:
+                cache_config = caching.Caching(expire_after=30, old_data_on_error=True)
+
+            if cache_config.backend == "sqlite":
+                self.cache = aiohttp_client_cache.backends.SQLiteBackend(
+                    cache_name=cache_config.cache_name, expire_after=cache_config.expire_after
+                )
+            elif cache_config.backend == "redis":
+                self.cache = aiohttp_client_cache.backends.RedisBackend(
+                    cache_name=cache_config.cache_name, expire_after=cache_config.expire_after
+                )
+            elif cache_config.backend == "mongodb":
+                self.cache = aiohttp_client_cache.backends.MongoDBBackend(
+                    cache_name=cache_config.cache_name, expire_after=cache_config.expire_after
+                )
+            else:
+                self.cache = aiohttp_client_cache.backends.CacheBackend(
+                    cache_name=cache_config.cache_name, expire_after=cache_config.expire_after
+                )
+
+    def add_key(self, key: t.Union[str, list]) -> None:
+        if isinstance(key, str):
+            key = [key]
+
+        for k in key:
+            if k in self.__api_key:
+                continue
+            self.__api_key.append(k)
+
+    def remove_key(self, key: t.Union[str, list]) -> None:
+        if isinstance(key, str):
+            key = [key]
+
+        for k in key:
+            if k not in self.__api_key:
+                continue
+            self.__api_key.remove(k)
 
     async def _fetch(self, url: str, data: dict = None, key: bool = True) -> t.Tuple[dict, bool]:
         """
@@ -115,24 +161,25 @@ class AsyncClient:
         headers = {}
 
         if key:
-            headers["API-Key"] = random.choice(self.api_key)
+            headers["API-Key"] = random.choice(self.__api_key)
 
         url = form_url(HYPIXEL_API, url, data)
 
         async with self.__lock:
-            async with self.__session.get(url, timeout=TIMEOUT, headers=headers) as response:
-                if response.status == 429:
-                    self.requests_remaining = 0
-                    self.retry_after = datetime.now() + timedelta(seconds=int(response.headers["Retry-After"]))
-                    raise RateLimitError(
-                        f"Out of Requests! {datetime.now() + timedelta(seconds=int(response.headers['Retry-After']))}"
-                    )
+            async with aiohttp_client_cache.CachedSession(cache=self.cache) as session:
+                async with session.get(url, timeout=TIMEOUT, headers=headers) as response:
+                    if response.status == 429:
+                        self.requests_remaining = 0
+                        self.retry_after = datetime.now() + timedelta(seconds=int(response.headers["Retry-After"]))
+                        raise RateLimitError(
+                            f"Out of Requests! "
+                            f"{datetime.now() + timedelta(seconds=int(response.headers['Retry-After']))}"
+                        )
 
-                if response.status == 400:
-                    raise HypixelAPIError(reason="Invalid key specified!")
+                    if response.status == 400:
+                        raise HypixelAPIError(reason="Invalid key specified!")
 
-                if key:
-                    if "RateLimit-Limit" in response.headers:
+                    if key and "RateLimit-Limit" in response.headers:
                         if self.total_requests == 0:
                             self.total_requests = int(response.headers["RateLimit-Limit"])
 
@@ -140,19 +187,19 @@ class AsyncClient:
                         self._ratelimit_reset = datetime.now() + timedelta(
                             seconds=int(response.headers["RateLimit-Reset"]))
 
-                try:
-                    json = await response.json()
-                except Exception as exception:
-                    raise HypixelAPIError(f"{exception}")
-                else:
-                    if not json["success"]:
-                        reason = "Something in the API has problem."
-                        if json["cause"] is not None:
-                            reason += f" Reason given: {json['cause']}"
+                    try:
+                        json = await response.json()
+                    except Exception as exception:
+                        raise HypixelAPIError(f"{exception}")
+                    else:
+                        if not json["success"]:
+                            reason = "Something in the API has problem."
+                            if json["cause"] is not None:
+                                reason += f" Reason given: {json['cause']}"
 
-                        raise HypixelAPIError(reason=reason)
+                            raise HypixelAPIError(reason=reason)
 
-                    return json
+                        return json
 
     @staticmethod
     def _filter_name_uuid(name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
@@ -179,7 +226,7 @@ class AsyncClient:
             Key object for the API Key.
         """
         if not api_key:
-            api_key = random.choice(self.api_key)
+            api_key = random.choice(self.__api_key)
 
         json = await self._fetch(self.url["api_key"], {"key": api_key})
         return key.Key(json["record"])

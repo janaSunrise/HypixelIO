@@ -1,3 +1,6 @@
+from hypixelio.utils.helpers import unix_time_to_datetime
+
+
 class FriendData:
     """
     This is the Custom Hypixel API Friend's Data Model.
@@ -14,7 +17,7 @@ class FriendData:
         self.RECEIVER_ID = friend['uuidSender']
         self.SENDER_ID = friend['uuidReceiver']
 
-        self.SENT_AT = friend['started']
+        self.SENT_AT = unix_time_to_datetime(friend['started'])
 
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__} id="{self.REQUEST_ID}" sent="{self.SENT_AT}">'
