@@ -104,6 +104,9 @@ python3 -m pip install -U "HypixelIO[speedups]"
 # Take advantage of caching
 python3 -m pip install -U "HypixelIO[cache]"
 
+# If you need async caching for AsyncClient
+python3 -m pip install -U "HypixelIO[async-cache]"
+
 # Or get all the features!
 python3 -m pip install -U "HypixelIO[all]"
 ```
