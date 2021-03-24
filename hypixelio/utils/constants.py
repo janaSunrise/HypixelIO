@@ -13,6 +13,7 @@ __all__ = (
     "GUILD_COLORS__TAG",
     "SKYWARS_PRESTIGES_RANKS",
     "SKYWARS_PRESTIGE_COLOR",
+    "TIMEOUT"
 )
 
 HYPIXEL_API = "https://api.hypixel.net"

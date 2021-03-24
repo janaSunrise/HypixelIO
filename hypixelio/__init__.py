@@ -6,7 +6,7 @@ from hypixelio.utils import constants
 
 __author__ = "Sunrit Jana"
 __email__ = "warriordefenderz@gmail.com"
-__version__ = "1.2.4"
+__version__ = "1.2.6"
 __license__ = "GPL-3.0 License"
 __copyright__ = "Copyright 2021 Sunrit Jana"
 
