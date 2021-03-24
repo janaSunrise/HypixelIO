@@ -100,6 +100,12 @@ python3 -m pip install -U git+https://github.com/janaSunrise/HypixelIO
 
 # Or use [speedups] to speed up only for async features
 python3 -m pip install -U "HypixelIO[speedups]"
+
+# Take advantage of caching
+python3 -m pip install -U "HypixelIO[cache]"
+
+# Or get all the features!
+python3 -m pip install -U "HypixelIO[all]"
 ```
 
 ## Usage
