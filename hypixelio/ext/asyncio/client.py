@@ -6,6 +6,7 @@ import typing as t
 from datetime import datetime, timedelta
 
 import aiohttp
+import aiohttp_client_cache
 
 from hypixelio.endpoints import API_PATH
 from hypixelio.exceptions import (
@@ -18,6 +19,7 @@ from hypixelio.exceptions import (
 from hypixelio.lib.converters import Converters
 from hypixelio.models import (
     boosters,
+    caching,
     find_guild,
     friends,
     games,
@@ -40,7 +42,8 @@ from hypixelio.utils.helpers import (
 
 
 class AsyncClient:
-    """The client for this wrapper, that handles the requests, authentication, loading and usages of the end user.
+    """
+    The client for this wrapper, that handles the requests, authentication, loading and usages of the end user.
 
     Examples
     --------
@@ -56,18 +59,53 @@ class AsyncClient:
 
         >>> client = AsyncClient(api_key=["123-456", "789-000", "568-908"])
 
+    if you want to enable caching, Here's how to do it
+        >>> client = AsyncClient(cache=True)
+
+    And configuring cache
+        >>> from hypixelio.models.caching import Caching, CacheBackend
+        >>> cache_cfg = Caching(cache_name="my-cache", backend=CacheBackend.sqlite, expire_after=10)
+        >>> client = AsyncClient(cache=True, cache_config=cache_cfg)
+
     Notes
     -----
     Keep in mind that, your keys wouldn't work if you're banned from hypixel, or if they're expired.
     """
-    def __init__(self, api_key: t.Union[str, list]) -> None:
+    def __init__(self, api_key: t.Union[str, list], cache: bool = False, cache_config: caching.Caching = None) -> None:
         """
         Parameters
         ----------
         api_key: `t.Union[str, list]`
             The API Key generated in Hypixel using `/api new` command.
+        cache: `t.Optional[bool]`
+            Whether to enable caching
+        cache_config: `t.Optional[caching.Caching]`
+            The configuration for the saving, and reusing of the cache. Defaults to None.
         """
         self.url = API_PATH["HYPIXEL"]
+
+        self._uses_cache = cache
+
+        if cache:
+            if cache_config is None:
+                cache_config = caching.Caching(expire_after=30, old_data_on_error=True)
+
+            if cache_config.backend == "sqlite":
+                self.cache = aiohttp_client_cache.backends.SQLiteBackend(
+                    cache_name=cache_config.cache_name, expire_after=cache_config.expire_after
+                )
+            elif cache_config.backend == "redis":
+                self.cache = aiohttp_client_cache.backends.RedisBackend(
+                    cache_name=cache_config.cache_name, expire_after=cache_config.expire_after
+                )
+            elif cache_config.backend == "mongodb":
+                self.cache = aiohttp_client_cache.backends.MongoDBBackend(
+                    cache_name=cache_config.cache_name, expire_after=cache_config.expire_after
+                )
+            else:
+                self.cache = aiohttp_client_cache.backends.CacheBackend(
+                    cache_name=cache_config.cache_name, expire_after=cache_config.expire_after
+                )
 
         self.__session = None
         self.__lock = asyncio.Lock()
@@ -120,7 +158,10 @@ class AsyncClient:
             The JSON Response from the Fetch Done to the API and the SUCCESS Value from the Response.
         """
         if not self.__session:
-            self.__session = aiohttp.ClientSession()
+            if not self._uses_cache:
+                self.__session = aiohttp.ClientSession()
+            else:
+                self.__session = aiohttp_client_cache.CachedSession(cache=self.cache)
 
         if (
                 self.requests_remaining != -1 and  # noqa: W504
