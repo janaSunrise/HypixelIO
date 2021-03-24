@@ -41,13 +41,7 @@ from hypixelio.utils.helpers import (
 
 class AsyncClient:
     """The client for this wrapper, that handles the requests, authentication, loading and usages of the end user.
-from hypixelio.ext.asyncio import AsyncClient
-c = AsyncClient("1c30559c-ade3-47dd-9228-9d8c21ea7349")
-import asyncio
-async def main():
-    p = await c.get_player("Sadashi_")
-    return p
-asyncio.run(main())
+
     Examples
     --------
     Import the async client first.
