@@ -41,7 +41,13 @@ from hypixelio.utils.helpers import (
 
 class AsyncClient:
     """The client for this wrapper, that handles the requests, authentication, loading and usages of the end user.
-
+from hypixelio.ext.asyncio import AsyncClient
+c = AsyncClient("1c30559c-ade3-47dd-9228-9d8c21ea7349")
+import asyncio
+async def main():
+    p = await c.get_player("Sadashi_")
+    return p
+asyncio.run(main())
     Examples
     --------
     Import the async client first.
@@ -69,7 +75,7 @@ class AsyncClient:
         """
         self.url = API_PATH["HYPIXEL"]
 
-        self.__session = aiohttp.ClientSession()
+        self.__session = None
         self.__lock = asyncio.Lock()
 
         self.requests_remaining = -1
@@ -119,6 +125,9 @@ class AsyncClient:
         `t.Tuple[dict, bool]`
             The JSON Response from the Fetch Done to the API and the SUCCESS Value from the Response.
         """
+        if not self.__session:
+            self.__session = aiohttp.ClientSession()
+
         if (
                 self.requests_remaining != -1 and  # noqa: W504
                 (self.requests_remaining == 0 and self._ratelimit_reset > datetime.now()) or  # noqa: W504
@@ -137,7 +146,7 @@ class AsyncClient:
         url = form_url(HYPIXEL_API, url, data)
 
         async with self.__lock:
-            async with self.__session.get(url, timeout=TIMEOUT, headers=headers) as response:
+            async with self.__session.get(url, headers=headers, timeout=TIMEOUT) as response:
                 if response.status == 429:
                     self.requests_remaining = 0
                     self.retry_after = datetime.now() + timedelta(seconds=int(response.headers["Retry-After"]))

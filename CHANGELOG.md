@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.6](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.2.6) - 24-03-2021
+
+## Added
+
+None
+
+## Fixed
+
+- Async caching removed due to bugs.
+- Variables exposed and bugs not allowing fetching in async.
+- Cleaned async client.
+
 ## [1.2.5](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.2.5) - 23-03-2021
 
 ## Added
@@ -25,6 +37,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Support for `*` imports, you can now do this: `from hypixelio import *`!
 - Made the documentation better, and changed the theme.
 - Tweaked and fixed things here and there.
+
+## Added
+
+None
+
+## Fixed
+
+- Async caching removed due to bugginess
+- Variables exposed and bugs not allowing fetching in async.
+- Cleaned async client.
 
 ## [1.2.3](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.2.3) - 11-03-2021
 
