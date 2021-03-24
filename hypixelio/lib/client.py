@@ -85,7 +85,6 @@ class Client:
 
         self.requests_remaining = -1
         self.total_requests = 0
-
         self._ratelimit_reset = datetime(1998, 1, 1)
         self.retry_after = datetime(1998, 1, 1)
 
