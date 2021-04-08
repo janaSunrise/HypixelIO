@@ -46,5 +46,3 @@ Async to sync portal
     :undoc-members:
 
 .. autofunction:: hypixelio.ext.portal.create_portal
-    :members:
-    :undoc-members:
