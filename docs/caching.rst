@@ -10,7 +10,7 @@ Caching
 
 
 Cache Backend
-----------
+-------------
 
 .. autoclass:: hypixelio.models.caching.CacheBackend
     :members:
