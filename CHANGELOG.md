@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.8](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.2.8) - 12-04-2021
+
+## Fixes
+
+- Made the caching API compatible with higher API for libraries, and change the dependency
+versions to the latest for security patches.
+- Improve the caching experience
+- Fix the dependencies.
+- Remove outdated things.
+- Add a note on invoking the cache model functions.
+
 ## [1.2.7](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.2.7) - 25-03-2021
 
 ## Added

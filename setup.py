@@ -25,8 +25,8 @@ extras_require = {
         "Brotli",
         "cchardet",
     ],
-    "cache": ["requests-cache==0.5.2", 'boto3', 'pymongo', 'redis'],
-    "async-cache": ["aiohttp-client-cache==0.3.0", 'aiosqlite', 'boto3', 'motor', 'aioredis']
+    "cache": ["requests-cache==0.6.0", 'boto3', 'pymongo', 'redis'],
+    "async-cache": ["aiohttp-client-cache==0.3.0", "aiosqlite", "motor", "aioredis"]
 }
 extras_require['all'] = list(chain.from_iterable(extras_require.values()))
 
