@@ -67,6 +67,10 @@ class AsyncClient:
         >>> cache_cfg = Caching(cache_name="my-cache", backend=CacheBackend.sqlite, expire_after=10)
         >>> client = AsyncClient(cache=True, cache_config=cache_cfg)
 
+    You can also manipulate the cache object by accessing using
+        >>> client.cache
+    And call methods as needed.
+
     Notes
     -----
     Keep in mind that, your keys wouldn't work if you're banned from hypixel, or if they're expired.
