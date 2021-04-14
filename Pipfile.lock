@@ -59,11 +59,11 @@
         },
         "aiohttp-client-cache": {
             "hashes": [
-                "sha256:2bc22ccc1bfd82be21c3b774a526d912c87c69bdaee99bceb12d3333b19bb0f3",
-                "sha256:a280ae6092adf5b1eba3974d4e87f5749bd5b0a113b97fbfde5e2dd617c41a42"
+                "sha256:b6d1c09aeb5eaa753e488c2e5f98069c8d4f466b325b327af29f37ad181f67de",
+                "sha256:d6feafb9924cfd40159f80fd4cd5f39794ff6b90f209bca190a5432d64892cab"
             ],
             "index": "pypi",
-            "version": "==0.2.2"
+            "version": "==0.3.0"
         },
         "async-timeout": {
             "hashes": [
