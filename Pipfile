@@ -19,7 +19,7 @@ hypixelio = {editable = true, extras = ["all"], path = "."}
 
 [packages]
 requests = "==2.25.1"
-requests-cache = "==0.6.2"
+requests-cache = "==0.6.3"
 aiohttp = "==3.7.4post0"
 aiohttp-client-cache = "*"
 
