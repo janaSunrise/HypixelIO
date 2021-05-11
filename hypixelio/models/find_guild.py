@@ -1,5 +1,6 @@
 class FindGuild:
     """This is the Custom Hypixel model for looking up guilds."""
+
     def __init__(self, data: dict) -> None:
         """
         Parameters

@@ -30,15 +30,10 @@ from hypixelio.models import (
     player_status,
     recent_games,
     skyblock,
-    watchdog
+    watchdog,
 )
-from hypixelio.utils.constants import (
-    HYPIXEL_API,
-    TIMEOUT
-)
-from hypixelio.utils.helpers import (
-    form_url
-)
+from hypixelio.utils.constants import HYPIXEL_API, TIMEOUT
+from hypixelio.utils.helpers import form_url
 
 
 class AsyncClient:
@@ -75,7 +70,13 @@ class AsyncClient:
     -----
     Keep in mind that, your keys wouldn't work if you're banned from hypixel, or if they're expired.
     """
-    def __init__(self, api_key: t.Union[str, list], cache: bool = False, cache_config: caching.Caching = None) -> None:
+
+    def __init__(
+        self,
+        api_key: t.Union[str, list],
+        cache: bool = False,
+        cache_config: caching.Caching = None,
+    ) -> None:
         """
         Parameters
         ----------
@@ -96,19 +97,23 @@ class AsyncClient:
 
             if cache_config.backend == "sqlite":
                 self.cache = aiohttp_client_cache.backends.SQLiteBackend(
-                    cache_name=cache_config.cache_name, expire_after=cache_config.expire_after
+                    cache_name=cache_config.cache_name,
+                    expire_after=cache_config.expire_after,
                 )
             elif cache_config.backend == "redis":
                 self.cache = aiohttp_client_cache.backends.RedisBackend(
-                    cache_name=cache_config.cache_name, expire_after=cache_config.expire_after
+                    cache_name=cache_config.cache_name,
+                    expire_after=cache_config.expire_after,
                 )
             elif cache_config.backend == "mongodb":
                 self.cache = aiohttp_client_cache.backends.MongoDBBackend(
-                    cache_name=cache_config.cache_name, expire_after=cache_config.expire_after
+                    cache_name=cache_config.cache_name,
+                    expire_after=cache_config.expire_after,
                 )
             else:
                 self.cache = aiohttp_client_cache.backends.CacheBackend(
-                    cache_name=cache_config.cache_name, expire_after=cache_config.expire_after
+                    cache_name=cache_config.cache_name,
+                    expire_after=cache_config.expire_after,
                 )
 
         self.__session = None
@@ -144,7 +149,9 @@ class AsyncClient:
                 continue
             self.__api_key.remove(k)
 
-    async def _fetch(self, url: str, data: dict = None, key: bool = True) -> t.Tuple[dict, bool]:
+    async def _fetch(
+        self, url: str, data: dict = None, key: bool = True
+    ) -> t.Tuple[dict, bool]:
         """
         Get the JSON Response from the Root Hypixel API URL, and also add the ability to include the GET request
         parameters with the API KEY Parameter by default.
@@ -168,9 +175,12 @@ class AsyncClient:
                 self.__session = aiohttp_client_cache.CachedSession(cache=self.cache)
 
         if (
-                self.requests_remaining != -1 and  # noqa: W504
-                (self.requests_remaining == 0 and self._ratelimit_reset > datetime.now()) or  # noqa: W504
-                self.retry_after and (self.retry_after > datetime.now())
+            self.requests_remaining != -1
+            and (  # noqa: W503
+                self.requests_remaining == 0 and self._ratelimit_reset > datetime.now()
+            )
+            or self.retry_after  # noqa: W503
+            and (self.retry_after > datetime.now())  # noqa: W503
         ):
             raise RateLimitError(f"Retry after {self.retry_after}")
 
@@ -185,10 +195,14 @@ class AsyncClient:
         url = form_url(HYPIXEL_API, url, data)
 
         async with self.__lock:
-            async with self.__session.get(url, headers=headers, timeout=TIMEOUT) as response:
+            async with self.__session.get(
+                url, headers=headers, timeout=TIMEOUT
+            ) as response:
                 if response.status == 429:
                     self.requests_remaining = 0
-                    self.retry_after = datetime.now() + timedelta(seconds=int(response.headers["Retry-After"]))
+                    self.retry_after = datetime.now() + timedelta(
+                        seconds=int(response.headers["Retry-After"])
+                    )
                     raise RateLimitError(
                         f"Out of Requests! "
                         f"{datetime.now() + timedelta(seconds=int(response.headers['Retry-After']))}"
@@ -201,9 +215,12 @@ class AsyncClient:
                     if self.total_requests == 0:
                         self.total_requests = int(response.headers["RateLimit-Limit"])
 
-                    self.requests_remaining = int(response.headers["RateLimit-Remaining"])
+                    self.requests_remaining = int(
+                        response.headers["RateLimit-Remaining"]
+                    )
                     self._ratelimit_reset = datetime.now() + timedelta(
-                        seconds=int(response.headers["RateLimit-Reset"]))
+                        seconds=int(response.headers["RateLimit-Reset"])
+                    )
 
                 try:
                     json = await response.json()
@@ -220,9 +237,13 @@ class AsyncClient:
                     return json
 
     @staticmethod
-    def _filter_name_uuid(name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
+    def _filter_name_uuid(
+        name: t.Optional[str] = None, uuid: t.Optional[str] = None
+    ) -> str:
         if not name and not uuid:
-            raise InvalidArgumentError("Please provide a named argument of the player's username or player's UUID.")
+            raise InvalidArgumentError(
+                "Please provide a named argument of the player's username or player's UUID."
+            )
 
         if name:
             uuid = Converters.username_to_uuid(name)
@@ -262,7 +283,9 @@ class AsyncClient:
 
         return boosters.Boosters(json["boosters"], json)
 
-    async def get_player(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> player.Player:
+    async def get_player(
+        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+    ) -> player.Player:
         """
         Get the Info about a Hypixel Player using either his Username or UUID.
 
@@ -286,7 +309,9 @@ class AsyncClient:
 
         return player.Player(json["player"])
 
-    async def get_friends(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> friends.Friends:
+    async def get_friends(
+        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+    ) -> friends.Friends:
         """
         Get the List of Friends of a Hypixel Player and their Info.
 
@@ -320,7 +345,9 @@ class AsyncClient:
 
         return watchdog.Watchdog(json)
 
-    async def get_guild(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> guild.Guild:
+    async def get_guild(
+        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+    ) -> guild.Guild:
         """
         Get the info about a Hypixel Guild, Either using Name or UUID.
 
@@ -341,7 +368,9 @@ class AsyncClient:
         elif name:
             json = await self._fetch(self.url["guild"], {"name": name})
         else:
-            raise InvalidArgumentError("Please provide a Named argument of the guild's Name or guild's ID.")
+            raise InvalidArgumentError(
+                "Please provide a Named argument of the guild's Name or guild's ID."
+            )
 
         if not json["guild"]:
             raise GuildNotFoundError("Return Value is null")
@@ -374,7 +403,7 @@ class AsyncClient:
         return leaderboard.Leaderboard(json["leaderboards"])
 
     async def find_guild(
-            self, guild_name: t.Optional[str] = None, player_uuid: t.Optional[str] = None
+        self, guild_name: t.Optional[str] = None, player_uuid: t.Optional[str] = None
     ) -> find_guild.FindGuild:
         """
         Finds the Guild By the Guild's Name or using a Player's UUID
@@ -396,12 +425,14 @@ class AsyncClient:
         elif player_uuid:
             json = await self._fetch(self.url["find_guild"], {"byUuid": player_uuid})
         else:
-            raise InvalidArgumentError("Please provide a Named argument of the guild's Name or guild's ID.")
+            raise InvalidArgumentError(
+                "Please provide a Named argument of the guild's Name or guild's ID."
+            )
 
         return find_guild.FindGuild(json)
 
     async def get_player_status(
-            self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
     ) -> player_status.PlayerStatus:
         """
         Get the Status info about a Hypixel Player using either his Username or UUID.
@@ -424,7 +455,7 @@ class AsyncClient:
         return player_status.PlayerStatus(json)
 
     async def get_player_recent_games(
-            self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
     ) -> recent_games.RecentGames:
         """
         Get the recent games played by a Hypixel Player using either his Username or UUID.
@@ -447,7 +478,7 @@ class AsyncClient:
         return recent_games.RecentGames(json)
 
     async def get_skyblock_profile(
-            self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
     ) -> skyblock.SkyblockProfile:
         """
         Get the skyblock information and profile about a specific user as passed in the requirements.
@@ -468,12 +499,14 @@ class AsyncClient:
         json = await self._fetch(self.url["skyblock_profile"], {"profile": uuid})
 
         if not json["profile"]:
-            raise PlayerNotFoundError("The skyblock player being searched does not exist!", uuid)
+            raise PlayerNotFoundError(
+                "The skyblock player being searched does not exist!", uuid
+            )
 
         return skyblock.SkyblockProfile(json)
 
     async def get_skyblock_user_auctions(
-            self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
     ) -> skyblock.SkyblockUserAuction:
         """
         Get the skyblock auction info about a specific user as passed in the requirements.
@@ -494,12 +527,14 @@ class AsyncClient:
         json = await self._fetch(self.url["skyblock_auctions"], {"profile": uuid})
 
         if not json["auctions"]:
-            raise PlayerNotFoundError("The skyblock player being searched does not exist!", uuid)
+            raise PlayerNotFoundError(
+                "The skyblock player being searched does not exist!", uuid
+            )
 
         return skyblock.SkyblockUserAuction(json)
 
     async def get_skyblock_active_auctions(
-            self, page: int = 0
+        self, page: int = 0
     ) -> skyblock.SkyblockActiveAuction:
         """
         Get the list of active auctions in skyblock and use the data.
@@ -575,7 +610,4 @@ class AsyncClient:
             Hypixel API response.
         """
         data = await self._fetch(self.url["guild_achievements"], key=False)
-        return {
-            "one_time": data["one_time"],
-            "tiered": data["tiered"]
-        }
+        return {"one_time": data["one_time"], "tiered": data["tiered"]}

@@ -16,9 +16,11 @@ rolling_daily = watchdog.ROLLING_DAILY
 
 # Display the data
 print(
-    dedent(f"""
+    dedent(
+        f"""
     Last minute ban: {last_minute_ban}
     Total Bans: {total_bans}
     Rolling daily: {rolling_daily}
-    """)
+    """
+    )
 )

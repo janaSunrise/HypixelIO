@@ -20,7 +20,7 @@ API_PATH = {
         "achievements": "/resources/achievements",
         "challenges": "/resources/challenges",
         "quests": "/resources/quests",
-        "guild_achievements": "/resources/guilds/achievements"
+        "guild_achievements": "/resources/guilds/achievements",
     },
     "MOJANG": {
         "username_to_uuid": "/users/profiles/minecraft/{}",
@@ -31,6 +31,6 @@ API_PATH = {
         "avatar": "/avatars/{}",
         "head": "/renders/head/{}",
         "body": "/renders/body/{}",
-        "skins": "/skins/{}"
-    }
+        "skins": "/skins/{}",
+    },
 }

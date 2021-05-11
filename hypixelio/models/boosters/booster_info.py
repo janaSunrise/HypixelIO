@@ -3,6 +3,7 @@ from hypixelio.utils.helpers import unix_time_to_datetime
 
 class BoosterInfo:
     """The Hypixel API Booster's Info Model."""
+
     def __init__(self, info: dict) -> None:
         """
         Parameters

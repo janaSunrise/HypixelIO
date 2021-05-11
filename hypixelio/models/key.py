@@ -1,5 +1,6 @@
 class Key:
     """This is the Custom Hypixel API Key Model."""
+
     def __init__(self, data: dict) -> None:
         """
         Parameters

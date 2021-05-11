@@ -9,12 +9,8 @@ from hypixelio.exceptions.exceptions import (
     CrafatarAPIError,
     InvalidArgumentError,
 )
-from hypixelio.ext.asyncio.converters import (
-    AsyncConverters as Converters
-)
-from hypixelio.utils.constants import (
-    TIMEOUT
-)
+from hypixelio.ext.asyncio.converters import AsyncConverters as Converters
+from hypixelio.utils.constants import TIMEOUT
 
 
 class Utils:
@@ -38,21 +34,29 @@ class Utils:
         """
         session = aiohttp.ClientSession()
 
-        async with session.get(f"https://crafatar.com/{url}", timeout=TIMEOUT) as response:
+        async with session.get(
+            f"https://crafatar.com/{url}", timeout=TIMEOUT
+        ) as response:
             if response.status == 422:
                 raise InvalidArgumentError("Invalid data passed for conversion!")
 
             try:
                 return await response.text()
             except Exception:
-                raise CrafatarAPIError("There seems to be some problem with the content type or the API IS down.")
+                raise CrafatarAPIError(
+                    "There seems to be some problem with the content type or the API IS down."
+                )
 
         await session.close()
 
     @staticmethod
-    def _filter_name_uuid(name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
+    def _filter_name_uuid(
+        name: t.Optional[str] = None, uuid: t.Optional[str] = None
+    ) -> str:
         if not name and not uuid:
-            raise InvalidArgumentError("Please provide a named argument of the player's username or player's UUID.")
+            raise InvalidArgumentError(
+                "Please provide a named argument of the player's username or player's UUID."
+            )
 
         if name:
             uuid = Converters.username_to_uuid(name)
@@ -78,7 +82,10 @@ class Utils:
 
     @classmethod
     async def get_name_history(
-            cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None, changed_at: bool = False
+        cls,
+        name: t.Optional[str] = None,
+        uuid: t.Optional[str] = None,
+        changed_at: bool = False,
     ) -> t.Union[list, dict]:
         """
         This get the name history with records of a player.
@@ -110,7 +117,9 @@ class Utils:
         return usernames
 
     @classmethod
-    async def get_avatar(cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
+    async def get_avatar(
+        cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+    ) -> str:
         """
         Get the avatar of the specified player
 
@@ -132,7 +141,9 @@ class Utils:
         return Utils._form_crafatar_url(Utils.url["avatar"].format(uuid))
 
     @classmethod
-    async def get_head(cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
+    async def get_head(
+        cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+    ) -> str:
         """
         Get the head skin of the specified player
 
@@ -154,7 +165,9 @@ class Utils:
         return Utils._form_crafatar_url(Utils.url["head"].format(uuid))
 
     @classmethod
-    async def get_body(cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
+    async def get_body(
+        cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+    ) -> str:
         """
         Get the whole body's skin of the specified player
 

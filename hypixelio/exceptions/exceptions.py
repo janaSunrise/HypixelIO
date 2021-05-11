@@ -10,7 +10,7 @@ __all__ = (
     "RateLimitError",
     "GuildNotFoundError",
     "CrafatarAPIError",
-    "MojangAPIError"
+    "MojangAPIError",
 )
 
 import typing as t
@@ -22,6 +22,7 @@ class InvalidArgumentError(Exception):
 
 class HypixelAPIError(Exception):
     """Raised When the Hypixel API is facing some problems."""
+
     def __init__(self, reason: str = "undefined") -> None:
         """
         Parameters
@@ -38,6 +39,7 @@ class HypixelAPIError(Exception):
 
 class CrafatarAPIError(Exception):
     """Raised When the Crafatar API is facing some problems."""
+
     def __init__(self, reason: str = "undefined") -> None:
         """
         Parameters
@@ -54,6 +56,7 @@ class CrafatarAPIError(Exception):
 
 class RateLimitError(Exception):
     """Raised When the Hypixel API Rate limit is hit."""
+
     def __init__(self, reason: str = "undefined") -> None:
         """
         Parameters
@@ -70,6 +73,7 @@ class RateLimitError(Exception):
 
 class PlayerNotFoundError(Exception):
     """Raised When the Specified Player is not found."""
+
     def __init__(self, reason: str, user: t.Optional[str]) -> None:
         """
         Parameters
@@ -91,6 +95,7 @@ class PlayerNotFoundError(Exception):
 
 class GuildNotFoundError(Exception):
     """Raised When the Specified Guild is not found."""
+
     def __init__(self, reason: str = "undefined") -> None:
         """
         Parameters
@@ -107,6 +112,7 @@ class GuildNotFoundError(Exception):
 
 class MojangAPIError(Exception):
     """Raised when the Mojang API is facing some problems."""
+
     def __init__(self, reason: str = "undefined") -> None:
         """
         Parameters

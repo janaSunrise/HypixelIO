@@ -1,7 +1,4 @@
-__all__ = (
-    "Portal",
-    "create_portal"
-)
+__all__ = ("Portal", "create_portal")
 
 import asyncio
 import threading

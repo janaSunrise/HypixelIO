@@ -22,8 +22,10 @@ class SkyblockBazaarItem:
         return self.PRODUCT_ID
 
     def __repr__(self) -> str:
-        return f'<{self.__class__.__name__} id="{self.PRODUCT_ID}" sell_price="{self.SELL_PRICE}" ' \
-               f'buy_price="{self.BUY_PRICE}">'
+        return (
+            f'<{self.__class__.__name__} id="{self.PRODUCT_ID}" sell_price="{self.SELL_PRICE}" '
+            f'buy_price="{self.BUY_PRICE}">'
+        )
 
     def __hash__(self) -> int:
         return hash(self.PRODUCT_ID)

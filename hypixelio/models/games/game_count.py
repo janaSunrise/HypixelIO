@@ -2,6 +2,7 @@ class GameCount:
     """
     This is the definition of the Custom Hypixel API Game Mode Count Model.
     """
+
     def __init__(self, game: dict) -> None:
         """
         Parameters
@@ -13,4 +14,6 @@ class GameCount:
         self.MODES = game.get("modes")
 
     def __repr__(self) -> str:
-        return f'<{self.__class__.__name__} players="{self.PLAYERS}" modes={self.MODES}>'
+        return (
+            f'<{self.__class__.__name__} players="{self.PLAYERS}" modes={self.MODES}>'
+        )

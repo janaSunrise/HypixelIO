@@ -14,9 +14,11 @@ name, uuid, achievements = player.NAME, player.UUID, player.ACHIEVEMENTS
 
 # Print the data
 print(
-    dedent(f"""
+    dedent(
+        f"""
     Name: {name}
     UUID: {uuid}
     Achievements: {achievements}
-    """)
+    """
+    )
 )

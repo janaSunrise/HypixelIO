@@ -10,11 +10,9 @@ from hypixelio.models.player import Player
 
 class TestPlayer(unittest.TestCase):
     """Tests for testing the player data."""
+
     def test_invalid_player_name(self) -> None:
-        test_cases = (
-            "ewdijenwmim",
-            "de3in7euw9s38h23782iwksjnhuwiks"
-        )
+        test_cases = ("ewdijenwmim", "de3in7euw9s38h23782iwksjnhuwiks")
 
         client = Client(api_key=os.getenv("HYPIXEL_KEY"))
 
@@ -23,10 +21,7 @@ class TestPlayer(unittest.TestCase):
                 client.get_player(name=test)
 
     def test_invalid_player_uuid(self) -> None:
-        test_cases = (
-            "ewdijenwmim",
-            "de3in7euw9s38h23782iwksjnhuwiks"
-        )
+        test_cases = ("ewdijenwmim", "de3in7euw9s38h23782iwksjnhuwiks")
 
         client = Client(api_key=os.getenv("HYPIXEL_KEY"))
 
@@ -45,9 +40,9 @@ class TestPlayer(unittest.TestCase):
     def test_player_achievements(self) -> None:
         data = {
             "achievements": {
-                'bedwars_level': 5,
-                'general_challenger': 7,
-                'bedwars_wins': 18,
+                "bedwars_level": 5,
+                "general_challenger": 7,
+                "bedwars_wins": 18,
             }
         }
 

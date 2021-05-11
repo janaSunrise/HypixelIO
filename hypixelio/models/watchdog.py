@@ -1,5 +1,6 @@
 class Watchdog:
     """This is the definition of the Custom Hypixel API Key Model."""
+
     def __init__(self, data: dict) -> None:
         """
         Parameters
@@ -19,7 +20,7 @@ class Watchdog:
         return self.LAST_MINUTE_BAN
 
     def __repr__(self) -> str:
-        return f'<{self.__class__.__name__} last_minute_ban={self.LAST_MINUTE_BAN} rolling_daily={self.ROLLING_DAILY}>'
+        return f"<{self.__class__.__name__} last_minute_ban={self.LAST_MINUTE_BAN} rolling_daily={self.ROLLING_DAILY}>"
 
     def __hash__(self) -> int:
         return hash(self.LAST_MINUTE_BAN)

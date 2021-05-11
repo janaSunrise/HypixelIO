@@ -13,7 +13,7 @@ __all__ = (
     "get_ratio",
     "get_ratio_next",
     "get_skywars_level",
-    "get_skywars_level_exact"
+    "get_skywars_level_exact",
 )
 
 import math
@@ -28,14 +28,8 @@ from hypixelio.exceptions.exceptions import (
     CrafatarAPIError,
     InvalidArgumentError,
 )
-from hypixelio.lib.converters import (
-    Converters
-)
-from hypixelio.utils.constants import (
-    RANKS,
-    RANK_COLORS,
-    TIMEOUT
-)
+from hypixelio.lib.converters import Converters
+from hypixelio.utils.constants import RANKS, RANK_COLORS, TIMEOUT
 
 
 class Utils:
@@ -64,12 +58,18 @@ class Utils:
             try:
                 return response
             except Exception:
-                raise CrafatarAPIError("There seems to be some problem with the content type or the API IS down.")
+                raise CrafatarAPIError(
+                    "There seems to be some problem with the content type or the API IS down."
+                )
 
     @staticmethod
-    def _filter_name_uuid(name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
+    def _filter_name_uuid(
+        name: t.Optional[str] = None, uuid: t.Optional[str] = None
+    ) -> str:
         if not name and not uuid:
-            raise InvalidArgumentError("Please provide a named argument of the player's username or player's UUID.")
+            raise InvalidArgumentError(
+                "Please provide a named argument of the player's username or player's UUID."
+            )
 
         if name:
             uuid = Converters.username_to_uuid(name)
@@ -95,7 +95,10 @@ class Utils:
 
     @classmethod
     def get_name_history(
-            cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None, changed_at: bool = False
+        cls,
+        name: t.Optional[str] = None,
+        uuid: t.Optional[str] = None,
+        changed_at: bool = False,
     ) -> t.Union[list, dict]:
         """
         This get the name history with records of a player.
@@ -127,7 +130,9 @@ class Utils:
         return usernames
 
     @classmethod
-    def get_avatar(cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
+    def get_avatar(
+        cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+    ) -> str:
         """
         Get the avatar of the specified player
 
@@ -149,7 +154,9 @@ class Utils:
         return Utils._form_crafatar_url(Utils.url["avatar"].format(uuid))
 
     @classmethod
-    def get_head(cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
+    def get_head(
+        cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+    ) -> str:
         """
         Get the head skin of the specified player
 
@@ -171,7 +178,9 @@ class Utils:
         return Utils._form_crafatar_url(Utils.url["head"].format(uuid))
 
     @classmethod
-    def get_body(cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
+    def get_body(
+        cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+    ) -> str:
         """
         Get the whole body's skin of the specified player
 
@@ -193,7 +202,9 @@ class Utils:
         return Utils._form_crafatar_url(Utils.url["body"].format(uuid))
 
 
-def get_ratio(positive_stat: t.Union[int, float], negative_stat: t.Union[int, float]) -> t.Union[int, float]:
+def get_ratio(
+    positive_stat: t.Union[int, float], negative_stat: t.Union[int, float]
+) -> t.Union[int, float]:
     try:
         ratio = positive_stat / negative_stat
         return round(ratio, 2)
@@ -207,7 +218,12 @@ def get_ratio_next(ratio: t.Union[int, float]) -> t.Union[int, float]:
     return math.trunc(ratio) + 1
 
 
-def get_increase(positive_stat: t.Union[int, float], negative_stat: t.Union[int, float], *, amount: int = 0) -> t.Any:
+def get_increase(
+    positive_stat: t.Union[int, float],
+    negative_stat: t.Union[int, float],
+    *,
+    amount: int = 0,
+) -> t.Any:
     ratio = get_ratio(positive_stat, negative_stat)
     if ratio == float("inf"):
         return 0
@@ -245,12 +261,23 @@ def get_skywars_level_exact(experience: t.Union[int, float]) -> t.Union[int, flo
             if experience - total_xp[counter] >= 0:
                 counter += 1
             else:
-                level = counter + 1 + (experience - total_xp[counter - 1]) / (total_xp[counter] - total_xp[counter - 1])
+                level = (
+                    counter
+                    + 1  # noqa: W503
+                    + (experience - total_xp[counter - 1])  # noqa: W503
+                    / (total_xp[counter] - total_xp[counter - 1])  # noqa: W503
+                )
                 break
     return level
 
 
-def get_rank(rank: str, prefix_raw: str, monthly_package_rank: str, new_package_rank: str, package_rank: str) -> None:
+def get_rank(
+    rank: str,
+    prefix_raw: str,
+    monthly_package_rank: str,
+    new_package_rank: str,
+    package_rank: str,
+) -> None:
     real_rank = None
 
     if prefix_raw:
@@ -297,7 +324,7 @@ def get_guild_level_exact(experience: int) -> t.Union[float, int]:
         2500000,
         2500000,
         2500000,
-        2500000
+        2500000,
     ]
     c = 0.0
     for it in experience_below_14:

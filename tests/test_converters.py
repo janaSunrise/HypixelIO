@@ -10,14 +10,11 @@ class TestUsernameToUUID(unittest.TestCase):
         test_cases = (
             ("janaSunrise", "c8438cdd126043448cca9e28646efbe7"),
             ("JanaSunrise123", "b4ead04f4e2d484ba70257d5729aa773"),
-            ("007rohitjj", "2a13b3a34bf343fa9d8db0f87187da39")
+            ("007rohitjj", "2a13b3a34bf343fa9d8db0f87187da39"),
         )
 
         for username, uuid in test_cases:
-            self.assertEqual(
-                Conv.username_to_uuid(username),
-                uuid
-            )
+            self.assertEqual(Conv.username_to_uuid(username), uuid)
 
 
 class TestUUIDToUsername(unittest.TestCase):
@@ -27,11 +24,8 @@ class TestUUIDToUsername(unittest.TestCase):
         test_cases = (
             ("janaSunrise", "c8438cdd126043448cca9e28646efbe7"),
             ("JanaSunrise123", "b4ead04f4e2d484ba70257d5729aa773"),
-            ("007rohitjj", "2a13b3a34bf343fa9d8db0f87187da39")
+            ("007rohitjj", "2a13b3a34bf343fa9d8db0f87187da39"),
         )
 
         for username, uuid in test_cases:
-            self.assertEqual(
-                username,
-                Conv.uuid_to_username(uuid)
-            )
+            self.assertEqual(username, Conv.uuid_to_username(uuid))

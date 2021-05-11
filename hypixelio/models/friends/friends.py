@@ -5,6 +5,7 @@ from .friend_data import FriendData
 
 class Friends:
     """The the Custom Hypixel API Friends Model."""
+
     def __init__(self, friends: list) -> None:
         """
         Parameters

@@ -13,7 +13,7 @@ __all__ = (
     "GUILD_COLORS__TAG",
     "SKYWARS_PRESTIGES_RANKS",
     "SKYWARS_PRESTIGE_COLOR",
-    "TIMEOUT"
+    "TIMEOUT",
 )
 
 HYPIXEL_API = "https://api.hypixel.net"
@@ -35,7 +35,7 @@ RANKS = {
     "MODERATOR": "MOD",
     "ADMIN": "ADMIN",
     "SLOTH": "SLOTH",
-    "OWNER": "OWNER"
+    "OWNER": "OWNER",
 }
 
 RANK_COLORS = {
@@ -53,7 +53,7 @@ RANK_COLORS = {
     "ADMIN": int("AA0000", 16),
     "SLOTH": int("AA0000", 16),
     "OWNER": int("AA0000", 16),
-    None: int("607D8B", 16)
+    None: int("607D8B", 16),
 }
 
 BEDWARS_PRESTIGE_RANKS = (
@@ -87,7 +87,7 @@ BEDWARS_PRESTIGE_RANKS = (
     "Thunder",
     "Earth",
     "Water",
-    "Fire"
+    "Fire",
 )
 
 SKYWARS_PRESTIGES_RANKS = (
@@ -102,7 +102,7 @@ SKYWARS_PRESTIGES_RANKS = (
     "Opal",
     "Amethyst",
     "Rainbow",
-    "Mystic"
+    "Mystic",
 )
 
 BEDWARS_PRESTIGE_COLOR = (
@@ -126,7 +126,7 @@ BEDWARS_PRESTIGE_COLOR = (
     int("AA0000", 16),
     int("FF69DC", 16),
     int("2562E9", 16),
-    int("AA00AA", 16)
+    int("AA00AA", 16),
 )
 
 SKYWARS_PRESTIGE_COLOR = (
@@ -140,7 +140,7 @@ SKYWARS_PRESTIGE_COLOR = (
     int("FF69DC", 16),
     int("2562E9", 16),
     int("AA00AA", 16),
-    int("AA00AA", 16)
+    int("AA00AA", 16),
 )
 
 GUILD_COLORS__TAG = {
@@ -148,5 +148,5 @@ GUILD_COLORS__TAG = {
     "GOLD": int("FFAC0F", 16),
     "DARK_AQUA": int("00AAAA", 16),
     "DARK_GREEN": int("00AA00", 16),
-    "YELLOW": int("FFFF55", 16)
+    "YELLOW": int("FFFF55", 16),
 }

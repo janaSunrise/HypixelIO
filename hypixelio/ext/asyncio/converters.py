@@ -5,14 +5,8 @@ import typing as t
 import aiohttp
 
 from hypixelio.endpoints import API_PATH
-from hypixelio.exceptions.exceptions import (
-    MojangAPIError,
-    PlayerNotFoundError
-)
-from hypixelio.utils.constants import (
-    MOJANG_API,
-    TIMEOUT
-)
+from hypixelio.exceptions.exceptions import MojangAPIError, PlayerNotFoundError
+from hypixelio.utils.constants import MOJANG_API, TIMEOUT
 
 
 class AsyncConverters:
@@ -37,7 +31,9 @@ class AsyncConverters:
 
         async with session.get(f"{MOJANG_API}{url}", timeout=TIMEOUT) as response:
             if response.status == 204:
-                raise PlayerNotFoundError("204 value returned during conversion to UUID.", None)
+                raise PlayerNotFoundError(
+                    "204 value returned during conversion to UUID.", None
+                )
 
             if response.status == 400:
                 raise PlayerNotFoundError("Badly formed UUID error.", None)
@@ -45,7 +41,9 @@ class AsyncConverters:
             try:
                 json = await response.json()
             except Exception:
-                raise MojangAPIError("There seems to be some problem with the content type or the API is down.")
+                raise MojangAPIError(
+                    "There seems to be some problem with the content type or the API is down."
+                )
             else:
                 if "error" in json:
                     raise MojangAPIError(f"An error occurred! {json['errorMessage']}")
@@ -69,7 +67,9 @@ class AsyncConverters:
         `str`
             returns the converted UUID for the respective username.
         """
-        json = await AsyncConverters._fetch(AsyncConverters.url["username_to_uuid"].format(username))
+        json = await AsyncConverters._fetch(
+            AsyncConverters.url["username_to_uuid"].format(username)
+        )
 
         return json["id"]
 
@@ -88,6 +88,8 @@ class AsyncConverters:
         `str`
             The username for the respective minecraft UUID is returned.
         """
-        json = await AsyncConverters._fetch(AsyncConverters.url["uuid_to_username"].format(uuid))
+        json = await AsyncConverters._fetch(
+            AsyncConverters.url["uuid_to_username"].format(uuid)
+        )
 
         return json[-1]["name"]

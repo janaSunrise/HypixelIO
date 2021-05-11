@@ -16,7 +16,9 @@ class SkyblockProfileMember:
 
         self.CRAFTED_GENERATORS = member_data.get("crafted_generators")
         self.VISITED_ZONES = member_data.get("visited_zones")
-        self.ACHIEVEMENT_SPAWNED_ISLAND_TYPES = member_data.get("achievement_spawned_island_types")
+        self.ACHIEVEMENT_SPAWNED_ISLAND_TYPES = member_data.get(
+            "achievement_spawned_island_types"
+        )
 
         self.SLAYER_QUEST = member_data.get("slayer_quest")
         self.SLAYER_BOSSES = member_data.get("slayer_bosses")
@@ -36,7 +38,7 @@ class SkyblockProfileMember:
             "carpentry": member_data.get("experience_skill_carpentry"),
             "runecrafting": member_data.get("experience_skill_runecrafting"),
             "combat": member_data.get("experience_skill_combat"),
-            "mining": member_data.get("experience_skill_mining")
+            "mining": member_data.get("experience_skill_mining"),
         }
 
         self.COLLECTION = member_data.get("collection")

@@ -7,12 +7,13 @@ from .backend import CacheBackend
 
 class Caching:
     """The Caching model for the Hypixel requests to be made and cached to save the request calls.."""
+
     def __init__(
         self,
         cache_name: str = "cache",
         backend: str = CacheBackend.memory,
         expire_after: int = None,
-        old_data_on_error: bool = False
+        old_data_on_error: bool = False,
     ) -> None:
         """
         Parameters

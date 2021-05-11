@@ -15,7 +15,8 @@ class SkyblockProfile:
 
         self.PROFILE_ID = self.__PROFILE_JSON["profile_id"]
         self.MEMBERS = [
-            SkyblockProfileMember(self.__PROFILE_JSON["members"][member]) for member in self.__PROFILE_JSON["members"]
+            SkyblockProfileMember(self.__PROFILE_JSON["members"][member])
+            for member in self.__PROFILE_JSON["members"]
         ]
         self.COMMUNITY_UPGRADES = self.__PROFILE_JSON["community_upgrades"]
 

@@ -5,14 +5,8 @@ import typing as t
 import requests
 
 from hypixelio.endpoints import API_PATH
-from hypixelio.exceptions.exceptions import (
-    MojangAPIError,
-    PlayerNotFoundError
-)
-from hypixelio.utils.constants import (
-    MOJANG_API,
-    TIMEOUT
-)
+from hypixelio.exceptions.exceptions import MojangAPIError, PlayerNotFoundError
+from hypixelio.utils.constants import MOJANG_API, TIMEOUT
 
 
 class Converters:
@@ -35,7 +29,9 @@ class Converters:
         """
         with requests.get(f"{MOJANG_API}{url}", timeout=TIMEOUT) as response:
             if response.status_code == 204:
-                raise PlayerNotFoundError("204 value returned during conversion to UUID.", None)
+                raise PlayerNotFoundError(
+                    "204 value returned during conversion to UUID.", None
+                )
 
             if response.status_code == 400:
                 raise PlayerNotFoundError("Badly formed UUID error.", None)
@@ -43,7 +39,9 @@ class Converters:
             try:
                 json = response.json()
             except Exception:
-                raise MojangAPIError("There seems to be some problem with the content type or the API is down.")
+                raise MojangAPIError(
+                    "There seems to be some problem with the content type or the API is down."
+                )
             else:
                 if "error" in json:
                     raise MojangAPIError(f"An error occurred! {json['errorMessage']}")

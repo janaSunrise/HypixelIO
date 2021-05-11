@@ -5,6 +5,7 @@ from hypixelio.utils.helpers import unix_time_to_datetime
 
 class Player:
     """The Custom Hypixel Player Model."""
+
     def __init__(self, data: dict) -> None:
         """
         Parameters

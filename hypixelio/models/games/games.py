@@ -7,6 +7,7 @@ class Games:
     """
     This is the definition of the Custom Hypixel Game count Model.
     """
+
     def __init__(self, games: dict, player_count: int) -> None:
         """
         Parameters
@@ -47,5 +48,7 @@ class Games:
         self.QUEUE = GameCount(games["QUEUE"])
 
     def __repr__(self) -> str:
-        return f'<{self.__class__.__name__} lobby={self.MAIN_LOBBY} idle={self.IDLE} queue={self.QUEUE} ' \
-               f'players={self.PLAYER_COUNT}>'
+        return (
+            f"<{self.__class__.__name__} lobby={self.MAIN_LOBBY} idle={self.IDLE} queue={self.QUEUE} "
+            f"players={self.PLAYER_COUNT}>"
+        )

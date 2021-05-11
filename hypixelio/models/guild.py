@@ -3,6 +3,7 @@ from hypixelio.utils.helpers import unix_time_to_datetime
 
 class Guild:
     """The the Custom Hypixel Guild Model."""
+
     def __init__(self, data: dict) -> None:
         """
         Parameters
