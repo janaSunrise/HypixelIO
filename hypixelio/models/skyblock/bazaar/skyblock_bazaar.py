@@ -10,7 +10,8 @@ class SkyblockBazaar:
             The data from the Hypixel API endpoint.
         """
         self.__PRODUCTS = data["products"]
+        self.PRODUCTS = {}
 
         for key, value in self.__PRODUCTS.items():
             bazaar_item_object = SkyblockBazaarItem(value["quick_status"])
-            setattr(self, key, bazaar_item_object)
+            self.PRODUCTS[key] = bazaar_item_object
