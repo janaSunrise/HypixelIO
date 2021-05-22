@@ -61,8 +61,8 @@ A Modern Efficient and Easy way of interacting with the Hypixel API!
     <img src="https://img.shields.io/github/languages/code-size/janaSunrise/HypixelIO" alt="Code Size" />
 </a>
 
-<a href="https://discord.gg/cSC5ZZwYGQ">
-    <img src="https://discordapp.com/api/guilds/695008516590534758/widget.png?style=shield" alt="Discord" />
+<a href="https://discord.gg/MKC4qna4Gz">
+    <img src="https://discordapp.com/api/guilds/835940276869791816/widget.png?style=shield" alt="Discord" />
 </a>
 
 </p>
@@ -74,13 +74,14 @@ A Modern Efficient and Easy way of interacting with the Hypixel API!
   <span> · </span>
   <a href="https://github.com/janaSunrise/HypixelIO/discussions">Discussions</a>
   <span> · </span>
-  <a href="https://discord.gg/cSC5ZZwYGQ">Discord</a>
+  <a href="https://discord.gg/MKC4qna4Gz">Discord</a>
 </h3>
 
 ## ✨ Why choose HypixelIO over others?
 
 - Modern way of handling requests
-- Both async and sync support.
+- Modern OOP based structure  
+- Both Async and general support.
 - Simple rate handling, and caching.
 - Speed optimized
 - Easy to use with a modern and simple design
@@ -128,7 +129,7 @@ print(boosters[0].ID)
 print(friends.FRIENDS[0].RECEIVER_ID)
 ```
 
-### Need async support? We already do!
+### Async usage
 
 ```python
 from hypixelio.ext.asyncio import AsyncClient, AsyncConverters
@@ -139,7 +140,7 @@ boosters = await client.get_boosters()  # Get the boosters object
 
 friends = await client.get_friends(uuid="user's-uuid")  # Returns the Friends object
 # or if you don't know the UUID
-friends = await client.get_friends(uuid=Converters.username_to_uuid("your-username"))
+friends = await client.get_friends(uuid=(await AsyncConverters.username_to_uuid("your-username")))
 
 print(boosters[0].ID)
 print(friends.FRIENDS[0].RECEIVER_ID)
@@ -164,7 +165,7 @@ instead of the `main` branch.
 If you have various suggestions, questions or want to discuss things wit our community, Have a look at
 [Github discussions](https://github.com/janaSunrise/HypixelIO/discussions) or join our discord server!
 
-[![Discord](https://discordapp.com/api/guilds/695008516590534758/widget.png?style=shield)](https://discord.gg/cSC5ZZwYGQ)
+[![Discord](https://discordapp.com/api/guilds/835940276869791816/widget.png?style=shield)](https://discord.gg/MKC4qna4Gz)
 
 
 ## 📢 Changelog
@@ -177,11 +178,7 @@ Be sure to leave a ⭐️ if you like the project!
 ## ▶ Links
 - [Official Documentation](http://hypixelio.rtfd.io/)
 - [Raise an Issue](https://github.com/janaSunrise/HypixelIO/issues)
-- API-Help section: [https://hypixel.net/threads/guide-using-the-hypixel-api-with-python.2596749/](https://hypixel.net/threads/guide-using-the-hypixel-api-with-python.2596749/)
+- [API Documentation](https://api.hypixel.net)
 
 
-<p align="center">
-
-Made by janaSunrise with ❤
-
-</p>
+<div align="center">Made by janaSunrise with ❤</div>
