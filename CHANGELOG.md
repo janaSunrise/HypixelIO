@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.9](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.2.9) - 27-05-2021
+
+## Fixes
+
+- Fixed several tiny bugs
+- Organized codebase
+- Fixed the warning and function return types.
+- Fixed a lot of vulnerable dependency versions.
+
 ## [1.2.8](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.2.8) - 12-04-2021
 
 ## Fixes
