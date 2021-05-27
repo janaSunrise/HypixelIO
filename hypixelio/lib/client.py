@@ -8,7 +8,6 @@ from datetime import datetime, timedelta
 import requests
 import requests_cache
 
-from hypixelio import __version__ as hypixelio_version
 from hypixelio.endpoints import API_PATH
 from hypixelio.exceptions import (
     GuildNotFoundError,
@@ -90,13 +89,6 @@ class Client:
         if not isinstance(api_key, list):
             self.__api_key = [api_key]
 
-        # Headers
-        python_version = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
-        self.headers = {
-            "User-Agent": f"HypixelIO[v{hypixelio_version}] Client (https://github.com/janaSunrise/HypixelIO) "
-                          f"Python/{python_version}"
-        }
-
         self.requests_remaining = -1
         self.total_requests = 0
         self._ratelimit_reset = datetime(1998, 1, 1)
@@ -163,12 +155,20 @@ class Client:
         if not data:
             data = {}
 
+        # Headers
+        from hypixelio import __version__ as hypixelio_version
+        python_version = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
+        headers = {
+            "User-Agent": f"HypixelIO[v{hypixelio_version}] Client (https://github.com/janaSunrise/HypixelIO) "
+                          f"Python/{python_version}"
+        }
+
         if key:
-            self.headers["API-Key"] = random.choice(self.__api_key)
+            headers["API-Key"] = random.choice(self.__api_key)
 
         url = form_url(HYPIXEL_API, url, data)
 
-        with requests.get(url, timeout=TIMEOUT, headers=self.headers) as response:
+        with requests.get(url, timeout=TIMEOUT, headers=headers) as response:
             if response.status_code == 429:
                 self.requests_remaining = 0
                 self.retry_after = datetime.now() + timedelta(seconds=int(response.headers["Retry-After"]))

@@ -2,6 +2,7 @@ __all__ = "AsyncClient"
 
 import asyncio
 import random
+import sys
 import typing as t
 from datetime import datetime, timedelta
 
@@ -185,7 +186,13 @@ class AsyncClient:
         if not data:
             data = {}
 
-        headers = {}
+        # Headers
+        from hypixelio import __version__ as hypixelio_version
+        python_version = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
+        headers = {
+            "User-Agent": f"HypixelIO[v{hypixelio_version}] Client (https://github.com/janaSunrise/HypixelIO) "
+                          f"Python/{python_version}"
+        }
 
         if key:
             headers["API-Key"] = random.choice(self.__api_key)
