@@ -1,12 +1,14 @@
 __all__ = "Client"
 
 import random
+import sys
 import typing as t
 from datetime import datetime, timedelta
 
 import requests
 import requests_cache
 
+from hypixelio import __version__ as hypixelio_version
 from hypixelio.endpoints import API_PATH
 from hypixelio.exceptions import (
     GuildNotFoundError,
@@ -35,7 +37,7 @@ from hypixelio.utils.constants import (
     HYPIXEL_API,
     TIMEOUT,
 )
-from hypixelio.utils.helpers import form_url
+from hypixelio.utils.url import form_url
 
 
 class Client:
@@ -45,6 +47,7 @@ class Client:
     --------
     If you have a single API key, Here's how to authenticate
 
+        >>> import hypixelio
         >>> client = hypixelio.Client(api_key="123-456-789")
 
     Or, If you have multiple API keys (Better option for load balancing)
@@ -87,6 +90,13 @@ class Client:
         if not isinstance(api_key, list):
             self.__api_key = [api_key]
 
+        # Headers
+        python_version = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
+        self.headers = {
+            "User-Agent": f"HypixelIO[v{hypixelio_version}] Client (https://github.com/janaSunrise/HypixelIO) "
+                          f"Python/{python_version}"
+        }
+
         self.requests_remaining = -1
         self.total_requests = 0
         self._ratelimit_reset = datetime(1998, 1, 1)
@@ -103,27 +113,27 @@ class Client:
                 old_data_on_error=cache_config.old_data_on_error,
             )
 
-    def add_key(self, key: t.Union[str, list]) -> None:
-        if isinstance(key, str):
-            key = [key]
+    def add_key(self, api_key: t.Union[str, list]) -> None:
+        if isinstance(api_key, str):
+            api_key = [api_key]
 
-        for k in key:
+        for k in api_key:
             if k in self.__api_key:
                 continue
+
             self.__api_key.append(k)
 
-    def remove_key(self, key: t.Union[str, list]) -> None:
-        if isinstance(key, str):
-            key = [key]
+    def remove_key(self, api_key: t.Union[str, list]) -> None:
+        if isinstance(api_key, str):
+            api_key = [api_key]
 
-        for k in key:
+        for k in api_key:
             if k not in self.__api_key:
                 continue
+
             self.__api_key.remove(k)
 
-    def _fetch(
-        self, url: str, data: dict = None, key: bool = True
-    ) -> t.Tuple[dict, bool]:
+    def _fetch(self, url: str, data: dict = None, key: bool = True) -> dict:
         """
         Get the JSON Response from the Root Hypixel API URL, and also add the ability to include the GET request
         parameters with the API KEY Parameter by default.
@@ -144,9 +154,7 @@ class Client:
         """
         if (
             self.requests_remaining != -1
-            and (  # noqa: W503
-                self.requests_remaining == 0 and self._ratelimit_reset > datetime.now()
-            )
+            and (self.requests_remaining == 0 and self._ratelimit_reset > datetime.now())  # noqa: W503
             or self.retry_after  # noqa: W503
             and (self.retry_after > datetime.now())  # noqa: W503
         ):
@@ -155,19 +163,15 @@ class Client:
         if not data:
             data = {}
 
-        headers = {}
-
         if key:
-            headers["API-Key"] = random.choice(self.__api_key)
+            self.headers["API-Key"] = random.choice(self.__api_key)
 
         url = form_url(HYPIXEL_API, url, data)
 
-        with requests.get(url, timeout=TIMEOUT, headers=headers) as response:
+        with requests.get(url, timeout=TIMEOUT, headers=self.headers) as response:
             if response.status_code == 429:
                 self.requests_remaining = 0
-                self.retry_after = datetime.now() + timedelta(
-                    seconds=int(response.headers["Retry-After"])
-                )
+                self.retry_after = datetime.now() + timedelta(seconds=int(response.headers["Retry-After"]))
                 raise RateLimitError(
                     f"Out of Requests! {datetime.now() + timedelta(seconds=int(response.headers['Retry-After']))}"
                 )
@@ -202,13 +206,9 @@ class Client:
                 return json
 
     @staticmethod
-    def _filter_name_uuid(
-        name: t.Optional[str] = None, uuid: t.Optional[str] = None
-    ) -> str:
+    def _filter_name_uuid(name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
         if not name and not uuid:
-            raise InvalidArgumentError(
-                "Please provide a named argument of the player's username or player's UUID."
-            )
+            raise InvalidArgumentError("Please provide a named argument of the player's username or player's UUID.")
 
         if name:
             uuid = Converters.username_to_uuid(name)

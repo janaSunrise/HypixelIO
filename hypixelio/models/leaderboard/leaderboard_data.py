@@ -1,6 +1,3 @@
-"""This module is dedicated to definition of the Leaderboard data class."""
-
-
 class LeaderboardData:
     """This is the Custom Hypixel API Leaderboard Data Model."""
 

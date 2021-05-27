@@ -1,5 +1,3 @@
-"""This module is dedicated to definition of the Game count class."""
-
 from .game_count import GameCount
 
 

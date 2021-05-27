@@ -1,5 +1,3 @@
-"""This module is dedicated to definition of the Leaderboard class."""
-
 from .leaderboard_data import LeaderboardData as data
 
 

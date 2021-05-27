@@ -33,7 +33,7 @@ from hypixelio.models import (
     watchdog,
 )
 from hypixelio.utils.constants import HYPIXEL_API, TIMEOUT
-from hypixelio.utils.helpers import form_url
+from hypixelio.utils.url import form_url
 
 
 class AsyncClient:
@@ -131,27 +131,25 @@ class AsyncClient:
         """Close the AIOHTTP sessions to prevent memory leaks."""
         await self.__session.close()
 
-    def add_key(self, key: t.Union[str, list]) -> None:
-        if isinstance(key, str):
-            key = [key]
+    def add_key(self, api_key: t.Union[str, list]) -> None:
+        if isinstance(api_key, str):
+            api_key = [api_key]
 
-        for k in key:
+        for k in api_key:
             if k in self.__api_key:
                 continue
             self.__api_key.append(k)
 
-    def remove_key(self, key: t.Union[str, list]) -> None:
-        if isinstance(key, str):
-            key = [key]
+    def remove_key(self, api_key: t.Union[str, list]) -> None:
+        if isinstance(api_key, str):
+            api_key = [api_key]
 
-        for k in key:
+        for k in api_key:
             if k not in self.__api_key:
                 continue
             self.__api_key.remove(k)
 
-    async def _fetch(
-        self, url: str, data: dict = None, key: bool = True
-    ) -> t.Tuple[dict, bool]:
+    async def _fetch(self, url: str, data: dict = None, key: bool = True) -> dict:
         """
         Get the JSON Response from the Root Hypixel API URL, and also add the ability to include the GET request
         parameters with the API KEY Parameter by default.

@@ -330,6 +330,7 @@ def get_guild_level_exact(experience: int) -> t.Union[float, int]:
     for it in experience_below_14:
         if it > experience:
             level = c + round(experience / it * 100.0) / 100.0
+
         experience -= it
         c += 1
 
