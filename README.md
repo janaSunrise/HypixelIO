@@ -83,7 +83,7 @@ A Modern Efficient and Easy way of interacting with the Hypixel API!
 - Modern OOP based structure  
 - Both Async and general support.
 - Simple rate handling, and caching.
-- Speed optimized
+- Elegant design with Complete optimization.
 - Easy to use with a modern and simple design
 - Full API coverage
 
@@ -155,7 +155,7 @@ a PR to this repo and it will be deployed once it's accepted.
 
 ⚠️ It’s good to have descriptive commit messages, or PR titles so that other contributors can understand about your 
 commit or the PR Created. Read [conventional commits](https://www.conventionalcommits.org/en/v1.0.0-beta.3/) before 
-making the commit message.
+making the commit message. You can find our contributing guidelines [here](https://github.com/janaSunrise/HypixelIO/blob/main/CONTRIBUTING.md)
 
 And, Also we have a branch named `dev`, So if you're interested in contributing, Please contribute to that branch 
 instead of the `main` branch.
@@ -166,7 +166,6 @@ If you have various suggestions, questions or want to discuss things wit our com
 [Github discussions](https://github.com/janaSunrise/HypixelIO/discussions) or join our discord server!
 
 [![Discord](https://discordapp.com/api/guilds/835940276869791816/widget.png?style=shield)](https://discord.gg/MKC4qna4Gz)
-
 
 ## 📢 Changelog
 If you're interested in seeing the **Changelog**, Go [here!](https://github.com/janaSunrise/HypixelIO/blob/main/CHANGELOG.md)
