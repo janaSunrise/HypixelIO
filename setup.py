@@ -21,25 +21,37 @@ if not VERSION:
 
 extras_require = {
     "speedups": ["aiodns>=1.1", "Brotli==1.0.9", "cchardet==2.1.7"],
-    "cache": ["requests-cache==0.6.3", "boto3==1.17.82", "pymongo==3.11.4", "redis==3.5.3"],
-    "async-cache": ["aiohttp-client-cache==0.4.0", "aiosqlite==0.17.0", "motor==2.4.0", "aioredis==1.3.1"],
+    "cache": ["boto3==1.17.82", "pymongo==3.11.4", "redis==3.5.3"],
+    "async-cache": ["aiosqlite==0.17.0", "motor==2.4.0", "aioredis==1.3.1"],
 }
 extras_require["all"] = list(chain.from_iterable(extras_require.values()))
 
 setuptools.setup(
     name="HypixelIO",
     version=VERSION,
+
     author="Sunrit Jana",
     author_email="warriordefenderz@gmail.com",
+
     description="A modern, efficient and faster way of interacting with the Hypixel API!",
     long_description=README,
     long_description_content_type="text/markdown",
+
     license="GPL v3",
+
     url=URL,
     project_urls={"Documentation": URL, "Issue tracker": f"{URL}/issues"},
+
     packages=setuptools.find_packages(exclude=["tests", "tests.*", "tools", "tools.*"]),
-    install_requires=["requests==2.25.1", "aiohttp==3.7.4.post0"],
+
+    install_requires=[
+        "requests==2.25.1",
+        "aiohttp==3.7.4.post0",
+        "requests-cache==0.6.3",
+        "aiohttp-client-cache==0.4.0",
+    ],
     extras_require=extras_require,
+
     classifiers=[
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.6",

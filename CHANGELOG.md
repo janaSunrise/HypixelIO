@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.10](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.2.10) - 27-05-2021
+
+## Fixes
+
+- Fix import errors when not using Caching, By installing caching modules without backend 
+  to prevent bloat.
+- Fix the caching issues in the library internally and fix them.  
+
 ## [1.2.9](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.2.9) - 27-05-2021
 
 ## Fixes

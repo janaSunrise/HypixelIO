@@ -4,7 +4,7 @@ from .backend import CacheBackend
 
 
 class Caching:
-    """The Caching model for the Hypixel requests to be made and cached to save the request calls.."""
+    """The Caching model for the Hypixel requests to be made and cached to save the request calls."""
 
     def __init__(
         self,

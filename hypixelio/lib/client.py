@@ -72,7 +72,7 @@ class Client:
         self,
         api_key: t.Union[str, list],
         cache: bool = False,
-        cache_config: caching.Caching = None,
+        cache_config: t.Optional[caching.Caching] = None,
     ) -> None:
         """
         Parameters
