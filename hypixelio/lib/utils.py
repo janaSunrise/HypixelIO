@@ -223,12 +223,15 @@ def get_increase(
     negative_stat: t.Union[int, float],
     *,
     amount: int = 0,
-) -> t.Any:
+) -> t.Union[int, float]:
     ratio = get_ratio(positive_stat, negative_stat)
+
     if ratio == float("inf"):
         return 0
+
     if not bool(amount):
         amount = (math.trunc(ratio) + 1) - ratio
+
     needed = (ratio + amount) * negative_stat - positive_stat
     return round(needed)
 
@@ -249,7 +252,7 @@ def get_skywars_level(experience: t.Union[int, float]) -> t.Union[int, float]:
     return math.trunc(get_skywars_level_exact(experience))
 
 
-def get_skywars_level_exact(experience: t.Union[int, float]) -> t.Union[int, float]:
+def get_skywars_level_exact(experience: t.Union[int, float]) -> int:
     total_xp = [20, 70, 150, 250, 500, 1000, 2000, 3500, 6000, 10000, 15000]
     level = 0
 
@@ -268,6 +271,7 @@ def get_skywars_level_exact(experience: t.Union[int, float]) -> t.Union[int, flo
                     / (total_xp[counter] - total_xp[counter - 1])  # noqa: W503
                 )
                 break
+
     return level
 
 
@@ -277,18 +281,22 @@ def get_rank(
     monthly_package_rank: str,
     new_package_rank: str,
     package_rank: str,
-) -> None:
+) -> str:
     real_rank = None
 
     if prefix_raw:
         prefix = re.sub(r"§.", "", prefix_raw)[1:-1]
         real_rank = RANKS.get(prefix, prefix)
+
     elif rank and rank != "NORMAL" and not real_rank:
         real_rank = RANKS.get(rank, rank)
+
     elif new_package_rank and not real_rank:
         real_rank = RANKS.get(new_package_rank, new_package_rank)
+
     elif package_rank and not real_rank:
         real_rank = RANKS.get(package_rank, package_rank)
+
     elif (monthly_package_rank and monthly_package_rank != "NONE") and not real_rank:
         real_rank = RANKS.get(monthly_package_rank, monthly_package_rank)
 
@@ -335,9 +343,11 @@ def get_guild_level_exact(experience: int) -> t.Union[float, int]:
         c += 1
 
         increment = 3000000
+
     while experience > increment:
         c += 1
         experience -= increment
+
     level = c + (round(experience / increment * 100.0) / 100.0)
     return level
 
