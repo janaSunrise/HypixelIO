@@ -1,8 +1,4 @@
 repos:
-  - repo: https://github.com/pre-commit/pygrep-hooks
-    rev: v1.5.1
-    hooks:
-      - id: python-check-blanket-noqa
   - repo: local
     hooks:
       - id: flake8
@@ -12,3 +8,8 @@ repos:
         language: python
         types: [python]
         require_serial: true
+
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.9.0
+    hooks:
+      - id: python-check-blanket-noqa
