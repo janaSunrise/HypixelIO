@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Fixes
 
-- Fix import errors when not using Caching, By installing caching modules without backend 
+- Fix import errors when not using Caching, By installing caching modules without backend
   to prevent bloat.
 - Fix the caching issues in the library internally and fix them.  
 

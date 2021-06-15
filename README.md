@@ -1,10 +1,10 @@
 ```
-                      __  __            _           __   ________ 
+                      __  __            _           __   ________
                      / / / /_  ______  (_)  _____  / /  /  _/ __ \
                     / /_/ / / / / __ \/ / |/_/ _ \/ /   / // / / /
-                   / __  / /_/ / /_/ / />  </  __/ /  _/ // /_/ / 
+                   / __  / /_/ / /_/ / />  </  __/ /  _/ // /_/ /
                   /_/ /_/\__, / .___/_/_/|_|\___/_/  /___/\____/  
-                        /____/_/                                     
+                        /____/_/  
 ```
 
 <h3 align="center">
@@ -89,8 +89,8 @@ A Modern Efficient and Easy way of interacting with the Hypixel API!
 
 ## 🚀 Installing
 **Note**: **Python 3.7 or above is required!**
-**Note**: This library has caching modules downloaded when installed. If you need more 
-  adapters support, You should refer to the extra requires below. 
+**Note**: This library has caching modules downloaded when installed. If you need more
+  adapters support, You should refer to the extra requires below.
 
 ```bash
 # Windows
@@ -153,14 +153,14 @@ print(friends.FRIENDS[0].RECEIVER_ID)
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome. After cloning & setting up project locally, you can just submit 
+Contributions, issues and feature requests are welcome. After cloning & setting up project locally, you can just submit
 a PR to this repo and it will be deployed once it's accepted.
 
-⚠️ It’s good to have descriptive commit messages, or PR titles so that other contributors can understand about your 
-commit or the PR Created. Read [conventional commits](https://www.conventionalcommits.org/en/v1.0.0-beta.3/) before 
+⚠️ It’s good to have descriptive commit messages, or PR titles so that other contributors can understand about your
+commit or the PR Created. Read [conventional commits](https://www.conventionalcommits.org/en/v1.0.0-beta.3/) before
 making the commit message. You can find our contributing guidelines [here](https://github.com/janaSunrise/HypixelIO/blob/main/CONTRIBUTING.md)
 
-And, Also we have a branch named `dev`, So if you're interested in contributing, Please contribute to that branch 
+And, Also we have a branch named `dev`, So if you're interested in contributing, Please contribute to that branch
 instead of the `main` branch.
 
 ## 💬 Get in touch
