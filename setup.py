@@ -37,7 +37,7 @@ setuptools.setup(
     long_description=README,
     long_description_content_type="text/markdown",
 
-    license="GPL v3",
+    license="MIT",
 
     url=URL,
     project_urls={"Documentation": URL, "Issue tracker": f"{URL}/issues"},
@@ -62,6 +62,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
         "Intended Audience :: Developers",
         "Natural Language :: English",
+        "Typing :: Typed"
     ],
     python_requires=">=3.6",
 )
