@@ -8,7 +8,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.2.10](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.2.10) - 27-05-2021
 
 ## Fixes
-
 - Fix import errors when not using Caching, By installing caching modules without backend
   to prevent bloat.
 - Fix the caching issues in the library internally and fix them.  
@@ -16,7 +15,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.2.9](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.2.9) - 27-05-2021
 
 ## Fixes
-
 - Fixed several tiny bugs
 - Organized codebase
 - Fixed the warning and function return types.
@@ -25,7 +23,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.2.8](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.2.8) - 12-04-2021
 
 ## Fixes
-
 - Made the caching API compatible with higher API for libraries, and change the dependency
 versions to the latest for security patches.
 - Improve the caching experience
@@ -36,19 +33,13 @@ versions to the latest for security patches.
 ## [1.2.7](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.2.7) - 25-03-2021
 
 ## Added
-
 - Stable caching for async
 - More examples!
 - Automated caching based session fetch in the client.
 
 ## [1.2.6](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.2.6) - 24-03-2021
 
-## Added
-
-None
-
 ## Fixed
-
 - Async caching removed due to bugs.
 - Variables exposed and bugs not allowing fetching in async.
 - Cleaned async client.
@@ -56,30 +47,22 @@ None
 ## [1.2.5](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.2.5) - 23-03-2021
 
 ## Added
-
 - Caching for async code
 - Conversion of unix time into datetime
 - Ability to manipulate async cache
 - Ability to manipulate keys in the class
 
 ## Fixed
-
-- Hid the sensitive variables to fix security issues and apply security patches.
+- Hide the sensitive variables to fix security issues and apply security patches.
 
 ## [1.2.4](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.2.4) - 16-03-2021
 
 ## Added
-
 - Support for `*` imports, you can now do this: `from hypixelio import *`!
 - Made the documentation better, and changed the theme.
 - Tweaked and fixed things here and there.
 
-## Added
-
-None
-
 ## Fixed
-
 - Async caching removed due to bugginess
 - Variables exposed and bugs not allowing fetching in async.
 - Cleaned async client.
@@ -87,7 +70,6 @@ None
 ## [1.2.3](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.2.3) - 11-03-2021
 
 ## Added
-
 - Write more docs
 - Add more model fields
 - Add modular models
@@ -98,18 +80,15 @@ None
 ## [1.2.2](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.2.2) - 11-03-2021
 
 ## Added
-
 - A portal for async to sync with threading.
 
 ## Fixed
-
 - Fixed documentation.
 - Added asyncio locking to preserve the async coroutines running at same time.
 
 ## [1.2.1](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.2.1) - 09-03-2021
 
 ## Fixed
-
 - The Changelog
 - The README
 - The documentation looks and content.
