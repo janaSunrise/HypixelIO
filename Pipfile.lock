@@ -787,11 +787,11 @@
         },
         "gitpython": {
             "hashes": [
-                "sha256:29fe82050709760081f588dd50ce83504feddbebdc4da6956d02351552b1c135",
-                "sha256:ee24bdc93dce357630764db659edaf6b8d664d4ff5447ccfeedd2dc5c253f41e"
+                "sha256:b838a895977b45ab6f0cc926a9045c8d1c44e2b653c1fcc39fe91f42c6e8f05b",
+                "sha256:fce760879cd2aebd2991b3542876dc5c4a909b30c9d69dfc488e504a8db37ee8"
             ],
-            "markers": "python_version >= '3.5'",
-            "version": "==3.1.17"
+            "markers": "python_version >= '3.6'",
+            "version": "==3.1.18"
         },
         "hypixelio": {
             "editable": true,
@@ -955,11 +955,11 @@
         },
         "myst-parser": {
             "hashes": [
-                "sha256:3bddfbc8d8afb8dfbd4a6d4b626633585f2ef3480f2ac17eb0e771f96dd743ba",
-                "sha256:dd9d5ab06bc7cd047f672785b44f2d172988e63452ef67dbefe0a9a38e6a4a41"
+                "sha256:7c3c78a36c4bc30ce6a67933ebd800a880c8d81f1688fad5c2ebd82cddbc1603",
+                "sha256:e8baa9959dac0bcf0f3ea5fc32a1a28792959471d8a8094e3ed5ee0de9733ade"
             ],
             "index": "pypi",
-            "version": "==0.15.0"
+            "version": "==0.15.1"
         },
         "nodeenv": {
             "hashes": [
@@ -1179,6 +1179,13 @@
             ],
             "index": "pypi",
             "version": "==0.6.4"
+        },
+        "sanitized-package": {
+            "editable": true,
+            "extras": [
+                "all"
+            ],
+            "path": "."
         },
         "six": {
             "hashes": [
