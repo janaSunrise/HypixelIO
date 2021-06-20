@@ -33,7 +33,7 @@ setuptools.setup(
     author="Sunrit Jana",
     author_email="warriordefenderz@gmail.com",
 
-    description="A modern, efficient and faster way of interacting with the Hypixel API!",
+    description="A modern, efficient and better way of interacting with the Hypixel API!",
     long_description=README,
     long_description_content_type="text/markdown",
 
@@ -64,5 +64,5 @@ setuptools.setup(
         "Natural Language :: English",
         "Typing :: Typed"
     ],
-    python_requires=">=3.6",
+    python_requires=">=3.7",
 )
