@@ -41,10 +41,6 @@ A Modern, Efficient and Easy way of interacting with the Hypixel API!
     <img src="https://img.shields.io/pypi/v/HypixelIO" alt="PYPI" />
 </a>
 
-<a href="https://github.com/janaSunrise/HypixelIO/releases">
-    <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/janaSunrise/HypixelIO">
-  </a>
-
 <a href="https://pypi.org/project/HypixelIO">
     <img src="https://img.shields.io/pypi/pyversions/HypixelIO" alt="PYPI Python Version" />
 </a>
@@ -89,6 +85,7 @@ A Modern, Efficient and Easy way of interacting with the Hypixel API!
 
 ## 🚀 Installing
 **Note**: **Python 3.7 or above is required!**
+
 **Note**: This library has caching modules downloaded when installed. If you need more
   adapters support, You should refer to the extra requires below.
 
