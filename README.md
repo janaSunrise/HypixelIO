@@ -177,6 +177,7 @@ Be sure to leave a ⭐️ if you like the project!
 ## ▶ Links
 - [Official Documentation](http://hypixelio.rtfd.io/)
 - [Raise an Issue](https://github.com/janaSunrise/HypixelIO/issues)
+- [Discussions](https://github.com/janaSunrise/HypixelIO/discussions)
 - [API Documentation](https://api.hypixel.net)
 
 
