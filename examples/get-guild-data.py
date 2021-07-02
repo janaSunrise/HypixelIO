@@ -14,11 +14,9 @@ name, ranking, achievements = guild.NAME, guild.LEGACY_RANKING, guild.ACHIEVEMEN
 
 # Print the data
 print(
-    dedent(
-        f"""
+    dedent(f"""
     Name: {name}
     ranking: {ranking}
     achievements: {achievements}
-    """
-    )
+    """)
 )
