@@ -158,8 +158,7 @@ a PR to this repo and it will be deployed once it's accepted.
 commit or the PR Created. Read [conventional commits](https://www.conventionalcommits.org/en/v1.0.0-beta.3/) before
 making the commit message. You can find our contributing guidelines [here](https://github.com/janaSunrise/HypixelIO/blob/main/CONTRIBUTING.md)
 
-And, We have a branch called `dev` containing development code. So if you're contributing, Please contribute to that branch 
-instead of the `main` branch.
+And, We have a branch called `dev` containing development code. So if you're contributing, Please contribute to that branch instead of the `main` branch.
 
 ## 💬 Get in touch
 
