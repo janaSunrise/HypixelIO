@@ -73,7 +73,7 @@ A Modern, Efficient and Easy way of interacting with the Hypixel API!
   <a href="https://discord.gg/MKC4qna4Gz">Discord</a>
 </h3>
 
-## ✨ Why choose HypixelIO over others?
+## ✨ Why choose HypixelIO?
 
 - Modern way of handling requests
 - Modern OOP based structure  
@@ -84,6 +84,7 @@ A Modern, Efficient and Easy way of interacting with the Hypixel API!
 - Full API coverage
 
 ## 🚀 Installing
+
 **Note**: **Python 3.7 or above is required!**
 
 **Note**: This library has caching modules downloaded when installed. If you need more
@@ -157,7 +158,7 @@ a PR to this repo and it will be deployed once it's accepted.
 commit or the PR Created. Read [conventional commits](https://www.conventionalcommits.org/en/v1.0.0-beta.3/) before
 making the commit message. You can find our contributing guidelines [here](https://github.com/janaSunrise/HypixelIO/blob/main/CONTRIBUTING.md)
 
-And, Also we have a branch named `dev`, So if you're interested in contributing, Please contribute to that branch
+And, We have a branch called `dev` containing development code. So if you're contributing, Please contribute to that branch 
 instead of the `main` branch.
 
 ## 💬 Get in touch
@@ -168,6 +169,7 @@ If you have various suggestions, questions or want to discuss things wit our com
 [![Discord](https://discordapp.com/api/guilds/835940276869791816/widget.png?style=shield)](https://discord.gg/MKC4qna4Gz)
 
 ## 📢 Changelog
+
 If you're interested in seeing the **Changelog**, Go [here!](https://github.com/janaSunrise/HypixelIO/blob/main/CHANGELOG.md)
 
 ## 🙌 Show your support
@@ -175,8 +177,10 @@ If you're interested in seeing the **Changelog**, Go [here!](https://github.com/
 Be sure to leave a ⭐️ if you like the project!
 
 ## ▶ Links
+
 - [Official Documentation](http://hypixelio.rtfd.io/)
 - [Raise an Issue](https://github.com/janaSunrise/HypixelIO/issues)
+- [Discussions](https://github.com/janaSunrise/HypixelIO/discussions)
 - [API Documentation](https://api.hypixel.net)
 
 
