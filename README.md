@@ -85,12 +85,12 @@ A Modern, Efficient and Easy way of interacting with the Hypixel API!
 
 ## 🚀 Installing
 
-**Note**: **Python 3.7 or above is required!**
+**Python 3.7 or above is required!**
 
 **Note**: This library has caching modules downloaded when installed. If you need more
   adapters support, You should refer to the extra requires below.
 
-```bash
+```sh
 # Windows
 py -3 -m pip install -U HypixelIO
 
@@ -99,7 +99,11 @@ python3 -m pip install -U HypixelIO
 
 # Install the nightly build
 python3 -m pip install -U git+https://github.com/janaSunrise/HypixelIO
+```
 
+To get extra features, Here are the commands for them.
+
+```sh
 # Or use [speedups] to speed up only for async features
 python3 -m pip install -U "HypixelIO[speedups]"
 
@@ -158,7 +162,8 @@ a PR to this repo and it will be deployed once it's accepted.
 commit or the PR Created. Read [conventional commits](https://www.conventionalcommits.org/en/v1.0.0-beta.3/) before
 making the commit message. You can find our contributing guidelines [here](https://github.com/janaSunrise/HypixelIO/blob/main/CONTRIBUTING.md)
 
-And, We have a branch called `dev` containing development code. So if you're contributing, Please contribute to that branch instead of the `main` branch.
+And, We have a branch called `dev` containing development code. So if you're contributing, Please contribute to that branch 
+instead of the `main` branch.
 
 ## 💬 Get in touch
 
