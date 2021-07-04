@@ -14,23 +14,6 @@ class Portal:
         ----------
         stop_event: t.Any
             The stop event.
-
-        Examples
-        --------
-        .. codeblock:: python
-            async def test(msg):
-                await asyncio.sleep(0.5)
-                print(msg)
-                return "HELLO " + msg
-
-            # It'll run a new event loop in separate thread
-            portal = create_portal()
-
-            # It'll call `test` in the separate thread and return a Future
-            print(portal.call(test, "WORLD").result())
-
-            # Stop the portal.
-            portal.stop().result()
         """
         self.loop = asyncio.get_event_loop()
         self.stop_event = stop_event
@@ -101,14 +84,34 @@ def create_portal() -> t.Any:
     -------
     t.Any
         The portal object.
+
+    Examples
+    --------
+    .. codeblock:: python
+        async def test(msg):
+            await asyncio.sleep(0.5)
+            print(msg)
+            return "HELLO " + msg
+
+        # It'll run a new event loop in separate thread
+        portal = create_portal()
+
+        # It'll call `test` in the separate thread and return a Future
+        print(portal.call(test, "WORLD").result())
+
+        # Stop the portal.
+        portal.stop().result()
     """
     portal = None
 
     async def wait_stop() -> None:
         nonlocal portal
+
         stop_event = asyncio.Event()
+
         portal = Portal(stop_event)
         running_event.set()
+
         await stop_event.wait()
 
     def run() -> t.Any:
