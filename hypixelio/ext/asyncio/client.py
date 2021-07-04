@@ -8,6 +8,12 @@ from datetime import datetime, timedelta
 
 import aiohttp
 import aiohttp_client_cache
+from aiohttp_client_cache.backends import (
+    CacheBackend,
+    MongoDBBackend,
+    RedisBackend,
+    SQLiteBackend,
+)
 
 from hypixelio.endpoints import API_PATH
 from hypixelio.exceptions import (
@@ -91,28 +97,25 @@ class AsyncClient:
         self.url = API_PATH["HYPIXEL"]
 
         self._uses_cache = cache
+        self._cache_backend_mapping = {
+            "sqlite": SQLiteBackend,
+            "redis": RedisBackend,
+            "mongodb": MongoDBBackend,
+            "others": CacheBackend
+        }
 
         if cache:
             if cache_config is None:
                 cache_config = caching.Caching(expire_after=30, old_data_on_error=True)
 
-            if cache_config.backend == "sqlite":
-                self.cache = aiohttp_client_cache.backends.SQLiteBackend(
+            if cache_config.backend in self._cache_backend_mapping:
+                backend = self._cache_backend_mapping[cache_config.backend]
+                self.cache = backend(
                     cache_name=cache_config.cache_name,
-                    expire_after=cache_config.expire_after,
-                )
-            elif cache_config.backend == "redis":
-                self.cache = aiohttp_client_cache.backends.RedisBackend(
-                    cache_name=cache_config.cache_name,
-                    expire_after=cache_config.expire_after,
-                )
-            elif cache_config.backend == "mongodb":
-                self.cache = aiohttp_client_cache.backends.MongoDBBackend(
-                    cache_name=cache_config.cache_name,
-                    expire_after=cache_config.expire_after,
+                    expire_after=cache_config.expire_after
                 )
             else:
-                self.cache = aiohttp_client_cache.backends.CacheBackend(
+                self.cache = CacheBackend(
                     cache_name=cache_config.cache_name,
                     expire_after=cache_config.expire_after,
                 )
@@ -130,7 +133,8 @@ class AsyncClient:
 
     async def close(self) -> None:
         """Close the AIOHTTP sessions to prevent memory leaks."""
-        await self.__session.close()
+        if self.__session is not None:
+            await self.__session.close()
 
     def add_key(self, api_key: t.Union[str, list]) -> None:
         if isinstance(api_key, str):
