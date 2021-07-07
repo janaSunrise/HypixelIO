@@ -153,6 +153,10 @@ print(friends.FRIENDS[0].RECEIVER_ID)
 
 **Find more examples [here](https://github.com/janaSunrise/HypixelIO/tree/main/examples)**
 
+## 📢 Changelog
+
+If you're interested in seeing the **Changelog**, Go [here!](https://github.com/janaSunrise/HypixelIO/blob/main/CHANGELOG.md)
+
 ## 🤝 Contributing
 
 Contributions, issues and feature requests are welcome. After cloning & setting up project locally, you can just submit
@@ -171,10 +175,6 @@ If you have various suggestions, questions or want to discuss things wit our com
 [Github discussions](https://github.com/janaSunrise/HypixelIO/discussions) or join our discord server!
 
 [![Discord](https://discordapp.com/api/guilds/835940276869791816/widget.png?style=shield)](https://discord.gg/MKC4qna4Gz)
-
-## 📢 Changelog
-
-If you're interested in seeing the **Changelog**, Go [here!](https://github.com/janaSunrise/HypixelIO/blob/main/CHANGELOG.md)
 
 ## 🙌 Show your support
 
