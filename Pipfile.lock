@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "831c8b75e0f6e5fb49979940aad6238331cf2495e1121a9301abbc17529abbbb"
+            "sha256": "74a5cfa3a2bbcaaf080d973f79a64466d6813249929778c6201d6c90dbac3d18"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -383,11 +383,11 @@
         },
         "requests-cache": {
             "hashes": [
-                "sha256:96bbf1338e9a124c01bfdd6498eccbfab174a807b5951266b0e37d0a1b2fefca",
-                "sha256:b05e8e518c7e80787f98e422653be10621ba02b94bce96780e129f6034c9b890"
+                "sha256:1e88c6bc7037df2a0f06377c7420aa60450abc8ac11c760bc562a6e50482e364",
+                "sha256:e6d7bd47c33d2e46e96d192a6a8fa318222cc3c093cbf0c97aae350f1d9d1ca3"
             ],
             "index": "pypi",
-            "version": "==0.7.0"
+            "version": "==0.7.1"
         },
         "six": {
             "hashes": [
@@ -418,7 +418,7 @@
                 "sha256:39fb8672126159acb139a7718dd10806104dec1e2f0f6c88aab05d17df10c8d4",
                 "sha256:f57b4c16c62fa2760b7e3d97c35b255512fb6b59a259730f36ba32ce9f8e342f"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4.0'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4'",
             "version": "==1.26.6"
         },
         "yarl": {
@@ -1191,11 +1191,11 @@
         },
         "requests-cache": {
             "hashes": [
-                "sha256:96bbf1338e9a124c01bfdd6498eccbfab174a807b5951266b0e37d0a1b2fefca",
-                "sha256:b05e8e518c7e80787f98e422653be10621ba02b94bce96780e129f6034c9b890"
+                "sha256:1e88c6bc7037df2a0f06377c7420aa60450abc8ac11c760bc562a6e50482e364",
+                "sha256:e6d7bd47c33d2e46e96d192a6a8fa318222cc3c093cbf0c97aae350f1d9d1ca3"
             ],
             "index": "pypi",
-            "version": "==0.7.0"
+            "version": "==0.7.1"
         },
         "sanitized-package": {
             "editable": true,
@@ -1320,7 +1320,7 @@
                 "sha256:39fb8672126159acb139a7718dd10806104dec1e2f0f6c88aab05d17df10c8d4",
                 "sha256:f57b4c16c62fa2760b7e3d97c35b255512fb6b59a259730f36ba32ce9f8e342f"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4.0'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4'",
             "version": "==1.26.6"
         },
         "virtualenv": {
