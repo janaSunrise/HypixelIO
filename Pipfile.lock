@@ -69,11 +69,11 @@
         },
         "aiohttp-client-cache": {
             "hashes": [
-                "sha256:a4737dacb74002e3fbea51682d84786f7ff7004e790f4764e7b5f09504455680",
-                "sha256:bfc2594c65c226695a54c8d7f0f3d323881632dcd8f5fc580c0cec3878706503"
+                "sha256:10ab60e29623c959f59eb9f0956f5439596bdf6a3d721fbe7fd1e1b81ad1dac7",
+                "sha256:5fe10f1ddd29eea02031176b6b8a6f3b4742738ee52e1ffd061b5c7bd78dbfb9"
             ],
             "index": "pypi",
-            "version": "==0.4.0"
+            "version": "==0.4.1"
         },
         "async-timeout": {
             "hashes": [
@@ -521,11 +521,11 @@
         },
         "aiohttp-client-cache": {
             "hashes": [
-                "sha256:a4737dacb74002e3fbea51682d84786f7ff7004e790f4764e7b5f09504455680",
-                "sha256:bfc2594c65c226695a54c8d7f0f3d323881632dcd8f5fc580c0cec3878706503"
+                "sha256:10ab60e29623c959f59eb9f0956f5439596bdf6a3d721fbe7fd1e1b81ad1dac7",
+                "sha256:5fe10f1ddd29eea02031176b6b8a6f3b4742738ee52e1ffd061b5c7bd78dbfb9"
             ],
             "index": "pypi",
-            "version": "==0.4.0"
+            "version": "==0.4.1"
         },
         "aiohttp-theme": {
             "hashes": [
