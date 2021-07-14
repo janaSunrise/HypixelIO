@@ -18,7 +18,7 @@ aiohttp-theme = "*"
 hypixelio = {editable = true, extras = ["all"], path = "."}
 
 [packages]
-requests = "==2.25.1"
+requests = "==2.26.0"
 requests-cache = "==0.7.1"
 aiohttp = "==3.7.4post0"
 aiohttp-client-cache = "==0.4.1"
