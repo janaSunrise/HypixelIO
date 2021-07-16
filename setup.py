@@ -4,21 +4,25 @@ from pathlib import Path
 
 import setuptools
 
-# -- Constants --
+# Constant variables
 BASE_DIR = Path(__file__).resolve().parent
+
 README = Path(BASE_DIR / "README.md").read_text()
+
 URL = "https://github.com/janaSunrise/HypixelIO"
 
-# -- Version config --
+# Version locating and assignment
 VERSION = re.search(
     r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
     Path(BASE_DIR / "hypixelio/__init__.py").read_text(),
     re.MULTILINE,
 ).group(1)
 
+# Version error
 if not VERSION:
     raise RuntimeError("VERSION is not set!")
 
+# Extra dependencies
 extras_require = {
     "speedups": ["aiodns>=1.1", "Brotli==1.0.9", "cchardet==2.1.7"],
     "cache": ["boto3==1.18.0", "pymongo==3.12.0", "redis==3.5.3"],
@@ -26,6 +30,7 @@ extras_require = {
 }
 extras_require["all"] = list(chain.from_iterable(extras_require.values()))
 
+# Main setup
 setuptools.setup(
     name="HypixelIO",
     version=VERSION,
@@ -43,7 +48,6 @@ setuptools.setup(
     project_urls={"Documentation": URL, "Issue tracker": f"{URL}/issues"},
 
     packages=setuptools.find_packages(exclude=["tests", "tests.*", "tools", "tools.*"]),
-
     install_requires=[
         "requests==2.25.1",
         "aiohttp==3.7.4.post0",
@@ -64,5 +68,6 @@ setuptools.setup(
         "Natural Language :: English",
         "Typing :: Typed"
     ],
+    
     python_requires=">=3.7",
 )
