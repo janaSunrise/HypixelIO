@@ -123,8 +123,8 @@ client = Client(api_key="your-api-key")
 boosters = client.get_boosters()  # Get the boosters object
 
 friends = client.get_friends(uuid="user's-uuid")  # Returns the Friends object
-# or if you don't know the UUID
-friends = client.get_friends(uuid=Converters.username_to_uuid("your-username"))
+# OR if you don't know the UUID
+friends = client.get_friends(name="user's-username")
 
 print(boosters[0].ID)
 print(friends.FRIENDS[0].RECEIVER_ID)
@@ -140,8 +140,8 @@ client = AsyncClient(api_key="your-api-key")
 boosters = await client.get_boosters()  # Get the boosters object
 
 friends = await client.get_friends(uuid="user's-uuid")  # Returns the Friends object
-# or if you don't know the UUID
-friends = await client.get_friends(uuid=(await AsyncConverters.username_to_uuid("your-username")))
+# OR if you don't know the UUID
+friends = await client.get_friends(name="user's-username")
 
 print(boosters[0].ID)
 print(friends.FRIENDS[0].RECEIVER_ID)
@@ -162,7 +162,7 @@ a PR to this repo and it will be deployed once it's accepted.
 commit or the PR Created. Read [conventional commits](https://www.conventionalcommits.org/en/v1.0.0-beta.3/) before
 making the commit message. You can find our contributing guidelines [here](https://github.com/janaSunrise/HypixelIO/blob/main/CONTRIBUTING.md)
 
-And, We have a branch called `dev` containing development code. So if you're contributing, Please contribute to that branch 
+And, We have a branch called `dev` containing development code. So if you're contributing, Please contribute to that branch
 instead of the `main` branch.
 
 ## 💬 Get in touch
