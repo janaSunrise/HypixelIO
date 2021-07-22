@@ -7,16 +7,12 @@
                         /____/_/  
 ```
 
-<h3 align="center">
-
 <h1 align="center">
   HypixelIO
 </h1>
 
 <h3 align="center">
 A Modern, Efficient and Easy way of interacting with the Hypixel API!
-</h3>
-
 </h3>
 
 <p align="center">
