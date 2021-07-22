@@ -6,15 +6,15 @@ import typing as t
 import requests
 import requests_cache
 
-from hypixelio.base import BaseClient
-from hypixelio.exceptions import (
+from ..base import BaseClient
+from ..exceptions import (
     GuildNotFoundError,
     HypixelAPIError,
     InvalidArgumentError,
     PlayerNotFoundError,
     RateLimitError,
 )
-from hypixelio.models import (
+from ..models import (
     boosters,
     caching,
     find_guild,
@@ -29,11 +29,11 @@ from hypixelio.models import (
     skyblock,
     watchdog,
 )
-from hypixelio.utils.constants import (
+from ..utils.constants import (
     HYPIXEL_API,
     TIMEOUT,
 )
-from hypixelio.utils.url import form_url
+from ..utils.url import form_url
 
 
 class Client(BaseClient):

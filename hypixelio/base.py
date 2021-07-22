@@ -2,8 +2,8 @@ import sys
 import typing as t
 from datetime import datetime, timedelta
 
-from hypixelio.endpoints import API_PATH
-from hypixelio.exceptions import HypixelAPIError, InvalidArgumentError, RateLimitError
+from .endpoints import API_PATH
+from .exceptions import HypixelAPIError, InvalidArgumentError, RateLimitError
 
 
 class BaseClient:

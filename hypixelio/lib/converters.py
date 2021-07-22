@@ -4,9 +4,9 @@ import typing as t
 
 import requests
 
-from hypixelio.endpoints import API_PATH
-from hypixelio.exceptions.exceptions import MojangAPIError, PlayerNotFoundError
-from hypixelio.utils.constants import MOJANG_API, TIMEOUT
+from ..endpoints import API_PATH
+from ..exceptions import MojangAPIError, PlayerNotFoundError
+from ..utils.constants import MOJANG_API, TIMEOUT
 
 
 class Converters:

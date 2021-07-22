@@ -4,13 +4,13 @@ import typing as t
 
 import aiohttp
 
-from hypixelio.endpoints import API_PATH
-from hypixelio.exceptions.exceptions import (
+from ...endpoints import API_PATH
+from ...exceptions.exceptions import (
     CrafatarAPIError,
     InvalidArgumentError,
 )
-from hypixelio.ext.asyncio.converters import AsyncConverters as Converters
-from hypixelio.utils.constants import TIMEOUT
+from ...ext.asyncio.converters import AsyncConverters as Converters
+from ...utils.constants import TIMEOUT
 
 
 class Utils:

@@ -23,13 +23,13 @@ import typing as t
 import requests
 from requests.models import Response
 
-from hypixelio.endpoints import API_PATH
-from hypixelio.exceptions.exceptions import (
+from ..endpoints import API_PATH
+from ..exceptions import (
     CrafatarAPIError,
     InvalidArgumentError,
 )
-from hypixelio.lib.converters import Converters
-from hypixelio.utils.constants import RANKS, RANK_COLORS, TIMEOUT
+from ..lib.converters import Converters
+from ..utils.constants import RANKS, RANK_COLORS, TIMEOUT
 
 
 class Utils:
