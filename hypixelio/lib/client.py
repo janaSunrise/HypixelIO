@@ -1,14 +1,12 @@
 __all__ = "Client"
 
 import random
-import sys
 import typing as t
-from datetime import datetime, timedelta
 
 import requests
 import requests_cache
 
-from hypixelio.endpoints import API_PATH
+from hypixelio.base import BaseClient
 from hypixelio.exceptions import (
     GuildNotFoundError,
     HypixelAPIError,
@@ -16,7 +14,6 @@ from hypixelio.exceptions import (
     PlayerNotFoundError,
     RateLimitError,
 )
-from hypixelio.lib.converters import Converters
 from hypixelio.models import (
     boosters,
     caching,
@@ -39,8 +36,9 @@ from hypixelio.utils.constants import (
 from hypixelio.utils.url import form_url
 
 
-class Client:
-    """The client for this wrapper, that handles the requests, authentication, loading and usages of the end user.
+class Client(BaseClient):
+    """
+    The client for this wrapper, that handles the requests, authentication, loading and usages of the end user.
 
     Examples
     --------
@@ -68,12 +66,8 @@ class Client:
     creates a `.db` file.
     """
 
-    def __init__(
-        self,
-        api_key: t.Union[str, list],
-        cache: bool = False,
-        cache_config: t.Optional[caching.Caching] = None,
-    ) -> None:
+    def __init__(self, api_key: t.Union[str, list], cache: bool = False,
+                 cache_config: t.Optional[caching.Caching] = None) -> None:
         """
         Parameters
         ----------
@@ -84,15 +78,7 @@ class Client:
         cache_config: `t.Optional[caching.Caching]`
             The configuration for the saving, and reusing of the cache. Defaults to None.
         """
-        self.url = API_PATH["HYPIXEL"]
-
-        if not isinstance(api_key, list):
-            self.__api_key = [api_key]
-
-        self.requests_remaining = -1
-        self.total_requests = 0
-        self._ratelimit_reset = datetime(1998, 1, 1)
-        self.retry_after = datetime(1998, 1, 1)
+        super().__init__(api_key)
 
         if cache:
             if cache_config is None:
@@ -105,27 +91,7 @@ class Client:
                 old_data_on_error=cache_config.old_data_on_error,
             )
 
-    def add_key(self, api_key: t.Union[str, list]) -> None:
-        if isinstance(api_key, str):
-            api_key = [api_key]
-
-        for k in api_key:
-            if k in self.__api_key:
-                continue
-
-            self.__api_key.append(k)
-
-    def remove_key(self, api_key: t.Union[str, list]) -> None:
-        if isinstance(api_key, str):
-            api_key = [api_key]
-
-        for k in api_key:
-            if k not in self.__api_key:
-                continue
-
-            self.__api_key.remove(k)
-
-    def _fetch(self, url: str, data: dict = None, key: bool = True) -> dict:
+    def _fetch(self, url: str, data: dict = None, api_key: bool = True) -> dict:
         """
         Get the JSON Response from the Root Hypixel API URL, and also add the ability to include the GET request
         parameters with the API KEY Parameter by default.
@@ -136,7 +102,7 @@ class Client:
             The URL to be accessed from the Root Domain.
         data: `t.Optional[dict]`
             The GET Request's Key-Value Pair. Example: {"uuid": "abc"} is converted to `?uuid=abc`. Defaults to None.
-        key: bool
+        api_key: bool
             If key is needed for the endpoint.
 
         Returns
@@ -144,76 +110,44 @@ class Client:
         `t.Tuple[dict, bool]`
             The JSON Response from the Fetch Done to the API and the SUCCESS Value from the Response.
         """
-        if (
-            self.requests_remaining != -1
-            and (self.requests_remaining == 0 and self._ratelimit_reset > datetime.now())  # noqa: W503
-            or self.retry_after  # noqa: W503
-            and (self.retry_after > datetime.now())  # noqa: W503
-        ):
+        # Check if ratelimit is hit
+        if self._is_ratelimit_hit():
             raise RateLimitError(f"Retry after {self.retry_after}")
 
+        # If no data for JSON
         if not data:
             data = {}
 
-        # Headers
-        from hypixelio import __version__ as hypixelio_version
-        python_version = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
-        headers = {
-            "User-Agent": f"HypixelIO[v{hypixelio_version}] Client (https://github.com/janaSunrise/HypixelIO) "
-                          f"Python/{python_version}"
-        }
+        # Assign a random key if the Key parameter exists.
+        if api_key:
+            self.headers["API-Key"] = random.choice(self._api_key)
 
-        if key:
-            headers["API-Key"] = random.choice(self.__api_key)
-
+        # Form the URL to fetch
         url = form_url(HYPIXEL_API, url, data)
 
-        with requests.get(url, timeout=TIMEOUT, headers=headers) as response:
+        # Core fetch logic
+        with requests.get(url, timeout=TIMEOUT, headers=self.headers) as response:
+            # 429 Code handle
             if response.status_code == 429:
-                self.requests_remaining = 0
-                self.retry_after = datetime.now() + timedelta(seconds=int(response.headers["Retry-After"]))
-                raise RateLimitError(
-                    f"Out of Requests! {datetime.now() + timedelta(seconds=int(response.headers['Retry-After']))}"
-                )
+                self._handle_ratelimit(response.headers)
 
+            # 400 Code handle
             if response.status_code == 400:
                 raise HypixelAPIError(reason="Invalid key specified!")
 
-            if key:
-                if "RateLimit-Limit" in response.headers:
-                    if self.total_requests == 0:
-                        self.total_requests = int(response.headers["RateLimit-Limit"])
-
-                    self.requests_remaining = int(
-                        response.headers["RateLimit-Remaining"]
-                    )
-                    self._ratelimit_reset = datetime.now() + timedelta(
-                        seconds=int(response.headers["RateLimit-Reset"])
-                    )
+            # Ratelimit handling
+            if api_key and "RateLimit-Limit" in response.headers:
+                self._update_ratelimit(response.headers)
 
             try:
                 json = response.json()
-            except Exception as exception:
-                raise HypixelAPIError(f"{exception}")
+            except Exception as exc:
+                raise HypixelAPIError(f"{exc}")
             else:
                 if not json["success"]:
-                    reason = "Something in the API has problem."
-                    if json["cause"] is not None:
-                        reason += f" Reason given: {json['cause']}"
-
-                    raise HypixelAPIError(reason=reason)
+                    self._handle_api_failure(json)
 
                 return json
-
-    @staticmethod
-    def _filter_name_uuid(name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
-        if not name and not uuid:
-            raise InvalidArgumentError("Please provide a named argument of the player's username or player's UUID.")
-
-        if name:
-            uuid = Converters.username_to_uuid(name)
-
-        return uuid
 
     def get_key_info(self, api_key: t.Optional[str] = None) -> key.Key:
         """
@@ -230,7 +164,7 @@ class Client:
             Key object for the API Key.
         """
         if not api_key:
-            api_key = random.choice(self.__api_key)
+            api_key = random.choice(self._api_key)
 
         json = self._fetch(self.url["api_key"], {"key": api_key})
         return key.Key(json["record"])
@@ -339,6 +273,7 @@ class Client:
 
         if not json["guild"]:
             raise GuildNotFoundError("Return Value is null")
+
         return guild.Guild(json["guild"])
 
     def get_games_info(self) -> games.Games:
@@ -538,7 +473,7 @@ class Client:
         dict
             Hypixel API response.
         """
-        data = self._fetch(self.url["achievements"], key=False)
+        data = self._fetch(self.url["achievements"], api_key=False)
         return data["achievements"]
 
     def get_resources_challenges(self) -> dict:
@@ -550,7 +485,7 @@ class Client:
         dict
             Hypixel API response.
         """
-        data = self._fetch(self.url["challenges"], key=False)
+        data = self._fetch(self.url["challenges"], api_key=False)
         return data["challenges"]
 
     def get_resources_quests(self) -> dict:
@@ -562,7 +497,7 @@ class Client:
         dict
             Hypixel API response.
         """
-        data = self._fetch(self.url["quests"], key=False)
+        data = self._fetch(self.url["quests"], api_key=False)
         return data["quests"]
 
     def get_resources_guild_achievements(self) -> dict:
@@ -574,5 +509,5 @@ class Client:
         dict
             Hypixel API response.
         """
-        data = self._fetch(self.url["guild_achievements"], key=False)
+        data = self._fetch(self.url["guild_achievements"], api_key=False)
         return {"one_time": data["one_time"], "tiered": data["tiered"]}

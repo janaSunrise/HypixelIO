@@ -2,9 +2,7 @@ __all__ = "AsyncClient"
 
 import asyncio
 import random
-import sys
 import typing as t
-from datetime import datetime, timedelta
 
 import aiohttp
 import aiohttp_client_cache
@@ -15,7 +13,7 @@ from aiohttp_client_cache.backends import (
     SQLiteBackend,
 )
 
-from hypixelio.endpoints import API_PATH
+from hypixelio.base import BaseClient
 from hypixelio.exceptions import (
     GuildNotFoundError,
     HypixelAPIError,
@@ -23,7 +21,6 @@ from hypixelio.exceptions import (
     PlayerNotFoundError,
     RateLimitError,
 )
-from hypixelio.lib.converters import Converters
 from hypixelio.models import (
     boosters,
     caching,
@@ -43,7 +40,7 @@ from hypixelio.utils.constants import HYPIXEL_API, TIMEOUT
 from hypixelio.utils.url import form_url
 
 
-class AsyncClient:
+class AsyncClient(BaseClient):
     """
     The client for this wrapper, that handles the requests, authentication, loading and usages of the end user.
 
@@ -94,7 +91,7 @@ class AsyncClient:
         cache_config: `t.Optional[caching.Caching]`
             The configuration for the saving, and reusing of the cache. Defaults to None.
         """
-        self.url = API_PATH["HYPIXEL"]
+        super().__init__(api_key)
 
         self._uses_cache = cache
         self._cache_backend_mapping = {
@@ -123,38 +120,12 @@ class AsyncClient:
         self.__session = None
         self.__lock = asyncio.Lock()
 
-        self.requests_remaining = -1
-        self.total_requests = 0
-        self._ratelimit_reset = datetime(1998, 1, 1)
-        self.retry_after = datetime(1998, 1, 1)
-
-        if not isinstance(api_key, list):
-            self.__api_key = [api_key]
-
     async def close(self) -> None:
         """Close the AIOHTTP sessions to prevent memory leaks."""
         if self.__session is not None:
             await self.__session.close()
 
-    def add_key(self, api_key: t.Union[str, list]) -> None:
-        if isinstance(api_key, str):
-            api_key = [api_key]
-
-        for k in api_key:
-            if k in self.__api_key:
-                continue
-            self.__api_key.append(k)
-
-    def remove_key(self, api_key: t.Union[str, list]) -> None:
-        if isinstance(api_key, str):
-            api_key = [api_key]
-
-        for k in api_key:
-            if k not in self.__api_key:
-                continue
-            self.__api_key.remove(k)
-
-    async def _fetch(self, url: str, data: dict = None, key: bool = True) -> dict:
+    async def _fetch(self, url: str, data: dict = None, api_key: bool = True) -> dict:
         """
         Get the JSON Response from the Root Hypixel API URL, and also add the ability to include the GET request
         parameters with the API KEY Parameter by default.
@@ -177,59 +148,31 @@ class AsyncClient:
             else:
                 self.__session = aiohttp_client_cache.CachedSession(cache=self.cache)
 
-        if (
-            self.requests_remaining != -1
-            and (  # noqa: W503
-                self.requests_remaining == 0 and self._ratelimit_reset > datetime.now()
-            )
-            or self.retry_after  # noqa: W503
-            and (self.retry_after > datetime.now())  # noqa: W503
-        ):
+        # Check if ratelimit is hit
+        if self._is_ratelimit_hit():
             raise RateLimitError(f"Retry after {self.retry_after}")
 
         if not data:
             data = {}
 
-        # Headers
-        from hypixelio import __version__ as hypixelio_version
-        python_version = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
-        headers = {
-            "User-Agent": f"HypixelIO[v{hypixelio_version}] Client (https://github.com/janaSunrise/HypixelIO) "
-                          f"Python/{python_version}"
-        }
-
-        if key:
-            headers["API-Key"] = random.choice(self.__api_key)
+        # Assign a random key
+        if api_key:
+            self.headers["API-Key"] = random.choice(self._api_key)
 
         url = form_url(HYPIXEL_API, url, data)
 
         async with self.__lock:
-            async with self.__session.get(
-                url, headers=headers, timeout=TIMEOUT
-            ) as response:
+            async with self.__session.get(url, headers=self.headers, timeout=TIMEOUT) as response:
+                # 429 status code handling
                 if response.status == 429:
-                    self.requests_remaining = 0
-                    self.retry_after = datetime.now() + timedelta(
-                        seconds=int(response.headers["Retry-After"])
-                    )
-                    raise RateLimitError(
-                        f"Out of Requests! "
-                        f"{datetime.now() + timedelta(seconds=int(response.headers['Retry-After']))}"
-                    )
+                    self._handle_ratelimit(response.headers)
 
+                # 400 Status code handling
                 if response.status == 400:
                     raise HypixelAPIError(reason="Invalid key specified!")
 
-                if key and "RateLimit-Limit" in response.headers:
-                    if self.total_requests == 0:
-                        self.total_requests = int(response.headers["RateLimit-Limit"])
-
-                    self.requests_remaining = int(
-                        response.headers["RateLimit-Remaining"]
-                    )
-                    self._ratelimit_reset = datetime.now() + timedelta(
-                        seconds=int(response.headers["RateLimit-Reset"])
-                    )
+                if api_key and "RateLimit-Limit" in response.headers:
+                    self._update_ratelimit(response.headers)
 
                 try:
                     json = await response.json()
@@ -237,27 +180,9 @@ class AsyncClient:
                     raise HypixelAPIError(f"{exception}")
                 else:
                     if not json["success"]:
-                        reason = "Something in the API has problem."
-                        if json["cause"] is not None:
-                            reason += f" Reason given: {json['cause']}"
-
-                        raise HypixelAPIError(reason=reason)
+                        self._handle_api_failure(json)
 
                     return json
-
-    @staticmethod
-    def _filter_name_uuid(
-        name: t.Optional[str] = None, uuid: t.Optional[str] = None
-    ) -> str:
-        if not name and not uuid:
-            raise InvalidArgumentError(
-                "Please provide a named argument of the player's username or player's UUID."
-            )
-
-        if name:
-            uuid = Converters.username_to_uuid(name)
-
-        return uuid
 
     async def get_key_info(self, api_key: t.Optional[str] = None) -> key.Key:
         """
@@ -274,7 +199,7 @@ class AsyncClient:
             Key object for the API Key.
         """
         if not api_key:
-            api_key = random.choice(self.__api_key)
+            api_key = random.choice(self._api_key)
 
         json = await self._fetch(self.url["api_key"], {"key": api_key})
         return key.Key(json["record"])
@@ -582,7 +507,7 @@ class AsyncClient:
         dict
             Hypixel API response.
         """
-        data = await self._fetch(self.url["achievements"], key=False)
+        data = await self._fetch(self.url["achievements"], api_key=False)
         return data["achievements"]
 
     async def get_resources_challenges(self) -> dict:
@@ -594,7 +519,7 @@ class AsyncClient:
         dict
             Hypixel API response.
         """
-        data = await self._fetch(self.url["challenges"], key=False)
+        data = await self._fetch(self.url["challenges"], api_key=False)
         return data["challenges"]
 
     async def get_resources_quests(self) -> dict:
@@ -606,7 +531,7 @@ class AsyncClient:
         dict
             Hypixel API response.
         """
-        data = await self._fetch(self.url["quests"], key=False)
+        data = await self._fetch(self.url["quests"], api_key=False)
         return data["quests"]
 
     async def get_resources_guild_achievements(self) -> dict:
@@ -618,5 +543,5 @@ class AsyncClient:
         dict
             Hypixel API response.
         """
-        data = await self._fetch(self.url["guild_achievements"], key=False)
+        data = await self._fetch(self.url["guild_achievements"], api_key=False)
         return {"one_time": data["one_time"], "tiered": data["tiered"]}
