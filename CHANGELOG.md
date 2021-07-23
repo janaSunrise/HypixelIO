@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed vulnerable dependency versions
 - Switched to relative imports
 
+## Removed
+- Removed the redundant `ext` package and replaced `asyncio` package with simple `_async` since, There would
+  probably be no external packages anymore, As far I know.
+
 ## [1.2.10](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.2.10) - 27-05-2021
 
 ## Fixes
