@@ -41,8 +41,8 @@ Utility
 Async to sync portal
 --------------------
 
-.. autoclass:: hypixelio.ext.portal.Portal
+.. autoclass:: hypixelio._async.Portal
     :members:
     :undoc-members:
 
-.. autofunction:: hypixelio.ext.portal.create_portal
+.. autofunction:: hypixelio._async.create_portal

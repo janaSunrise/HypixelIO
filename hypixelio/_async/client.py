@@ -13,15 +13,15 @@ from aiohttp_client_cache.backends import (
     SQLiteBackend,
 )
 
-from ...base import BaseClient
-from ...exceptions import (
+from ..base import BaseClient
+from ..exceptions import (
     GuildNotFoundError,
     HypixelAPIError,
     InvalidArgumentError,
     PlayerNotFoundError,
     RateLimitError,
 )
-from ...models import (
+from ..models import (
     boosters,
     caching,
     find_guild,
@@ -36,8 +36,8 @@ from ...models import (
     skyblock,
     watchdog,
 )
-from ...utils.constants import HYPIXEL_API, TIMEOUT
-from ...utils.url import form_url
+from ..utils.constants import HYPIXEL_API, TIMEOUT
+from ..utils.url import form_url
 
 
 class AsyncClient(BaseClient):

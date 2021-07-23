@@ -6,7 +6,7 @@ API Reference
 Client
 ~~~~~~
 
-.. autoclass:: hypixelio.ext.asyncio.AsyncClient
+.. autoclass:: hypixel._async.AsyncClient
     :members:
     :undoc-members:
 
@@ -14,7 +14,7 @@ Client
 Converter
 ~~~~~~~~~
 
-.. autoclass:: hypixelio.ext.asyncio.AsyncConverters
+.. autoclass:: hypixel._async.AsyncConverters
     :members:
     :undoc-members:
 
@@ -22,6 +22,6 @@ Converter
 Utils
 ~~~~~
 
-.. autoclass:: hypixelio.ext.asyncio.Utils
+.. autoclass:: hypixel._async.Utils
     :members:
     :undoc-members:

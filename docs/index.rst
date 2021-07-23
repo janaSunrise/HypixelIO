@@ -30,7 +30,7 @@ These pages have info, documentation and help, all you need to learn and use thi
   :maxdepth: 1
 
    api <api.rst>
-   hypixelio.ext.asyncio reference <ext/asyncio/api.rst>
+   hypixelio._async reference <_async/api.rst>
    Caching reference <caching.rst>
    Exceptions reference <exceptions.rst>
 
