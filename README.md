@@ -75,9 +75,9 @@ A Modern, Efficient and Easy way of interacting with the Hypixel API!
 - Modern OOP based structure  
 - Both Async and general support.
 - Simple rate handling, and caching.
-- Elegant design with Complete optimization.
+- Elegant design with complete optimization.
 - Easy to use with a modern and simple design
-- Full API coverage
+- Full 100% API coverage
 
 ## 🚀 Installing
 
@@ -133,7 +133,7 @@ print(friends.FRIENDS[0].RECEIVER_ID)
 ### Async usage
 
 ```python
-from hypixelio.ext.asyncio import AsyncClient, AsyncConverters
+from hypixelio import AsyncClient, AsyncConverters
 
 client = AsyncClient(api_key="your-api-key")
 
