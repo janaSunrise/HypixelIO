@@ -133,15 +133,27 @@ print(friends.FRIENDS[0].RECEIVER_ID)
 ### Async usage
 
 ```python
+import asyncio
+
 from hypixelio import AsyncClient, AsyncConverters
 
 client = AsyncClient(api_key="your-api-key")
 
-boosters = await client.get_boosters()  # Get the boosters object
+# Async function to fetch the objects
+async def fetch_things():
+    boosters = await client.get_boosters()  # Get the boosters object
 
-friends = await client.get_friends(uuid="user's-uuid")  # Returns the Friends object
-# OR if you don't know the UUID
-friends = await client.get_friends(name="user's-username")
+    friends = await client.get_friends(uuid="user's-uuid")  # Returns the Friends object
+    # OR if you don't know the UUID
+    friends = await client.get_friends(name="user's-username")
+    
+    # Safely close the connection
+    await client.close()
+    
+    return boosters, friends
+
+# Run the coroutine using `asyncio`.
+boosters, friends = asyncio.run(fetch_things())
 
 print(boosters[0].ID)
 print(friends.FRIENDS[0].RECEIVER_ID)
