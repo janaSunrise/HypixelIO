@@ -140,7 +140,7 @@ from hypixelio import AsyncClient, AsyncConverters
 client = AsyncClient(api_key="your-api-key")
 
 # Async function to fetch the objects
-async def fetch_things():
+async def fetch_from_hypixel():
     boosters = await client.get_boosters()  # Get the boosters object
 
     friends = await client.get_friends(uuid="user's-uuid")  # Returns the Friends object
@@ -153,7 +153,7 @@ async def fetch_things():
     return boosters, friends
 
 # Run the coroutine using `asyncio`.
-boosters, friends = asyncio.run(fetch_things())
+boosters, friends = asyncio.run(fetch_from_hypixel())
 
 print(boosters[0].ID)
 print(friends.FRIENDS[0].RECEIVER_ID)
