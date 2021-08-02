@@ -12,7 +12,7 @@
 </h1>
 
 <h3 align="center">
-A Modern, Efficient and Easy way of interacting with the Hypixel API!
+A modern, efficient and easy way of interacting with the Hypixel API!
 </h3>
 
 <p align="center">
