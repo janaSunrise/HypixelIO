@@ -139,7 +139,7 @@ from hypixelio import AsyncClient, AsyncConverters
 
 client = AsyncClient(api_key="your-api-key")
 
-# Async function to fetch the objects
+# Async function to fetch the info
 async def fetch_from_hypixel():
     boosters = await client.get_boosters()  # Get the boosters object
 
@@ -174,8 +174,8 @@ a PR to this repo and it will be deployed once it's accepted.
 commit or the PR Created. Read [conventional commits](https://www.conventionalcommits.org/en/v1.0.0-beta.3/) before
 making the commit message. You can find our contributing guidelines [here](https://github.com/janaSunrise/HypixelIO/blob/main/CONTRIBUTING.md)
 
-And, We have a branch called `dev` containing development code. So if you're contributing, Please contribute to that branch
-instead of the `main` branch.
+And, We have a branch called `dev` containing development code. If you're contributing, Remember to contribute to
+`dev` branch, instead of `main`.
 
 ## 💬 Get in touch
 
