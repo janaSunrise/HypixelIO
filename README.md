@@ -130,7 +130,7 @@ print(boosters[0].ID)
 print(friends.FRIENDS[0].RECEIVER_ID)
 ```
 
-### Async usage
+### Async API usage
 
 ```python
 import asyncio
