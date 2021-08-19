@@ -25,7 +25,7 @@ if not VERSION:
 # Extra dependencies
 extras_require = {
     "speedups": ["aiodns>=1.1", "Brotli==1.0.9", "cchardet==2.1.7"],
-    "cache": ["boto3==1.18.23", "pymongo==3.12.0", "redis==3.5.3"],
+    "cache": ["boto3==1.18.24", "pymongo==3.12.0", "redis==3.5.3"],
     "async-cache": ["aiosqlite==0.17.0", "motor==2.5.0", "aioredis==2.0.0"],
 }
 extras_require["all"] = list(chain.from_iterable(extras_require.values()))
