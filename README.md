@@ -77,7 +77,7 @@ A Modern, Efficient and Easy way of interacting with the Hypixel API!
 - Simple ratelimit handling, and caching
 - Elegant design with complete optimization.
 - Easy to use with a modern and simple design
-- Full 100% API coverage
+- Complete API coverage
 
 ## 🚀 Installing
 
