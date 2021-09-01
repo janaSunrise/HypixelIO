@@ -10,7 +10,7 @@ class TestUsernameToUUID(unittest.TestCase):
         test_cases = (
             ("janaSunrise", "c8438cdd126043448cca9e28646efbe7"),
             ("JanaSunrise123", "b4ead04f4e2d484ba70257d5729aa773"),
-            ("007rohitjj", "2a13b3a34bf343fa9d8db0f87187da39"),
+            ("007rohitj", "2a13b3a34bf343fa9d8db0f87187da39"),
         )
 
         for username, uuid in test_cases:
@@ -24,7 +24,7 @@ class TestUUIDToUsername(unittest.TestCase):
         test_cases = (
             ("janaSunrise", "c8438cdd126043448cca9e28646efbe7"),
             ("JanaSunrise123", "b4ead04f4e2d484ba70257d5729aa773"),
-            ("007rohitjj", "2a13b3a34bf343fa9d8db0f87187da39"),
+            ("007rohitj", "2a13b3a34bf343fa9d8db0f87187da39"),
         )
 
         for username, uuid in test_cases:

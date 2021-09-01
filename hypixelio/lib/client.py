@@ -66,8 +66,10 @@ class Client(BaseClient):
     creates a `.db` file.
     """
 
-    def __init__(self, api_key: t.Union[str, list], cache: bool = False,
-                 cache_config: t.Optional[caching.Caching] = None) -> None:
+    def __init__(
+        self, api_key: t.Union[str, list], cache: bool = False,
+        cache_config: t.Optional[caching.Caching] = None
+    ) -> None:
         """
         Parameters
         ----------
