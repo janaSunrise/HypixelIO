@@ -34,6 +34,6 @@ jobs:
         pipenv run python -m examples.get-guild-data
         pipenv run python -m examples.get-player-data
         pipenv run python -m examples.get-watchdog-stats
-        pipenv run python -m examples.implement-caching
+        pipenv run python -m examples.normal-caching
         pipenv run python -m examples.user-to-uuid
         pipenv run python -m examples.uuid-to-username
