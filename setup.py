@@ -68,6 +68,6 @@ setuptools.setup(
         "Natural Language :: English",
         "Typing :: Typed"
     ],
-    
+
     python_requires=">=3.7",
 )

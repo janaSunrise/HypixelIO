@@ -83,7 +83,7 @@ A Modern, Efficient and Easy way of interacting with the Hypixel API!
 
 **Python 3.7 or above is required!**
 
-**Note**: This library has caching modules downloaded when installed. If you need more 
+**Note**: This library has caching modules downloaded when installed. If you need more
 adapters support, You should refer to the extra requires installation below.
 
 ```sh
@@ -146,10 +146,10 @@ async def fetch_from_hypixel():
     friends = await client.get_friends(uuid="user's-uuid")  # Returns the Friends object
     # OR if you don't know the UUID
     friends = await client.get_friends(name="user's-username")
-    
+
     # Safely close the connection
     await client.close()
-    
+
     return boosters, friends
 
 # Run the coroutine using `asyncio`
