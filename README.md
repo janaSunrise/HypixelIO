@@ -84,7 +84,7 @@ A Modern, Efficient and Easy way of interacting with the Hypixel API!
 **Python 3.7 or above is required!**
 
 **Note**: This library has caching modules downloaded when installed. If you need more
-adapters support, You should refer to the extra requires installation below.
+adapters for the modules, You should refer to the extra requires installation below.
 
 ```sh
 # Windows
