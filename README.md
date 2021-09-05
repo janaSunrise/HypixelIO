@@ -74,7 +74,7 @@ A Modern, Efficient and Easy way of interacting with the Hypixel API!
 - Modern way of handling requests
 - Modern OOP based structure  
 - Both Async and general support
-- Simple ratelimit handling, and caching
+- Simple ratelimit handling and caching
 - Elegant design with complete optimization
 - Easy to use with a modern and simple design
 - Complete API coverage
@@ -179,8 +179,8 @@ And, We have a branch called `dev` containing development code. If you're contri
 
 ## 💬 Get in touch
 
-If you have various suggestions, questions or want to discuss things wit our community, Have a look at
-[Github discussions](https://github.com/janaSunrise/HypixelIO/discussions) or join our discord server!
+If you have various suggestions, questions or want to discuss things with our community, Have a look at
+[Github discussions](https://github.com/janaSunrise/HypixelIO/discussions) or join our Discord server!
 
 [![Discord](https://discordapp.com/api/guilds/835940276869791816/widget.png?style=shield)](https://discord.gg/MKC4qna4Gz)
 
