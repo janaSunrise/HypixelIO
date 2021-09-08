@@ -1,4 +1,4 @@
-from requests_cache import core
+import requests_cache as rcache
 
 from .backend import CacheBackend
 
@@ -33,27 +33,27 @@ class Caching:
     @staticmethod
     def remove_expired_responses() -> None:
         """Remove the expired responses stored in the cache."""
-        core.remove_expired_responses()
+        rcache.remove_expired_responses()
 
     @staticmethod
-    def get_cache() -> core.CachedSession:
+    def get_cache() -> rcache.CachedSession:
         """
         Get the cache, which is currently stored and being used.
 
         Returns:
-            core.CachedSession: The cache stored and used currently.
+            rcache.CachedSession: The cache stored and used currently.
         """
-        return core.get_cache()
+        return rcache.get_cache()
 
     @staticmethod
     def clear_cache() -> None:
         """Clear the cache stored in the storage specified."""
-        core.clear()
+        rcache.clear()
 
     @staticmethod
     def uninstall_cache() -> None:
         """Remove caching from your code, if added or integrated."""
-        core.uninstall_cache()
+        rcache.uninstall_cache()
 
     def __str__(self) -> str:
         return self.backend
