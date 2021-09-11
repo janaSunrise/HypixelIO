@@ -100,7 +100,7 @@ python3 -m pip install -U git+https://github.com/janaSunrise/HypixelIO
 To get extra features, Here are the commands for them.
 
 ```sh
-# Or use [speedups] to speed up only for async features
+# Use [speedups] to speed up only for async API
 python3 -m pip install -U "HypixelIO[speedups]"
 
 # Take advantage of caching by installing caching backends
@@ -109,7 +109,7 @@ python3 -m pip install -U "HypixelIO[cache]"
 # If you need async caching for AsyncClient by installing caching backends
 python3 -m pip install -U "HypixelIO[async-cache]"
 
-# Or get all the features!
+# Get all the features!
 python3 -m pip install -U "HypixelIO[all]"
 ```
 
