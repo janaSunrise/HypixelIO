@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "04fc9e3bfd8b9aae852576d44b1eb81a785d42f67fb04b099f135634077c8364"
+            "sha256": "0950f9f8ed78cd66e11e8e2986a7102df48eb48db21dfeecf3f40b41ecd1a5f7"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -69,11 +69,11 @@
         },
         "aiohttp-client-cache": {
             "hashes": [
-                "sha256:504b0c18b08349873c5fdf096dc811dc61e6ea4927a70710c73f7b29b1915ad6",
-                "sha256:5f7463b4a60e7c9eb74ce0549e83c0bdde0c917580d0764ec5129a134b560e16"
+                "sha256:198fb74fa46477a286646401eaab3ca65f4f382b5ced136dca3dc31b4fb68ddb",
+                "sha256:aac232f2fe2b4abef3f035a68dcba5d965559523f8bae478c068ff953356c557"
             ],
             "index": "pypi",
-            "version": "==0.5.0"
+            "version": "==0.5.1"
         },
         "appdirs": {
             "hashes": [
@@ -523,11 +523,11 @@
         },
         "aiohttp-client-cache": {
             "hashes": [
-                "sha256:504b0c18b08349873c5fdf096dc811dc61e6ea4927a70710c73f7b29b1915ad6",
-                "sha256:5f7463b4a60e7c9eb74ce0549e83c0bdde0c917580d0764ec5129a134b560e16"
+                "sha256:198fb74fa46477a286646401eaab3ca65f4f382b5ced136dca3dc31b4fb68ddb",
+                "sha256:aac232f2fe2b4abef3f035a68dcba5d965559523f8bae478c068ff953356c557"
             ],
             "index": "pypi",
-            "version": "==0.5.0"
+            "version": "==0.5.1"
         },
         "aiohttp-theme": {
             "hashes": [
