@@ -3,8 +3,8 @@
                      / / / /_  ______  (_)  _____  / /  /  _/ __ \
                     / /_/ / / / / __ \/ / |/_/ _ \/ /   / // / / /
                    / __  / /_/ / /_/ / />  </  __/ /  _/ // /_/ /
-                  /_/ /_/\__, / .___/_/_/|_|\___/_/  /___/\____/  
-                        /____/_/  
+                  /_/ /_/\__, / .___/_/_/|_|\___/_/  /___/\____/
+                        /____/_/
 ```
 
 <h1 align="center">
@@ -72,7 +72,7 @@ A modern, efficient and easy way of interacting with the Hypixel API!
 ## ✨ Why choose HypixelIO?
 
 - Modern way of handling requests
-- Modern OOP based structure  
+- Modern OOP based structure
 - Both Async and general support
 - Simple ratelimit handling and caching
 - Elegant design with complete optimization
@@ -194,6 +194,5 @@ Be sure to leave a ⭐️ if you like the project!
 - [Raise an Issue](https://github.com/janaSunrise/HypixelIO/issues)
 - [Discussions](https://github.com/janaSunrise/HypixelIO/discussions)
 - [API Documentation](https://api.hypixel.net)
-
 
 <div align="center">Made by janaSunrise with ❤</div>

@@ -32,22 +32,30 @@ extras_require["all"] = list(chain.from_iterable(extras_require.values()))
 
 # Main setup
 setuptools.setup(
+    # Project info
     name="HypixelIO",
     version=VERSION,
 
+    # Author info
     author="Sunrit Jana",
     author_email="warriordefenderz@gmail.com",
 
+    # Description
     description="A modern, efficient and better way of interacting with the Hypixel API!",
     long_description=README,
     long_description_content_type="text/markdown",
 
+    # Licensing
     license="MIT",
 
+    # Project repo info
     url=URL,
     project_urls={"Documentation": URL, "Issue tracker": f"{URL}/issues"},
 
+    # Packages in the project
     packages=setuptools.find_packages(exclude=["tests", "tests.*", "tools", "tools.*"]),
+
+    # Dependencies for the package
     install_requires=[
         "requests==2.25.1",
         "aiohttp==3.7.4.post0",
@@ -56,6 +64,7 @@ setuptools.setup(
     ],
     extras_require=extras_require,
 
+    # Classifiers
     classifiers=[
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.6",
@@ -69,5 +78,6 @@ setuptools.setup(
         "Typing :: Typed"
     ],
 
+    # Minimum python version
     python_requires=">=3.7",
 )
