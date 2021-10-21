@@ -195,4 +195,4 @@ Be sure to leave a ⭐️ if you like the project!
 - [Discussions](https://github.com/janaSunrise/HypixelIO/discussions)
 - [API Documentation](https://api.hypixel.net)
 
-<div align="center">Made by janaSunrise with ❤</div>
+<div align="center">Made by Sunrit Jana with ❤</div>
