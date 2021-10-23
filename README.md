@@ -8,7 +8,7 @@
 ```
 
 <h1 align="center">
-  HypixelIO
+HypixelIO
 </h1>
 
 <h3 align="center">
@@ -59,6 +59,7 @@ A modern, efficient and easy way of interacting with the Hypixel API!
 
 </p>
 
+<!-- Links -->
 <h3 align="center">
   <a href="https://hypixelio.readthedocs.org">Docs</a>
   <span> · </span>
@@ -159,7 +160,7 @@ print(boosters[0].ID)
 print(friends.FRIENDS[0].RECEIVER_ID)
 ```
 
-**Find more examples [here](https://github.com/janaSunrise/HypixelIO/tree/main/examples)**
+**Find more examples [here](https://github.com/janaSunrise/HypixelIO/tree/main/examples)!**
 
 ## 📢 Changelog
 
