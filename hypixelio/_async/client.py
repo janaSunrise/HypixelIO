@@ -163,12 +163,16 @@ class AsyncClient(BaseClient):
 
         async with self.__lock:
             async with self.__session.get(url, headers=self.headers, timeout=TIMEOUT) as response:
+                # 404 handling
+                if response.status == 429:
+                    raise HypixelAPIError(reason="The route specified does not exist.")
+
                 # 429 status code handling
                 if response.status == 429:
                     self._handle_ratelimit(response.headers)
 
-                # 400 Status code handling
-                if response.status == 400:
+                # 403 Status code handling
+                if response.status == 403:
                     raise HypixelAPIError(reason="Invalid key specified!")
 
                 if api_key and "RateLimit-Limit" in response.headers:

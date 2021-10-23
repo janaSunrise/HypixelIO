@@ -129,12 +129,16 @@ class Client(BaseClient):
 
         # Core fetch logic
         with requests.get(url, timeout=TIMEOUT, headers=self.headers) as response:
+            # 404 handling
+            if response.status_code == 404:
+                raise HypixelAPIError(reason="The route specified does not exist.")
+
             # 429 Code handle
             if response.status_code == 429:
                 self._handle_ratelimit(response.headers)
 
-            # 400 Code handle
-            if response.status_code == 400:
+            # 403 Code handle
+            if response.status_code == 403:
                 raise HypixelAPIError(reason="Invalid key specified!")
 
             # Ratelimit handling

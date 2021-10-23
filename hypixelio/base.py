@@ -75,6 +75,7 @@ class BaseClient:
 
     @staticmethod
     def _filter_name_uuid(name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
+        # Circular import
         from hypixelio import Converters
 
         if not name and not uuid:

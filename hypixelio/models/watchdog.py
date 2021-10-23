@@ -1,5 +1,5 @@
 class Watchdog:
-    """This is the definition of the Custom Hypixel API Key Model."""
+    """This is the definition of the Custom Hypixel API Punishment Stats Model."""
 
     def __init__(self, data: dict) -> None:
         """
@@ -11,10 +11,10 @@ class Watchdog:
         self.LAST_MINUTE_BAN = data["watchdog_lastMinute"]
 
         self.STAFF_ROLLING_DAILY = data["staff_rollingDaily"]
-        self.TOTAL_BANS = data["watchdog_total"]
-
         self.ROLLING_DAILY = data["watchdog_rollingDaily"]
+
         self.STAFF_TOTAL_BANS = data["staff_total"]
+        self.TOTAL_BANS = data["watchdog_total"]
 
     def __str__(self) -> str:
         return self.LAST_MINUTE_BAN
