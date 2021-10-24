@@ -22,7 +22,7 @@ VERSION = re.search(
 if not VERSION:
     raise RuntimeError("VERSION is not set!")
 
-# Extra dependencies
+# Dependencies configuration
 extras_require = {
     "speedups": ["aiodns>=1.1", "Brotli==1.0.9", "cchardet==2.1.7"],
     "cache": ["boto3==1.19.1", "pymongo==3.12.1", "redis==3.5.3"],

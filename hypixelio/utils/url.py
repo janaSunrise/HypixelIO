@@ -21,8 +21,6 @@ def form_url(main_url: str, url: str, data: dict = None) -> str:
         data = {}
 
     url = main_url + url if url.startswith("/") else url
-    url += "?" + "&".join(
-        [f"{dict_key}={dict_value}" for dict_key, dict_value in data.items()]
-    )
+    url += "?" + "&".join([f"{dict_key}={dict_value}" for dict_key, dict_value in data.items()])
 
     return url

@@ -16,9 +16,11 @@ __all__ = (
     "TIMEOUT",
 )
 
+# API endpoints
 HYPIXEL_API = "https://api.hypixel.net"
 MOJANG_API = "https://api.mojang.com"
 
+# Fectch timeout
 TIMEOUT = 10
 
 RANKS = {
