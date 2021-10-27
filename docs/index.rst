@@ -1,10 +1,11 @@
 Welcome to HypixelIO!
 ======================
 
-HypixelIO is a modern hypixel API wrapper library that suits all your needs. It supports both sync
-and async programming, with easy to use features in mind.
+HypixelIO is a Modern, Robust, and Efficient wrapper for the Hypixel API. With support for both Async
+and blocking programming, This has everything for you to work with.
 
-**Features**
+Features
+--------
 
 - Modern way of handling requests
 - Both async and sync support.
@@ -17,23 +18,35 @@ Getting started
 
 Is this your first time using the library? This is the place to get started!
 
-- **Quickstart** :doc:`quickstart`
-- **Examples:** Many examples are available in the :resource:`repository <examples>`.
+You can get quickly started with the library over here :doc:`quickstart`.
 
+You can find more examples in the :resource:`repository <examples>`. You can also add your own!
+Just create a Pull request, and get it added.
+
+
+Getting help
+------------
+
+Stuck with library, and need help? These resources might help.
+
+- Try the :doc:`faq` first, it's got answers to all common questions.
+- If you're looking for something specific, try the :ref:`index <genindex>` or :ref:`searching <search>`.
+- Report bugs in the :resource:`issue tracker <issues>`.
+- Ask in our :resource:`GitHub discussions page <discussions>`.
 
 Modules and manuals
 -------------------
 
-These pages have info, documentation and help, all you need to learn and use this library!
+Here are the modules which constitute the API. All the API documentation, right here to help
+you understand and use this library.
 
 .. toctree::
   :maxdepth: 1
 
-   api <api.rst>
-   hypixelio._async reference <_async/api.rst>
-   Caching reference <caching.rst>
-   Exceptions reference <exceptions.rst>
-
+   API reference <api.rst>
+   Asynchronous API reference <_async/api.rst>
+   Caching API reference <caching.rst>
+   Exceptions API reference <exceptions.rst>
 
 Meta
 ----
@@ -43,4 +56,4 @@ If you're looking for something related to the project itself, it's here.
 .. toctree::
   :maxdepth: 1
 
-  changelog
+  whats_new

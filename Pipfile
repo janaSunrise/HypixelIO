@@ -14,8 +14,8 @@ pytest-benchmark = "*"
 bandit = "*"
 recommonmark = "*"
 myst-parser = "*"
-aiohttp-theme = "*"
 hypixelio = {editable = true, extras = ["all"], path = "."}
+sphinx-rtd-theme = "*"
 
 [packages]
 requests = "==2.26.0"

@@ -1,44 +1,32 @@
 import os
-import re
 import sys
 
+from hypixelio import __version__ as hypixelio_version
 
-from recommonmark.transform import AutoStructify
-
+# Sphinx path setup
 sys.path.insert(0, os.path.abspath(".."))
+sys.path.append(os.path.abspath("extensions"))
 
-# Configuration file for the Sphinx documentation builder.
-#
-# This file only contains a selection of the most common options. For a full
-# list see the documentation:
-# https://www.sphinx-doc.org/en/master/usage/configuration.html
+# Project info configuration
+project = "HypixelIO"
+copyright = "Copyright 2021-present, Sunrit Jana"
+author = "Sunrit Jana"
 
-# -- Path setup --------------------------------------------------------------
+release = hypixelio_version
+branch = (
+    "main"
+    if hypixelio_version.endswith("a") or hypixelio_version.endswith("b") or hypixelio_version.endswith("rc")
+    else "v" + hypixelio_version
+)
 
-# If extensions (or modules to document with autodoc) are in another directory,
-# add these directories to sys.path here. If the directory is relative to the
-# documentation root, use os.path.abspath to make it absolute, like shown here.
-
-
-# -- General configuration ---------------------------------------------------
-
-# Add any Sphinx extension module names here, as strings. They can be
-# extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
-# ones.
+# General configuration
 extensions = [
     "myst_parser",
-    "sphinx.ext.intersphinx",
+    "resourcelinks",
     "sphinx.ext.autodoc",
-    "sphinx.ext.mathjax",
     "sphinx.ext.extlinks",
-    "sphinx.ext.viewcode",
     "sphinx.ext.napoleon",
-    "sphinx.ext.extlinks",
 ]
-
-napoleon_google_docstring = False
-napoleon_use_param = False
-napoleon_use_ivar = True
 
 rst_prolog = """
 .. |coro| replace:: This function is a |coroutine_link|_.
@@ -47,7 +35,7 @@ rst_prolog = """
 .. _coroutine_link: https://docs.python.org/3/library/asyncio-task.html#coroutine
 """
 
-
+# Warnings
 suppress_warnings = ["myst.header"]
 
 extlinks = {
@@ -62,21 +50,6 @@ source_suffix = {
 
 master_doc = "index"
 
-# -- Project information -----------------------------------------------------
-
-project = "HypixelIO"
-copyright = "2021, Sunrit Jana"
-author = "Sunrit Jana"
-
-version = ""
-
-# -- Version config --
-with open("../hypixelio/__init__.py") as f:
-    version = re.search(
-        r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE
-    ).group(1)
-release = version
-
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
 
@@ -85,58 +58,19 @@ templates_path = ["_templates"]
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ["_build", "Thumbs.db", ".DS_STORE"]
 
+# Links for the RST
+resource_links = {
+    "repo": "https://github.com/janaSunrise/HypixelIO/",
+    "issues": "https://github.com/janaSunrise/HypixelIO/issues",
+    "discussions": "https://github.com/janaSunrise/HypixelIO/discussions",
+    "examples": f"https://github.com/janaSunrise/HypixelIO/tree/{branch}/examples",
+}
 
 # -- Options for HTML output -------------------------------------------------
-
-# The theme to use for HTML and HTML Help pages.  See the documentation for
-# a list of builtin themes.
-
-html_theme = "aiohttp_theme"
-
-html_theme_options = {
-    "description": "A Modern Efficient and Easy way of interacting with the Hypixel API!",
-    "github_user": "janaSunrise",
-    "github_repo": "HypixelIO",
-    "github_button": True,
-    "github_type": "star",
-    "github_banner": True,
-    "badges": [
-        {
-            "image": "https://img.shields.io/pypi/v/HypixelIO",
-            "target": "https://pypi.org/project/HypixelIO",
-            "height": "20",
-            "alt": "Latest PyPI package version",
-        },
-        {
-            "image": "https://discordapp.com/api/guilds/695008516590534758/widget.png?style=shield",
-            "target": "https://discord.gg/cSC5ZZwYGQ",
-            "height": "20",
-            "alt": "Chat on Discord",
-        },
-    ],
-}
+html_theme = "sphinx_rtd_theme"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
-
-highlight_language = "python3"
-
-
-github_doc_root = "https://github.com/rtfd/recommonmark/tree/master/doc/"
-
-
-def setup(app) -> None:  # noqa: ANN001
-    app.add_config_value(
-        "recommonmark_config",
-        {
-            "url_resolver": lambda url: github_doc_root + url,
-            "auto_toc_tree_section": "Contents",
-        },
-        True,
-    )
-    app.add_transform(AutoStructify)
-
-
-htmlhelp_basename = "hypixeliodoc"
+html_css_files = ["css/custom.css"]
