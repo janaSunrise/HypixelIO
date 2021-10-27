@@ -52,9 +52,11 @@ class Client(BaseClient):
         >>> client = hypixelio.Client(api_key=["123-456", "789-000", "568-908"])
 
     The caching is supported inbuilt, and can be enabled easily. Here's how,
+
         >>> client = hypixelio.Client(cache=True)
 
     You have the option to configure cache too,
+
         >>> from hypixelio.models.caching import Caching, CacheBackend
         >>> cache_cfg = Caching(cache_name="my-cache", backend=CacheBackend.sqlite, expire_after=10)
         >>> client = hypixelio.Client(cache=True, cache_config=cache_cfg)
