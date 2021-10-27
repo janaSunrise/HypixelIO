@@ -88,6 +88,18 @@ class BaseClient:
 
     # Utility for keys
     def add_key(self, api_key: t.Union[str, list]) -> None:
+        """
+        Add a Hypixel API Key to the list of the API keys.
+
+        Parameters
+        ----------
+        api_key: t.Union[str, list]
+            The API key(s) to be added to the list.
+
+        Returns
+        -------
+            None
+        """
         if isinstance(api_key, str):
             api_key = [api_key]
 
@@ -97,6 +109,18 @@ class BaseClient:
             self._api_key.append(k)
 
     def remove_key(self, api_key: t.Union[str, list]) -> None:
+        """
+        Remove a Hypixel API Key from the list of the API keys.
+
+        Parameters
+        ----------
+        api_key: t.Union[str, list]
+            The API key(s) to be removed from the list.
+
+        Returns
+        -------
+            None
+        """
         if isinstance(api_key, str):
             api_key = [api_key]
 

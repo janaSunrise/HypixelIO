@@ -20,17 +20,17 @@ class Utils:
     @classmethod
     async def _crafatar_fetch(cls, url: str) -> t.Any:
         """
-        This is the function for fetching the JSON from the Crafatar API.
+        Method to fetch the JSON from the Crafatar API.
 
         Parameters
         ----------
-        url: `str`
+        url: str
             The Crafatar URL, whose JSON is supposed to be fetched.
 
         Returns
         -------
-        `t.Optional[dict]`
-            The JSON response from the Crafatar API, which is returned.
+        t.Optional[dict]
+            The JSON response from the Crafatar API.
         """
         session = aiohttp.ClientSession()
 
@@ -70,12 +70,12 @@ class Utils:
 
         Parameters
         ----------
-        route: `str`
+        route: str
             The URL path to visit.
 
         Returns
         -------
-        `str`
+        str
             The well formed API URL for fetching.
         """
         return f"https://crafatar.com{route}"
@@ -88,20 +88,20 @@ class Utils:
         changed_at: bool = False,
     ) -> t.Union[list, dict]:
         """
-        This get the name history with records of a player.
+        Get the name history with records of a player.
 
         Parameters
         ----------
-        name: `t.Optional[str]`
+        name: t.Optional[str]
             The username of the player. Defaults to None.
-        uuid: `t.Optional[str]`
+        uuid: t.Optional[str]
             The UUID of the player. Defaults to None.
-        changed_at: `bool`
+        changed_at: bool
             Toggle to true, if you need when the player changed name. Defaults to False.
 
         Returns
         -------
-        `t.Union[list, dict]`
+        t.Union[list, dict]
             The list or dictionary with the name history and records.
         """
         uuid = cls._filter_name_uuid(name, uuid)
@@ -121,18 +121,18 @@ class Utils:
         cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None
     ) -> str:
         """
-        Get the avatar of the specified player
+        Get the avatar of the specified player.
 
         Parameters
         ----------
-        name: `t.Optional[str]`
+        name: t.Optional[str]
             The username of the player. Defaults to None.
-        uuid: `t.Optional[str]`
+        uuid: t.Optional[str]
             The UUID of the player. Defaults to None.
 
         Returns
         -------
-        `str`
+        str
             The URL containing the image of the avatar.
         """
         uuid = cls._filter_name_uuid(name, uuid)
@@ -145,18 +145,18 @@ class Utils:
         cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None
     ) -> str:
         """
-        Get the head skin of the specified player
+        Get the head skin of the specified player.
 
         Parameters
         ----------
-        name: `t.Optional[str]`
+        name: t.Optional[str]
             The username of the player. Defaults to None.
-        uuid: `t.Optional[str]`
+        uuid: t.Optional[str]
             The UUID of the player. Defaults to None.
 
         Returns
         -------
-        `str`
+        str
             The URL containing the image of the head.
         """
         uuid = cls._filter_name_uuid(name, uuid)
@@ -173,14 +173,14 @@ class Utils:
 
         Parameters
         ----------
-        name: `t.Optional[str]`
+        name: t.Optional[str]
             The username of the player. Defaults to None.
-        uuid: `t.Optional[str]`
+        uuid: t.Optional[str]
             The UUID of the player. Defaults to None.
 
         Returns
         -------
-        `str`
+        str
             The URL containing the image of the whole body.
         """
         uuid = cls._filter_name_uuid(name, uuid)
