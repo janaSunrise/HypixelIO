@@ -2,9 +2,13 @@
 @import "../basic.css";
 
 /* Fonts */
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code&family=Poppins&display=swap");
 
 /* Reset */
+* {
+  box-sizing: border-box;
+}
+
 html {
   scroll-behavior: smooth;
 }
