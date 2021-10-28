@@ -9,7 +9,7 @@ class BoosterInfo:
         Parameters
         ----------
         info: dict
-            This contains the Returned JSON Response for the Booster's List Element API Request.
+            This contains the JSON Response from the API for the Info about a specific booster.
         """
         self.ID = info["_id"]
         self.PURCHASER_UUID = info["purchaserUuid"]
