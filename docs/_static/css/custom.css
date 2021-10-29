@@ -1,6 +1,24 @@
-@import '../basic.css';
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&family=Rubik&family=Varela+Round&display=swap');
+/* CSS files import */
+@import "../basic.css";
 
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Poppins&family=Varela+Round&display=swap');
+
+/* Reset */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Poppins", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-weight: 400;
+
+/* Other styles */
 div.sphinxsidebarwrapper {
     margin-right: 30px;
 }
@@ -25,7 +43,7 @@ div.sphinxsidebar {
 }
 
 .rst-content .linenodiv pre, .rst-content div[class^="highlight"] pre, .rst-content pre.literal-block {
-    font-family: 'Noto Sans Mono', monospace;
+    font-family: 'Fira Code', monospace;
     font-size: 12px;
     line-height: 1.4;
 }
@@ -34,12 +52,6 @@ div.sphinxsidebar {
     margin-top: 0;
     font-weight: 700;
     font-family: 'Varela Round', sans-serif;
-}
-
-body {
-    font-family: 'Rubik', sans-serif;
-    font-weight: 400;
-    color: #404040;
 }
 
 .rst-content code.literal, .rst-content tt.literal {

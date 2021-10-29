@@ -24,6 +24,8 @@ __all__: t.Tuple[str, ...] = (
     "CacheBackend",
     "Client",
     "Converters",
+    "Portal",
     "Utils",
     "constants",
+    "create_portal"
 )
