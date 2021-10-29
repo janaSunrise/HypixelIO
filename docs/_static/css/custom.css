@@ -14,9 +14,10 @@ html {
 }
 
 body {
-  font-family: "Poppins", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    font-family: "Poppins", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  font-weight: 400;
+    font-weight: 400;
+}
 
 /* Other styles */
 div.sphinxsidebarwrapper {
