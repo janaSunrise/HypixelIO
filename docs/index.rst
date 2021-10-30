@@ -4,6 +4,15 @@ Welcome to HypixelIO!
 HypixelIO is a Modern, Robust, and Efficient wrapper for the Hypixel API. With support for both Async
 and blocking programming, This has everything for you to work with.
 
+.. toctree::
+    :maxdepth: 2
+    :titlesonly:
+
+    Welcome <self>
+    Home <quickstart>
+    whats_new
+    faq
+
 Features
 --------
 
@@ -41,19 +50,9 @@ Here are the modules which constitute the API. All the API documentation, right 
 you understand and use this library.
 
 .. toctree::
-  :maxdepth: 1
+    :maxdepth: 1
 
-   API reference <api.rst>
-   Asynchronous API reference <_async/api.rst>
-   Caching API reference <caching.rst>
-   Exceptions API reference <exceptions.rst>
-
-Meta
-----
-
-If you're looking for something related to the project itself, it's here.
-
-.. toctree::
-  :maxdepth: 1
-
-  whats_new
+    API reference <api.rst>
+    Asynchronous API reference <_async/api.rst>
+    Caching API reference <caching.rst>
+    Exceptions API reference <exceptions.rst>

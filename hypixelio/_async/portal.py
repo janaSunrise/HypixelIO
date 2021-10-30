@@ -87,7 +87,8 @@ def create_portal() -> t.Any:
 
     Examples
     --------
-    .. codeblock:: python
+    .. code-block:: python
+
         async def test(msg):
             await asyncio.sleep(0.5)
             print(msg)
