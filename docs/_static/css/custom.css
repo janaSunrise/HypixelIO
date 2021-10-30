@@ -2,7 +2,7 @@
 @import "../basic.css";
 
 /* Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Poppins&family=Varela+Round&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code&family=Poppins&family=Varela+Round&display=swap");
 
 /* Reset */
 * {
@@ -14,80 +14,100 @@ html {
 }
 
 body {
-    font-family: "Poppins", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+  font-family: "Poppins", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    font-weight: 400;
+  font-weight: 400;
 }
 
 /* Other styles */
 div.sphinxsidebarwrapper {
-    margin-right: 30px;
+  margin-right: 30px;
 }
 
 div.sphinxsidebar {
-    width: 260px;
-    font-size: 14px;
-    line-height: 1.5;
+  width: 260px;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .wy-nav-content {
-    max-width: 1500px;
-    width: 75%;
+  max-width: 1500px;
+  width: 75%;
 }
 
-.rst-content div[class^="highlight"], .rst-content pre.literal-block {
-    border: transparent;
-    overflow-x: auto;
-    margin: 1px 0 24px;
-    border-radius: 10px;
-    background: #f1f1f1;
+.rst-content div[class^="highlight"],
+.rst-content pre.literal-block {
+  border: transparent;
+  overflow-x: auto;
+  margin: 1px 0 24px;
+  border-radius: 10px;
+  background: #f1f1f1;
 }
 
-.rst-content .linenodiv pre, .rst-content div[class^="highlight"] pre, .rst-content pre.literal-block {
-    font-family: 'Fira Code', monospace;
-    font-size: 12px;
-    line-height: 1.4;
+.rst-content .linenodiv pre,
+.rst-content div[class^="highlight"] pre,
+.rst-content pre.literal-block {
+  font-family: "Fira Code", monospace;
+  font-size: 12px;
+  line-height: 1.4;
 }
 
-.rst-content .toctree-wrapper > p.caption, h1, h2, h3, h4, h5, h6, legend {
-    margin-top: 0;
-    font-weight: 700;
-    font-family: 'Varela Round', sans-serif;
+.rst-content .toctree-wrapper > p.caption,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+legend {
+  margin-top: 0;
+  font-weight: 700;
+  font-family: "Varela Round", sans-serif;
 }
 
-.rst-content code.literal, .rst-content tt.literal {
-    color: #373737;
-    white-space: normal;
-    border-radius: 0.5em;
-    padding: 0.4% 0.4% 0.3%;
-    background: #e8e8e8;
-    border: transparent;
+.rst-content code.literal,
+.rst-content tt.literal {
+  color: #373737;
+  white-space: normal;
+  border-radius: 0.5em;
+  padding: 0.4% 0.4% 0.3%;
+  background: #e8e8e8;
+  border: transparent;
 }
 
 .ethical-rst {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 .wy-side-nav-search {
-    background: #4a94c4;
+  background: #4a94c4;
 }
 
 .version {
-    color: #d9d9d9;
+  color: #d9d9d9;
 }
 
 dt {
-    padding-left: 8px;
+  padding-left: 8px;
 }
 
 .sig {
-    border-radius: 0.314159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534211706798214808651328230664709384460955058223172535940812848111745028410270193852110555964462294895493038196442881097566593344612847564823378678316527120190914564856692346034861045432664821339360726024914127372458700660631558817488152092096282925409171536436789259036001133053054882046652138414695194151160943305727036575959195309218611738193261179310511854807446237996274956735188575272489122793818301194912983367336244065664308602139494639522473719070217986094370277053921717629317675238467481846766940513200056812714526356082778577134275778960917363717872146844090122495343014654958537105079227968925892354201995611212902196086403441815981362977477130996051870721134999999837297804995105973173281609631859502445945534690830264252230825334em;
+  border-radius: 0.314159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534211706798214808651328230664709384460955058223172535940812848111745028410270193852110555964462294895493038196442881097566593344612847564823378678316527120190914564856692346034861045432664821339360726024914127372458700660631558817488152092096282925409171536436789259036001133053054882046652138414695194151160943305727036575959195309218611738193261179310511854807446237996274956735188575272489122793818301194912983367336244065664308602139494639522473719070217986094370277053921717629317675238467481846766940513200056812714526356082778577134275778960917363717872146844090122495343014654958537105079227968925892354201995611212902196086403441815981362977477130996051870721134999999837297804995105973173281609631859502445945534690830264252230825334em;
 }
 
-html.writer-html4 .rst-content dl:not(.docutils) > dt, html.writer-html5 .rst-content dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.glossary):not(.simple) > dt {
-    border: 1px solid #72cdf7;
+html.writer-html4 .rst-content dl:not(.docutils) > dt,
+html.writer-html5
+  .rst-content
+  dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.glossary):not(.simple)
+  > dt {
+  border: 1px solid #72cdf7;
 }
 
-html.writer-html4 .rst-content dl:not(.docutils) dl:not(.field-list) > dt, html.writer-html5 .rst-content dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.glossary):not(.simple) dl:not(.field-list) > dt {
-    border: 1px solid #adadad;
+html.writer-html4 .rst-content dl:not(.docutils) dl:not(.field-list) > dt,
+html.writer-html5
+  .rst-content
+  dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.glossary):not(.simple)
+  dl:not(.field-list)
+  > dt {
+  border: 1px solid #adadad;
 }
