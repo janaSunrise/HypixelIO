@@ -84,9 +84,6 @@ A Modern, Efficient and Easy way of interacting with the Hypixel API!
 
 **Python 3.7 or above is required!**
 
-**Note**: This library has caching modules downloaded when installed. If you need more
-adapters for the modules, You should refer to the extra requires installation below.
-
 ```sh
 # Windows
 py -3 -m pip install -U HypixelIO
@@ -98,7 +95,8 @@ python3 -m pip install -U HypixelIO
 python3 -m pip install -U git+https://github.com/janaSunrise/HypixelIO
 ```
 
-To get extra features, Here are the commands for them.
+The caching modules are installed when the library is installed. To get extra features or
+adapters, Here are the commands for them.
 
 ```sh
 # Use [speedups] to speed up only for async API
