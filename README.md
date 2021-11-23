@@ -122,7 +122,7 @@ client = Client(api_key="your-api-key")
 boosters = client.get_boosters()  # Get the boosters object
 
 friends = client.get_friends(uuid="user's-uuid")  # Returns the Friends object
-# OR if you don't know the UUID
+# Or, if you don't know the UUID
 friends = client.get_friends(name="user's-username")
 
 print(boosters[0].ID)
@@ -143,7 +143,7 @@ async def fetch_from_hypixel():
     boosters = await client.get_boosters()  # Get the boosters object
 
     friends = await client.get_friends(uuid="user's-uuid")  # Returns the Friends object
-    # OR if you don't know the UUID
+    # Or, if you don't know the UUID
     friends = await client.get_friends(name="user's-username")
 
     # Safely close the connection
