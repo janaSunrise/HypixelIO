@@ -96,7 +96,7 @@ python3 -m pip install -U git+https://github.com/janaSunrise/HypixelIO
 ```
 
 The caching modules are installed when the library is installed. To get extra features or
-adapters, Here is how you can install them.
+adapters. Here's how you can install them.
 
 ```sh
 # Use [speedups] to speed up only for async API
