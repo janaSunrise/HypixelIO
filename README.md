@@ -96,7 +96,7 @@ python3 -m pip install -U git+https://github.com/janaSunrise/HypixelIO
 ```
 
 The caching modules are installed when the library is installed. To get extra features or
-adapters, Here are the commands for them.
+adapters. Here's how you can install them.
 
 ```sh
 # Use [speedups] to speed up only for async API
@@ -122,7 +122,7 @@ client = Client(api_key="your-api-key")
 boosters = client.get_boosters()  # Get the boosters object
 
 friends = client.get_friends(uuid="user's-uuid")  # Returns the Friends object
-# OR if you don't know the UUID
+# Or, if you don't know the UUID
 friends = client.get_friends(name="user's-username")
 
 print(boosters[0].ID)
@@ -143,7 +143,7 @@ async def fetch_from_hypixel():
     boosters = await client.get_boosters()  # Get the boosters object
 
     friends = await client.get_friends(uuid="user's-uuid")  # Returns the Friends object
-    # OR if you don't know the UUID
+    # Or, if you don't know the UUID
     friends = await client.get_friends(name="user's-username")
 
     # Safely close the connection
@@ -173,7 +173,7 @@ a PR to this repo and it will be deployed once it's accepted.
 commit or the PR Created. Read [conventional commits](https://www.conventionalcommits.org/en/v1.0.0-beta.3/) before
 making the commit message. You can find our contributing guidelines [here](https://github.com/janaSunrise/HypixelIO/blob/main/CONTRIBUTING.md)
 
-Also, We have a branch called `dev` containing development code. If you're contributing, Remember to contribute to
+We have a branch called `dev` containing development code. If you're contributing, Remember to contribute to
 `dev` branch, instead of `main`.
 
 ## 💬 Get in touch
