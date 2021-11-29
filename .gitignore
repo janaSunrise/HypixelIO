@@ -1,29 +1,43 @@
-.vscode/
-
-.spyproject/
-
-.idea/
-
-.pytest_cache/
-
-.benchmarks/
-
-.env
-TODO
-
-*.sqlite3
-*.sqlite
-*.db
-
-env/
-venv/
-
+# Python cache
 __pycache__/
 
+# Editor generated files
+.idea/
+.vscode/
+.spyproject/
+
+# VirtualENV files
+env/
+venv/
+.venv/
+
+# Environmental and personal files
+*.env
+TODO
+
+# Database files
+*.sqlite3
+*.sqlite
+*.sql
+*.db
+
+# Ignore personal log files
+logs/
+
+# MacOS generated file
+.DS_STORE
+
+# Binary files generated
+*.so
+*.dll
+*.dylib
+
+# Testing and benchmarks
+.pytest_cache/
+.benchmarks/
+
+# Build
 docs/build
-
 build/
-
-HypixelIO.egg-info/
-
 dist/
+HypixelIO.egg-info/
