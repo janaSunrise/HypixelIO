@@ -1,59 +1,107 @@
 # Contributing Guide
 
-This project is fully open-sourced and will be automatically deployed whenever commits are pushed to `master` branch, so these are the guidelines to keep everything clean and in working order.
+This project is completely open-sourced, and we welcome all kind of contributions. This is to in order to
+enforce clean code, and to ensure the quality of the code we write is maintained.
 
-Note that contributions may be rejected on the basis of a contributor failing to follow these guidelines
+We have strict guidelines for people who are willing or looking to contribute to this project. Please read them carefully. The contributions may be rejected on the basis of a contributor failing to follow these guidelines.
 
-## Rules
+## The Golden Rules of Contributing
 
-1. **No force-pushes** or modifying the Git history in any way.
-2. If you have direct access to the repository **Create a branch for your changes** and create a pull request for that branch. If not, create a branch on a for of the repository and create a pull request from there.
-   - It's common practice for repository to reject direct pushes to `master`, so make branching a habit!
-   - If PRing from your own fork, **ensure that "Allow edits from maintainers" is checked**. This gives permission for maintainers to commit changes directly to your fork, speeding up the review process.
-3. **Adhere to the prevailing code style** which we enforce using [`flake8`](https://flake8.pycqa.org/en/latest/index.html) and [`pre-commit`](https://pre-commit.com/).
-   - Run `flake8` and `pre-commit` against your code before you push it.
-   - [Git hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks) are a powerful git feature for executing custom scripts when certain important git actions occur. The pre-commit hook is the first hook executed during the commit process and can be used to check the code being commited & abort the commit if issues, such as linting failures are detected. While git hooks can seem daunting to configure, the `pre-commit` framework abstracts this process away from you and is provided as a dev dependency for this project. Run `pipenv run precommit` when setting up the project and you'll never have to worry about commiting your code that fails linting.
-4. **Make great commits**. A well structured git log is key to a project's maintainability; it efficiently provides insight into when and why things were done for future maintainers of the project.
-   - Commits should be as narrow in scope as possible. Commits that span hundreds of lines across multiple unrelated functions and/or files are very hard for maintainers to follow. After about a week they'll probably be hard for you to follow too.
-   - Avoid making minor commits for fixing typos or linting errors. Since you've already set up a `pre-commit` hook to run the linting pipeline before a commit, you shouldn't be commiting linting issues anyway.
-   - A more in-depth guide to writing great commit messages can be found in Chris Beam's [_How to Write a Git Commit Message_](https://chris.beams.io/posts/git-commit/)
-5. **Avoid frequent pushes to the main repository**. This goes for PRs opened against your fork as well. Try to batch your commits until you've finished working for that session, or you've reached a point where collaborators need your commits to continue their own work. This also provides you the opportunity to ammend commits for minor changes rather than having to commit them on their own because you've already pushed.
-   - This includes merging master into your branch. Try to leave merging from master for after your PR passes review: a maintainer will bring your PR up to date before merging. Exceptions to this include: resolving merge conflicts, needing something that was pushed to master for your branch, or something was pushed to master that could potentially affect the functionality of what you're doing
-6. **Don't fight the framework**. Every framework has its laws, but the frameworks we've picked out have been carefully chosen for their particular merits. If you can avoid it, please resist reimplementing swathes or framework logic - the work has already been done for you!
-7. If someone is working on an issue or pull request. **do not open your own pull request for the same task**. Instead, collaborate with the author(s) of the existing pull request. Duplicate PRs opened without communicating with the other author(s) and/or repository authors will be closed. Communication is key, and there's no point in two separate implementations of the same thing.
-   - One option is to fork the other contributor's repository and submit your changes to their branch with your own pull request. We suggest following these guidelines when interacting with their repository as well.
-   - The author(s) of inactive PRs and claimed issues will be pinged after a week of inactivity for an update. Continued inactivity may result in the issue being released back to the community and/or PR closure.
-8. **Work as a team** and collaborate whenever possible. Keep things friendly and help each other out - these are shared projects and nobody likes to have their feet trodded on.
-9. All static content, such as images or audio, **must be licensed for open public use**.
-   - Static content must be hosted by a service designed to do so. Failing to do so is known as "leeching" and is frowned upon, as it generates extra bandwidth to the host without providing benefit. It would be best if appropriately licensed content is added to the repository itself.
+1. **Lint before you push.** We have simple but strict style of rules that are enforced through linting. You must
+   always lint your code before committing or pushing. Using tools such as `flake8` and `pre-commit` can make this
+   easier. Make sure to follow our [style guide](./CONTRIBUTING.md#style-guide) when contributing.
+2. **Make great commits.** Great commits should be atomic, with a commit message explaining what and why. More on this can be found in [this section](./CONTRIBUTING.md#writing-good-commit-messages).
+3. **Do not open a pull request if you aren't assigned to the issue.** If someone is already working on some
+   issue, consider offering to collaborate instead of working on your own.
+   Feel free to ask to be assigned to the issue, if nobody is working on it, or assigned. Before working on a
+   totally new feature, change or anything, create an issue to notify, and get assigned to it first. This helps
+   us to keep the PRs under control and to make sure if we have the need, or use for it in our codebase. By
+   closing and declining it, we save time and energy for both of us.
+4. **Use assets which are licensed for public use.** Whenever any code snippets, or static assets such as image,
+   video, audio or files are added, they must have a compatible license with our projects.
+5. **Follow our [Code of Conduct](./CODE_OF_CONDUCT.md).** We aim to foster an open, welcoming and friendly
+   environment. Please read our [Code of Conduct](./CODE_OF_CONDUCT.md) before contributing.
 
-Above all, the needs of our community should come before the wants of an individual. Work together, build solutions to problems and try to do so in a way that people can learn from easily. Abuse of our trust may result in the loss of your Contributor role.
+## Writing Good Commit Messages
 
-## Changes to this Arrangement
+A well-structured git log is key to a project's maintainability; it provides insight into when and why things
+were done for future maintainers of the project.
 
-All projects evolve over time, and this contribution guide is no different. This document is open to pull requests or changes by contributors. If you believe you have something valuable to add or change, please don't hesitate to do so in a PR.
+Commits should be as narrow in scope as possible. Commits that span hundreds of lines across multiple
+unrelated functions and/or files are very hard for maintainers to follow. After about a week they'll probably
+be hard for you to follow, too.
 
-## Type Hinting
+Please also avoid making minor commits for fixing typos or linting errors. Use the linting feature using
+Flake8 and Pre-commit scripts in Pipfile to lint them before pushing.
 
-[PEP 484](https://www.python.org/dev/peps/pep-0484/) formally specifies type hints for Python functions, added to the Python Standard Library in version 3.5. Type hints are recognized by most modern code editing tools and provide useful insight into both the input and output types of a function, preventing the user from having to go through the codebase to determine these types.
+To get you started, Here's an incredible resource on how to make good commits!
 
-For example:
+- <https://chris.beams.io/posts/git-commit/>
+
+## Linting and Pre-commit
+
+We make use of `flake8` and `pre-commit` to ensure that the code style is consistent across the code base.
+
+Running `flake8` will warn you about any potential style errors in your contribution. You must always check it before pushing. Your commit will be rejected by the build server if it fails to lint.
+
+`pre-commit` is a powerful tool that helps you automatically lint before you commit. If the linter complains,
+the commit is aborted so that you can fix the linting errors before committing again. That way, you never commit
+the problematic code in the first place!
+
+To make linting and checking easy, we have setup pipenv scripts to faciliate installing the commit hooks, and
+running the lint checks.
+
+Here is how you can setup pre-commit with ease:
+
+1. Ensure that you have dependencies (and dev-dependencies) installed using pipenv.
+2. Once you're ready, run `pipenv run precommit`, which install the precommit hooks to check your code style
+   when you're commiting it. It stops code from getting commited, if issues are discovered.
+3. Finally, To run the linting manually, just use `pipenv run lint`, and you should be good to go.
+
+**Note**: If you really need to commit code, and fix the issues or take assistance, run `git commit --no-verify`
+to skips the precommit checks.
+
+## Style Guide
+
+We have enforced several rules related to the code-style which we are following. They have been added
+to ensure readable, clean and maintainable code is written, and enable working for everyone smooth and easy.
+
+We use `flake8` to perform linting, and `pre-commit` to ensure the code is perfect, before getting pushed.
+
+### Type Hinting
+
+[PEP 484](https://www.python.org/dev/peps/pep-0484/) formally specifies type hints for Python functions, added
+to the Python Standard Library in version 3.5. Type hints are recognized by most modern code editing tools and
+provide useful insight into both the input and output types of a function, preventing the user from having to
+go through the codebase to determine these types.
+
+For an example, a function without annotations would look like:
 
 ```py
-import typing as t
-
-
-def foo(input_1: int, input_2: t.Dict[str, str]) -> bool:
-    ...
+def divide(a, b):
+    """Divide the two given arguments."""
+    return a / b
 ```
 
-Tell us that `foo` accepts an `int` and a `dict` with `str` keys and values, and returns a `bool`.
+With annotations, this is how the function would look:
 
-All functions declarations should be type hinted in code contributed to this repository
+```py
+def divide(a: int, b: int) -> float:
+    """Divide the two given arguments."""
+    return a / b
+```
 
-## AutoDoc Formatting Directive
+Python type-hinting is relatively easy to use, but helps to keep the code more maintainable, clean, and also
+enables the use of type annotations in the future. In a lot of situations, the type-hinting enables your editors
+to give better intellisense and suggestions based on what you're working on.
 
-Many documentation packages provide support for automatic documentation generation from the codebase's docstrings. These tools utilize special formatting directives to enable richer formatting in the generated documentation.
+Python being a dynamically typed language, There is a neat tool called MyPy that enables static type hinting
+and checking on the code. You can read more about it [here](https://mypy.readthedocs.io/en/stable/).
+
+### Docstring formatting directive
+
+Many documentation packages provide support for automatic documentation generation from the codebase's docstrings.
+These tools utilize special formatting directives to enable richer formatting in the generated documentation.
 
 For example:
 
@@ -73,7 +121,11 @@ def foo(bar: int, baz: t.Optional[t.Dict[str, str]] = None) -> bool:
     ...
 ```
 
-Since we don't utilize automatic documentation generation, use of this syntax should not be used in the code contributed here. Should the purpose and type of the input variables not be easily discernable from the variable name and type annotation a prose explanation can be used. Explicit references to variables, function, classes, etc. should be wrapped with backticks (`` ` ``)
+Since we don't utilize automatic documentation generation, use of this syntax should not be used in the code contributed here.
+
+Should the purpose and type of the input variables not be easily discernable from the variable name and type
+annotation a prose explanation can be used. Explicit references to variables, function, classes, etc. should be
+wrapped with backticks (`` ` ``), such as \`variable\`.
 
 For example, the above docstring would become:
 
@@ -85,15 +137,74 @@ def foo(bar: int, baz: t.Optional[t.Dict[str, str]] = None) -> bool:
     """
     Does some things with some stuff.
 
-    This function takes an index, `bar` and checks for its presence in the database `baz`, passed as a dictionary. Returns `False` if `baz` is not passed.
+    This function takes an index, `bar` and checks for its presence in the database `baz`, passed as a dictionary.
+    Returns `False` if `baz` is not passed or if `bar` wasn't found in `baz`.
     """
     ...
 ```
 
+### Strings and Quotes
+
+Preference is to use double-quotes (`"`) wherever possible. Single quotes should only be used for cases where it is
+logical. Exceptions might include:
+
+- Using a key string within an f-string: f"Today is {data['day']}".
+- Using double quotes within a string: 'She said "oh dear" in response'
+
+Multi-line strings or Docstrings should be ensured that it's wrapped in triple double quotes (`"""my string"""`).
+
+### Imports
+
+We enforce imports to be ordered based on the Pycharm import order rules. If you use Pycharm as your main IDE, you can also use the `CTRL + ALT + O` shortcut to automatically reorder your imports to the correct style.
+
+There's three groups of imports which are defined in the following order:
+
+- Standard library
+- 3rd party
+- Local
+
+Each group must be ordered alphabetically, with uppercase modules coming before lowercase.
+
+```py
+from packagename import A, Z, c, e
+```
+
+Direct imports must be distinct, so you cannot do:
+
+```py
+import os, sys
+```
+
+Instead do:
+
+```py
+import os
+import sys
+```
+
+Wildcard imports should be avoided.
+
 ### Work in Progress (WIP) PRs
 
-Github [provides a PR feature](https://github.blog/2019-02-14-introducing-draft-pull-requests/) that allows the PR author to mark it as a WIP. This provides both a visual and functional indicator that the contents of the PR are in a draft state and not yet ready for formal review.
+When any PR is actively being worked on, and is not ready for merging, it should be marked as a WIP. This provides
+both a visual and functional indicator that the PR is in a draft state, and is not ready for review or merge.
 
-This feature should be utilized in place of the traditional method of prepending `[WIP]` to the PR title.
+Github provides a feature of marking a PR as Draft to indicate that it is not ready for review or merge. This
+feature should be utilized in place of the traditional method of prepending `[WIP]` to the PR title.
 
 As stated earlier, **ensure that "Allow edits from maintainers" is checked**. This gives permission for maintainers to commit changes directly to your fork, speeding up the review process.
+
+[Here](https://github.blog/2019-02-14-introducing-draft-pull-requests/) is all the info you need about Draft PRs
+in Github.
+
+## Changes to this Arrangement
+
+Every kind of projects evolve over time, and these contributing guidelines are no different.
+
+This document is open to any kind of contributions, and PRs. Feel free to contribute to this guideline by
+adding, or changing anything, that you feel can change it, and improve it aswell.
+
+## Credits
+
+This contributing guidelines file was inspired by
+[Python discord's Contributing Guidelines](https://github.com/python-discord/bot/blob/master/CONTRIBUTING.md).
