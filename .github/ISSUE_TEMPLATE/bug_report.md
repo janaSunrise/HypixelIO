@@ -1,9 +1,9 @@
 ---
 name: Bug report
 about: Report issues and bugs with the template to help us fix and improve for everyone
-title: ''
-labels: ''
-assignees: ''
+title: ""
+labels: ""
+assignees: ""
 ---
 
 ## Describe the bug
