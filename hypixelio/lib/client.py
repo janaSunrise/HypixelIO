@@ -184,9 +184,7 @@ class Client(BaseClient):
 
         return boosters.Boosters(json["boosters"], json)
 
-    def get_player(
-        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
-    ) -> player.Player:
+    def get_player(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> player.Player:
         """
         Get all info about a Hypixel player using his username or his player UUID.
 
@@ -210,9 +208,7 @@ class Client(BaseClient):
 
         return player.Player(json["player"])
 
-    def get_friends(
-        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
-    ) -> friends.Friends:
+    def get_friends(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> friends.Friends:
         """
         Get the friends, and all their info of specified Hypixel player.
 
@@ -246,9 +242,7 @@ class Client(BaseClient):
 
         return watchdog.Watchdog(json)
 
-    def get_guild(
-        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
-    ) -> guild.Guild:
+    def get_guild(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> guild.Guild:
         """
         Get info about a specific Hypixel guild using the Name, or the Guild's UUID.
 
@@ -304,9 +298,7 @@ class Client(BaseClient):
 
         return leaderboard.Leaderboard(json["leaderboards"])
 
-    def find_guild(
-        self, guild_name: t.Optional[str] = None, player_uuid: t.Optional[str] = None
-    ) -> find_guild.FindGuild:
+    def find_guild(self, guild_name: t.Optional[str] = None, player_uuid: t.Optional[str] = None) -> find_guild.FindGuild:
         """
         Find a guild using the Guild's name or a Player's UUID.
 
@@ -333,9 +325,7 @@ class Client(BaseClient):
 
         return find_guild.FindGuild(json)
 
-    def get_player_status(
-        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
-    ) -> player_status.PlayerStatus:
+    def get_player_status(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> player_status.PlayerStatus:
         """
         Get the status about a Player using his username or UUID.
 
@@ -356,9 +346,7 @@ class Client(BaseClient):
 
         return player_status.PlayerStatus(json)
 
-    def get_player_recent_games(
-        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
-    ) -> recent_games.RecentGames:
+    def get_player_recent_games(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> recent_games.RecentGames:
         """
         Get the recent games played by a Hypixel player using his Username or UUID.
 
@@ -379,9 +367,7 @@ class Client(BaseClient):
 
         return recent_games.RecentGames(json)
 
-    def get_skyblock_profile(
-        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
-    ) -> skyblock.SkyblockProfile:
+    def get_skyblock_profile(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> skyblock.SkyblockProfile:
         """
         Get the skyblock information and profile about a specific user as passed in the requirements.
 
@@ -407,9 +393,7 @@ class Client(BaseClient):
 
         return skyblock.SkyblockProfile(json)
 
-    def get_skyblock_user_auctions(
-        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
-    ) -> skyblock.SkyblockUserAuction:
+    def get_skyblock_user_auctions(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> skyblock.SkyblockUserAuction:
         """
         Get the skyblock auction info about a specific user.
 
@@ -435,9 +419,7 @@ class Client(BaseClient):
 
         return skyblock.SkyblockUserAuction(json)
 
-    def get_skyblock_active_auctions(
-        self, page: int = 0
-    ) -> skyblock.SkyblockActiveAuction:
+    def get_skyblock_active_auctions(self, page: int = 0) -> skyblock.SkyblockActiveAuction:
         """
         Get the list of active auctions in skyblock and use the data.
 

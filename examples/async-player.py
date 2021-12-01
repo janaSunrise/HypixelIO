@@ -2,7 +2,7 @@ import asyncio
 import os
 from textwrap import dedent
 
-from hypixelio.ext.asyncio import AsyncClient
+from hypixelio import AsyncClient
 
 
 async def fetch() -> None:
