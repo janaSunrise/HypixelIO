@@ -45,6 +45,7 @@ extlinks = {
 source_suffix = {
     ".rst": "restructuredtext",
     ".md": "markdown",
+    ".txt": "text"
 }
 
 master_doc = "index"
