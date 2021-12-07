@@ -3,6 +3,12 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
+[packages]
+requests = "==2.26.0"
+requests-cache = "==0.8.1"
+aiohttp = "==3.8.1"
+aiohttp-client-cache = "==0.5.2"
+
 [dev-packages]
 autopep8 = "*"
 flake8 = "*"
@@ -10,22 +16,12 @@ flake8-annotations = "*"
 flake8-bugbear = "*"
 flake8-import-order = "*"
 pre-commit = "*"
-pytest-benchmark = "*"
-bandit = "*"
 recommonmark = "*"
 myst-parser = "*"
 hypixelio = {editable = true, extras = ["all"], path = "."}
 sphinx-rtd-theme = "*"
 
-[packages]
-requests = "==2.26.0"
-requests-cache = "==0.8.1"
-aiohttp = "==3.8.1"
-aiohttp-client-cache = "==0.5.2"
-
 [scripts]
 lint = "pre-commit run --all-files"
 precommit = "pre-commit install"
 tests = "python -m unittest"
-benchmark = "pytest --fixtures tests"
-code-check = "bandit -r hypixelio"
