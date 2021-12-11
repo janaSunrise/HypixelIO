@@ -1,4 +1,4 @@
-MOCK_PLAYER = {
+PLAYER_MOCK = {
     "_id": 1234,
     "uuid": "2ad3kfei9ikmd",
     "displayname": "TestPlayer123",

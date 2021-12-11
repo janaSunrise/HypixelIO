@@ -1,7 +1,7 @@
 import os
 import unittest
 
-from tests.mockdata.mock_player_data import MOCK_PLAYER
+from tests.mock_data.player_data import PLAYER_MOCK
 
 from hypixelio import Client
 from hypixelio.exceptions import HypixelAPIError, PlayerNotFoundError
@@ -46,6 +46,6 @@ class TestPlayer(unittest.TestCase):
             }
         }
 
-        player = Player(MOCK_PLAYER)
+        player = Player(PLAYER_MOCK)
         for key, value in player.ACHIEVEMENTS.items():
             self.assertEqual(value, data["achievements"][key])
