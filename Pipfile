@@ -18,8 +18,8 @@ flake8-import-order = "*"
 pre-commit = "*"
 recommonmark = "*"
 myst-parser = "*"
-hypixelio = {editable = true, extras = ["all"], path = "."}
 sphinx-rtd-theme = "*"
+hypixelio = {editable = true, extras = ["all"], path = "."}
 
 [scripts]
 lint = "pre-commit run --all-files"
