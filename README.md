@@ -74,7 +74,7 @@ A Modern, Efficient and Easy way of interacting with the Hypixel API!
 
 - Modern way of handling requests
 - Modern OOP based structure
-- Both Async and general support
+- Both Async and blocking support
 - Simple ratelimit handling and caching
 - Elegant design with complete optimization
 - Easy to use with a modern and simple design
