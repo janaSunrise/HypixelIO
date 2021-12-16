@@ -153,35 +153,6 @@ logical. Exceptions might include:
 
 Multi-line strings or Docstrings should be ensured that it's wrapped in triple double quotes (`"""my string"""`).
 
-### Imports
-
-We enforce imports to be ordered based on the Pycharm import order rules. If you use Pycharm as your main IDE, you can also use the `CTRL + ALT + O` shortcut to automatically reorder your imports to the correct style.
-
-There's three groups of imports which are defined in the following order:
-
-- Standard library
-- 3rd party
-- Local
-
-Each group must be ordered alphabetically, with uppercase modules coming before lowercase.
-
-```py
-from packagename import A, Z, c, e
-```
-
-Direct imports must be distinct, so you cannot do:
-
-```py
-import os, sys
-```
-
-Instead do:
-
-```py
-import os
-import sys
-```
-
 Wildcard imports should be avoided.
 
 ### Work in Progress (WIP) PRs
