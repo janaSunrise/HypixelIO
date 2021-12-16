@@ -15,6 +15,7 @@ class Player:
         """
         self.HYPIXEL_ID = data["_id"]
         self.UUID = data["uuid"]
+
         self.NAME = data["displayname"]
         self.KNOWN_ALIASES = data["knownAliases"]
 
@@ -27,6 +28,7 @@ class Player:
 
         self.EXPERIENCE = data["networkExp"]
         self.LEVEL = self._calc_player_level(self.EXPERIENCE)
+
         self.KARMA = data["karma"]
         self.MC_VERSION_RP = data.get("mcVersionRp")
 

@@ -67,7 +67,7 @@ class BaseClient:
     # Utility to handle raising error if API response is not successful.
     @staticmethod
     def _handle_api_failure(json: t.Any) -> None:
-        reason = "Something in the API has problem."
+        reason = "Something in the API has an issue."
         if json["cause"] is not None:
             reason += f" Reason given: {json['cause']}"
 
@@ -106,6 +106,7 @@ class BaseClient:
         for k in api_key:
             if k in self._api_key:
                 continue
+
             self._api_key.append(k)
 
     def remove_key(self, api_key: t.Union[str, list]) -> None:
@@ -127,4 +128,5 @@ class BaseClient:
         for k in api_key:
             if k not in self._api_key:
                 continue
+
             self._api_key.remove(k)
