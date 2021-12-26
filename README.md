@@ -181,13 +181,13 @@ If you have various suggestions, questions or want to discuss things with our co
 
 ## 🙌 Show your support
 
-Be sure to leave a ⭐️ if you like the project!
+Be sure to drop a ⭐🌟 if you like the project!
 
 ## ▶ Links
 
 - [Official Documentation](http://hypixelio.rtfd.io/)
 - [Raise an Issue](https://github.com/janaSunrise/HypixelIO/issues)
 - [Discussions](https://github.com/janaSunrise/HypixelIO/discussions)
-- [API Documentation](https://api.hypixel.net)
+- [Hypixel API Documentation](https://api.hypixel.net)
 
 <div align="center">Made by Sunrit Jana with ❤</div>
