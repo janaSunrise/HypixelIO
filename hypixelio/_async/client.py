@@ -92,7 +92,7 @@ class AsyncClient(BaseClient):
         super().__init__(api_key)
 
         self._uses_cache = cache
-        self._cache_backend_mapping = {
+        self._cache_backends = {
             "sqlite": SQLiteBackend,
             "redis": RedisBackend,
             "mongodb": MongoDBBackend,
@@ -103,8 +103,8 @@ class AsyncClient(BaseClient):
             if cache_config is None:
                 cache_config = caching.Caching(expire_after=30, old_data_on_error=True)
 
-            if cache_config.backend in self._cache_backend_mapping:
-                backend = self._cache_backend_mapping[cache_config.backend]
+            if cache_config.backend in self._cache_backends:
+                backend = self._cache_backends[cache_config.backend]
                 self.cache = backend(
                     cache_name=cache_config.cache_name,
                     expire_after=cache_config.expire_after
