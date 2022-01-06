@@ -181,7 +181,7 @@ If you have various suggestions, questions or want to discuss things with our co
 
 ## 🙌 Show your support
 
-Be sure to drop a ⭐🌟 if you like the project!
+Be sure to drop a 🌟 if you like the project!
 
 ## ▶ Links
 
