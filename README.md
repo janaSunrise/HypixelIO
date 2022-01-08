@@ -179,7 +179,7 @@ If you have various suggestions, questions or want to discuss things with our co
 
 [![Discord](https://discordapp.com/api/guilds/835940276869791816/widget.png?style=shield)](https://discord.gg/MKC4qna4Gz)
 
-## 🙌 Show your support
+## 👋 Show your support
 
 Be sure to drop a 🌟 if you like the project!
 
