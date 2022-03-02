@@ -12,6 +12,9 @@ async def fetch() -> None:
     # Get a player object
     player = await client.get_player(name="janaSunrise")
 
+    # Close the session
+    await client.close()
+
     # Extract the data from the object
     name, uuid, achievements = player.name, player.uuid, player.achievements
 
