@@ -35,7 +35,7 @@ class TestPlayer(unittest.TestCase):
 
     def test_player_data(self) -> None:
         client = Client(api_key=API_KEY)
-        player = client.get_player(name="007rohitj")
+        player = client.get_player(name="VSCode_")
 
         self.assertIsInstance(player.hypixel_id, str)
         self.assertIsInstance(player.achievement_points, int)
