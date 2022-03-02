@@ -17,6 +17,7 @@ API_PATH = {
         "skyblock_active_auctions": "/skyblock/auctions",
         "skyblock_bazaar": "/skyblock/bazaar",
         "skyblock_profile": "/skyblock/profile",
+        "skyblock_news": "/skyblock/news",
         "achievements": "/resources/achievements",
         "challenges": "/resources/challenges",
         "quests": "/resources/quests",
