@@ -24,7 +24,9 @@ from ..models.leaderboard import Leaderboard
 from ..models.player import Player
 from ..models.player_status import PlayerStatus
 from ..models.recent_games import RecentGames
-from ..models.skyblock import SkyblockActiveAuction, SkyblockBazaar, SkyblockProfile, SkyblockUserAuction
+from ..models.skyblock import (
+    SkyblockActiveAuction, SkyblockBazaar, SkyblockNews, SkyblockProfile, SkyblockUserAuction
+)
 from ..models.watchdog import Watchdog
 from ..utils.constants import HYPIXEL_API, TIMEOUT
 from ..utils.url import form_url
@@ -351,6 +353,11 @@ class AsyncClient(BaseClient):
         json = await self._fetch(self.url["recent_games"], {"uuid": uuid})
 
         return RecentGames(json)
+
+    async def get_skyblock_news(self) -> SkyblockNews:
+        json = await self._fetch(self.url["skyblock_news"])
+
+        return SkyblockNews(json)
 
     async def get_skyblock_profile(
         self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
