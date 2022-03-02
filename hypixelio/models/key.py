@@ -1,6 +1,4 @@
 class Key:
-    """This is the Custom Hypixel API Key Model."""
-
     def __init__(self, data: dict) -> None:
         """
         Parameters
@@ -8,27 +6,22 @@ class Key:
         data: dict
             The JSON data received from the Hypixel API.
         """
-        self.KEY = data["key"]
-        self.OWNER_UUID = data["owner"]
+        self.key = data["key"]
+        self.owner_uuid = data["owner"]
 
-        self.QUERY_LIMIT = data["limit"]
-        self.QUERIES_IN_PAST_MINUTE = data["queriesInPastMin"]
-        self.TOTAL_QUERIES = data["totalQueries"]
+        # Queries info
+        self.query_limit = data["limit"]
+        self.queries_in_past_minute = data["queriesInPastMin"]
+        self.total_queries = data["totalQueries"]
 
     def __str__(self) -> str:
-        return self.KEY
+        return self.key
 
     def __repr__(self) -> str:
-        return f'<{self.__class__.__name__} key="{self.KEY}" owner="{self.OWNER_UUID}">'
+        return f'<{self.__class__.__name__} key="{self.key}" owner="{self.owner_uuid}">'
 
     def __hash__(self) -> int:
-        return hash(self.KEY)
+        return hash(self.key)
 
     def __eq__(self, other: "Key") -> bool:
-        return self.KEY == other.KEY
-
-    def __gt__(self, other: "Key") -> bool:
-        return self.TOTAL_QUERIES > other.TOTAL_QUERIES
-
-    def __ge__(self, other: "Key") -> bool:
-        return self.TOTAL_QUERIES >= other.TOTAL_QUERIES
+        return self.key == other.key
