@@ -47,8 +47,6 @@ class Utils:
                     "There seems to be some problem with the content type or the API IS down."
                 )
 
-        await session.close()
-
     @staticmethod
     def _filter_name_uuid(
         name: t.Optional[str] = None, uuid: t.Optional[str] = None
@@ -66,17 +64,17 @@ class Utils:
     @classmethod
     def _form_crafatar_url(cls, route: str) -> str:
         """
-        This function forms the crafatar API URL for fetching USER skins.
+        This function forms the crafatar API URL for fetching skins of users.
 
         Parameters
         ----------
         route: str
-            The URL path to visit.
+            The URL path to form for crafatar API.
 
         Returns
         -------
         str
-            The well formed API URL for fetching.
+            The API URL formed to fetch.
         """
         return f"https://crafatar.com{route}"
 
@@ -88,7 +86,7 @@ class Utils:
         changed_at: bool = False,
     ) -> t.Union[list, dict]:
         """
-        Get the name history with records of a player.
+        Get the name history with records for a player.
 
         Parameters
         ----------

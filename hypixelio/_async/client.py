@@ -1,4 +1,4 @@
-__all__ = "AsyncClient"
+__all__ = ("AsyncClient",)
 
 import asyncio
 import random
