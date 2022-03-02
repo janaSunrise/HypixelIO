@@ -1,7 +1,7 @@
 Welcome to HypixelIO!
 ======================
 
-HypixelIO is a Modern, Robust, and Efficient wrapper for the Hypixel API. With support for both Async
+HypixelIO is a modern, robust, and efficient wrapper for the Hypixel API. With support for both Async
 and blocking programming, This has everything for you to work with.
 
 .. toctree::
