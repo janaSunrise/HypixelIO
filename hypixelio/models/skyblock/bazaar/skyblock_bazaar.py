@@ -9,6 +9,7 @@ class SkyblockBazaar:
         data: dict
             The data from the Hypixel API endpoint.
         """
+        self.last_updated = data["lastUpdated"]
         self.products = {}
 
         for key, value in data["products"].items():

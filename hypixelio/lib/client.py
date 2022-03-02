@@ -212,7 +212,12 @@ class Client(BaseClient):
 
         return Watchdog(json)
 
-    def get_guild(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> Guild:
+    def get_guild(
+        self,
+        name: t.Optional[str] = None,
+        uuid: t.Optional[str] = None,
+        player_uuid: t.Optional[str] = None,
+    ) -> Guild:
         """
         Get info about a specific Hypixel guild using the Name, or the Guild's UUID.
 
@@ -222,6 +227,8 @@ class Client(BaseClient):
             The Name of the Guild. Defaults to None.
         uuid: t.Optional[str]
             The ID Of the guild. Defaults to None.
+        player_uuid: t.Optional[str]
+            The UUID of the player to get guild using. Defaults to None.
 
         Returns
         -------
@@ -232,6 +239,8 @@ class Client(BaseClient):
             json = self._fetch(self.url["guild"], {"id": uuid})
         elif name:
             json = self._fetch(self.url["guild"], {"name": name})
+        elif player_uuid:
+            json = self._fetch(self.url["guild"], {"player": player_uuid})
         else:
             raise InvalidArgumentError("Named argument for guild's name or UUID not found.")
 
@@ -266,7 +275,11 @@ class Client(BaseClient):
 
         return Leaderboard(json["leaderboards"])
 
-    def find_guild(self, guild_name: t.Optional[str] = None, player_uuid: t.Optional[str] = None) -> FindGuild:
+    def find_guild(
+        self,
+        guild_name: t.Optional[str] = None,
+        player_uuid: t.Optional[str] = None
+    ) -> FindGuild:
         """
         Find a guild using the Guild's name or a Player's UUID.
 

@@ -48,7 +48,10 @@ class Boosters:
         self.boosters = [BoosterInfo(booster) for booster in boosters]
 
         # State of the boosters
-        self.STATE = json["boosterState"]
+        self.state = json["boosterState"]
+
+        # Decrementing
+        self.decrementing = self.state["decrementing"]
 
     def __len__(self) -> int:
         return len(self.boosters)
