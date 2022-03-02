@@ -1,4 +1,4 @@
-__all__ = "Converters"
+__all__ = ("Converters",)
 
 import typing as t
 

@@ -48,7 +48,7 @@ class Utils:
 
         Returns
         -------
-        t.Optional[dict]
+        Response
             The JSON response from the Crafatar API.
         """
         with requests.get(f"https://crafatar.com/{url}", timeout=TIMEOUT) as response:
@@ -277,7 +277,7 @@ def get_rank(
     monthly_package_rank: str,
     new_package_rank: str,
     package_rank: str,
-) -> str:
+) -> t.Optional[str]:
     real_rank = None
 
     if prefix_raw:
@@ -299,7 +299,7 @@ def get_rank(
     return real_rank
 
 
-def get_rank_color(rank: str) -> str:
+def get_rank_color(rank: str) -> int:
     return RANK_COLORS[rank]
 
 
@@ -309,7 +309,7 @@ def get_profile_display(name: str, rank: str) -> str:
     return name
 
 
-def get_guild_level(experience: t.Union[int, float]) -> t.Union[int, float]:
+def get_guild_level(experience: int) -> int:
     return math.trunc(get_guild_level_exact(experience))
 
 
@@ -331,6 +331,7 @@ def get_guild_level_exact(experience: int) -> t.Union[float, int]:
         2500000,
     ]
     c = 0.0
+
     for it in experience_below_14:
         if it > experience:
             level = c + round(experience / it * 100.0) / 100.0
@@ -351,4 +352,5 @@ def get_guild_level_exact(experience: int) -> t.Union[float, int]:
 def get_guild_display(name: str, tag: str) -> str:
     if tag:
         return f"[{tag}] {name}"
+
     return name

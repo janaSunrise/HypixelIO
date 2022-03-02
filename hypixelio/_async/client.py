@@ -14,20 +14,18 @@ from ..exceptions import (
     PlayerNotFoundError,
     RateLimitError,
 )
-from ..models import (
-    boosters,
-    find_guild,
-    friends,
-    games,
-    guild,
-    key,
-    leaderboard,
-    player,
-    player_status,
-    recent_games,
-    skyblock,
-    watchdog,
-)
+from ..models.boosters import Boosters
+from ..models.find_guild import FindGuild
+from ..models.friends import Friends
+from ..models.games import Games
+from ..models.guild import Guild
+from ..models.key import Key
+from ..models.leaderboard import Leaderboard
+from ..models.player import Player
+from ..models.player_status import PlayerStatus
+from ..models.recent_games import RecentGames
+from ..models.skyblock import SkyblockActiveAuction, SkyblockBazaar, SkyblockProfile, SkyblockUserAuction
+from ..models.watchdog import Watchdog
 from ..utils.constants import HYPIXEL_API, TIMEOUT
 from ..utils.url import form_url
 
@@ -130,7 +128,7 @@ class AsyncClient(BaseClient):
 
                     return json
 
-    async def get_key_info(self, api_key: t.Optional[str] = None) -> key.Key:
+    async def get_key_info(self, api_key: t.Optional[str] = None) -> Key:
         """
         Get info about a specific Hypixel API key.
 
@@ -141,31 +139,31 @@ class AsyncClient(BaseClient):
 
         Returns
         -------
-        key.Key
+        Key
             The Key object created for the API key specified.
         """
         if not api_key:
             api_key = random.choice(self._api_key)
 
         json = await self._fetch(self.url["api_key"], {"key": api_key})
-        return key.Key(json["record"])
+        return Key(json["record"])
 
-    async def get_boosters(self) -> boosters.Boosters:
+    async def get_boosters(self) -> Boosters:
         """
         Get the Hypixel coin boosters, and all the info about them.
 
         Returns
         -------
-        boosters.Boosters
+        Boosters
             The boosters object, with all the info from the API.
         """
         json = await self._fetch(self.url["boosters"])
 
-        return boosters.Boosters(json["boosters"], json)
+        return Boosters(json["boosters"], json)
 
     async def get_player(
         self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
-    ) -> player.Player:
+    ) -> Player:
         """
         Get all info about a Hypixel player using his username or his player UUID.
 
@@ -178,7 +176,7 @@ class AsyncClient(BaseClient):
 
         Returns
         -------
-        player.Player
+        Player
             The player object with all the info obtained from the API.
         """
         uuid = self._filter_name_uuid(name, uuid)
@@ -187,11 +185,11 @@ class AsyncClient(BaseClient):
         if not json["player"]:
             raise PlayerNotFoundError("Null is returned", name)
 
-        return player.Player(json["player"])
+        return Player(json["player"])
 
     async def get_friends(
         self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
-    ) -> friends.Friends:
+    ) -> Friends:
         """
         Get the friends, and all their info of specified Hypixel player.
 
@@ -204,30 +202,30 @@ class AsyncClient(BaseClient):
 
         Returns
         -------
-        friends.Friends
+        Friends
             The Friend object with all info from the API.
         """
         uuid = self._filter_name_uuid(name, uuid)
         json = await self._fetch(self.url["friends"], {"uuid": uuid})
 
-        return friends.Friends(json["records"])
+        return Friends(json["records"])
 
-    async def get_watchdog_info(self) -> watchdog.Watchdog:
+    async def get_watchdog_info(self) -> Watchdog:
         """
         Get all the stats about the Watchdog (Punishment stats) for the last few days/
 
         Returns
         -------
-        watchdog.Watchdog
+        Watchdog
             The Watchdog object with all the info.
         """
         json = await self._fetch(self.url["watchdog"])
 
-        return watchdog.Watchdog(json)
+        return Watchdog(json)
 
     async def get_guild(
         self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
-    ) -> guild.Guild:
+    ) -> Guild:
         """
         Get info about a specific Hypixel guild using the Name, or the Guild's UUID.
 
@@ -240,7 +238,7 @@ class AsyncClient(BaseClient):
 
         Returns
         -------
-        guild.Guild
+        Guild
             The Guild object with the info fetched from the API.
         """
         if uuid:
@@ -253,37 +251,37 @@ class AsyncClient(BaseClient):
         if not json["guild"]:
             raise GuildNotFoundError("Value returned is null")
 
-        return guild.Guild(json["guild"])
+        return Guild(json["guild"])
 
-    async def get_games_info(self) -> games.Games:
+    async def get_games_info(self) -> Games:
         """
         Get the list of all Hypixel games, and their info.
 
         Returns
         -------
-        games.Games
+        Games
             The Games object with all the info.
         """
         json = await self._fetch(self.url["game_info"])
 
-        return games.Games(json["games"], json["playerCount"])
+        return Games(json["games"], json["playerCount"])
 
-    async def get_leaderboards(self) -> leaderboard.Leaderboard:
+    async def get_leaderboards(self) -> Leaderboard:
         """
         Get the leaderboard for the Hypixel games with their info.
 
         Returns
         -------
-        leaderboard.Leaderboard
+        Leaderboard
             The Leaderboard object with all info.
         """
         json = await self._fetch(self.url["leaderboards"])
 
-        return leaderboard.Leaderboard(json["leaderboards"])
+        return Leaderboard(json["leaderboards"])
 
     async def find_guild(
         self, guild_name: t.Optional[str] = None, player_uuid: t.Optional[str] = None
-    ) -> find_guild.FindGuild:
+    ) -> FindGuild:
         """
         Find a guild using the Guild's name or a Player's UUID.
 
@@ -296,7 +294,7 @@ class AsyncClient(BaseClient):
 
         Returns
         -------
-        find_guild.FindGuild
+        FindGuild
             The ID of the guild being find.
         """
         if guild_name:
@@ -306,11 +304,11 @@ class AsyncClient(BaseClient):
         else:
             raise InvalidArgumentError("Named argument for guild's name or UUID not found.")
 
-        return find_guild.FindGuild(json)
+        return FindGuild(json)
 
     async def get_player_status(
         self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
-    ) -> player_status.PlayerStatus:
+    ) -> PlayerStatus:
         """
         Get the status about a Player using his username or UUID.
 
@@ -323,17 +321,17 @@ class AsyncClient(BaseClient):
 
         Returns
         -------
-        player_status.PlayerStatus
+        PlayerStatus
             The Player status object consisting of all info from the API.
         """
         uuid = self._filter_name_uuid(name, uuid)
         json = await self._fetch(self.url["status"], {"uuid": uuid})
 
-        return player_status.PlayerStatus(json)
+        return PlayerStatus(json)
 
     async def get_player_recent_games(
         self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
-    ) -> recent_games.RecentGames:
+    ) -> RecentGames:
         """
         Get the recent games played by a Hypixel player using his Username or UUID.
 
@@ -346,17 +344,17 @@ class AsyncClient(BaseClient):
 
         Returns
         -------
-        recent_games.RecentGames
+        RecentGames
             The recent games for the respective player specified.
         """
         uuid = self._filter_name_uuid(name, uuid)
         json = await self._fetch(self.url["recent_games"], {"uuid": uuid})
 
-        return recent_games.RecentGames(json)
+        return RecentGames(json)
 
     async def get_skyblock_profile(
         self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
-    ) -> skyblock.SkyblockProfile:
+    ) -> SkyblockProfile:
         """
         Get the skyblock information and profile about a specific user as passed in the requirements.
 
@@ -369,7 +367,7 @@ class AsyncClient(BaseClient):
 
         Returns
         -------
-        skyblock.SkyblockProfile
+        SkyblockProfile
             The skyblock profile model for the specified user.
         """
         uuid = self._filter_name_uuid(name, uuid)
@@ -380,11 +378,11 @@ class AsyncClient(BaseClient):
                 "The skyblock player does not exist", uuid
             )
 
-        return skyblock.SkyblockProfile(json)
+        return SkyblockProfile(json)
 
     async def get_skyblock_user_auctions(
         self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
-    ) -> skyblock.SkyblockUserAuction:
+    ) -> SkyblockUserAuction:
         """
         Get the skyblock auction info about a specific user.
 
@@ -397,7 +395,7 @@ class AsyncClient(BaseClient):
 
         Returns
         -------
-        skyblock.SkyblockUserAuction
+        SkyblockUserAuction
             The skyblock auction model for the user.
         """
         uuid = self._filter_name_uuid(name, uuid)
@@ -408,11 +406,11 @@ class AsyncClient(BaseClient):
                 "The skyblock player does not exist!", uuid
             )
 
-        return skyblock.SkyblockUserAuction(json)
+        return SkyblockUserAuction(json)
 
     async def get_skyblock_active_auctions(
         self, page: int = 0
-    ) -> skyblock.SkyblockActiveAuction:
+    ) -> SkyblockActiveAuction:
         """
         Get the list of active auctions in skyblock and use the data.
 
@@ -423,23 +421,23 @@ class AsyncClient(BaseClient):
 
         Returns
         -------
-        skyblock.SkyblockActiveAuction
+        SkyblockActiveAuction
             The active auction model.
         """
         json = await self._fetch(self.url["skyblock_active_auctions"], {"page": page})
-        return skyblock.SkyblockActiveAuction(json)
+        return SkyblockActiveAuction(json)
 
-    async def get_skyblock_bazaar(self) -> skyblock.SkyblockBazaar:
+    async def get_skyblock_bazaar(self) -> SkyblockBazaar:
         """
         Get the skyblock bazaar items
 
         Returns
         -------
-        skyblock.SkyblockBazaar
+        SkyblockBazaar
             The bazaar model object representing each product.
         """
         json = await self._fetch(self.url["skyblock_bazaar"])
-        return skyblock.SkyblockBazaar(json)
+        return SkyblockBazaar(json)
 
     async def get_resources_achievements(self) -> dict:
         """
