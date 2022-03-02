@@ -11,35 +11,35 @@ class SkyblockProfile:
         data: dict
             The JSON data received from the Hypixel API.
         """
-        self.__PROFILE_JSON = data["profile"]
+        self.__profile_json = data["profile"]
 
-        self.PROFILE_ID = self.__PROFILE_JSON["profile_id"]
-        self.MEMBERS = [
-            SkyblockProfileMember(self.__PROFILE_JSON["members"][member])
-            for member in self.__PROFILE_JSON["members"]
+        self.profile_id = self.__profile_json["profile_id"]
+        self.members = [
+            SkyblockProfileMember(self.__profile_json["members"][member])
+            for member in self.__profile_json["members"]
         ]
-        self.COMMUNITY_UPGRADES = self.__PROFILE_JSON["community_upgrades"]
+        self.community_upgrades = self.__profile_json["community_upgrades"]
 
     def __str__(self) -> str:
-        return self.PROFILE_ID
+        return self.profile_id
 
     def __repr__(self) -> str:
-        return f'<{self.__class__.__name__} id="{self.PROFILE_ID}" member_count="{len(self.MEMBERS)}">'
+        return f'<{self.__class__.__name__} id="{self.profile_id}" member_count="{len(self.members)}">'
 
     def __hash__(self) -> int:
-        return hash(self.PROFILE_ID)
+        return hash(self.profile_id)
 
     def __eq__(self, other: "SkyblockProfile") -> bool:
-        return self.PROFILE_ID == other.PROFILE_ID
+        return self.profile_id == other.profile_id
 
     def __len__(self) -> int:
-        return len(self.MEMBERS)
+        return len(self.members)
 
     def __getitem__(self, key: int) -> SkyblockProfileMember:
-        return self.MEMBERS[key]
+        return self.members[key]
 
     def __setitem__(self, key: int, value: SkyblockProfileMember) -> None:
-        self.MEMBERS[key] = value
+        self.members[key] = value
 
     def __iter__(self) -> t.Iterator:
-        return iter(self.MEMBERS)
+        return iter(self.members)
