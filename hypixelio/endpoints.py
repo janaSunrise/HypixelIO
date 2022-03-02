@@ -1,4 +1,4 @@
-"""List of all the various endpoint paths."""
+"""List of all the various endpoint paths for all the APIs used."""
 
 API_PATH = {
     "HYPIXEL": {
@@ -17,6 +17,9 @@ API_PATH = {
         "skyblock_active_auctions": "/skyblock/auctions",
         "skyblock_bazaar": "/skyblock/bazaar",
         "skyblock_profile": "/skyblock/profile",
+        "skyblock_news": "/skyblock/news",
+        "skyblock_skills": "/resources/skyblock/skills",
+        "skyblock_collections": "/resources/skyblock/collections",
         "achievements": "/resources/achievements",
         "challenges": "/resources/challenges",
         "quests": "/resources/quests",

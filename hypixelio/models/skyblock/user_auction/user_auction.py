@@ -11,16 +11,16 @@ class SkyblockUserAuction:
         data: dict
             The data from the Hypixel API endpoint.
         """
-        self.AUCTIONS = [SkyblockAuction(auction) for auction in data["auctions"]]
+        self.auctions = [SkyblockAuction(auction) for auction in data["auctions"]]
 
     def __len__(self) -> int:
-        return len(self.AUCTIONS)
+        return len(self.auctions)
 
     def __getitem__(self, key: int) -> SkyblockAuction:
-        return self.AUCTIONS[key]
+        return self.auctions[key]
 
     def __setitem__(self, key: int, value: SkyblockAuction) -> None:
-        self.AUCTIONS[key] = value
+        self.auctions[key] = value
 
     def __iter__(self) -> t.Iterator:
-        return iter(self.AUCTIONS)
+        return iter(self.auctions)

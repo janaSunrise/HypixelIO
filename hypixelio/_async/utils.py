@@ -1,4 +1,4 @@
-__all__ = "Utils"
+__all__ = ("Utils",)
 
 import typing as t
 
@@ -18,7 +18,7 @@ class Utils:
     url = API_PATH["CRAFATAR"]
 
     @classmethod
-    async def _crafatar_fetch(cls, url: str) -> t.Any:
+    async def _crafatar_fetch(cls, url: str) -> str:
         """
         Method to fetch the JSON from the Crafatar API.
 
@@ -29,26 +29,22 @@ class Utils:
 
         Returns
         -------
-        t.Optional[dict]
+        ClientResponse
             The JSON response from the Crafatar API.
         """
         session = aiohttp.ClientSession()
 
-        async with session.get(
-            f"https://crafatar.com/{url}", timeout=TIMEOUT
-        ) as response:
+        async with session.get(f"https://crafatar.com/{url}", timeout=TIMEOUT) as response:
             if response.status == 422:
-                raise InvalidArgumentError("Invalid data passed for conversion!")
+                raise InvalidArgumentError("Invalid URL passed. Either user does not exist, or URL is malformed.")
 
             try:
                 return await response.text()
             except Exception:
-                raise CrafatarAPIError(
-                    "There seems to be some problem with the content type or the API IS down."
-                )
+                raise CrafatarAPIError()
 
     @staticmethod
-    def _filter_name_uuid(
+    async def _filter_name_uuid(
         name: t.Optional[str] = None, uuid: t.Optional[str] = None
     ) -> str:
         if not name and not uuid:
@@ -57,7 +53,7 @@ class Utils:
             )
 
         if name:
-            uuid = Converters.username_to_uuid(name)
+            uuid = await Converters.username_to_uuid(name)
 
         return uuid
 
@@ -102,7 +98,7 @@ class Utils:
         t.Union[list, dict]
             The list or dictionary with the name history and records.
         """
-        uuid = cls._filter_name_uuid(name, uuid)
+        uuid = await cls._filter_name_uuid(name, uuid)
         json = await Converters._fetch(Utils.mojang_url["name_history"].format(uuid))
 
         if changed_at:
@@ -133,7 +129,7 @@ class Utils:
         str
             The URL containing the image of the avatar.
         """
-        uuid = cls._filter_name_uuid(name, uuid)
+        uuid = await cls._filter_name_uuid(name, uuid)
         await Utils._crafatar_fetch(Utils.url["avatar"].format(uuid))
 
         return Utils._form_crafatar_url(Utils.url["avatar"].format(uuid))
@@ -157,7 +153,7 @@ class Utils:
         str
             The URL containing the image of the head.
         """
-        uuid = cls._filter_name_uuid(name, uuid)
+        uuid = await cls._filter_name_uuid(name, uuid)
         await Utils._crafatar_fetch(Utils.url["head"].format(uuid))
 
         return Utils._form_crafatar_url(Utils.url["head"].format(uuid))
@@ -181,7 +177,7 @@ class Utils:
         str
             The URL containing the image of the whole body.
         """
-        uuid = cls._filter_name_uuid(name, uuid)
+        uuid = await cls._filter_name_uuid(name, uuid)
         await Utils._crafatar_fetch(Utils.url["body"].format(uuid))
 
         return Utils._form_crafatar_url(Utils.url["body"].format(uuid))

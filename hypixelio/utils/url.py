@@ -1,4 +1,7 @@
-def form_url(main_url: str, url: str, data: dict = None) -> str:
+import typing as t
+
+
+def form_url(main_url: str, url: str, data: t.Optional[t.Dict[str, t.Any]] = None) -> str:
     """
     Form and return the URL for the Hypixel API with GET Params.
 
@@ -9,8 +12,8 @@ def form_url(main_url: str, url: str, data: dict = None) -> str:
     url: str
         The Route in the Main URL to access the JSON From.
     data: t.Optional[dict]
-        The GET Request Key Value pair, Added to end of the Final route specified in the main_url + url.. Defaults
-        to None.
+        The GET Request Key Value pair, Added to end of the Final route specified in the main_url + url.
+        Defaults to None.
 
     Returns
     -------

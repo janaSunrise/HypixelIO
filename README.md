@@ -91,21 +91,11 @@ python3 -m pip install -U HypixelIO
 python3 -m pip install -U git+https://github.com/janaSunrise/HypixelIO
 ```
 
-The caching modules are installed when the library is installed. To get extra features or
-adapters. Here's how you can install them:
+You can also get extra features with this library. Here's how:
 
 ```sh
 # Use [speedups] to speed up only for async API
 python3 -m pip install -U "HypixelIO[speedups]"
-
-# Take advantage of caching by installing caching backends
-python3 -m pip install -U "HypixelIO[cache]"
-
-# If you need async caching for AsyncClient by installing caching backends
-python3 -m pip install -U "HypixelIO[async-cache]"
-
-# Get all the features!
-python3 -m pip install -U "HypixelIO[all]"
 ```
 
 ## Usage
@@ -121,8 +111,8 @@ friends = client.get_friends(uuid="user's-uuid")  # Returns the Friends object
 # Or, if you don't know the UUID
 friends = client.get_friends(name="user's-username")
 
-print(boosters[0].ID)
-print(friends.FRIENDS[0].RECEIVER_ID)
+print(boosters[0].id)
+print(friends.friends[0].receiver_id)
 ```
 
 ### Async API usage
@@ -150,8 +140,8 @@ async def fetch_from_hypixel():
 # Run the coroutine using `asyncio`
 boosters, friends = asyncio.run(fetch_from_hypixel())
 
-print(boosters[0].ID)
-print(friends.FRIENDS[0].RECEIVER_ID)
+print(boosters[0].id)
+print(friends.friends[0].receiver_id)
 ```
 
 **Find more examples [here](https://github.com/janaSunrise/HypixelIO/tree/main/examples)!**
@@ -167,7 +157,8 @@ a PR to this repo and it will be deployed once it's accepted.
 
 ⚠️ It’s good to have descriptive commit messages, or PR titles so that other contributors can understand about your
 commit or the PR Created. Read [conventional commits](https://www.conventionalcommits.org/en/v1.0.0-beta.3/) before
-making the commit message. You can find our contributing guidelines [here](https://github.com/janaSunrise/HypixelIO/blob/main/CONTRIBUTING.md)
+making the commit message. You can find our contributing guidelines
+[here](https://github.com/janaSunrise/HypixelIO/blob/main/CONTRIBUTING.md)
 
 We have a branch called `dev` containing development code. If you're contributing, Remember to contribute to
 `dev` branch, instead of `main`.

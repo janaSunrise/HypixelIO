@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.0](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.4.0) - 02-03-2021
+
+- Rewrite the Exceptions API in a cleaner way.
+- Convert all the variable names to lowercase in the models.
+- Remove caching from the library, useless complexity.
+- Fix examples and tests.
+- Import modules directly instead of namespacing them (Saves lookup time.)
+- Add news, skyblock skills and skyblock collection endpoints.
+
+
 ## [1.3.0](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.3.0) - 23-07-2021
 
 ## Added

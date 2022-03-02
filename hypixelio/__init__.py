@@ -2,13 +2,12 @@ import typing as t
 
 from ._async import AsyncClient, AsyncConverters, Portal, Utils as AsyncUtils, create_portal
 from .lib import Client, Converters, Utils
-from .models.caching import CacheBackend, Caching
 from .utils import constants
 
 __author__ = "Sunrit Jana"
 __email__ = "warriordefenderz@gmail.com"
-__version__ = "1.3.0"
-__license__ = "MIT License"
+__version__ = "1.4.0"
+__license__ = "MIT license"
 __copyright__ = "Copyright 2021-present Sunrit Jana"
 
 __all__: t.Tuple[str, ...] = (
@@ -20,8 +19,6 @@ __all__: t.Tuple[str, ...] = (
     "AsyncClient",
     "AsyncConverters",
     "AsyncUtils",
-    "Caching",
-    "CacheBackend",
     "Client",
     "Converters",
     "Portal",

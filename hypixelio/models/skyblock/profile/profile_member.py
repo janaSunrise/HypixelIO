@@ -6,29 +6,29 @@ class SkyblockProfileMember:
         data: dict
             The JSON data received from the Hypixel API.
         """
-        self.COIN_PURSE = member_data["coin_purse"]
-        self.DEATH_COUNT = member_data["death_count"]
-        self.FAIRY_SOULS_COLLECTED = member_data.get("fairy_souls_collected")
-        self.FISHING_TREASURE_COUNT = member_data.get("fishing_treasure_caught")
+        self.coin_purse = member_data["coin_purse"]
+        self.death_count = member_data["death_count"]
+        self.fairy_souls_collected = member_data.get("fairy_souls_collected")
+        self.fishing_treasure_count = member_data.get("fishing_treasure_caught")
 
-        self.STATS = member_data["stats"]
-        self.OBJECTIVES = member_data["objectives"]
+        self.stats = member_data["stats"]
+        self.objectives = member_data["objectives"]
 
-        self.CRAFTED_GENERATORS = member_data.get("crafted_generators")
-        self.VISITED_ZONES = member_data.get("visited_zones")
-        self.ACHIEVEMENT_SPAWNED_ISLAND_TYPES = member_data.get(
+        self.crafted_generators = member_data.get("crafted_generators")
+        self.visited_zones = member_data.get("visited_zones")
+        self.achievement_spawned_island_types = member_data.get(
             "achievement_spawned_island_types"
         )
 
-        self.SLAYER_QUEST = member_data.get("slayer_quest")
-        self.SLAYER_BOSSES = member_data.get("slayer_bosses")
+        self.slayer_quest = member_data.get("slayer_quest")
+        self.slayer_bosses = member_data.get("slayer_bosses")
 
-        self.PETS = member_data["pets"]
-        self.GRIFFIN = member_data["griffin"]
+        self.pets = member_data["pets"]
+        self.griffin = member_data["griffin"]
 
-        self.UNLOCKED_COLLECTION_TIERS = member_data.get("unlocked_coll_tiers")
+        self.unlocked_collection_tiers = member_data.get("unlocked_coll_tiers")
 
-        self.SKILLS = {
+        self.skills = {
             "alchemy": member_data.get("experience_skill_alchemy"),
             "farming": member_data.get("experience_skill_farming"),
             "taming": member_data.get("experience_skill_taming"),
@@ -41,4 +41,4 @@ class SkyblockProfileMember:
             "mining": member_data.get("experience_skill_mining"),
         }
 
-        self.COLLECTION = member_data.get("collection")
+        self.collection = member_data.get("collection")

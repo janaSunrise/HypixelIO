@@ -2,8 +2,6 @@ from hypixelio.utils.time import unix_time_to_datetime
 
 
 class Guild:
-    """The the Custom Hypixel Guild Model."""
-
     def __init__(self, data: dict) -> None:
         """
         Parameters
@@ -11,35 +9,33 @@ class Guild:
         data: dict
             The JSON data received from the Hypixel API.
         """
-        self.HYPIXEL_ID = data["_id"]
-        self.NAME = data["name"]
-        self.COINS = data["coins"]
-        self.CREATED = unix_time_to_datetime(data["created"])
+        self.hypixel_id = data["_id"]
+        self.name = data["name"]
 
-        self.MEMBERS = data["members"]
+        # Coins the guild holds
+        self.coins = data["coins"]
 
-        self.LEGACY_RANKING = data["legacyRanking"]
-        self.EXPERIENCE = data["exp"]
+        # When the guild was created
+        self.created = unix_time_to_datetime(data["created"])
 
-        self.ACHIEVEMENTS = data["achievements"]
-        self.EXPERIENCE_BY_GAME = data["guildExpByGameType"]
+        # Member count of the guild
+        self.members = data["members"]
 
-        self.MEMBERS = data["members"]
+        # Old ranking data, and experience
+        self.legacy_ranking = data["legacyRanking"]
+        self.experience = data["exp"]
+
+        self.achievements = data["achievements"]
+        self.experience_by_game = data["guildExpByGameType"]
 
     def __str__(self) -> str:
-        return self.NAME
+        return self.name
 
     def __repr__(self) -> str:
-        return f'<{self.__class__.__name__} id="{self.HYPIXEL_ID}" name="{self.NAME}" exp="{self.EXPERIENCE}">'
+        return f'<{self.__class__.__name__} id="{self.hypixel_id}" name="{self.name}" experience="{self.experience}">'
 
     def __hash__(self) -> int:
-        return hash(self.HYPIXEL_ID)
+        return hash(self.hypixel_id)
 
     def __eq__(self, other: "Guild") -> bool:
-        return self.HYPIXEL_ID == other.HYPIXEL_ID
-
-    def __gt__(self, other: "Guild") -> bool:
-        return self.EXPERIENCE > other.EXPERIENCE
-
-    def __ge__(self, other: "Guild") -> bool:
-        return self.EXPERIENCE >= other.EXPERIENCE
+        return self.hypixel_id == other.name

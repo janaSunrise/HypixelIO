@@ -6,17 +6,17 @@ class PlayerStatus:
         data: dict
             The JSON data received from the Hypixel API.
         """
-        self.UUID = data["uuid"]
-        self.SESSION_INFO = data["session"]
+        self.uuid = data["uuid"]
+        self.session_info = data["session"]
 
     def __str__(self) -> str:
-        return self.UUID
+        return self.uuid
 
     def __repr__(self) -> str:
-        return f'<{self.__class__.__name__} uuid="{self.UUID}" online="{self.SESSION_INFO["online"]}">'
+        return f'<{self.__class__.__name__} uuid="{self.uuid}" online="{self.session_info["online"]}">'
 
     def __hash__(self) -> int:
-        return hash(self.UUID)
+        return hash(self.uuid)
 
     def __eq__(self, other: "PlayerStatus") -> bool:
-        return self.UUID == other.UUID
+        return self.uuid == other.uuid

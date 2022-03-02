@@ -1,8 +1,4 @@
-"""
-This module is for defining the constant variables which will be
-used all over the code, hence reusing the same things, Instead of
-redefining, and accessing from a single place.
-"""
+"""All the constant variables used in the Hypixel library."""
 __all__ = (
     "HYPIXEL_API",
     "MOJANG_API",
