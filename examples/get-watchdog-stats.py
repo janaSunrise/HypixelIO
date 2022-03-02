@@ -10,9 +10,9 @@ client = hp.Client(api_key=os.environ["HYPIXEL_KEY"])
 watchdog = client.get_watchdog_info()
 
 # Extract the Data
-last_minute_ban = watchdog.LAST_MINUTE_BAN
-total_bans = watchdog.TOTAL_BANS
-rolling_daily = watchdog.ROLLING_DAILY
+last_minute_ban = watchdog.last_minute_ban
+total_bans = watchdog.total_bans
+rolling_daily = watchdog.rolling_daily
 
 # Display the data
 print(

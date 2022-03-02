@@ -37,9 +37,9 @@ class TestPlayer(unittest.TestCase):
         client = Client(api_key=API_KEY)
         player = client.get_player(name="007rohitj")
 
-        self.assertIsInstance(player.HYPIXEL_ID, str)
-        self.assertIsInstance(player.ACHIEVEMENT_POINTS, int)
-        self.assertIsInstance(player.ONE_TIME_ACHIEVEMENTS, list)
+        self.assertIsInstance(player.hypixel_id, str)
+        self.assertIsInstance(player.achievement_points, int)
+        self.assertIsInstance(player.one_time_achievements, list)
 
     def test_player_achievements(self) -> None:
         data = {
@@ -51,5 +51,5 @@ class TestPlayer(unittest.TestCase):
         }
 
         player = Player(PLAYER_MOCK)
-        for key, value in player.ACHIEVEMENTS.items():
+        for key, value in player.achievements.items():
             self.assertEqual(value, data["achievements"][key])

@@ -22,7 +22,7 @@ class Player:
 
         self.one_time_achievements = data["achievementsOneTime"]
         self.achievement_points = data["achievementPoints"]
-        self.achievemenents = data["achievements"]
+        self.achievements = data["achievements"]
 
         self.experience = data["networkExp"]
         self.level = self._calc_player_level(self.experience)

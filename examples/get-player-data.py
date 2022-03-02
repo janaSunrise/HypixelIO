@@ -10,7 +10,7 @@ client = hp.Client(api_key=os.environ["HYPIXEL_KEY"])
 player = client.get_player(name="janaSunrise")
 
 # Extract the data from the object
-name, uuid, achievements = player.NAME, player.UUID, player.ACHIEVEMENTS
+name, uuid, achievements = player.name, player.uuid, player.achievements
 
 # Print the data
 print(
