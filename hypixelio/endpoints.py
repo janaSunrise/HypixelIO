@@ -18,6 +18,8 @@ API_PATH = {
         "skyblock_bazaar": "/skyblock/bazaar",
         "skyblock_profile": "/skyblock/profile",
         "skyblock_news": "/skyblock/news",
+        "skyblock_skills": "/resources/skyblock/skills",
+        "skyblock_collections": "/resources/skyblock/collections",
         "achievements": "/resources/achievements",
         "challenges": "/resources/challenges",
         "quests": "/resources/quests",

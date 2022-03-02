@@ -420,49 +420,28 @@ class Client(BaseClient):
         return SkyblockBazaar(json)
 
     def get_resources_achievements(self) -> dict:
-        """
-        Get the current resources.
-
-        Returns
-        -------
-        dict
-            Hypixel API response.
-        """
         data = self._fetch(self.url["achievements"], api_key=False)
         return data["achievements"]
 
     def get_resources_challenges(self) -> dict:
-        """
-        Get the current resources.
-
-        Returns
-        -------
-        dict
-            Hypixel API response.
-        """
         data = self._fetch(self.url["challenges"], api_key=False)
         return data["challenges"]
 
     def get_resources_quests(self) -> dict:
-        """
-        Get the current resources.
-
-        Returns
-        -------
-        dict
-            Hypixel API response.
-        """
         data = self._fetch(self.url["quests"], api_key=False)
         return data["quests"]
 
     def get_resources_guild_achievements(self) -> dict:
-        """
-        Get the current resources.
-
-        Returns
-        -------
-        dict
-            Hypixel API response.
-        """
         data = self._fetch(self.url["guild_achievements"], api_key=False)
         return {"one_time": data["one_time"], "tiered": data["tiered"]}
+
+    def get_skyblock_skills(self) -> dict:
+        data = self._fetch(self.url["skyblock_skills"], api_key=False)
+        return {
+            "skills": data["skills"],
+            "collections": data["collections"],
+        }
+
+    def get_skyblock_collections(self) -> dict:
+        data = self._fetch(self.url["skyblock_collections"], api_key=False)
+        return data["collections"]

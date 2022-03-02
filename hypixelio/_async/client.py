@@ -447,49 +447,28 @@ class AsyncClient(BaseClient):
         return SkyblockBazaar(json)
 
     async def get_resources_achievements(self) -> dict:
-        """
-        Get the current resources.
-
-        Returns
-        -------
-        dict
-            Hypixel API response.
-        """
         data = await self._fetch(self.url["achievements"], api_key=False)
         return data["achievements"]
 
     async def get_resources_challenges(self) -> dict:
-        """
-        Get the current resources.
-
-        Returns
-        -------
-        dict
-            Hypixel API response.
-        """
         data = await self._fetch(self.url["challenges"], api_key=False)
         return data["challenges"]
 
     async def get_resources_quests(self) -> dict:
-        """
-        Get the current resources.
-
-        Returns
-        -------
-        dict
-            Hypixel API response.
-        """
         data = await self._fetch(self.url["quests"], api_key=False)
         return data["quests"]
 
     async def get_resources_guild_achievements(self) -> dict:
-        """
-        Get the current resources.
-
-        Returns
-        -------
-        dict
-            Hypixel API response.
-        """
         data = await self._fetch(self.url["guild_achievements"], api_key=False)
         return {"one_time": data["one_time"], "tiered": data["tiered"]}
+
+    async def get_skyblock_skills(self) -> dict:
+        data = await self._fetch(self.url["skyblock_skills"], api_key=False)
+        return {
+            "skills": data["skills"],
+            "collections": data["collections"],
+        }
+
+    async def get_skyblock_collections(self) -> dict:
+        data = await self._fetch(self.url["skyblock_collections"], api_key=False)
+        return data["collections"]
