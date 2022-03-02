@@ -1,4 +1,4 @@
-"""List of all the various endpoint paths."""
+"""List of all the various endpoint paths for all the APIs used."""
 
 API_PATH = {
     "HYPIXEL": {
