@@ -1,8 +1,4 @@
-"""
-Provides a Module for defining the custom exceptions to be raised
-during errors while interacting with the API through this library.
-"""
-
+"""Custom exceptions used for the librar."""
 __all__ = (
     "InvalidArgumentError",
     "PlayerNotFoundError",
@@ -14,115 +10,138 @@ __all__ = (
 )
 
 import typing as t
+from datetime import datetime
 
 
 class InvalidArgumentError(Exception):
-    """Raised when there is Invalid argument, or Any argument is not specified."""
-    pass
+    """Raised when invalid argument is present, or no argument is specified."""
+    ...
 
 
-class HypixelAPIError(Exception):
-    """Raised When the Hypixel API is facing some problems."""
+# API exceptions
+class APIError(Exception):
+    """Base class for all API exceptions."""
 
-    def __init__(self, reason: str = "undefined") -> None:
+    def __init__(self, service: str, reason: t.Optional[str] = None) -> None:
         """
         Parameters
         ----------
         reason: str
-            The reason for the Error. Defaults to "undefined".
+            The reason for the Error. Defaults to None.
         """
-        self.err = f"The Hypixel API had a problem [{reason}]"
-        super().__init__(self.err)
+        error = f"There was an issue with the {service} API."
+        if reason:
+            error += f" Reason: {reason}."
+
+        super().__init__(error)
+        self.error = error
 
     def __str__(self) -> str:
-        return self.err
+        return self.error
 
 
-class CrafatarAPIError(Exception):
-    """Raised When the Crafatar API is facing some problems."""
+class HypixelAPIError(APIError):
+    """Raised when there is an issue with the Hypixel API or during fetch."""
 
-    def __init__(self, reason: str = "undefined") -> None:
+    def __init__(self, reason: t.Optional[str] = None) -> None:
         """
         Parameters
         ----------
         reason: str
-            The reason for the Error. Defaults to "undefined".
+            The reason for the Error. Defaults to None.
         """
-        self.err = f"The CrafatarAPI had a problem [{reason}]"
-        super().__init__(self.err)
-
-    def __str__(self) -> str:
-        return self.err
+        super().__init__("Hypixel", reason)
 
 
+class CrafatarAPIError(APIError):
+    """Raised during issues faced by Crafatar API."""
+
+    def __init__(self, reason: t.Optional[str] = None) -> None:
+        """
+        Parameters
+        ----------
+        reason: str
+            The reason for the Error. Defaults to None.
+        """
+        super().__init__("Crafatar", reason)
+
+
+class MojangAPIError(APIError):
+    """Raised when the Mojang API is facing some problems."""
+
+    def __init__(self, reason: t.Optional[str] = None) -> None:
+        """
+        Parameters
+        ----------
+        reason: str
+            The reason for the Error. Defaults to None.
+        """
+        super().__init__("Mojang", reason)
+
+
+# Rate-limit exception
 class RateLimitError(Exception):
-    """Raised When the Hypixel API Rate limit is hit."""
+    """Raised when the Rate-limit for the Hypixel API is hit."""
 
-    def __init__(self, reason: str = "undefined") -> None:
+    def __init__(self, retry_after: datetime) -> None:
         """
         Parameters
         ----------
-        reason: str
-            The reason for the Error. Defaults to "undefined".
+        retry_after: datetime
+            The time when the API will be available again for fetching.
         """
-        self.err = f"You just hit the Rate Limit for the Hypixel API [{reason}]"
-        super().__init__(self.err)
+        error = "The rate-limit for the Hypixel API was hit. Try again after" \
+                f"{retry_after.strftime('%Y-%m-%d %H:%M:%S')}."
+
+        super().__init__(error)
+        self.error = error
 
     def __str__(self) -> str:
-        return self.err
+        return self.error
 
 
+# Hypixel-related exceptions
 class PlayerNotFoundError(Exception):
-    """Raised When the Specified Player is not found."""
+    """Raised when the specified player is not found."""
 
-    def __init__(self, reason: str, user: t.Optional[str]) -> None:
+    def __init__(self, reason: t.Optional[str] = None, user: t.Optional[str] = None) -> None:
         """
         Parameters
         ----------
         reason: str
             The reason for the error.
         user: t.Optional[str]
-            The user searched for, but not found.
+            The user not found when searched for.
         """
-        self.err = "Invalid Player Name!"
-        super().__init__(self.err)
+        error = "Player not found."
+        if reason:
+            error += f" {reason}."
 
-        self.reason = reason
+        super().__init__(error)
+
+        self.error = error
         self.user = user
 
     def __str__(self) -> str:
-        return self.err
+        return self.error
 
 
 class GuildNotFoundError(Exception):
-    """Raised When the Specified Guild is not found."""
+    """Raised when the specified guild is not found."""
 
-    def __init__(self, reason: str = "undefined") -> None:
+    def __init__(self, reason: t.Optional[str] = None) -> None:
         """
         Parameters
         ----------
         reason: str
-            The reason for the Error. Defaults to "undefined".
+            The reason for the Error. Defaults to None.
         """
-        self.err = f"Invalid Guild Name or UUID! [{reason}]"
-        super().__init__(self.err)
+        error = "Guild not found."
+        if reason:
+            error += f" {reason}."
+
+        super().__init__(error)
+        self.error = error
 
     def __str__(self) -> str:
-        return self.err
-
-
-class MojangAPIError(Exception):
-    """Raised when the Mojang API is facing some problems."""
-
-    def __init__(self, reason: str = "undefined") -> None:
-        """
-        Parameters
-        ----------
-        reason: str
-            The reason for the Error. Defaults to "undefined".
-        """
-        self.err = f"The Mojang API had a problem [{reason}]"
-        super().__init__(self.err)
-
-    def __str__(self) -> str:
-        return self.err
+        return self.error

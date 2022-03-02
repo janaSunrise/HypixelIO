@@ -53,23 +53,19 @@ class Utils:
         """
         with requests.get(f"https://crafatar.com/{url}", timeout=TIMEOUT) as response:
             if response.status_code == 422:
-                raise InvalidArgumentError("Invalid data passed for conversion!")
+                raise InvalidArgumentError("Invalid URL passed. Either user does not exist, or URL is malformed.")
 
             try:
                 return response
             except Exception:
-                raise CrafatarAPIError(
-                    "There seems to be some problem with the content type or the API IS down."
-                )
+                raise CrafatarAPIError()
 
     @staticmethod
     def _filter_name_uuid(
         name: t.Optional[str] = None, uuid: t.Optional[str] = None
     ) -> str:
         if not name and not uuid:
-            raise InvalidArgumentError(
-                "Please provide a named argument of the player's username or player's UUID."
-            )
+            raise InvalidArgumentError("Named argument for player's either username or UUID not found.")
 
         if name:
             uuid = Converters.username_to_uuid(name)

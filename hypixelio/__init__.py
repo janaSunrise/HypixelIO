@@ -7,8 +7,8 @@ from .utils import constants
 
 __author__ = "Sunrit Jana"
 __email__ = "warriordefenderz@gmail.com"
-__version__ = "1.3.0"
-__license__ = "MIT License"
+__version__ = "1.4.0"
+__license__ = "MIT license"
 __copyright__ = "Copyright 2021-present Sunrit Jana"
 
 __all__: t.Tuple[str, ...] = (

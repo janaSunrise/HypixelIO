@@ -58,20 +58,12 @@ class BaseClient:
         self.requests_remaining = 0
         self.retry_after = datetime.now() + timedelta(seconds=int(resp_headers["Retry-After"]))
 
-        # Raise error
-        raise RateLimitError(
-            f"Out of Requests! "
-            f"{datetime.now() + timedelta(seconds=int(resp_headers['Retry-After']))}"
-        )
+        raise RateLimitError(self.retry_after)
 
     # Utility to handle raising error if API response is not successful.
     @staticmethod
-    def _handle_api_failure(json: t.Any) -> None:
-        reason = "Something in the API has an issue."
-        if json["cause"] is not None:
-            reason += f" Reason given: {json['cause']}"
-
-        raise HypixelAPIError(reason=reason)
+    def _handle_api_failure(json: t.Dict[str, t.Any]) -> None:
+        raise HypixelAPIError(reason=json["cause"])
 
     @staticmethod
     def _filter_name_uuid(name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> str:
@@ -79,7 +71,7 @@ class BaseClient:
         from hypixelio import Converters
 
         if not name and not uuid:
-            raise InvalidArgumentError("Please provide a named argument of the player's username or player's UUID.")
+            raise InvalidArgumentError("Named argument for player's either username or UUID not found.")
 
         if name:
             uuid = Converters.username_to_uuid(name)

@@ -34,18 +34,14 @@ class Utils:
         """
         session = aiohttp.ClientSession()
 
-        async with session.get(
-            f"https://crafatar.com/{url}", timeout=TIMEOUT
-        ) as response:
+        async with session.get(f"https://crafatar.com/{url}", timeout=TIMEOUT) as response:
             if response.status == 422:
-                raise InvalidArgumentError("Invalid data passed for conversion!")
+                raise InvalidArgumentError("Invalid URL passed. Either user does not exist, or URL is malformed.")
 
             try:
                 return await response.text()
             except Exception:
-                raise CrafatarAPIError(
-                    "There seems to be some problem with the content type or the API IS down."
-                )
+                raise CrafatarAPIError()
 
     @staticmethod
     def _filter_name_uuid(

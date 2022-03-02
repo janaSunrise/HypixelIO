@@ -32,7 +32,7 @@ class AsyncConverters:
         async with session.get(f"{MOJANG_API}{url}", timeout=TIMEOUT) as response:
             if response.status == 204:
                 raise PlayerNotFoundError(
-                    "204 value returned during conversion to UUID.", None
+                    "Error code 204 returned during conversion to UUID.", None
                 )
 
             if response.status == 400:
@@ -41,16 +41,12 @@ class AsyncConverters:
             try:
                 json = await response.json()
             except Exception:
-                raise MojangAPIError(
-                    "There seems to be some problem with the content type or the API is down."
-                )
+                raise MojangAPIError()
             else:
                 if "error" in json:
                     raise MojangAPIError(f"An error occurred! {json['errorMessage']}")
 
                 return json
-
-        await session.close()
 
     @classmethod
     async def username_to_uuid(cls, username: str) -> str:

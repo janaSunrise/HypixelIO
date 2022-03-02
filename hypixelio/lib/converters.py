@@ -30,7 +30,7 @@ class Converters:
         with requests.get(f"{MOJANG_API}{url}", timeout=TIMEOUT) as response:
             if response.status_code == 204:
                 raise PlayerNotFoundError(
-                    "204 value returned during conversion to UUID.", None
+                    "Error code 204 returned during conversion to UUID.", None
                 )
 
             if response.status_code == 400:
@@ -39,9 +39,7 @@ class Converters:
             try:
                 json = response.json()
             except Exception:
-                raise MojangAPIError(
-                    "There seems to be some problem with the content type or the API is down."
-                )
+                raise MojangAPIError()
             else:
                 if "error" in json:
                     raise MojangAPIError(f"An error occurred! {json['errorMessage']}")

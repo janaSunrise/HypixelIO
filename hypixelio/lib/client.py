@@ -1,4 +1,4 @@
-__all__ = "Client"
+__all__ = ("Client",)
 
 import random
 import typing as t
@@ -89,7 +89,7 @@ class Client(BaseClient):
                 old_data_on_error=cache_config.old_data_on_error,
             )
 
-    def _fetch(self, url: str, data: dict = None, api_key: bool = True) -> dict:
+    def _fetch(self, url: str, data: t.Optional[t.Dict[str, t.Any]] = None, api_key: bool = True) -> dict:
         """
         Fetch the JSON response from the API along with the ability to include GET request parameters and support
         Authentication using API key too.
@@ -110,7 +110,7 @@ class Client(BaseClient):
         """
         # Check if ratelimit is hit
         if self._is_ratelimit_hit():
-            raise RateLimitError(f"Retry after {self.retry_after}")
+            raise RateLimitError(self.retry_after)
 
         # If no data for JSON
         if not data:
@@ -127,7 +127,7 @@ class Client(BaseClient):
         with requests.get(url, timeout=TIMEOUT, headers=self.headers) as response:
             # 404 handling
             if response.status_code == 404:
-                raise HypixelAPIError(reason="The route specified does not exist.")
+                raise HypixelAPIError("The route specified does not exist.")
 
             # 429 Code handle
             if response.status_code == 429:
@@ -135,7 +135,7 @@ class Client(BaseClient):
 
             # 403 Code handle
             if response.status_code == 403:
-                raise HypixelAPIError(reason="Invalid key specified!")
+                raise HypixelAPIError("Invalid key specified!")
 
             # Ratelimit handling
             if api_key and "RateLimit-Limit" in response.headers:
@@ -204,7 +204,7 @@ class Client(BaseClient):
         json = self._fetch(self.url["player"], {"uuid": uuid})
 
         if not json["player"]:
-            raise PlayerNotFoundError("Null Value is returned", name)
+            raise PlayerNotFoundError("Null is returned", name)
 
         return player.Player(json["player"])
 
@@ -263,12 +263,10 @@ class Client(BaseClient):
         elif name:
             json = self._fetch(self.url["guild"], {"name": name})
         else:
-            raise InvalidArgumentError(
-                "Please provide a Named argument of the guild's Name or guild's ID."
-            )
+            raise InvalidArgumentError("Named argument for guild's name or UUID not found.")
 
         if not json["guild"]:
-            raise GuildNotFoundError("Return Value is null")
+            raise GuildNotFoundError("Value returned is null")
 
         return guild.Guild(json["guild"])
 
@@ -319,9 +317,7 @@ class Client(BaseClient):
         elif player_uuid:
             json = self._fetch(self.url["find_guild"], {"byUuid": player_uuid})
         else:
-            raise InvalidArgumentError(
-                "Please provide a Named argument of the guild's Name or guild's ID."
-            )
+            raise InvalidArgumentError("Named argument for guild's name or UUID not found.")
 
         return find_guild.FindGuild(json)
 
@@ -388,7 +384,7 @@ class Client(BaseClient):
 
         if not json["profile"]:
             raise PlayerNotFoundError(
-                "The skyblock player being searched does not exist!", uuid
+                "The skyblock player does not exist!", uuid
             )
 
         return skyblock.SkyblockProfile(json)
@@ -414,7 +410,7 @@ class Client(BaseClient):
 
         if not json["auctions"]:
             raise PlayerNotFoundError(
-                "The skyblock player being searched does not exist!", uuid
+                "The skyblock player does not exist!", uuid
             )
 
         return skyblock.SkyblockUserAuction(json)

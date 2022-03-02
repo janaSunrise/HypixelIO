@@ -1,11 +1,15 @@
 import os
 import unittest
 
-from tests.mock_data.player_data import PLAYER_MOCK
-
 from hypixelio import Client
 from hypixelio.exceptions import HypixelAPIError, PlayerNotFoundError
 from hypixelio.models.player import Player
+from tests.mock_data.player_data import PLAYER_MOCK
+
+API_KEY = os.getenv("HYPIXEL_KEY")
+
+if not API_KEY:
+    raise Exception("Please set the HYPIXEL_KEY environment variable.")
 
 
 class TestPlayer(unittest.TestCase):
@@ -14,7 +18,7 @@ class TestPlayer(unittest.TestCase):
     def test_invalid_player_name(self) -> None:
         test_cases = ("ewdijenwmim", "de3in7euw9s38h23782iwksjnhuwiks")
 
-        client = Client(api_key=os.getenv("HYPIXEL_KEY"))
+        client = Client(api_key=API_KEY)
 
         for test in test_cases:
             with self.assertRaises(PlayerNotFoundError):
@@ -23,14 +27,14 @@ class TestPlayer(unittest.TestCase):
     def test_invalid_player_uuid(self) -> None:
         test_cases = ("ewdijenwmim", "de3in7euw9s38h23782iwksjnhuwiks")
 
-        client = Client(api_key=os.getenv("HYPIXEL_KEY"))
+        client = Client(api_key=API_KEY)
 
         for test in test_cases:
             with self.assertRaises(HypixelAPIError):
                 client.get_player(uuid=test)
 
     def test_player_data(self) -> None:
-        client = Client(api_key=os.getenv("HYPIXEL_KEY"))
+        client = Client(api_key=API_KEY)
         player = client.get_player(name="007rohitj")
 
         self.assertIsInstance(player.HYPIXEL_ID, str)
