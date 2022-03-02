@@ -4,7 +4,6 @@ import random
 import typing as t
 
 import requests
-import requests_cache
 
 from ..base import BaseClient
 from ..exceptions import (
@@ -16,7 +15,6 @@ from ..exceptions import (
 )
 from ..models import (
     boosters,
-    caching,
     find_guild,
     friends,
     games,
@@ -50,44 +48,16 @@ class Client(BaseClient):
     You can use multiple API keys to authenticate too. (Better option for load balancing)
 
         >>> client = hypixelio.Client(api_key=["123-456", "789-000", "568-908"])
-
-    The caching is supported inbuilt, and can be enabled easily. Here's how,
-
-        >>> client = hypixelio.Client(cache=True)
-
-    You have the option to configure cache too,
-
-        >>> from hypixelio.models.caching import Caching, CacheBackend
-        >>> cache_cfg = Caching(cache_name="my-cache", backend=CacheBackend.sqlite, expire_after=10)
-        >>> client = hypixelio.Client(cache=True, cache_config=cache_cfg)
     """
 
-    def __init__(
-        self, api_key: t.Union[str, list], cache: bool = False,
-        cache_config: t.Optional[caching.Caching] = None
-    ) -> None:
+    def __init__(self, api_key: t.Union[str, list]) -> None:
         """
         Parameters
         ----------
         api_key: t.Union[str, list]
             The API key generated in Hypixel server using the `/api new` command.
-        cache: t.Optional[bool]
-            Should caching be enabled.
-        cache_config: t.Optional[caching.Caching]
-            The configurations settings for caching, if enabled. Defaults to None.
         """
         super().__init__(api_key)
-
-        if cache:
-            if cache_config is None:
-                cache_config = caching.Caching(expire_after=30, old_data_on_error=True)
-
-            requests_cache.install_cache(
-                cache_name=cache_config.cache_name,
-                backend=cache_config.backend,
-                expire_after=cache_config.expire_after,
-                old_data_on_error=cache_config.old_data_on_error,
-            )
 
     def _fetch(self, url: str, data: t.Optional[t.Dict[str, t.Any]] = None, api_key: bool = True) -> dict:
         """

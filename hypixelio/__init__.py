@@ -2,7 +2,6 @@ import typing as t
 
 from ._async import AsyncClient, AsyncConverters, Portal, Utils as AsyncUtils, create_portal
 from .lib import Client, Converters, Utils
-from .models.caching import CacheBackend, Caching
 from .utils import constants
 
 __author__ = "Sunrit Jana"
@@ -20,8 +19,6 @@ __all__: t.Tuple[str, ...] = (
     "AsyncClient",
     "AsyncConverters",
     "AsyncUtils",
-    "Caching",
-    "CacheBackend",
     "Client",
     "Converters",
     "Portal",

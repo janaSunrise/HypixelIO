@@ -24,9 +24,7 @@ if not VERSION:
 
 # Dependencies configuration
 extras_require = {
-    "speedups": ["aiodns>=1.1", "Brotli==1.0.9", "cchardet==2.1.7"],
-    "cache": ["boto3==1.21.9", "pymongo==4.0.1", "redis==4.1.4"],
-    "async-cache": ["aiosqlite==0.17.0", "motor==2.5.1", "aioredis==2.0.1"]
+    "speedups": ["aiodns>=1.1", "Brotli==1.0.9", "cchardet==2.1.7"]
 }
 extras_require["all"] = list(chain.from_iterable(extras_require.values()))
 
@@ -59,8 +57,6 @@ setuptools.setup(
     install_requires=[
         "requests==2.25.1",
         "aiohttp==3.7.4.post0",
-        "requests-cache==0.6.3",
-        "aiohttp-client-cache==0.4.0",
     ],
     extras_require=extras_require,
 
