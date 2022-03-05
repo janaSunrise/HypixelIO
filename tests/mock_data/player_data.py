@@ -5,6 +5,7 @@ PLAYER_MOCK = {
     "knownAliases": ["1234", "test", "TestPlayer123"],
     "firstLogin": 123456,
     "lastLogin": 150996,
+    "lastLogout": 178901,
     "achievementsOneTime": ["MVP", "MVP2", "BedwarsMVP"],
     "achievementPoints": 300,
     "achievements": {"bedwars_level": 5, "general_challenger": 7, "bedwars_wins": 18},
@@ -16,4 +17,5 @@ PLAYER_MOCK = {
     "mcVersionRp": "1.8.9",
     "petStats": {},
     "currentGadget": "Dummy thingy",
+    "rank": None
 }
