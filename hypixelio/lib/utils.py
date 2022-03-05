@@ -99,9 +99,11 @@ class Utils:
         uuid = cls._filter_name_uuid(name, uuid)
         json = Converters._fetch(Utils.mojang_url["name_history"].format(uuid))
 
+        # Return JSON if time is specified.
         if changed_at:
             return json
 
+        # Return all usernames.
         usernames = []
         for data in json:
             usernames.append(data["name"])

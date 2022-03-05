@@ -13,7 +13,7 @@ class AsyncConverters:
     url = API_PATH["MOJANG"]
 
     @classmethod
-    async def _fetch(cls, url: str) -> t.Optional[dict]:
+    async def _fetch(cls, url: str) -> t.Union[dict, list]:
         """
         The internal function for fetching info from the Mojang API.
 
@@ -24,7 +24,7 @@ class AsyncConverters:
 
         Returns
         -------
-        t.Optional[dict]
+        t.Union[dict, list]
             The JSON response from the Mojang API.
         """
         session = aiohttp.ClientSession()

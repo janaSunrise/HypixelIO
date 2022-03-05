@@ -13,7 +13,7 @@ class Converters:
     url = API_PATH["MOJANG"]
 
     @classmethod
-    def _fetch(cls, url: str) -> t.Optional[dict]:
+    def _fetch(cls, url: str) -> t.Union[dict, list]:
         """
         The internal function for fetching info from the Mojang API.
 
@@ -24,7 +24,7 @@ class Converters:
 
         Returns
         -------
-        t.Optional[dict]
+        t.Union[dict, list]
             The JSON response from the Mojang API.
         """
         with requests.get(f"{MOJANG_API}{url}", timeout=TIMEOUT) as response:

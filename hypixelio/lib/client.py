@@ -2,6 +2,7 @@ __all__ = ("Client",)
 
 import random
 import typing as t
+from types import TracebackType
 
 import requests
 
@@ -121,6 +122,19 @@ class Client(BaseClient):
 
                 return json
 
+    # Context manager
+    def __enter__(self) -> "Client":
+        return self
+
+    def __exit__(
+        self,
+        exc_type: t.Optional[t.Type[BaseException]],
+        exc_val: t.Optional[BaseException],
+        exc_tb: t.Optional[TracebackType],
+    ) -> None:
+        pass
+
+    # Hypixel API endpoint methods.
     def get_key_info(self, api_key: t.Optional[str] = None) -> Key:
         """
         Get info about a specific Hypixel API key.

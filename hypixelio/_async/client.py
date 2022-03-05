@@ -3,6 +3,7 @@ __all__ = ("AsyncClient",)
 import asyncio
 import random
 import typing as t
+from types import TracebackType
 
 import aiohttp
 
@@ -60,13 +61,13 @@ class AsyncClient(BaseClient):
         """
         super().__init__(api_key)
 
-        self.__session = None
-        self.__lock = asyncio.Lock()
+        self._session: t.Optional[aiohttp.ClientSession] = None
+        self._lock = asyncio.Lock()
 
     async def close(self) -> None:
         """Close the AIOHTTP sessions to prevent memory leaks."""
-        if self.__session is not None:
-            await self.__session.close()
+        if self._session is not None:
+            await self._session.close()
 
     async def _fetch(self, url: str, data: t.Optional[t.Dict[str, t.Any]] = None, api_key: bool = True) -> dict:
         """
@@ -87,8 +88,8 @@ class AsyncClient(BaseClient):
         t.Tuple[dict, bool]
             The JSON response obtained after fetching the API, along with success value in the response.
         """
-        if not self.__session:
-            self.__session = aiohttp.ClientSession()
+        if not self._session:
+            self._session = aiohttp.ClientSession()
 
         # Check if ratelimit is hit
         if self._is_ratelimit_hit():
@@ -103,8 +104,8 @@ class AsyncClient(BaseClient):
 
         url = form_url(HYPIXEL_API, url, data)
 
-        async with self.__lock:
-            async with self.__session.get(url, headers=self.headers, timeout=TIMEOUT) as response:
+        async with self._lock:
+            async with self._session.get(url, headers=self.headers, timeout=TIMEOUT) as response:
                 # 404 handling
                 if response.status == 429:
                     raise HypixelAPIError("The route specified does not exist.")
@@ -130,6 +131,25 @@ class AsyncClient(BaseClient):
 
                     return json
 
+    # Context managers
+    async def __aenter__(self) -> "AsyncClient":
+        # Initialize the session
+        self._session = aiohttp.ClientSession()
+
+        await self._session.__aenter__()
+
+        return self
+
+    async def __aexit__(
+        self,
+        exc_type: t.Optional[t.Type[BaseException]],
+        exc_val: t.Optional[BaseException],
+        exc_tb: t.Optional[TracebackType],
+    ) -> None:
+        if self._session is not None:
+            await self._session.__aexit__(exc_type, exc_val, exc_tb)
+
+    # Hypixel API endpoint methods
     async def get_key_info(self, api_key: t.Optional[str] = None) -> Key:
         """
         Get info about a specific Hypixel API key.
