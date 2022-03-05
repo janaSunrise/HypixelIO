@@ -6,7 +6,7 @@ from .lib import Client, Converters, Utils
 
 __author__ = "Sunrit Jana"
 __email__ = "warriordefenderz@gmail.com"
-__version__ = "1.4.0"
+__version__ = "1.4.1"
 __license__ = "MIT license"
 __copyright__ = "Copyright 2021-present Sunrit Jana"
 
