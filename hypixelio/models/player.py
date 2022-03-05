@@ -1,6 +1,33 @@
 import typing as t
+from dataclasses import dataclass
 
-from hypixelio.utils.time import unix_time_to_datetime
+from hypixelio.utils import get_rank
+from hypixelio.utils import unix_time_to_datetime
+
+
+@dataclass
+class PlayerSocialMedia:
+    youtube: t.Optional[str]
+    twitter: t.Optional[str]
+    instagram: t.Optional[str]
+    twitch: t.Optional[str]
+    discord: t.Optional[str]
+    hypixel_forums: t.Optional[str]
+
+    # Convert JSON data to a PlayerSocialMedia object
+    @classmethod
+    def from_json(cls, data: t.Optional[dict]) -> t.Optional["PlayerSocialMedia"]:
+        if not data:
+            return None
+
+        return cls(
+            youtube=data.get("YOUTUBE"),
+            twitter=data.get("TWITTER"),
+            instagram=data.get("INSTAGRAM"),
+            twitch=data.get("TWITCH"),
+            discord=data.get("DISCORD"),
+            hypixel_forums=data.get("HYPIXEL_FORUMS"),
+        )
 
 
 class Player:
@@ -15,10 +42,11 @@ class Player:
         self.uuid = data["uuid"]
 
         self.name = data["displayname"]
-        self.known_aliase = data["knownAliases"]
+        self.known_aliases = data["knownAliases"]
 
         self.first_login = unix_time_to_datetime(data["firstLogin"])
         self.last_login = unix_time_to_datetime(data["lastLogin"])
+        self.last_logout = unix_time_to_datetime(data["lastLogout"])
 
         self.one_time_achievements = data["achievementsOneTime"]
         self.achievement_points = data["achievementPoints"]
@@ -42,11 +70,23 @@ class Player:
         self.pet_stats = data.get("petStats")
         self.current_gadget = data.get("currentGadget")
 
-        self.social_media = data["socialMedia"]["links"]
+        self.social_media = PlayerSocialMedia.from_json(data.get("socialMedia", {}).get("links"))
+
+        self.rank = self._get_rank(data)
 
     @staticmethod
     def _calc_player_level(xp: t.Union[float, int]) -> float:
         return 1 + (-8750.0 + (8750 ** 2 + 5000 * xp) ** 0.5) / 2500
+
+    @staticmethod
+    def _get_rank(data: dict) -> t.Optional[str]:
+        return get_rank(
+            data.get("rank"),
+            data.get("prefix"),
+            data.get("monthlyPackageRank"),
+            data.get("newPackageRank"),
+            data.get("packageRank"),
+        )
 
     def __str__(self) -> str:
         return self.name

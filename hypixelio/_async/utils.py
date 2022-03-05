@@ -5,12 +5,12 @@ import typing as t
 import aiohttp
 
 from .converters import AsyncConverters as Converters
+from ..constants import TIMEOUT
 from ..endpoints import API_PATH
 from ..exceptions.exceptions import (
     CrafatarAPIError,
     InvalidArgumentError,
 )
-from ..utils.constants import TIMEOUT
 
 
 class Utils:

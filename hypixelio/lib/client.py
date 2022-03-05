@@ -6,6 +6,10 @@ import typing as t
 import requests
 
 from ..base import BaseClient
+from ..constants import (
+    HYPIXEL_API,
+    TIMEOUT,
+)
 from ..exceptions import (
     GuildNotFoundError,
     HypixelAPIError,
@@ -27,11 +31,7 @@ from ..models.skyblock import (
     SkyblockActiveAuction, SkyblockBazaar, SkyblockNews, SkyblockProfile, SkyblockUserAuction
 )
 from ..models.watchdog import Watchdog
-from ..utils.constants import (
-    HYPIXEL_API,
-    TIMEOUT,
-)
-from ..utils.url import form_url
+from ..utils import form_url
 
 
 class Client(BaseClient):

@@ -1,12 +1,12 @@
-__all__ = "AsyncConverters"
+__all__ = ("AsyncConverters",)
 
 import typing as t
 
 import aiohttp
 
+from ..constants import MOJANG_API, TIMEOUT
 from ..endpoints import API_PATH
 from ..exceptions.exceptions import MojangAPIError, PlayerNotFoundError
-from ..utils.constants import MOJANG_API, TIMEOUT
 
 
 class AsyncConverters:

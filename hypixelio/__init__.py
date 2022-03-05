@@ -1,8 +1,8 @@
 import typing as t
 
+from . import constants
 from ._async import AsyncClient, AsyncConverters, Portal, Utils as AsyncUtils, create_portal
 from .lib import Client, Converters, Utils
-from .utils import constants
 
 __author__ = "Sunrit Jana"
 __email__ = "warriordefenderz@gmail.com"
