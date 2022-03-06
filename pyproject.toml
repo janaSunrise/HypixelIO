@@ -1,3 +1,53 @@
+
+[tool.poetry]
+name = "HypixelIO"
+version = "1.4.0"
+description = "A modern, efficient and better way of interacting with the Hypixel API!"
+authors = ["Sunrit Jana <warriordefenderz@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+requests = "^2.27.1"
+aiohttp = "^3.8.1"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^4.0.1"
+flake8-annotations = "^2.7.0"
+flake8-bugbear = "^22.1.11"
+flake8-tidy-imports = "^4.6.0"
+pep8-naming = "^0.12.1"
+pre-commit = "^2.17.0"
+ipython = "^8.1.1"
+recommonmark = "^0.7.1"
+myst-parser = "^0.17.0"
+sphinx-rtd-theme = "^1.0.0"
+mypy = "^0.931"
+black = "^22.1.0"
+isort = "^5.10.1"
+pylint = "^2.12.2"
+types-requests = "^2.27.11"
+types-docutils = "^0.18.0"
+types-setuptools = "^57.4.9"
+
+[tool.isort]
+profile = "black"
+
+[tool.pylint.messages_control]
+disable = [
+    "line-too-long",
+    "import-error",
+    "missing-function-docstring",
+    "missing-module-docstring",
+    "missing-class-docstring",
+    "too-few-public-methods",
+    "too-many-instance-attributes",
+    "too-many-public-methods",
+    "protected-access",
+    "cyclic-import",
+    "duplicate-code"
+]
+
 [build-system]
-requires = ["setuptools>=42", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
