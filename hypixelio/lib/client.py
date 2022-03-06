@@ -24,13 +24,14 @@ from ..models.player import Player
 from ..models.player_status import PlayerStatus
 from ..models.recent_games import RecentGames
 from ..models.skyblock import (
-    SkyblockActiveAuction, SkyblockBazaar, SkyblockNews, SkyblockProfile, SkyblockUserAuction
+    SkyblockActiveAuction,
+    SkyblockBazaar,
+    SkyblockNews,
+    SkyblockProfile,
+    SkyblockUserAuction,
 )
 from ..models.watchdog import Watchdog
-from ..utils.constants import (
-    HYPIXEL_API,
-    TIMEOUT,
-)
+from ..utils.constants import HYPIXEL_API, TIMEOUT
 from ..utils.url import form_url
 
 
@@ -50,7 +51,9 @@ class Client(BaseClient):
         >>> client = hypixelio.Client(api_key=["123-456", "789-000", "568-908"])
     """
 
-    def __init__(self, api_key: t.Union[str, list]) -> None:
+    def __init__(
+        self, api_key: t.Union[str, list]
+    ) -> None:  # pylint: disable=useless-super-delegation
         """
         Parameters
         ----------
@@ -59,7 +62,12 @@ class Client(BaseClient):
         """
         super().__init__(api_key)
 
-    def _fetch(self, url: str, data: t.Optional[t.Dict[str, t.Any]] = None, api_key: bool = True) -> dict:
+    def _fetch(
+        self,
+        url: str,
+        data: t.Optional[t.Dict[str, t.Any]] = None,
+        api_key: bool = True,
+    ) -> dict:
         """
         Fetch the JSON response from the API along with the ability to include GET request parameters and support
         Authentication using API key too.
@@ -114,7 +122,7 @@ class Client(BaseClient):
             try:
                 json = response.json()
             except Exception as exc:
-                raise HypixelAPIError(f"{exc}")
+                raise HypixelAPIError(f"{exc}") from exc
             else:
                 if not json["success"]:
                     self._handle_api_failure(json)
@@ -154,7 +162,9 @@ class Client(BaseClient):
 
         return Boosters(json["boosters"], json)
 
-    def get_player(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> Player:
+    def get_player(
+        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+    ) -> Player:
         """
         Get all info about a Hypixel player using his username or his player UUID.
 
@@ -178,7 +188,9 @@ class Client(BaseClient):
 
         return Player(json["player"])
 
-    def get_friends(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> Friends:
+    def get_friends(
+        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+    ) -> Friends:
         """
         Get the friends, and all their info of specified Hypixel player.
 
@@ -242,7 +254,9 @@ class Client(BaseClient):
         elif player_uuid:
             json = self._fetch(self.url["guild"], {"player": player_uuid})
         else:
-            raise InvalidArgumentError("Named argument for guild's name or UUID not found.")
+            raise InvalidArgumentError(
+                "Named argument for guild's name or UUID not found."
+            )
 
         if not json["guild"]:
             raise GuildNotFoundError("Value returned is null")
@@ -276,9 +290,7 @@ class Client(BaseClient):
         return Leaderboard(json["leaderboards"])
 
     def find_guild(
-        self,
-        guild_name: t.Optional[str] = None,
-        player_uuid: t.Optional[str] = None
+        self, guild_name: t.Optional[str] = None, player_uuid: t.Optional[str] = None
     ) -> FindGuild:
         """
         Find a guild using the Guild's name or a Player's UUID.
@@ -300,11 +312,15 @@ class Client(BaseClient):
         elif player_uuid:
             json = self._fetch(self.url["find_guild"], {"byUuid": player_uuid})
         else:
-            raise InvalidArgumentError("Named argument for guild's name or UUID not found.")
+            raise InvalidArgumentError(
+                "Named argument for guild's name or UUID not found."
+            )
 
         return FindGuild(json)
 
-    def get_player_status(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> PlayerStatus:
+    def get_player_status(
+        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+    ) -> PlayerStatus:
         """
         Get the status about a Player using his username or UUID.
 
@@ -325,7 +341,9 @@ class Client(BaseClient):
 
         return PlayerStatus(json)
 
-    def get_player_recent_games(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> RecentGames:
+    def get_player_recent_games(
+        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+    ) -> RecentGames:
         """
         Get the recent games played by a Hypixel player using his Username or UUID.
 
@@ -351,7 +369,9 @@ class Client(BaseClient):
 
         return SkyblockNews(json)
 
-    def get_skyblock_profile(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> SkyblockProfile:
+    def get_skyblock_profile(
+        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+    ) -> SkyblockProfile:
         """
         Get the skyblock information and profile about a specific user as passed in the requirements.
 
@@ -371,13 +391,13 @@ class Client(BaseClient):
         json = self._fetch(self.url["skyblock_profile"], {"profile": uuid})
 
         if not json["profile"]:
-            raise PlayerNotFoundError(
-                "The skyblock player does not exist!", uuid
-            )
+            raise PlayerNotFoundError("The skyblock player does not exist!", uuid)
 
         return SkyblockProfile(json)
 
-    def get_skyblock_user_auctions(self, name: t.Optional[str] = None, uuid: t.Optional[str] = None) -> SkyblockUserAuction:
+    def get_skyblock_user_auctions(
+        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+    ) -> SkyblockUserAuction:
         """
         Get the skyblock auction info about a specific user.
 
@@ -397,9 +417,7 @@ class Client(BaseClient):
         json = self._fetch(self.url["skyblock_auctions"], {"profile": uuid})
 
         if not json["auctions"]:
-            raise PlayerNotFoundError(
-                "The skyblock player does not exist!", uuid
-            )
+            raise PlayerNotFoundError("The skyblock player does not exist!", uuid)
 
         return SkyblockUserAuction(json)
 

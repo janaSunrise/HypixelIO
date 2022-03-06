@@ -23,5 +23,7 @@ class Key:
     def __hash__(self) -> int:
         return hash(self.key)
 
-    def __eq__(self, other: "Key") -> bool:
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Key):
+            raise ValueError("Can only compare with Key")
         return self.key == other.key

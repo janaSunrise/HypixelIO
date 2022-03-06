@@ -18,5 +18,7 @@ class PlayerStatus:
     def __hash__(self) -> int:
         return hash(self.uuid)
 
-    def __eq__(self, other: "PlayerStatus") -> bool:
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, PlayerStatus):
+            return False
         return self.uuid == other.uuid

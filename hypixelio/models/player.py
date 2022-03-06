@@ -45,8 +45,8 @@ class Player:
         self.social_media = data["socialMedia"]["links"]
 
     @staticmethod
-    def _calc_player_level(xp: t.Union[float, int]) -> float:
-        return 1 + (-8750.0 + (8750 ** 2 + 5000 * xp) ** 0.5) / 2500
+    def _calc_player_level(experience_points: t.Union[float, int]) -> float:
+        return 1 + (-8750.0 + (8750 ** 2 + 5000 * experience_points) ** 0.5) / 2500
 
     def __str__(self) -> str:
         return self.name
@@ -57,5 +57,7 @@ class Player:
     def __hash__(self) -> int:
         return hash(self.uuid)
 
-    def __eq__(self, other: "Player") -> bool:
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Player):
+            return False
         return self.uuid == other.uuid

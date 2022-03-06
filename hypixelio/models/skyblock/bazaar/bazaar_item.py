@@ -30,5 +30,7 @@ class SkyblockBazaarItem:
     def __hash__(self) -> int:
         return hash(self.product_id)
 
-    def __eq__(self, other: "SkyblockBazaarItem") -> bool:
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, SkyblockBazaarItem):
+            return False
         return self.product_id == other.product_id

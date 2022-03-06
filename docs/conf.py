@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 import os
 import sys
 
@@ -9,14 +10,16 @@ sys.path.append(os.path.abspath("extensions"))
 
 # Project info configuration
 project = "HypixelIO"
-copyright = "Copyright 2021-present, Sunrit Jana"
+copyright = "Copyright 2021-present, Sunrit Jana"  # pylint: disable=redefined-builtin
 author = "Sunrit Jana"
 
 release = hypixelio_version
 branch = (
     "main"
-    if hypixelio_version.endswith("a") or hypixelio_version.endswith("b") or hypixelio_version.endswith("rc")
-    else "v" + hypixelio_version
+    if hypixelio_version.endswith("a")  # noqa: W503
+    or hypixelio_version.endswith("b")  # noqa: W503
+    or hypixelio_version.endswith("rc")  # noqa: W503
+    else "v" + hypixelio_version  # noqa: W503
 )
 
 # General configuration
@@ -42,11 +45,7 @@ extlinks = {
     "issue": ("https://github.com/janaSunrise/HypixelIO/issues/%s", "GH-"),
 }
 
-source_suffix = {
-    ".rst": "restructuredtext",
-    ".md": "markdown",
-    ".txt": "markdown"
-}
+source_suffix = {".rst": "restructuredtext", ".md": "markdown", ".txt": "markdown"}
 
 master_doc = "index"
 

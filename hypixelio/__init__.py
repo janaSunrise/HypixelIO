@@ -1,14 +1,11 @@
 import typing as t
 
-from ._async import AsyncClient, AsyncConverters, Portal, Utils as AsyncUtils, create_portal
+from ._async import AsyncClient, AsyncConverters, Portal
+from ._async import Utils as AsyncUtils
+from ._async import create_portal
+from .const import __author__, __copyright__, __email__, __license__, __version__
 from .lib import Client, Converters, Utils
 from .utils import constants
-
-__author__ = "Sunrit Jana"
-__email__ = "warriordefenderz@gmail.com"
-__version__ = "1.4.0"
-__license__ = "MIT license"
-__copyright__ = "Copyright 2021-present Sunrit Jana"
 
 __all__: t.Tuple[str, ...] = (
     "__author__",
@@ -24,5 +21,5 @@ __all__: t.Tuple[str, ...] = (
     "Portal",
     "Utils",
     "constants",
-    "create_portal"
+    "create_portal",
 )

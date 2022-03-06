@@ -20,11 +20,14 @@ async def fetch() -> None:
 
     # Print the data
     print(
-        dedent(f"""
+        dedent(
+            f"""
         Name: {name}
         UUID: {uuid}
         Achievements: {achievements}
-        """)
+        """
+        )
     )
+
 
 asyncio.run(fetch())

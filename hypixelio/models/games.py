@@ -10,7 +10,9 @@ class GameCount:
         self.modes = game.get("modes")
 
     def __repr__(self) -> str:
-        return f'<{self.__class__.__name__} players="{self.players}" modes={self.modes}>'
+        return (
+            f'<{self.__class__.__name__} players="{self.players}" modes={self.modes}>'
+        )
 
 
 class Games:

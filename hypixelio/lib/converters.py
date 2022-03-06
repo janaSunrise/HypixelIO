@@ -38,8 +38,8 @@ class Converters:
 
             try:
                 json = response.json()
-            except Exception:
-                raise MojangAPIError()
+            except Exception as exc:
+                raise MojangAPIError() from exc
             else:
                 if "error" in json:
                     raise MojangAPIError(f"An error occurred! {json['errorMessage']}")
@@ -62,7 +62,7 @@ class Converters:
             returns the converted UUID for the respective username.
         """
         json = Converters._fetch(Converters.url["username_to_uuid"].format(username))
-
+        assert isinstance(json, dict)
         return json["id"]
 
     @classmethod
@@ -81,5 +81,5 @@ class Converters:
             The username for the respective minecraft UUID is returned.
         """
         json = Converters._fetch(Converters.url["uuid_to_username"].format(uuid))
-
+        assert isinstance(json, list)
         return json[-1]["name"]

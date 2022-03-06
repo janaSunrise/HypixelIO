@@ -19,7 +19,7 @@ class Portal:
         self.stop_event = stop_event
 
     @staticmethod
-    async def _call(fn: t.Callable, args: t.Any, kwargs: t.Any) -> t.Any:
+    async def _call(func: t.Callable, args: t.Any, kwargs: t.Any) -> t.Any:
         """
         Call the coroutine.
 
@@ -37,7 +37,7 @@ class Portal:
         t.Any
             The values returned by the function.
         """
-        return await fn(*args, **kwargs)
+        return await func(*args, **kwargs)
 
     async def _stop(self) -> None:
         """
@@ -49,7 +49,7 @@ class Portal:
         """
         self.stop_event.set()
 
-    def call(self, fn: t.Callable, *args, **kwargs) -> t.Any:
+    def call(self, func: t.Callable, *args, **kwargs) -> t.Any:
         """
         Call the coroutine.
 
@@ -63,7 +63,9 @@ class Portal:
         t.Any
             The values returned by the function.
         """
-        return asyncio.run_coroutine_threadsafe(self._call(fn, args, kwargs), self.loop)
+        return asyncio.run_coroutine_threadsafe(
+            self._call(func, args, kwargs), self.loop
+        )
 
     def stop(self) -> None:
         """

@@ -14,17 +14,17 @@ from sphinx.util.typing import RoleFunction
 
 
 def make_link_role(resource_links: t.Dict[str, str]) -> RoleFunction:
-    def role(
+    def role(  # pylint: disable=dangerous-default-value,too-many-arguments
         typ: str,
         rawtext: str,
         text: str,
         lineno: int,
         inliner: Inliner,
         options: t.Dict = {},  # noqa: B006
-        content: t.List[str] = []  # noqa: B006
+        content: t.List[str] = [],  # noqa: B006
     ) -> t.Tuple[t.List[Node], t.List[system_message]]:
+        del typ, rawtext, lineno, inliner, options, content
         text = utils.unescape(text)
-
         has_explicit_title, title, key = split_explicit_title(text)
 
         full_url = resource_links[key]
@@ -39,10 +39,10 @@ def make_link_role(resource_links: t.Dict[str, str]) -> RoleFunction:
 
 
 def add_link_role(app: Sphinx) -> None:
-    app.add_role('resource', make_link_role(app.config.resource_links))
+    app.add_role("resource", make_link_role(app.config.resource_links))
 
 
 def setup(app: Sphinx) -> t.Dict[str, t.Any]:
-    app.add_config_value('resource_links', {}, 'env')
-    app.connect('builder-inited', add_link_role)
-    return {'version': sphinx.__display_version__, 'parallel_read_safe': True}
+    app.add_config_value("resource_links", {}, "env")
+    app.connect("builder-inited", add_link_role)
+    return {"version": sphinx.__display_version__, "parallel_read_safe": True}

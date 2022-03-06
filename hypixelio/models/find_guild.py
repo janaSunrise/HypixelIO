@@ -6,7 +6,7 @@ class FindGuild:
         data: dict
             The JSON data received from the Hypixel API.
         """
-        self.id = data["guild"]
+        self.id = data["guild"]  # pylint: disable=invalid-name
 
     def __str__(self) -> str:
         return self.id
@@ -17,5 +17,7 @@ class FindGuild:
     def __hash__(self) -> int:
         return hash(self.id)
 
-    def __eq__(self, other: "FindGuild") -> bool:
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, FindGuild):
+            return False
         return self.id == other.id

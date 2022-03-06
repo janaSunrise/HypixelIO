@@ -34,12 +34,16 @@ class Leaderboard:
         self.arena = [LeaderboardData(arena) for arena in board["ARENA"]]
         self.mcgo = [LeaderboardData(arena) for arena in board["MCGO"]]
         self.battleground = [LeaderboardData(arena) for arena in board["BATTLEGROUND"]]
-        self.survival_games = [LeaderboardData(arena) for arena in board["SURVIVAL_GAMES"]]
+        self.survival_games = [
+            LeaderboardData(arena) for arena in board["SURVIVAL_GAMES"]
+        ]
         self.uhc = [LeaderboardData(arena) for arena in board["UHC"]]
         self.walls = [LeaderboardData(arena) for arena in board["WALLS"]]
         self.paintball = [LeaderboardData(arena) for arena in board["PAINTBALL"]]
         self.skywars = [LeaderboardData(arena) for arena in board["SKYWARS"]]
-        self.murder_mystery = [LeaderboardData(arena) for arena in board["MURDER_MYSTERY"]]
+        self.murder_mystery = [
+            LeaderboardData(arena) for arena in board["MURDER_MYSTERY"]
+        ]
         self.super_smash = [LeaderboardData(arena) for arena in board["SUPER_SMASH"]]
         self.duels = [LeaderboardData(arena) for arena in board["DUELS"]]
         self.speed_uhc = [LeaderboardData(arena) for arena in board["SPEED_UHC"]]

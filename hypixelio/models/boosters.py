@@ -11,7 +11,7 @@ class BoosterInfo:
         info: dict
             This contains the JSON Response from the API for the Info about a specific booster.
         """
-        self.id = info["_id"]
+        self.id = info["_id"]  # pylint: disable=invalid-name
         self.purchaser_uuid = info["purchaserUuid"]
 
         self.amount = info["amount"]
@@ -23,7 +23,9 @@ class BoosterInfo:
 
         self.stacked = "stacked" in info
 
-    def __eq__(self, other: "BoosterInfo") -> bool:
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, BoosterInfo):
+            return False
         return self.id == other.id and self.purchaser_uuid == other.purchaser_uuid
 
     def __hash__(self) -> int:
@@ -65,14 +67,14 @@ class Boosters:
     def __iter__(self) -> t.Iterator:
         return iter(self.boosters)
 
-    def __eq__(self, other: "Boosters") -> bool:
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Boosters):
+            return False
         if len(self.boosters) != len(other.boosters):
             return False
-
         for booster in list(zip(self.boosters, other.boosters)):
             if booster[0].id != booster[1].id:
                 return False
-
         return True
 
     def __str__(self) -> str:

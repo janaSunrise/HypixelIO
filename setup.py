@@ -7,25 +7,25 @@ import setuptools
 # Constant variables
 BASE_DIR = Path(__file__).resolve().parent
 
-README = Path(BASE_DIR / "README.md").read_text()
+README = Path(BASE_DIR / "README.md").read_text("utf-8")
 
 URL = "https://github.com/janaSunrise/HypixelIO"
 
 # Version locating and assignment
-VERSION = re.search(
+match = re.search(
     r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
-    Path(BASE_DIR / "hypixelio/__init__.py").read_text(),
+    Path(BASE_DIR / "hypixelio/const.py").read_text("utf-8"),
     re.MULTILINE,
-).group(1)
+)
+assert match is not None
+VERSION = match.group(1)
 
 # Version error
 if not VERSION:
     raise RuntimeError("VERSION is not set!")
 
 # Dependencies configuration
-extras_require = {
-    "speedups": ["aiodns>=1.1", "Brotli==1.0.9", "cchardet==2.1.7"]
-}
+extras_require = {"speedups": ["aiodns>=1.1", "Brotli==1.0.9", "cchardet==2.1.7"]}
 extras_require["all"] = list(chain.from_iterable(extras_require.values()))
 
 # Main setup
@@ -33,33 +33,26 @@ setuptools.setup(
     # Project info
     name="HypixelIO",
     version=VERSION,
-
     # Author info
     author="Sunrit Jana",
     author_email="warriordefenderz@gmail.com",
-
     # Description
     description="A modern, efficient and better way of interacting with the Hypixel API!",
     long_description=README,
     long_description_content_type="text/markdown",
-
     # Licensing
     license="MIT",
-
     # Project repo info
     url=URL,
     project_urls={"Documentation": URL, "Issue tracker": f"{URL}/issues"},
-
     # Packages in the project
     packages=setuptools.find_packages(exclude=["tests", "tests.*", "tools", "tools.*"]),
-
     # Dependencies for the package
     install_requires=[
         "requests==2.25.1",
         "aiohttp==3.7.4.post0",
     ],
     extras_require=extras_require,
-
     # Classifiers
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -70,9 +63,8 @@ setuptools.setup(
         "Operating System :: OS Independent",
         "Intended Audience :: Developers",
         "Natural Language :: English",
-        "Typing :: Typed"
+        "Typing :: Typed",
     ],
-
     # Minimum python version
     python_requires=">=3.7",
 )

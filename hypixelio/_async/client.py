@@ -25,7 +25,11 @@ from ..models.player import Player
 from ..models.player_status import PlayerStatus
 from ..models.recent_games import RecentGames
 from ..models.skyblock import (
-    SkyblockActiveAuction, SkyblockBazaar, SkyblockNews, SkyblockProfile, SkyblockUserAuction
+    SkyblockActiveAuction,
+    SkyblockBazaar,
+    SkyblockNews,
+    SkyblockProfile,
+    SkyblockUserAuction,
 )
 from ..models.watchdog import Watchdog
 from ..utils.constants import HYPIXEL_API, TIMEOUT
@@ -51,6 +55,8 @@ class AsyncClient(BaseClient):
         >>> client = AsyncClient(api_key=["123-456", "789-000", "568-908"])
     """
 
+    __session: t.Optional[aiohttp.ClientSession]
+
     def __init__(self, api_key: t.Union[str, list]) -> None:
         """
         Parameters
@@ -68,7 +74,12 @@ class AsyncClient(BaseClient):
         if self.__session is not None:
             await self.__session.close()
 
-    async def _fetch(self, url: str, data: t.Optional[t.Dict[str, t.Any]] = None, api_key: bool = True) -> dict:
+    async def _fetch(
+        self,
+        url: str,
+        data: t.Optional[t.Dict[str, t.Any]] = None,
+        api_key: bool = True,
+    ) -> dict:
         """
         Fetch the JSON response from the API along with the ability to include GET request parameters and support
         Authentication using API key too.
@@ -104,7 +115,10 @@ class AsyncClient(BaseClient):
         url = form_url(HYPIXEL_API, url, data)
 
         async with self.__lock:
-            async with self.__session.get(url, headers=self.headers, timeout=TIMEOUT) as response:
+
+            async with self.__session.get(
+                url, headers=self.headers, timeout=TIMEOUT
+            ) as response:
                 # 404 handling
                 if response.status == 429:
                     raise HypixelAPIError("The route specified does not exist.")
@@ -123,7 +137,7 @@ class AsyncClient(BaseClient):
                 try:
                     json = await response.json()
                 except Exception as exception:
-                    raise HypixelAPIError(f"{exception}")
+                    raise HypixelAPIError(f"{exception}") from exception
                 else:
                     if not json["success"]:
                         self._handle_api_failure(json)
@@ -248,7 +262,9 @@ class AsyncClient(BaseClient):
         elif name:
             json = await self._fetch(self.url["guild"], {"name": name})
         else:
-            raise InvalidArgumentError("Named argument for guild's name or UUID not found.")
+            raise InvalidArgumentError(
+                "Named argument for guild's name or UUID not found."
+            )
 
         if not json["guild"]:
             raise GuildNotFoundError("Value returned is null")
@@ -304,7 +320,9 @@ class AsyncClient(BaseClient):
         elif player_uuid:
             json = await self._fetch(self.url["find_guild"], {"byUuid": player_uuid})
         else:
-            raise InvalidArgumentError("Named argument for guild's name or UUID not found.")
+            raise InvalidArgumentError(
+                "Named argument for guild's name or UUID not found."
+            )
 
         return FindGuild(json)
 
@@ -381,9 +399,7 @@ class AsyncClient(BaseClient):
         json = await self._fetch(self.url["skyblock_profile"], {"profile": uuid})
 
         if not json["profile"]:
-            raise PlayerNotFoundError(
-                "The skyblock player does not exist", uuid
-            )
+            raise PlayerNotFoundError("The skyblock player does not exist", uuid)
 
         return SkyblockProfile(json)
 
@@ -409,9 +425,7 @@ class AsyncClient(BaseClient):
         json = await self._fetch(self.url["skyblock_auctions"], {"profile": uuid})
 
         if not json["auctions"]:
-            raise PlayerNotFoundError(
-                "The skyblock player does not exist!", uuid
-            )
+            raise PlayerNotFoundError("The skyblock player does not exist!", uuid)
 
         return SkyblockUserAuction(json)
 

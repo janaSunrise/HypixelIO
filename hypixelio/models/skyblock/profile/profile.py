@@ -29,7 +29,9 @@ class SkyblockProfile:
     def __hash__(self) -> int:
         return hash(self.profile_id)
 
-    def __eq__(self, other: "SkyblockProfile") -> bool:
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, SkyblockProfile):
+            return False
         return self.profile_id == other.profile_id
 
     def __len__(self) -> int:

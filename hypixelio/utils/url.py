@@ -1,7 +1,9 @@
 import typing as t
 
 
-def form_url(main_url: str, url: str, data: t.Optional[t.Dict[str, t.Any]] = None) -> str:
+def form_url(
+    main_url: str, url: str, data: t.Optional[t.Dict[str, t.Any]] = None
+) -> str:
     """
     Form and return the URL for the Hypixel API with GET Params.
 
@@ -24,6 +26,8 @@ def form_url(main_url: str, url: str, data: t.Optional[t.Dict[str, t.Any]] = Non
         data = {}
 
     url = main_url + url if url.startswith("/") else url
-    url += "?" + "&".join([f"{dict_key}={dict_value}" for dict_key, dict_value in data.items()])
+    url += "?" + "&".join(
+        [f"{dict_key}={dict_value}" for dict_key, dict_value in data.items()]
+    )
 
     return url

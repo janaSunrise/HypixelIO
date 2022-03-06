@@ -6,7 +6,7 @@ class SkyblockAuction:
         auction_data: dict
             The auction JSON model to be parsed.
         """
-        self.id = auction_data["_id"]
+        self.id = auction_data["_id"]  # pylint: disable=invalid-name
         self.uuid = auction_data["uuid"]
 
         self.auctioneer = auction_data["auctioneer"]
@@ -31,5 +31,7 @@ class SkyblockAuction:
     def __hash__(self) -> int:
         return hash(self.id)
 
-    def __eq__(self, other: "SkyblockAuction") -> bool:
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, SkyblockAuction):
+            return False
         return self.id == other.id

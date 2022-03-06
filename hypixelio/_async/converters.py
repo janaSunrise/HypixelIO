@@ -1,4 +1,4 @@
-__all__ = "AsyncConverters"
+__all__ = ("AsyncConverters",)
 
 import typing as t
 
@@ -13,7 +13,7 @@ class AsyncConverters:
     url = API_PATH["MOJANG"]
 
     @classmethod
-    async def _fetch(cls, url: str) -> t.Optional[dict]:
+    async def _fetch(cls, url: str) -> t.Dict[str, t.Any]:
         """
         The internal function for fetching info from the Mojang API.
 
@@ -40,8 +40,8 @@ class AsyncConverters:
 
             try:
                 json = await response.json()
-            except Exception:
-                raise MojangAPIError()
+            except Exception as exc:
+                raise MojangAPIError() from exc
             else:
                 if "error" in json:
                     raise MojangAPIError(f"An error occurred! {json['errorMessage']}")
@@ -87,5 +87,5 @@ class AsyncConverters:
         json = await AsyncConverters._fetch(
             AsyncConverters.url["uuid_to_username"].format(uuid)
         )
-
+        assert isinstance(json, list)
         return json[-1]["name"]

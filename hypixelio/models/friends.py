@@ -29,8 +29,12 @@ class FriendData:
     def __hash__(self) -> int:
         return hash((self.sender_id, self.receiver_id))
 
-    def __eq__(self, other: "FriendData") -> bool:
-        return self.receiver_id == other.receiver_id and self.sender_id == other.sender_id
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, FriendData):
+            return False
+        return (
+            self.receiver_id == other.receiver_id and self.sender_id == other.sender_id
+        )
 
 
 class Friends:
@@ -61,10 +65,11 @@ class Friends:
     def __hash__(self) -> int:
         return hash(tuple(self.friends))
 
-    def __eq__(self, other: "Friends") -> bool:
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Friends):
+            return False
         if len(self.friends) != len(other.friends):
             return False
-
         for friend in list(zip(self.friends, other.friends)):
             if friend[0].request_id != friend[1].request_id:
                 return False

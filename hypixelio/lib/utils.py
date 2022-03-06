@@ -24,12 +24,9 @@ import requests
 from requests.models import Response
 
 from ..endpoints import API_PATH
-from ..exceptions import (
-    CrafatarAPIError,
-    InvalidArgumentError,
-)
+from ..exceptions import CrafatarAPIError, InvalidArgumentError
 from ..lib.converters import Converters
-from ..utils.constants import RANKS, RANK_COLORS, TIMEOUT
+from ..utils.constants import RANK_COLORS, RANKS, TIMEOUT
 
 
 class Utils:
@@ -53,24 +50,27 @@ class Utils:
         """
         with requests.get(f"https://crafatar.com/{url}", timeout=TIMEOUT) as response:
             if response.status_code == 422:
-                raise InvalidArgumentError("Invalid URL passed. Either user does not exist, or URL is malformed.")
+                raise InvalidArgumentError(
+                    "Invalid URL passed. Either user does not exist, or URL is malformed."
+                )
 
             try:
                 return response
-            except Exception:
-                raise CrafatarAPIError()
+            except Exception as exc:
+                raise CrafatarAPIError() from exc
 
     @staticmethod
     def _filter_name_uuid(
-        name: t.Optional[str] = None, uuid: t.Optional[str] = None
+        name: t.Optional[str] = None,
+        uuid: t.Optional[str] = None,
     ) -> str:
-        if not name and not uuid:
-            raise InvalidArgumentError("Named argument for player's either username or UUID not found.")
-
-        if name:
-            uuid = Converters.username_to_uuid(name)
-
-        return uuid
+        if name is not None:
+            return Converters.username_to_uuid(name)
+        if uuid is not None:
+            return uuid
+        raise InvalidArgumentError(
+            "Named argument for player's either username or UUID not found."
+        )
 
     @classmethod
     def _form_crafatar_url(cls, route: str) -> str:
@@ -115,15 +115,15 @@ class Utils:
         """
         uuid = cls._filter_name_uuid(name, uuid)
         json = Converters._fetch(Utils.mojang_url["name_history"].format(uuid))
-
-        if changed_at:
+        assert json is not None
+        if changed_at is True:
             return json
-
-        usernames = []
-        for data in json:
-            usernames.append(data["name"])
-
-        return usernames
+        if isinstance(json, list):
+            return [data["name"] for data in json]
+        raise ValueError(
+            "How did this error happen?!?!?!?! "
+            "Please post a bug at https://github.com/janaSunrise/HypixelIO"
+        )
 
     @classmethod
     def get_avatar(
@@ -218,15 +218,15 @@ def get_increase(
     positive_stat: t.Union[int, float],
     negative_stat: t.Union[int, float],
     *,
-    amount: int = 0,
-) -> t.Union[int, float]:
+    amount: float = 0.0,
+) -> t.Union[float]:
     ratio = get_ratio(positive_stat, negative_stat)
 
     if ratio == float("inf"):
-        return 0
+        return 0.0
 
     if not bool(amount):
-        amount = (math.trunc(ratio) + 1) - ratio
+        amount = (math.trunc(ratio) + 1.0) - ratio
 
     needed = (ratio + amount) * negative_stat - positive_stat
     return round(needed)
@@ -249,11 +249,23 @@ def get_skywars_level(experience: t.Union[int, float]) -> t.Union[int, float]:
 
 
 def get_skywars_level_exact(experience: t.Union[int, float]) -> int:
-    total_xp = [20, 70, 150, 250, 500, 1000, 2000, 3500, 6000, 10000, 15000]
-    level = 0
+    total_xp: t.List[int] = [
+        20,
+        70,
+        150,
+        250,
+        500,
+        1000,
+        2000,
+        3500,
+        6000,
+        10000,
+        15000,
+    ]
+    level = 0.0
 
     if experience >= 15000:
-        level = (experience - 15000) / 10000 + 12
+        level = (experience - 15000) // 10000 + 12
     else:
         counter = 0
         while experience >= 0 and counter < len(total_xp):
@@ -261,14 +273,13 @@ def get_skywars_level_exact(experience: t.Union[int, float]) -> int:
                 counter += 1
             else:
                 level = (
-                    counter
-                    + 1  # noqa: W503
-                    + (experience - total_xp[counter - 1])  # noqa: W503
+                    (experience - total_xp[counter - 1])  # noqa: W503
                     / (total_xp[counter] - total_xp[counter - 1])  # noqa: W503
+                    + counter  # noqa: W503
+                    + 1  # noqa: W503
                 )
                 break
-
-    return level
+    return int(level)
 
 
 def get_rank(
@@ -330,22 +341,22 @@ def get_guild_level_exact(experience: int) -> t.Union[float, int]:
         2500000,
         2500000,
     ]
-    c = 0.0
+    progress = 0.0
 
-    for it in experience_below_14:
-        if it > experience:
-            level = c + round(experience / it * 100.0) / 100.0
+    for item in experience_below_14:
+        if item > experience:
+            level = progress + round(experience / item * 100.0) / 100.0
 
-        experience -= it
-        c += 1
+        experience -= item
+        progress += 1
 
         increment = 3000000
 
     while experience > increment:
-        c += 1
+        progress += 1
         experience -= increment
 
-    level = c + (round(experience / increment * 100.0) / 100.0)
+    level = progress + (round(experience / increment * 100.0) / 100.0)
     return level
 
 

@@ -4,13 +4,10 @@ import typing as t
 
 import aiohttp
 
-from .converters import AsyncConverters as Converters
 from ..endpoints import API_PATH
-from ..exceptions.exceptions import (
-    CrafatarAPIError,
-    InvalidArgumentError,
-)
+from ..exceptions.exceptions import CrafatarAPIError, InvalidArgumentError
 from ..utils.constants import TIMEOUT
+from .converters import AsyncConverters as Converters
 
 
 class Utils:
@@ -34,28 +31,31 @@ class Utils:
         """
         session = aiohttp.ClientSession()
 
-        async with session.get(f"https://crafatar.com/{url}", timeout=TIMEOUT) as response:
+        async with session.get(
+            f"https://crafatar.com/{url}", timeout=TIMEOUT
+        ) as response:
             if response.status == 422:
-                raise InvalidArgumentError("Invalid URL passed. Either user does not exist, or URL is malformed.")
+                raise InvalidArgumentError(
+                    "Invalid URL passed. Either user does not exist, or URL is malformed."
+                )
 
             try:
                 return await response.text()
-            except Exception:
-                raise CrafatarAPIError()
+            except Exception as exc:
+                raise CrafatarAPIError() from exc
 
     @staticmethod
     async def _filter_name_uuid(
-        name: t.Optional[str] = None, uuid: t.Optional[str] = None
+        name: t.Optional[str] = None,
+        uuid: t.Optional[str] = None,
     ) -> str:
-        if not name and not uuid:
-            raise InvalidArgumentError(
-                "Please provide a named argument of the player's username or player's UUID."
-            )
-
-        if name:
-            uuid = await Converters.username_to_uuid(name)
-
-        return uuid
+        if name is not None:
+            return await Converters.username_to_uuid(name)
+        if uuid is not None:
+            return uuid
+        raise InvalidArgumentError(
+            "Please provide a named argument of the player's username or player's UUID."
+        )
 
     @classmethod
     def _form_crafatar_url(cls, route: str) -> str:
@@ -80,7 +80,7 @@ class Utils:
         name: t.Optional[str] = None,
         uuid: t.Optional[str] = None,
         changed_at: bool = False,
-    ) -> t.Union[list, dict]:
+    ) -> t.Union[t.List[str], t.Dict[str, t.Any]]:
         """
         Get the name history with records for a player.
 
@@ -100,15 +100,15 @@ class Utils:
         """
         uuid = await cls._filter_name_uuid(name, uuid)
         json = await Converters._fetch(Utils.mojang_url["name_history"].format(uuid))
-
-        if changed_at:
+        assert json is not None
+        if changed_at is True:
             return json
-
-        usernames = []
-        for data in json:
-            usernames.append(data["name"])
-
-        return usernames
+        if isinstance(json, list):
+            return [data["name"] for data in json]
+        raise ValueError(
+            "How did this error happen?!?!?!?! "
+            "Please post a bug at https://github.com/janaSunrise/HypixelIO"
+        )
 
     @classmethod
     async def get_avatar(

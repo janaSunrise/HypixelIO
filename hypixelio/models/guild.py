@@ -37,5 +37,7 @@ class Guild:
     def __hash__(self) -> int:
         return hash(self.hypixel_id)
 
-    def __eq__(self, other: "Guild") -> bool:
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Guild):
+            return False
         return self.hypixel_id == other.name
