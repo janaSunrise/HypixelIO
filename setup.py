@@ -52,6 +52,7 @@ setuptools.setup(
 
     # Packages in the project
     packages=setuptools.find_packages(exclude=["tests", "tests.*", "tools", "tools.*"]),
+    package_data={"hypixelio": ["py.typed"]},
 
     # Dependencies for the package
     install_requires=[

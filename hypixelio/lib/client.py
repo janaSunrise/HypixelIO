@@ -2,10 +2,15 @@ __all__ = ("Client",)
 
 import random
 import typing as t
+from types import TracebackType
 
 import requests
 
 from ..base import BaseClient
+from ..constants import (
+    HYPIXEL_API,
+    TIMEOUT,
+)
 from ..exceptions import (
     GuildNotFoundError,
     HypixelAPIError,
@@ -27,11 +32,7 @@ from ..models.skyblock import (
     SkyblockActiveAuction, SkyblockBazaar, SkyblockNews, SkyblockProfile, SkyblockUserAuction
 )
 from ..models.watchdog import Watchdog
-from ..utils.constants import (
-    HYPIXEL_API,
-    TIMEOUT,
-)
-from ..utils.url import form_url
+from ..utils import form_url
 
 
 class Client(BaseClient):
@@ -121,6 +122,19 @@ class Client(BaseClient):
 
                 return json
 
+    # Context manager
+    def __enter__(self) -> "Client":
+        return self
+
+    def __exit__(
+        self,
+        exc_type: t.Optional[t.Type[BaseException]],
+        exc_val: t.Optional[BaseException],
+        exc_tb: t.Optional[TracebackType],
+    ) -> None:
+        pass
+
+    # Hypixel API endpoint methods.
     def get_key_info(self, api_key: t.Optional[str] = None) -> Key:
         """
         Get info about a specific Hypixel API key.

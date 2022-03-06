@@ -1,6 +1,6 @@
 import typing as t
 
-from hypixelio.utils.time import unix_time_to_datetime
+from hypixelio.utils import unix_time_to_datetime
 
 
 class RecentGameInfo:
