@@ -14,7 +14,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Import modules directly instead of namespacing them (Saves lookup time.)
 - Add news, skyblock skills and skyblock collection endpoints.
 
-
 ## [1.3.0](https://github.com/janaSunrise/HypixelIO/releases/tag/v1.3.0) - 23-07-2021
 
 ## Added
