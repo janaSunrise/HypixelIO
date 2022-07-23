@@ -63,8 +63,9 @@ class AsyncConverters:
         str
             returns the converted UUID for the respective username.
         """
-        json = await AsyncConverters._fetch(
-            AsyncConverters.url["username_to_uuid"].format(username)
+        json = t.cast(
+            t.Dict[str, t.Any],
+            await AsyncConverters._fetch(AsyncConverters.url["username_to_uuid"].format(username))
         )
 
         return json["id"]

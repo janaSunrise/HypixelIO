@@ -61,7 +61,10 @@ class Converters:
         str
             returns the converted UUID for the respective username.
         """
-        json = Converters._fetch(Converters.url["username_to_uuid"].format(username))
+        json = t.cast(
+            t.Dict[str, t.Any],
+            Converters._fetch(Converters.url["username_to_uuid"].format(username))
+        )
 
         return json["id"]
 

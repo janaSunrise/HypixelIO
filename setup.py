@@ -16,7 +16,7 @@ VERSION = re.search(
     r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
     Path(BASE_DIR / "hypixelio/__init__.py").read_text(),
     re.MULTILINE,
-).group(1)
+).group(1)  # type: ignore
 
 # Version error
 if not VERSION:

@@ -1,12 +1,13 @@
 import os
 import unittest
+from typing import cast
 
 from hypixelio import Client
 from hypixelio.exceptions import HypixelAPIError, PlayerNotFoundError
 from hypixelio.models.player import Player
 from tests.mock_data.player_data import PLAYER_MOCK
 
-API_KEY = os.getenv("HYPIXEL_KEY")
+API_KEY = cast(str, os.getenv("HYPIXEL_KEY"))
 
 if not API_KEY:
     raise Exception("Please set the HYPIXEL_KEY environment variable.")

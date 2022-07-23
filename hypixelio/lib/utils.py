@@ -45,9 +45,10 @@ class Utils:
 
     @staticmethod
     def _filter_name_uuid(
-        name: t.Optional[str] = None, uuid: t.Optional[str] = None
+        name: t.Optional[str] = None,
+        uuid: t.Optional[str] = None
     ) -> str:
-        if not name and not uuid:
+        if name is None and uuid is None:
             raise InvalidArgumentError("Named argument for player's either username or UUID not found.")
 
         if name:

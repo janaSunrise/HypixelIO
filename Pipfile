@@ -24,6 +24,6 @@ sphinx-rtd-theme = "==1.0.0"
 hypixelio = {editable = true, extras = ["all"], path = "."}
 
 [scripts]
-lint = "pre-commit run --all-files"
 precommit = "pre-commit install"
+lint = "pre-commit run --all-files"
 tests = "python -m unittest"
