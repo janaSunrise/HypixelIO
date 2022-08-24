@@ -102,7 +102,7 @@ class Client(BaseClient):
 
             # 429 Code handle
             if response.status_code == 429:
-                self._handle_ratelimit(response.headers)
+                self._handle_ratelimit(t.cast(dict, response.headers))
 
             # 403 Code handle
             if response.status_code == 403:
@@ -110,7 +110,7 @@ class Client(BaseClient):
 
             # Ratelimit handling
             if api_key and "RateLimit-Limit" in response.headers:
-                self._update_ratelimit(response.headers)
+                self._update_ratelimit(t.cast(dict, response.headers))
 
             try:
                 json = response.json()

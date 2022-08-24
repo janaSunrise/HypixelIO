@@ -54,7 +54,7 @@ class Utils:
         if name:
             uuid = Converters.username_to_uuid(name)
 
-        return uuid
+        return uuid  # type: ignore
 
     @classmethod
     def _form_crafatar_url(cls, route: str) -> str:

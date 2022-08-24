@@ -6,7 +6,7 @@ import typing as t
 
 
 class Portal:
-    def __init__(self, stop_event: t.Any) -> None:
+    def __init__(self, stop_event: asyncio.Event) -> None:
         """
         The portal for async to sync conversion.
 
@@ -19,7 +19,7 @@ class Portal:
         self.stop_event = stop_event
 
     @staticmethod
-    async def _call(fn: t.Callable, args: t.Any, kwargs: t.Any) -> t.Any:
+    async def _call(fn: t.Callable, args: t.Any, kwargs: t.Any) -> t.Any:  # noqa: F401
         """
         Call the coroutine.
 
@@ -49,7 +49,7 @@ class Portal:
         """
         self.stop_event.set()
 
-    def call(self, fn: t.Callable, *args, **kwargs) -> t.Any:
+    def call(self, fn: t.Callable, *args, **kwargs) -> t.Any:  # noqa: F401
         """
         Call the coroutine.
 
@@ -76,7 +76,7 @@ class Portal:
         return self.call(self._stop)
 
 
-def create_portal() -> t.Any:
+def create_portal() -> t.Optional[Portal]:
     """
     Create the portal object with function initialized.
 
@@ -109,18 +109,20 @@ def create_portal() -> t.Any:
         nonlocal portal
 
         stop_event = asyncio.Event()
-
         portal = Portal(stop_event)
+
         running_event.set()
 
         await stop_event.wait()
 
-    def run() -> t.Any:
+    def run() -> None:
         asyncio.run(wait_stop())
 
     running_event = threading.Event()
+
     thread = threading.Thread(target=run)
     thread.start()
+
     running_event.wait()
 
     return portal

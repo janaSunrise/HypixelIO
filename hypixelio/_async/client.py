@@ -112,14 +112,14 @@ class AsyncClient(BaseClient):
 
                 # 429 status code handling
                 if response.status == 429:
-                    self._handle_ratelimit(response.headers)
+                    self._handle_ratelimit(t.cast(dict, response.headers))
 
                 # 403 Status code handling
                 if response.status == 403:
                     raise HypixelAPIError("Invalid key specified!")
 
                 if api_key and "RateLimit-Limit" in response.headers:
-                    self._update_ratelimit(response.headers)
+                    self._update_ratelimit(t.cast(dict, response.headers))
 
                 try:
                     json = await response.json()

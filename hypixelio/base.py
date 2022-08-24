@@ -36,7 +36,7 @@ class BaseClient:
                f"{self.total_requests} retry_after={self.retry_after}>"
 
     # Utility to update ratelimiting variables
-    def _update_ratelimit(self, resp_headers: t.Any) -> None:  # Typing for resp_headers is dict and CaseInsensitiveDict
+    def _update_ratelimit(self, resp_headers: t.Dict[str, t.Any]) -> None:
         if "RateLimit-Limit" in resp_headers:
             if self.total_requests == 0:
                 self.total_requests = int(resp_headers["RateLimit-Limit"])
@@ -53,14 +53,14 @@ class BaseClient:
 
         return is_ratelimit_hit
 
-    # Utility to handle status code 429 [Ratelimit]
-    def _handle_ratelimit(self, resp_headers: t.Any) -> None:  # Typing for resp_headers is dict and CaseInsensitiveDict
+    # Handle ratelimitiing
+    def _handle_ratelimit(self, resp_headers: t.Dict[str, t.Any]) -> None:
         self.requests_remaining = 0
         self.retry_after = datetime.now() + timedelta(seconds=int(resp_headers["Retry-After"]))
 
         raise RateLimitError(self.retry_after)
 
-    # Utility to handle raising error if API response is not successful.
+    # Handle raising error if API response is not successful.
     @staticmethod
     def _handle_api_failure(json: t.Dict[str, t.Any]) -> None:
         raise HypixelAPIError(reason=json["cause"])
@@ -76,7 +76,7 @@ class BaseClient:
         if name:
             uuid = Converters.username_to_uuid(name)
 
-        return uuid
+        return uuid  # type: ignore
 
     # Utility for keys
     def add_key(self, api_key: t.Union[str, list]) -> None:
