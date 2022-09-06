@@ -16,7 +16,7 @@ flake8-tidy-imports = "~=4.8.0"
 pep8-naming = "~=0.13.2"
 pyright = "~=1.1.260"
 pre-commit = "~=2.20.0"
-ipython = "~=8.4.0"
+ipython = "~=8.5.0"
 # Dependencies for documentation
 recommonmark = "~=0.7.1"
 myst-parser = "~=0.18.0"
