@@ -14,7 +14,7 @@ flake8-bugbear = "~=22.8.23"
 flake8-import-order = "~=0.18.1"
 flake8-tidy-imports = "~=4.8.0"
 pep8-naming = "~=0.13.2"
-pyright = "~=1.1.260"
+pyright = "~=1.1.291"
 pre-commit = "~=2.20.0"
 ipython = "~=8.5.0"
 # Dependencies for documentation
