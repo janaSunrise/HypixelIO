@@ -17,5 +17,5 @@ PLAYER_MOCK = {
     "mcVersionRp": "1.8.9",
     "petStats": {},
     "currentGadget": "Dummy thingy",
-    "rank": None
+    "rank": None,
 }

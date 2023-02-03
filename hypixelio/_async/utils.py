@@ -7,10 +7,7 @@ import aiohttp
 from .converters import AsyncConverters as Converters
 from ..constants import TIMEOUT
 from ..endpoints import API_PATH
-from ..exceptions.exceptions import (
-    CrafatarAPIError,
-    InvalidArgumentError,
-)
+from ..exceptions.exceptions import CrafatarAPIError, InvalidArgumentError
 
 
 class Utils:
@@ -34,9 +31,13 @@ class Utils:
         """
         session = aiohttp.ClientSession()
 
-        async with session.get(f"https://crafatar.com/{url}", timeout=TIMEOUT) as response:
+        async with session.get(
+            f"https://crafatar.com/{url}", timeout=TIMEOUT
+        ) as response:
             if response.status == 422:
-                raise InvalidArgumentError("Invalid URL passed. Either user does not exist, or URL is malformed.")
+                raise InvalidArgumentError(
+                    "Invalid URL passed. Either user does not exist, or URL is malformed."
+                )
 
             try:
                 return await response.text()

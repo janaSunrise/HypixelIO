@@ -1,18 +1,19 @@
 import math
 import re
-import typing as t
 from datetime import datetime
+from typing import Any, Dict, Optional, Union
 
 from .constants import RANKS, RANK_COLORS
 
 
-# Form URL
-def form_url(main_url: str, url: str, data: t.Optional[t.Dict[str, t.Any]] = None) -> str:
+def form_url(main_url: str, url: str, data: Optional[Dict[str, Any]] = None) -> str:
     if not data:
         data = {}
 
     url = main_url + url if url.startswith("/") else url
-    url += "?" + "&".join([f"{dict_key}={dict_value}" for dict_key, dict_value in data.items()])
+    url += "?" + "&".join(
+        [f"{dict_key}={dict_value}" for dict_key, dict_value in data.items()]
+    )
 
     return url
 
@@ -24,8 +25,8 @@ def unix_time_to_datetime(unix_time: int) -> datetime:
 
 # Other useful functions
 def get_ratio(
-    positive_stat: t.Union[int, float], negative_stat: t.Union[int, float]
-) -> t.Union[int, float]:
+    positive_stat: Union[int, float], negative_stat: Union[int, float]
+) -> Union[int, float]:
     try:
         ratio = positive_stat / negative_stat
         return round(ratio, 2)
@@ -33,31 +34,31 @@ def get_ratio(
         return float("inf") if positive_stat > 0 else 0
 
 
-def get_ratio_next(ratio: t.Union[int, float]) -> t.Union[int, float]:
+def get_ratio_next(ratio: Union[int, float]) -> Union[int, float]:
     if ratio == float("inf"):
         return ratio
     return math.trunc(ratio) + 1
 
 
-def get_level_percentage(level: float) -> t.Union[int, float]:
+def get_level_percentage(level: float) -> Union[int, float]:
     return round((level - math.trunc(level)) * 100, 2)
 
 
-def get_network_level(experience: t.Union[int, float]) -> t.Union[int, float]:
+def get_network_level(experience: Union[int, float]) -> Union[int, float]:
     return math.trunc(get_network_level_exact(experience))
 
 
-def get_network_level_exact(experience: t.Union[int, float]) -> t.Union[int, float]:
+def get_network_level_exact(experience: Union[int, float]) -> Union[int, float]:
     return (math.sqrt(experience + 15312.5) - 88.38834764831843) / 35.35533905932738
 
 
 def get_rank(
-    rank: t.Optional[str] = None,
-    prefix_raw: t.Optional[str] = None,
-    monthly_package_rank: t.Optional[str] = None,
-    new_package_rank: t.Optional[str] = None,
-    package_rank: t.Optional[str] = None,
-) -> t.Optional[str]:
+    rank: Optional[str] = None,
+    prefix_raw: Optional[str] = None,
+    monthly_package_rank: Optional[str] = None,
+    new_package_rank: Optional[str] = None,
+    package_rank: Optional[str] = None,
+) -> Optional[str]:
     real_rank = None
 
     if prefix_raw:

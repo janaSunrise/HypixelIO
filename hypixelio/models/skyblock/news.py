@@ -20,12 +20,19 @@ class SkyblockNews:
         news = []
 
         for news_data in data["items"]:
-            news.append(NewsItem(news_data["title"], news_data["text"], news_data["link"], news_data["item"]))
+            news.append(
+                NewsItem(
+                    news_data["title"],
+                    news_data["text"],
+                    news_data["link"],
+                    news_data["item"],
+                )
+            )
 
         self.news = news
 
     def __repr__(self) -> str:
-        return f'<{self.__class__.__qualname__} news_amount={len(self.news)}>'
+        return f"<{self.__class__.__qualname__} news_amount={len(self.news)}>"
 
     def __len__(self) -> int:
         return len(self.news)

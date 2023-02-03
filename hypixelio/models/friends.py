@@ -30,7 +30,9 @@ class FriendData:
         return hash((self.sender_id, self.receiver_id))
 
     def __eq__(self, other: "FriendData") -> bool:
-        return self.receiver_id == other.receiver_id and self.sender_id == other.sender_id
+        return (
+            self.receiver_id == other.receiver_id and self.sender_id == other.sender_id
+        )
 
 
 class Friends:

@@ -1,8 +1,7 @@
 import typing as t
 from dataclasses import dataclass
 
-from hypixelio.utils import get_rank
-from hypixelio.utils import unix_time_to_datetime
+from hypixelio.utils import get_rank, unix_time_to_datetime
 
 
 @dataclass
@@ -70,13 +69,15 @@ class Player:
         self.pet_stats = data.get("petStats")
         self.current_gadget = data.get("currentGadget")
 
-        self.social_media = PlayerSocialMedia.from_json(data.get("socialMedia", {}).get("links"))
+        self.social_media = PlayerSocialMedia.from_json(
+            data.get("socialMedia", {}).get("links")
+        )
 
         self.rank = self._get_rank(data)
 
     @staticmethod
     def _calc_player_level(xp: t.Union[float, int]) -> float:
-        return 1 + (-8750.0 + (8750 ** 2 + 5000 * xp) ** 0.5) / 2500
+        return 1 + (-8750.0 + (8750**2 + 5000 * xp) ** 0.5) / 2500
 
     @staticmethod
     def _get_rank(data: dict) -> t.Optional[str]:

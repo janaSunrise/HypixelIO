@@ -42,11 +42,7 @@ extlinks = {
     "issue": ("https://github.com/janaSunrise/HypixelIO/issues/%s", "GH-"),
 }
 
-source_suffix = {
-    ".rst": "restructuredtext",
-    ".md": "markdown",
-    ".txt": "markdown"
-}
+source_suffix = {".rst": "restructuredtext", ".md": "markdown", ".txt": "markdown"}
 
 master_doc = "index"
 

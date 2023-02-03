@@ -65,7 +65,9 @@ class AsyncConverters:
         """
         json = t.cast(
             t.Dict[str, t.Any],
-            await AsyncConverters._fetch(AsyncConverters.url["username_to_uuid"].format(username))
+            await AsyncConverters._fetch(
+                AsyncConverters.url["username_to_uuid"].format(username)
+            ),
         )
 
         return json["id"]

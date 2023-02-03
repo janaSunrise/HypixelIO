@@ -8,10 +8,7 @@ from requests.models import Response
 
 from ..constants import TIMEOUT
 from ..endpoints import API_PATH
-from ..exceptions import (
-    CrafatarAPIError,
-    InvalidArgumentError,
-)
+from ..exceptions import CrafatarAPIError, InvalidArgumentError
 from ..lib.converters import Converters
 
 
@@ -36,7 +33,9 @@ class Utils:
         """
         with requests.get(f"https://crafatar.com/{url}", timeout=TIMEOUT) as response:
             if response.status_code == 422:
-                raise InvalidArgumentError("Invalid URL passed. Either user does not exist, or URL is malformed.")
+                raise InvalidArgumentError(
+                    "Invalid URL passed. Either user does not exist, or URL is malformed."
+                )
 
             try:
                 return response
@@ -45,11 +44,12 @@ class Utils:
 
     @staticmethod
     def _filter_name_uuid(
-        name: t.Optional[str] = None,
-        uuid: t.Optional[str] = None
+        name: t.Optional[str] = None, uuid: t.Optional[str] = None
     ) -> str:
         if name is None and uuid is None:
-            raise InvalidArgumentError("Named argument for player's either username or UUID not found.")
+            raise InvalidArgumentError(
+                "Named argument for player's either username or UUID not found."
+            )
 
         if name:
             uuid = Converters.username_to_uuid(name)

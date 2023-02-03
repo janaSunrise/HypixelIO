@@ -27,7 +27,7 @@ class Converters:
         t.Union[dict, list]
             The JSON response from the Mojang API.
         """
-        with requests.get(f"{MOJANG_API}{url}", timeout=TIMEOUT) as response:
+        with requests.get(MOJANG_API + url, timeout=TIMEOUT) as response:
             if response.status_code == 204:
                 raise PlayerNotFoundError(
                     "Error code 204 returned during conversion to UUID.", None
@@ -63,7 +63,7 @@ class Converters:
         """
         json = t.cast(
             t.Dict[str, t.Any],
-            Converters._fetch(Converters.url["username_to_uuid"].format(username))
+            Converters._fetch(Converters.url["username_to_uuid"].format(username)),
         )
 
         return json["id"]

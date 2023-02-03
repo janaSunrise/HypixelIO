@@ -15,6 +15,7 @@ from datetime import datetime
 
 class InvalidArgumentError(Exception):
     """Raised when invalid argument is present, or no argument is specified."""
+
     ...
 
 
@@ -90,8 +91,10 @@ class RateLimitError(Exception):
         retry_after: datetime
             The time when the API will be available again for fetching.
         """
-        error = "The rate-limit for the Hypixel API was hit. Try again after" \
-                f"{retry_after.strftime('%Y-%m-%d %H:%M:%S')}."
+        error = (
+            "The rate-limit for the Hypixel API was hit. Try again after"
+            f"{retry_after.strftime('%Y-%m-%d %H:%M:%S')}."
+        )
 
         super().__init__(error)
         self.error = error
@@ -104,7 +107,9 @@ class RateLimitError(Exception):
 class PlayerNotFoundError(Exception):
     """Raised when the specified player is not found."""
 
-    def __init__(self, reason: t.Optional[str] = None, user: t.Optional[str] = None) -> None:
+    def __init__(
+        self, reason: t.Optional[str] = None, user: t.Optional[str] = None
+    ) -> None:
         """
         Parameters
         ----------
