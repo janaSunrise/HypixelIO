@@ -25,7 +25,7 @@ if not VERSION:
     raise RuntimeError("VERSION is not set.")
 
 # Dependencies configuration
-extras_require = {"speedups": ["aiodns>=1.1", "Brotli==1.0.9", "cchardet==2.1.7"]}
+extras_require = {"speedups": ["aiodns==3.0.0", "Brotli==1.0.9", "cchardet==2.1.7"]}
 extras_require["all"] = list(chain.from_iterable(extras_require.values()))
 
 # Main setup

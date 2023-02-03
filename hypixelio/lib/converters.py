@@ -1,6 +1,6 @@
 __all__ = ("Converters",)
 
-import typing as t
+from typing import Any, Dict, Union, cast
 
 import requests
 
@@ -13,7 +13,7 @@ class Converters:
     url = API_PATH["MOJANG"]
 
     @classmethod
-    def _fetch(cls, url: str) -> t.Union[dict, list]:
+    def _fetch(cls, url: str) -> Union[dict, list]:
         """
         The internal function for fetching info from the Mojang API.
 
@@ -24,7 +24,7 @@ class Converters:
 
         Returns
         -------
-        t.Union[dict, list]
+        Union[dict, list]
             The JSON response from the Mojang API.
         """
         with requests.get(MOJANG_API + url, timeout=TIMEOUT) as response:
@@ -61,8 +61,8 @@ class Converters:
         str
             returns the converted UUID for the respective username.
         """
-        json = t.cast(
-            t.Dict[str, t.Any],
+        json = cast(
+            Dict[str, Any],
             Converters._fetch(Converters.url["username_to_uuid"].format(username)),
         )
 
@@ -71,7 +71,7 @@ class Converters:
     @classmethod
     def uuid_to_username(cls, uuid: str) -> str:
         """
-        Method to convert the UUID for your profile to the username for your Minecraft account.
+        Method to convert the UUID for your profile to the username for your Minecraft accoun
 
         Parameters
         ----------

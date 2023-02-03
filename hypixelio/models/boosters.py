@@ -1,10 +1,10 @@
-import typing as t
+from typing import Any, Dict, Iterator, List
 
 from hypixelio.utils import unix_time_to_datetime
 
 
 class BoosterInfo:
-    def __init__(self, info: dict) -> None:
+    def __init__(self, info: Dict[str, Any]) -> None:
         """
         Parameters
         ----------
@@ -37,7 +37,7 @@ class BoosterInfo:
 
 
 class Boosters:
-    def __init__(self, boosters: list, json: dict) -> None:
+    def __init__(self, boosters: List[Dict[str, Any]], json: Dict[str, Any]) -> None:
         """
         Parameters
         ----------
@@ -62,7 +62,7 @@ class Boosters:
     def __setitem__(self, key: int, value: BoosterInfo) -> None:
         self.boosters[key] = value
 
-    def __iter__(self) -> t.Iterator:
+    def __iter__(self) -> Iterator:
         return iter(self.boosters)
 
     def __eq__(self, other: "Boosters") -> bool:
