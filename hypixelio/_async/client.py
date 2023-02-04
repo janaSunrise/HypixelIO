@@ -2,11 +2,19 @@ __all__ = ("AsyncClient",)
 
 import asyncio
 import random
-import typing as t
 from types import TracebackType
+from typing import (
+    Any,
+    Dict,
+    Optional,
+    Type,
+    Union,
+    cast
+)
 
 import aiohttp
 
+from .converters import AsyncConverters
 from ..base import BaseClient
 from ..constants import HYPIXEL_API, TIMEOUT
 from ..exceptions import (
@@ -56,16 +64,16 @@ class AsyncClient(BaseClient):
         >>> client = AsyncClient(api_key=["123-456", "789-000", "568-908"])
     """
 
-    def __init__(self, api_key: t.Union[str, list]) -> None:
+    def __init__(self, api_key: Union[str, list]) -> None:
         """
         Parameters
         ----------
-        api_key: t.Union[str, list]
+        api_key: Union[str, list]
             The API key generated in Hypixel server using the `/api new` command.
         """
         super().__init__(api_key)
 
-        self._session: t.Optional[aiohttp.ClientSession] = None
+        self._session: Optional[aiohttp.ClientSession] = None
         self._lock = asyncio.Lock()
 
     async def close(self) -> None:
@@ -76,7 +84,7 @@ class AsyncClient(BaseClient):
     async def _fetch(
         self,
         url: str,
-        data: t.Optional[t.Dict[str, t.Any]] = None,
+        data: Optional[Dict[str, Any]] = None,
         api_key: bool = True,
     ) -> dict:
         """
@@ -87,14 +95,14 @@ class AsyncClient(BaseClient):
         ----------
         url: str
             The URL to be accessed from the API root URL.
-        data: t.Optional[dict]
+        data: Optional[dict]
             The GET Request's Key-Value Pair. Example: {"uuid": "abc"} is converted to `?uuid=abc`. Defaults to None.
         api_key: bool
-            If key is needed for the endpoint.
+            If key is needed for the endpoin
 
         Returns
         -------
-        t.Tuple[dict, bool]
+        Tuple[dict, bool]
             The JSON response obtained after fetching the API, along with success value in the response.
         """
         if not self._session:
@@ -119,18 +127,18 @@ class AsyncClient(BaseClient):
             ) as response:
                 # 404 handling
                 if response.status == 429:
-                    raise HypixelAPIError("The route specified does not exist.")
+                    raise HypixelAPIError("The route specified does not exis")
 
                 # 429 status code handling
                 if response.status == 429:
-                    self._handle_ratelimit(t.cast(dict, response.headers))
+                    self._handle_ratelimit(cast(dict, response.headers))
 
                 # 403 Status code handling
                 if response.status == 403:
                     raise HypixelAPIError("Invalid key specified!")
 
                 if api_key and "RateLimit-Limit" in response.headers:
-                    self._update_ratelimit(t.cast(dict, response.headers))
+                    self._update_ratelimit(cast(dict, response.headers))
 
                 try:
                     json = await response.json()
@@ -141,6 +149,18 @@ class AsyncClient(BaseClient):
                         self._handle_api_failure(json)
 
                     return json
+
+    @staticmethod
+    async def _filter_name_uuid(name: Optional[str] = None, uuid: Optional[str] = None) -> str:
+        if not name and not uuid:
+            raise InvalidArgumentError(
+                "Named argument for player's either username or UUID not found."
+            )
+
+        if name:
+            uuid = await AsyncConverters.username_to_uuid(name)
+
+        return uuid  # type: ignore
 
     # Context managers
     async def __aenter__(self) -> "AsyncClient":
@@ -153,21 +173,21 @@ class AsyncClient(BaseClient):
 
     async def __aexit__(
         self,
-        exc_type: t.Optional[t.Type[BaseException]],
-        exc_val: t.Optional[BaseException],
-        exc_tb: t.Optional[TracebackType],
+        exc_type: Optional[Type[BaseException]],
+        exc_val: Optional[BaseException],
+        exc_tb: Optional[TracebackType],
     ) -> None:
         if self._session is not None:
             await self._session.__aexit__(exc_type, exc_val, exc_tb)
 
     # Hypixel API endpoint methods
-    async def get_key_info(self, api_key: t.Optional[str] = None) -> Key:
+    async def get_key_info(self, api_key: Optional[str] = None) -> Key:
         """
         Get info about a specific Hypixel API key.
 
         Parameters
         ----------
-        api_key: t.Optional[str]
+        api_key: Optional[str]
             The API key generated in Hypixel server using the `/api new` command. Defaults to pre-specified keys.
 
         Returns
@@ -195,16 +215,16 @@ class AsyncClient(BaseClient):
         return Boosters(json["boosters"], json)
 
     async def get_player(
-        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+        self, name: Optional[str] = None, uuid: Optional[str] = None
     ) -> Player:
         """
         Get all info about a Hypixel player using his username or his player UUID.
 
         Parameters
         ----------
-        name: t.Optional[str]
+        name: Optional[str]
             The Optional string value for the Username. Defaults to None.
-        uuid: t.Optional[str]
+        uuid: Optional[str]
             The Optional string Value to the UUID. Defaults to None.
 
         Returns
@@ -212,7 +232,7 @@ class AsyncClient(BaseClient):
         Player
             The player object with all the info obtained from the API.
         """
-        uuid = self._filter_name_uuid(name, uuid)
+        uuid = await self._filter_name_uuid(name, uuid)
         json = await self._fetch(self.url["player"], {"uuid": uuid})
 
         if not json["player"]:
@@ -221,16 +241,16 @@ class AsyncClient(BaseClient):
         return Player(json["player"])
 
     async def get_friends(
-        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+        self, name: Optional[str] = None, uuid: Optional[str] = None
     ) -> Friends:
         """
         Get the friends, and all their info of specified Hypixel player.
 
         Parameters
         ----------
-        name: t.Optional[str]
+        name: Optional[str]
             The Optional string value for the Username of a hypixel player. Defaults to None.
-        uuid: t.Optional[str]
+        uuid: Optional[str]
             The UUID of a Certain Hypixel Player. Defaults to None.
 
         Returns
@@ -238,7 +258,7 @@ class AsyncClient(BaseClient):
         Friends
             The Friend object with all info from the API.
         """
-        uuid = self._filter_name_uuid(name, uuid)
+        uuid = await self._filter_name_uuid(name, uuid)
         json = await self._fetch(self.url["friends"], {"uuid": uuid})
 
         return Friends(json["records"])
@@ -257,16 +277,16 @@ class AsyncClient(BaseClient):
         return Watchdog(json)
 
     async def get_guild(
-        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+        self, name: Optional[str] = None, uuid: Optional[str] = None
     ) -> Guild:
         """
         Get info about a specific Hypixel guild using the Name, or the Guild's UUID.
 
         Parameters
         ----------
-        name: t.Optional[str]
+        name: Optional[str]
             The Name of the Guild. Defaults to None.
-        uuid: t.Optional[str]
+        uuid: Optional[str]
             The ID Of the guild. Defaults to None.
 
         Returns
@@ -315,16 +335,16 @@ class AsyncClient(BaseClient):
         return Leaderboard(json["leaderboards"])
 
     async def find_guild(
-        self, guild_name: t.Optional[str] = None, player_uuid: t.Optional[str] = None
+        self, guild_name: Optional[str] = None, player_uuid: Optional[str] = None
     ) -> FindGuild:
         """
         Find a guild using the Guild's name or a Player's UUID.
 
         Parameters
         ----------
-        guild_name: t.Optional[str]
+        guild_name: Optional[str]
             The name of the Guild. Defaults to None.
-        player_uuid: t.Optional[str]
+        player_uuid: Optional[str]
             The UUID of the Player to find his guild. Defaults to None.
 
         Returns
@@ -344,16 +364,16 @@ class AsyncClient(BaseClient):
         return FindGuild(json)
 
     async def get_player_status(
-        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+        self, name: Optional[str] = None, uuid: Optional[str] = None
     ) -> PlayerStatus:
         """
         Get the status about a Player using his username or UUID.
 
         Parameters
         ----------
-        name: t.Optional[str]
+        name: Optional[str]
             The Optional string value for the Username. Defaults to None.
-        uuid: t.Optional[str]
+        uuid: Optional[str]
             The Optional string Value to the UUID. Defaults to None.
 
         Returns
@@ -361,22 +381,22 @@ class AsyncClient(BaseClient):
         PlayerStatus
             The Player status object consisting of all info from the API.
         """
-        uuid = self._filter_name_uuid(name, uuid)
+        uuid = await self._filter_name_uuid(name, uuid)
         json = await self._fetch(self.url["status"], {"uuid": uuid})
 
         return PlayerStatus(json)
 
     async def get_player_recent_games(
-        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+        self, name: Optional[str] = None, uuid: Optional[str] = None
     ) -> RecentGames:
         """
         Get the recent games played by a Hypixel player using his Username or UUID.
 
         Parameters
         ----------
-        name: t.Optional[str]
+        name: Optional[str]
             The Optional string value for the Username. Defaults to None.
-        uuid: t.Optional[str]
+        uuid: Optional[str]
             The Optional string Value to the UUID. Defaults to None.
 
         Returns
@@ -384,7 +404,7 @@ class AsyncClient(BaseClient):
         RecentGames
             The recent games for the respective player specified.
         """
-        uuid = self._filter_name_uuid(name, uuid)
+        uuid = await self._filter_name_uuid(name, uuid)
         json = await self._fetch(self.url["recent_games"], {"uuid": uuid})
 
         return RecentGames(json)
@@ -395,16 +415,16 @@ class AsyncClient(BaseClient):
         return SkyblockNews(json)
 
     async def get_skyblock_profile(
-        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+        self, name: Optional[str] = None, uuid: Optional[str] = None
     ) -> SkyblockProfile:
         """
         Get the skyblock information and profile about a specific user as passed in the requirements.
 
         Parameters
         ----------
-        name: t.Optional[str]
+        name: Optional[str]
             The player's name in Hypixel
-        uuid: t.Optional[str]
+        uuid: Optional[str]
             The player's global UUID
 
         Returns
@@ -412,7 +432,7 @@ class AsyncClient(BaseClient):
         SkyblockProfile
             The skyblock profile model for the specified user.
         """
-        uuid = self._filter_name_uuid(name, uuid)
+        uuid = await self._filter_name_uuid(name, uuid)
         json = await self._fetch(self.url["skyblock_profile"], {"profile": uuid})
 
         if not json["profile"]:
@@ -421,16 +441,16 @@ class AsyncClient(BaseClient):
         return SkyblockProfile(json)
 
     async def get_skyblock_user_auctions(
-        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+        self, name: Optional[str] = None, uuid: Optional[str] = None
     ) -> SkyblockUserAuction:
         """
         Get the skyblock auction info about a specific user.
 
         Parameters
         ----------
-        name: t.Optional[str]
+        name: Optional[str]
             The player's name in Hypixel
-        uuid: t.Optional[str]
+        uuid: Optional[str]
             The player's global UUID
 
         Returns
@@ -438,7 +458,7 @@ class AsyncClient(BaseClient):
         SkyblockUserAuction
             The skyblock auction model for the user.
         """
-        uuid = self._filter_name_uuid(name, uuid)
+        uuid = await self._filter_name_uuid(name, uuid)
         json = await self._fetch(self.url["skyblock_auctions"], {"profile": uuid})
 
         if not json["auctions"]:
@@ -472,7 +492,7 @@ class AsyncClient(BaseClient):
         Returns
         -------
         SkyblockBazaar
-            The bazaar model object representing each product.
+            The bazaar model object representing each produc
         """
         json = await self._fetch(self.url["skyblock_bazaar"])
         return SkyblockBazaar(json)

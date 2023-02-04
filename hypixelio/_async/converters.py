@@ -6,7 +6,7 @@ import aiohttp
 
 from ..constants import MOJANG_API, TIMEOUT
 from ..endpoints import API_PATH
-from ..exceptions.exceptions import MojangAPIError, PlayerNotFoundError
+from ..exceptions import MojangAPIError, PlayerNotFoundError
 
 
 class AsyncConverters:

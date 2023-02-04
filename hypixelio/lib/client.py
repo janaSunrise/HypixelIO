@@ -1,13 +1,14 @@
 __all__ = ("Client",)
 
 import random
-import typing as t
 from types import TracebackType
+from typing import Any, Dict, Optional, Type, Union, cast
 
 import requests
 
+from .converters import Converters
 from ..base import BaseClient
-from ..constants import HYPIXEL_API, TIMEOUT
+from ..constants import DEFAULT_HEADERS, HYPIXEL_API, TIMEOUT
 from ..exceptions import (
     GuildNotFoundError,
     HypixelAPIError,
@@ -52,21 +53,25 @@ class Client(BaseClient):
         >>> client = hypixelio.Client(api_key=["123-456", "789-000", "568-908"])
     """
 
-    def __init__(self, api_key: t.Union[str, list]) -> None:
+    def __init__(self, api_key: Union[str, list]) -> None:
         """
         Parameters
         ----------
-        api_key: t.Union[str, list]
+        api_key: Union[str, list]
             The API key generated in Hypixel server using the `/api new` command.
         """
         super().__init__(api_key)
 
+        self._session = requests.Session()
+        self._session.headers.update(DEFAULT_HEADERS)
+
     def _fetch(
         self,
         url: str,
-        data: t.Optional[t.Dict[str, t.Any]] = None,
+        data: Optional[Dict[str, Any]] = None,
+        *,
         api_key: bool = True,
-    ) -> dict:
+    ) -> Dict[str, Any]:
         """
         Fetch the JSON response from the API along with the ability to include GET request parameters and support
         Authentication using API key too.
@@ -75,14 +80,14 @@ class Client(BaseClient):
         ----------
         url: str
             The URL to be accessed from the API root URL.
-        data: t.Optional[dict]
-            The GET Request's Key-Value Pair. Example: {"uuid": "abc"} is converted to `?uuid=abc`. Defaults to None.
+        data: Optional[dict]
+            The GET request's key-value pair. eg: `{"uuid": "abc"}` is converted to `?uuid=abc`. Defaults to None.
         api_key: bool
-            If key is needed for the endpoint.
+            If key is needed for the endpoin
 
         Returns
         -------
-        t.Tuple[dict, bool]
+        Dict[str, Any]
             The JSON response obtained after fetching the API, along with success value in the response.
         """
         # Check if ratelimit is hit
@@ -101,14 +106,14 @@ class Client(BaseClient):
         url = form_url(HYPIXEL_API, url, data)
 
         # Core fetch logic
-        with requests.get(url, timeout=TIMEOUT, headers=self.headers) as response:
+        with self._session.get(url, timeout=TIMEOUT, headers=self.headers) as response:
             # 404 handling
             if response.status_code == 404:
-                raise HypixelAPIError("The route specified does not exist.")
+                raise HypixelAPIError("The route specified does not exis")
 
             # 429 Code handle
             if response.status_code == 429:
-                self._handle_ratelimit(t.cast(dict, response.headers))
+                self._handle_ratelimit(cast(dict, response.headers))
 
             # 403 Code handle
             if response.status_code == 403:
@@ -116,7 +121,7 @@ class Client(BaseClient):
 
             # Ratelimit handling
             if api_key and "RateLimit-Limit" in response.headers:
-                self._update_ratelimit(t.cast(dict, response.headers))
+                self._update_ratelimit(cast(dict, response.headers))
 
             try:
                 json = response.json()
@@ -128,26 +133,41 @@ class Client(BaseClient):
 
                 return json
 
-    # Context manager
     def __enter__(self) -> "Client":
         return self
 
     def __exit__(
         self,
-        exc_type: t.Optional[t.Type[BaseException]],
-        exc_val: t.Optional[BaseException],
-        exc_tb: t.Optional[TracebackType],
+        exc_type: Optional[Type[BaseException]],
+        exc_val: Optional[BaseException],
+        exc_tb: Optional[TracebackType],
     ) -> None:
         pass
 
+    # Purge the session when the object is deleted
+    def __del__(self) -> None:
+        self._session.close()
+
+    @staticmethod
+    def _filter_name_uuid(name: Optional[str] = None, uuid: Optional[str] = None) -> str:
+        if not name and not uuid:
+            raise InvalidArgumentError(
+                "Named argument for player's either username or UUID not found."
+            )
+
+        if name:
+            uuid = Converters.username_to_uuid(name)
+
+        return uuid  # type: ignore
+
     # Hypixel API endpoint methods.
-    def get_key_info(self, api_key: t.Optional[str] = None) -> Key:
+    def get_key_info(self, api_key: Optional[str] = None) -> Key:
         """
         Get info about a specific Hypixel API key.
 
         Parameters
         ----------
-        api_key: t.Optional[str]
+        api_key: Optional[str]
             The API key generated in Hypixel server using the `/api new` command. Defaults to pre-specified keys.
 
         Returns
@@ -175,17 +195,17 @@ class Client(BaseClient):
         return Boosters(json["boosters"], json)
 
     def get_player(
-        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+        self, name: Optional[str] = None, uuid: Optional[str] = None
     ) -> Player:
         """
         Get all info about a Hypixel player using his username or his player UUID.
 
         Parameters
         ----------
-        name: t.Optional[str]
+        name: Optional[str]
             The Optional string value for the Username. Defaults to None.
-        uuid: t.Optional[str]
-            The Optional string Value to the UUID. Defaults to None.
+        uuid: Optional[str]
+            The Optional string value to the UUID. Defaults to None.
 
         Returns
         -------
@@ -201,16 +221,16 @@ class Client(BaseClient):
         return Player(json["player"])
 
     def get_friends(
-        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+        self, name: Optional[str] = None, uuid: Optional[str] = None
     ) -> Friends:
         """
         Get the friends, and all their info of specified Hypixel player.
 
         Parameters
         ----------
-        name: t.Optional[str]
+        name: Optional[str]
             The Optional string value for the Username of a hypixel player. Defaults to None.
-        uuid: t.Optional[str]
+        uuid: Optional[str]
             The UUID of a Certain Hypixel Player. Defaults to None.
 
         Returns
@@ -238,20 +258,20 @@ class Client(BaseClient):
 
     def get_guild(
         self,
-        name: t.Optional[str] = None,
-        uuid: t.Optional[str] = None,
-        player_uuid: t.Optional[str] = None,
+        name: Optional[str] = None,
+        uuid: Optional[str] = None,
+        player_uuid: Optional[str] = None,
     ) -> Guild:
         """
         Get info about a specific Hypixel guild using the Name, or the Guild's UUID.
 
         Parameters
         ----------
-        name: t.Optional[str]
+        name: Optional[str]
             The Name of the Guild. Defaults to None.
-        uuid: t.Optional[str]
+        uuid: Optional[str]
             The ID Of the guild. Defaults to None.
-        player_uuid: t.Optional[str]
+        player_uuid: Optional[str]
             The UUID of the player to get guild using. Defaults to None.
 
         Returns
@@ -302,16 +322,16 @@ class Client(BaseClient):
         return Leaderboard(json["leaderboards"])
 
     def find_guild(
-        self, guild_name: t.Optional[str] = None, player_uuid: t.Optional[str] = None
+        self, guild_name: Optional[str] = None, player_uuid: Optional[str] = None
     ) -> FindGuild:
         """
         Find a guild using the Guild's name or a Player's UUID.
 
         Parameters
         ----------
-        guild_name: t.Optional[str]
+        guild_name: Optional[str]
             The name of the Guild. Defaults to None.
-        player_uuid: t.Optional[str]
+        player_uuid: Optional[str]
             The UUID of the Player to find his guild. Defaults to None.
 
         Returns
@@ -331,16 +351,16 @@ class Client(BaseClient):
         return FindGuild(json)
 
     def get_player_status(
-        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+        self, name: Optional[str] = None, uuid: Optional[str] = None
     ) -> PlayerStatus:
         """
         Get the status about a Player using his username or UUID.
 
         Parameters
         ----------
-        name: t.Optional[str]
+        name: Optional[str]
             The Optional string value for the Username. Defaults to None.
-        uuid: t.Optional[str]
+        uuid: Optional[str]
             The Optional string Value to the UUID. Defaults to None.
 
         Returns
@@ -354,16 +374,16 @@ class Client(BaseClient):
         return PlayerStatus(json)
 
     def get_player_recent_games(
-        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+        self, name: Optional[str] = None, uuid: Optional[str] = None
     ) -> RecentGames:
         """
         Get the recent games played by a Hypixel player using his Username or UUID.
 
         Parameters
         ----------
-        name: t.Optional[str]
+        name: Optional[str]
             The Optional string value for the Username. Defaults to None.
-        uuid: t.Optional[str]
+        uuid: Optional[str]
             The Optional string Value to the UUID. Defaults to None.
 
         Returns
@@ -382,16 +402,16 @@ class Client(BaseClient):
         return SkyblockNews(json)
 
     def get_skyblock_profile(
-        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+        self, name: Optional[str] = None, uuid: Optional[str] = None
     ) -> SkyblockProfile:
         """
         Get the skyblock information and profile about a specific user as passed in the requirements.
 
         Parameters
         ----------
-        name: t.Optional[str]
+        name: Optional[str]
             The player's name in Hypixel
-        uuid: t.Optional[str]
+        uuid: Optional[str]
             The player's global UUID
 
         Returns
@@ -408,16 +428,16 @@ class Client(BaseClient):
         return SkyblockProfile(json)
 
     def get_skyblock_user_auctions(
-        self, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+        self, name: Optional[str] = None, uuid: Optional[str] = None
     ) -> SkyblockUserAuction:
         """
         Get the skyblock auction info about a specific user.
 
         Parameters
         ----------
-        name: t.Optional[str]
+        name: Optional[str]
             The player's name in Hypixel
-        uuid: t.Optional[str]
+        uuid: Optional[str]
             The player's global UUID
 
         Returns
@@ -457,7 +477,7 @@ class Client(BaseClient):
         Returns
         -------
         SkyblockBazaar
-            The bazaar model object representing each product.
+            The bazaar model object representing each produc
         """
         json = self._fetch(self.url["skyblock_bazaar"])
         return SkyblockBazaar(json)

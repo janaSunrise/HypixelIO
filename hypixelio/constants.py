@@ -16,6 +16,9 @@ HYPIXEL_API = "https://api.hypixel.net"
 MOJANG_API = "https://api.mojang.com"
 
 TIMEOUT = 10
+DEFAULT_HEADERS = {
+    "Accept-Encoding": "gzip, deflate"  # To enable gzip compression and reduce bandwidth
+}
 
 RANKS = {
     "NONE": None,

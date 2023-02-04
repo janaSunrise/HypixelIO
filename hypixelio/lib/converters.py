@@ -27,24 +27,25 @@ class Converters:
         Union[dict, list]
             The JSON response from the Mojang API.
         """
-        with requests.get(MOJANG_API + url, timeout=TIMEOUT) as response:
-            if response.status_code == 204:
-                raise PlayerNotFoundError(
-                    "Error code 204 returned during conversion to UUID.", None
-                )
+        with requests.Session() as session:
+            with session.get(MOJANG_API + url, timeout=TIMEOUT) as response:
+                if response.status_code == 204:
+                    raise PlayerNotFoundError(
+                        "Error code 204 returned during conversion to UUID", None
+                    )
 
-            if response.status_code == 400:
-                raise PlayerNotFoundError("Badly formed UUID error.", None)
+                if response.status_code == 400:
+                    raise PlayerNotFoundError("Badly formed UUID error", None)
 
-            try:
-                json = response.json()
-            except Exception:
-                raise MojangAPIError()
-            else:
-                if "error" in json:
-                    raise MojangAPIError(f"An error occurred! {json['errorMessage']}")
+                try:
+                    json = response.json()
+                except Exception:
+                    raise MojangAPIError()
+                else:
+                    if "error" in json:
+                        raise MojangAPIError(f"An error occurred! {json['errorMessage']}")
 
-                return json
+                    return json
 
     @classmethod
     def username_to_uuid(cls, username: str) -> str:
@@ -65,6 +66,7 @@ class Converters:
             Dict[str, Any],
             Converters._fetch(Converters.url["username_to_uuid"].format(username)),
         )
+        print(json)
 
         return json["id"]
 

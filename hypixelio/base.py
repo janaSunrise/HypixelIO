@@ -1,13 +1,14 @@
 import sys
+from abc import ABC, abstractmethod
 from datetime import datetime, timedelta
 from typing import Any, Dict, Optional, Union
 
 from .endpoints import API_PATH
-from .exceptions import HypixelAPIError, InvalidArgumentError, RateLimitError
+from .exceptions import HypixelAPIError, RateLimitError
 
 
 # TODO: Move to `requests.session` for better performance and avoid creating a new session for every request.
-class BaseClient:
+class BaseClient(ABC):
     def __init__(self, api_key: Union[str, list]):
         self.url = API_PATH["HYPIXEL"]
 
@@ -36,8 +37,9 @@ class BaseClient:
             f"{self.total_requests} retry_after={self.retry_after}>"
         )
 
-    # Utility to update ratelimiting variables
     def _update_ratelimit(self, resp_headers: Dict[str, Any]) -> None:
+        """Utility to update ratelimiting variables"""
+
         if "RateLimit-Limit" in resp_headers:
             if self.total_requests == 0:
                 self.total_requests = int(resp_headers["RateLimit-Limit"])
@@ -47,8 +49,9 @@ class BaseClient:
                 seconds=int(resp_headers["RateLimit-Reset"])
             )
 
-    # Utility to check if ratelimit has been hit
     def _is_ratelimit_hit(self) -> bool:
+        """Utility to check if ratelimit has been hit"""
+
         is_ratelimit_hit = self.requests_remaining != -1 \
             and (self.requests_remaining == 0 and self._ratelimit_reset > datetime.now()) \
             or self.retry_after \
@@ -56,8 +59,9 @@ class BaseClient:
 
         return is_ratelimit_hit
 
-    # Handle ratelimitiing
     def _handle_ratelimit(self, resp_headers: Dict[str, Any]) -> None:
+        """Raise error if ratelimit has been hit"""
+
         self.requests_remaining = 0
         self.retry_after = datetime.now() + timedelta(
             seconds=int(resp_headers["Retry-After"])
@@ -65,28 +69,16 @@ class BaseClient:
 
         raise RateLimitError(self.retry_after)
 
-    # Handle raising error if API response is not successful.
     @staticmethod
     def _handle_api_failure(json: Dict[str, Any]) -> None:
+        """Handle raising error if API response is not successful."""
+
         raise HypixelAPIError(reason=json["cause"])
 
-    # TODO: Refactor this w/ function overloading and clean code if possible.
-    # TODO: Potential issue, the code used to fetch is blocking. Not good for async.
     @staticmethod
-    def _filter_name_uuid(
-        name: Optional[str] = None, uuid: Optional[str] = None
-    ) -> str:
-        from hypixelio import Converters
-
-        if not name and not uuid:
-            raise InvalidArgumentError(
-                "Named argument for player's either username or UUID not found."
-            )
-
-        if name:
-            uuid = Converters.username_to_uuid(name)
-
-        return uuid  # type: ignore
+    @abstractmethod
+    def _filter_name_uuid(name: Optional[str] = None, uuid: Optional[str] = None) -> str:
+        ...
 
     # Utility for keys
     def add_key(self, api_key: Union[str, list]) -> None:
