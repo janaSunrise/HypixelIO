@@ -1,6 +1,6 @@
 __all__ = ("Utils",)
 
-import typing as t
+from typing import Optional, Union
 
 import aiohttp
 
@@ -46,7 +46,7 @@ class Utils:
 
     @staticmethod
     async def _filter_name_uuid(
-        name: t.Optional[str] = None, uuid: t.Optional[str] = None
+        name: Optional[str] = None, uuid: Optional[str] = None
     ) -> str:
         if not name and not uuid:
             raise InvalidArgumentError(
@@ -78,25 +78,25 @@ class Utils:
     @classmethod
     async def get_name_history(
         cls,
-        name: t.Optional[str] = None,
-        uuid: t.Optional[str] = None,
+        name: Optional[str] = None,
+        uuid: Optional[str] = None,
         changed_at: bool = False,
-    ) -> t.Union[list, dict]:
+    ) -> Union[list, dict]:
         """
         Get the name history with records for a player.
 
         Parameters
         ----------
-        name: t.Optional[str]
+        name: Optional[str]
             The username of the player. Defaults to None.
-        uuid: t.Optional[str]
+        uuid: Optional[str]
             The UUID of the player. Defaults to None.
         changed_at: bool
             Toggle to true, if you need when the player changed name. Defaults to False.
 
         Returns
         -------
-        t.Union[list, dict]
+        Union[list, dict]
             The list or dictionary with the name history and records.
         """
         uuid = await cls._filter_name_uuid(name, uuid)
@@ -113,16 +113,16 @@ class Utils:
 
     @classmethod
     async def get_avatar(
-        cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+        cls, name: Optional[str] = None, uuid: Optional[str] = None
     ) -> str:
         """
         Get the avatar of the specified player.
 
         Parameters
         ----------
-        name: t.Optional[str]
+        name: Optional[str]
             The username of the player. Defaults to None.
-        uuid: t.Optional[str]
+        uuid: Optional[str]
             The UUID of the player. Defaults to None.
 
         Returns
@@ -137,16 +137,16 @@ class Utils:
 
     @classmethod
     async def get_head(
-        cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+        cls, name: Optional[str] = None, uuid: Optional[str] = None
     ) -> str:
         """
         Get the head skin of the specified player.
 
         Parameters
         ----------
-        name: t.Optional[str]
+        name: Optional[str]
             The username of the player. Defaults to None.
-        uuid: t.Optional[str]
+        uuid: Optional[str]
             The UUID of the player. Defaults to None.
 
         Returns
@@ -161,16 +161,16 @@ class Utils:
 
     @classmethod
     async def get_body(
-        cls, name: t.Optional[str] = None, uuid: t.Optional[str] = None
+        cls, name: Optional[str] = None, uuid: Optional[str] = None
     ) -> str:
         """
         Get the whole body's skin of the specified player
 
         Parameters
         ----------
-        name: t.Optional[str]
+        name: Optional[str]
             The username of the player. Defaults to None.
-        uuid: t.Optional[str]
+        uuid: Optional[str]
             The UUID of the player. Defaults to None.
 
         Returns

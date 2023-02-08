@@ -1,6 +1,6 @@
 __all__ = ("AsyncConverters",)
 
-import typing as t
+from typing import Any, Dict, Union, cast
 
 import aiohttp
 
@@ -13,7 +13,7 @@ class AsyncConverters:
     url = API_PATH["MOJANG"]
 
     @classmethod
-    async def _fetch(cls, url: str) -> t.Union[dict, list]:
+    async def _fetch(cls, url: str) -> Union[dict, list]:
         """
         The internal function for fetching info from the Mojang API.
 
@@ -24,7 +24,7 @@ class AsyncConverters:
 
         Returns
         -------
-        t.Union[dict, list]
+        Union[dict, list]
             The JSON response from the Mojang API.
         """
         session = aiohttp.ClientSession()
@@ -63,8 +63,8 @@ class AsyncConverters:
         str
             returns the converted UUID for the respective username.
         """
-        json = t.cast(
-            t.Dict[str, t.Any],
+        json = cast(
+            Dict[str, Any],
             await AsyncConverters._fetch(
                 AsyncConverters.url["username_to_uuid"].format(username)
             ),

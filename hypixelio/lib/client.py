@@ -175,8 +175,7 @@ class Client(BaseClient):
         Key
             The Key object created for the API key specified.
         """
-        if not api_key:
-            api_key = random.choice(self._api_key)
+        api_key = api_key or random.choice(self._api_key)
 
         json = self._fetch(self.url["api_key"], {"key": api_key})
         return Key(json["record"])

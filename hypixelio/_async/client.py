@@ -98,7 +98,7 @@ class AsyncClient(BaseClient):
         data: Optional[dict]
             The GET Request's Key-Value Pair. Example: {"uuid": "abc"} is converted to `?uuid=abc`. Defaults to None.
         api_key: bool
-            If key is needed for the endpoin
+            If key is needed for the endpoint.
 
         Returns
         -------
@@ -164,10 +164,7 @@ class AsyncClient(BaseClient):
 
     # Context managers
     async def __aenter__(self) -> "AsyncClient":
-        # Initialize the session
         self._session = aiohttp.ClientSession()
-
-        await self._session.__aenter__()
 
         return self
 
@@ -178,7 +175,7 @@ class AsyncClient(BaseClient):
         exc_tb: Optional[TracebackType],
     ) -> None:
         if self._session is not None:
-            await self._session.__aexit__(exc_type, exc_val, exc_tb)
+            await self._session.close()
 
     # Hypixel API endpoint methods
     async def get_key_info(self, api_key: Optional[str] = None) -> Key:
