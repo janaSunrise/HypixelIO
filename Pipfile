@@ -20,7 +20,7 @@ ipython = "~=8.5.0"
 # Dependencies for documentation
 recommonmark = "~=0.7.1"
 myst-parser = "~=0.18.0"
-sphinx-rtd-theme = "~=1.0.0"
+sphinx-rtd-theme = "~=1.2.1"
 # Development
 hypixelio = {editable = true, extras = ["all"], path = "."}
 
