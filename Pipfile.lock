@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "c137c89ed3a662b220ae159012b372d15907bc2702d9bf016db57b55d898f978"
+            "sha256": "f75fc3d4990680f71df9c8c36d68b39049761d1c5cd54c78e89a01a22e221534"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -840,6 +840,7 @@
                 "sha256:7a1cf6b73744f5806ab95e526f6f0d8c01c66d7bbe349562d22dfca20610b248"
             ],
             "index": "pypi",
+            "markers": "python_full_version >= '3.6.1'",
             "version": "==5.0.4"
         },
         "flake8-annotations": {
@@ -1219,11 +1220,12 @@
         },
         "pep8-naming": {
             "hashes": [
-                "sha256:1705f046dfcd851378aac3be1cd1551c7c1e5ff363bacad707d43007877fa971",
-                "sha256:1a86b8c71a03337c97181917e2b472f0f5e4ccb06844a0d6f0a33522549e7a80"
+                "sha256:1ef228ae80875557eb6c1549deafed4dabbf3261cfcafa12f773fe0db9be8a36",
+                "sha256:63f514fc777d715f935faf185dedd679ab99526a7f2f503abb61587877f7b1c5"
             ],
             "index": "pypi",
-            "version": "==0.13.3"
+            "markers": "python_version >= '3.8'",
+            "version": "==0.14.1"
         },
         "pexpect": {
             "hashes": [
